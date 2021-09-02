@@ -35,4 +35,6 @@
 	
 	</beans:bean>
 	
+	<context:component-scan base-package="team3.promans.*"></context:component-scan>
+	
 </beans:beans>
