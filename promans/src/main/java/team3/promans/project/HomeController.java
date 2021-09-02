@@ -23,10 +23,10 @@ public class HomeController {
 	private ModelAndView mav;
 	
 	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView rootCtl() {
-		mav = new ModelAndView();
+	public String rootCtl() {
 		
-		return mav;
+		
+		return "logInPage";
 	}
 	
 }
