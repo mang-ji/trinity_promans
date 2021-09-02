@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+		<bean id="hikari" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@106.243.194.229:9031:xe"></property>
+		<property name="username" value="ANGNAH"></property>
+		<property name="password" value="1234"></property>
+		</bean>
+		
+		<bean id="ds" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="hikari"></constructor-arg>
+		</bean>
+		
+		<bean id="mybatisDB" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"></property>
+		</bean>
+		
+		<bean id="dbSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="mybatisDB" />
+		</bean>
+		
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="ds" />
+		</bean>
+		<tx:annotation-driven />
+		
+		<!-- 메일보내기 -->
+		<!-- host, port, username, password, defaultEncoding, javaMailProperties -->
+		
+		<bean id="javaMail" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="host" value="smtp.naver.com"/>
+			<property name="port" value="465"/>
+			<property name="username" value="siriwitcher" />
+			<property name="password" value="b2166037!" />
+			<property name="defaultEncoding" value="utf-8" />
+			<property name="javaMailProperties">
+				<props>
+					<prop key="mail.debug">true</prop>
+					<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+					<!-- <prop key="mail.smtp.starttls.enable">true</prop> 
+					<prop key="mail.transport.protocol">smtp</prop> -->
+					<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+					<prop key="mail.smtp.auth">true</prop>
+					<prop key="mail.smtps.ssl.trust">*</prop>
+					<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				</props>
+			</property>
+		</bean>
+		
+		
+		<!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy>  -->
+		
+</beans>
