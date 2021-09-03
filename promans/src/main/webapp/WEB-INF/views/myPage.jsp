@@ -8,24 +8,27 @@
 	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
 	<link href="resources/css/myPage.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/myPage.js"></script>
-	
+	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <title>마이페이지</title>
     </head>
-    <body>
+    <body onLoad="projectOnLoad()">
+        	<input type="hidden" name="utype" value="${utype}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">공지사항</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">프로젝트</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">캘린더</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
