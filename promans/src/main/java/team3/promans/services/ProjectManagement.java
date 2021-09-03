@@ -7,7 +7,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 
 @Service
-public class ProjectManagement implements team3.promans.interfaces.ProjectManagement {
+public class ProjectManagement implements team3.promans.interfaces.ProjectInterface {
 	@Autowired
 	Encryption enc;
 	

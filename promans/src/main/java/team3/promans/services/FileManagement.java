@@ -7,7 +7,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 
 @Service
-public class FileManagement implements team3.promans.interfaces.FileManagement{
+public class FileManagement implements team3.promans.interfaces.FileInterface{
 	@Autowired
 	Encryption enc;
 	

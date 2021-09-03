@@ -7,7 +7,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 
 @Service
-public class ScheduleManagement implements team3.promans.interfaces.ScheduleManagement{
+public class ScheduleManagement implements team3.promans.interfaces.ScheduleInterface{
 	
 	@Autowired
 	Encryption enc;

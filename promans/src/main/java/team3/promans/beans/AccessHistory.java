@@ -9,5 +9,7 @@ public class AccessHistory {
 	private String publicip;
 	private String privateip;
 	private String method;
+	private String acode;
+	private String utype;
 	
 }
