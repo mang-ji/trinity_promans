@@ -35,6 +35,9 @@
 	
 	</beans:bean>
 	
-	<context:component-scan base-package="team3.promans.*"></context:component-scan>
+	<mybatis-spring:scan base-package="team3.promans.interfaces"/>
+	<context:component-scan base-package="team3.promans.auth"></context:component-scan>
+	<context:component-scan base-package="team3.promans.project"></context:component-scan>
+	<context:component-scan base-package="team3.promans.services"></context:component-scan>
 	
 </beans:beans>
