@@ -17,5 +17,7 @@ public class test {
 	public void test2() {
 		System.out.println("테스트2");
 	}
-	
+	public void test4() {
+		System.out.println("백바보~");
+	}
 }
