@@ -17,7 +17,7 @@ function projectOnLoad(){
     }
 
 function getAjax(jobCode,clientData,fn){
-	
+	alert(jobCode);
 	let ajax = new XMLHttpRequest();
 	
 	ajax.onreadystatechange = function(){
@@ -30,12 +30,12 @@ function getAjax(jobCode,clientData,fn){
 	if(clientData != ""){
 		jobCode += "?" + clientData;
 	}
-	
+	alert(jobCode);
 	ajax.open("GET", jobCode);
 	ajax.send();
 }
 
-
+/*
 function postAjax(jobCode,clientData,fn,type){
 	let ajax = new XMLHttpRequest();
 	
@@ -57,5 +57,23 @@ function postAjax(jobCode,clientData,fn,type){
 	}
 	ajax.send(clientData);
 	
-}
+}*/
+
+function postAjax(jobCode, clientData, fn) {
+      let ajax = new XMLHttpRequest();
+
+      ajax.onreadystatechange = function() {
+         if (ajax.readyState == 4 && ajax.status == 200) {
+            const jsonData = ajax.responseText;
+
+            window[fn](JSON.parse(jsonData));
+         }
+      };
+	alert(jobCode);
+	alert(clientData);
+      ajax.open("POST", jobCode);
+      ajax.setRequestHeader("content-type", "application/json");
+      ajax.send(clientData);
+
+   }
 
