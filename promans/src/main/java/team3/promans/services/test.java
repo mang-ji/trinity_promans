@@ -11,6 +11,5 @@ public class test {
 	}
 	public void test3() {
 		System.out.println("테스트3");
-		System.out.println("함더");
 	}
 }
