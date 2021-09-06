@@ -1,5 +1,7 @@
 package team3.promans.services;
 
+import org.springframework.util.SystemPropertyUtils;
+
 public class test {
 	
 	public test() {
@@ -14,8 +16,8 @@ public class test {
 		System.out.println("테스트3");
 		
 	}
-	public void test2() {
+	public void test5() {
 		System.out.println("테스트2");
+		
 	}
-	
 }
