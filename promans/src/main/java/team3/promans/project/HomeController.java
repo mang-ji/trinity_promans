@@ -31,7 +31,7 @@ public class HomeController {
 	
 	private ModelAndView mav;
 	
-	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
+	//@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
 	public String rootCtl() {
 		
 		
@@ -40,6 +40,8 @@ public class HomeController {
 	
 	@PostMapping("accessInfo")
 	public ModelAndView logInCtl(@ModelAttribute AccessHistory ah) {
+		
+		System.out.println("homecontroller!!!!");
 		mav = auth.logInCtl(ah);
 		return mav;
 	}
