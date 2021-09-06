@@ -30,19 +30,23 @@ public class Restcontroller {
 	
 	@Autowired
 	ProjectUtils pu;
-	
+
 	@Autowired 
 	TeamManagement tm;
+
+	@GetMapping("/idCheck")
+	public boolean idCheck(@ModelAttribute AccessHistory ah) {
+		return auth.idCheck(ah);
+	}
 	
-//	@GetMapping("/idCheck")
-//	public boolean idCheck(@ModelAttribute AccessHistory ah) {
-//		System.out.println("test");
-//		return auth.idCheck(ah);
-//	}
-//	
-//	@PostMapping("/addTeamMember")
-//	public void addTeamMember() {
-//		System.out.println("연결 연결 !!!!!!1");
-//	}
-//	
+	@PostMapping("getCalendar")
+	public void getCalendar() {
+		System.out.println("test");
+	}
+	
+	@PostMapping("/addTeamMember")
+	public void addTeamMember() {
+		System.out.println("연결 연결 !!!!!!1");
+	}
+	
 }
