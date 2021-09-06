@@ -16,9 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.interfaces.AuthInterface;
 
 @Service
-public class Authentication implements team3.promans.interfaces.AuthInterface {
+public class Authentication implements AuthInterface {
 
 	@Autowired
 	Encryption enc;
