@@ -20,4 +20,7 @@ public class test {
 	public void test4() {
 		System.out.println("고쳐줘!");
 	}
+	public void test6() {
+		System.out.println("이거얌");
+	}
 }
