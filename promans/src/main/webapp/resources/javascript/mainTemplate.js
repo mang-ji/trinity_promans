@@ -47,7 +47,7 @@ function postAjax(jobCode,clientData,fn,type){
 			window[fn](JSON.parse(jsonData));
 		}
 	}
-	
+	alert(jobCode);
 	ajax.open("POST",jobCode);
 	
 	if(type==1){
