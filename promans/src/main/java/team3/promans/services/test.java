@@ -23,4 +23,7 @@ public class test {
 	public void test6() {
 		System.out.println("이거얌");
 	}
+	public void test7() {
+		System.out.println("요나얌");
+	}
 }
