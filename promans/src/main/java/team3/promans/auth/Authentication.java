@@ -62,7 +62,7 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 			}
 		}else {
 			mav.setViewName("redirect:/");
-			mav.addObject("message", "아이디나 비밀번호를 다시 확인해주세요.");
+			mav.addObject("message", "아이디나 비밀번호를 다시 확인해주세요후후후 .");
 		}
 
 		return mav;
