@@ -18,7 +18,4 @@ public class test {
 		System.out.println("테스트2");
 	}
 	
-	public void test4() {
-		System.out.println("gd");
-	}
 }
