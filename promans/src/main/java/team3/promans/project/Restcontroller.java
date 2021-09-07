@@ -36,6 +36,7 @@ public class Restcontroller {
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
+		System.out.println("idcheck!!!!! ");
 		return auth.idCheck(ah);
 	}
 	
