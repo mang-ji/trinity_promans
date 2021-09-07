@@ -6,6 +6,7 @@ import lombok.Data;
 public class ScheduleDetailBean {
 	private String cpcode;
 	private String userid;
+	private String username;
 	private String prcode;
 	private String pscode;
 	private String sccode;
@@ -13,7 +14,8 @@ public class ScheduleDetailBean {
 	private String utype;
 	private String sdcode;
 	private String sdname;
-	private String sdtitle;
+	private String sdcontent;
 	private String sddate;
 	private String sddstate;
+	private String sddcode;
 }

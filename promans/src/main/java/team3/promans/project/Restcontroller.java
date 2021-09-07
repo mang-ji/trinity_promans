@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.auth.SelectInfo;
 import team3.promans.beans.AccessHistory;
+import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
+import team3.promans.beans.ProjectStepBean;
+import team3.promans.beans.ScheduleBean;
+import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.TeamManagement;
 
@@ -24,6 +29,9 @@ public class Restcontroller {
 	
 	@Autowired
 	Authentication auth;
+	
+	@Autowired
+	SelectInfo si;
 	
 	@Autowired
 	Encryption enc;
@@ -47,4 +55,27 @@ public class Restcontroller {
 	public void addTeamMember() {
 	}
 	
+	@PostMapping("/GetProject")
+	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
+		
+		return si.getProject(pmb.get(0));
+	}
+	
+	@PostMapping("/GetProjectStep")
+	public List<ProjectStepBean> getProjectStep(@RequestBody List<ProjectMemberBean> pmb){
+		
+		return si.getProjectStep(pmb.get(0)); 
+	}
+	
+	@PostMapping("/GetSchedule")
+	public List<ScheduleBean> getSchedule(@RequestBody List<ProjectStepBean> psb){
+		
+		return si.selectSchedule(psb.get(0)) ;
+	}
+	
+	@PostMapping("/GetScheDetail")
+	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
+		
+		return si.getScheDetail(sdb.get(0));
+	}
 }
