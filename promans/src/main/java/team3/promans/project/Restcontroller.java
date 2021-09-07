@@ -36,18 +36,15 @@ public class Restcontroller {
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
-		System.out.println("idcheck!!!!! ");
 		return auth.idCheck(ah);
 	}
 	
 	@PostMapping("getCalendar")
 	public void getCalendar() {
-		System.out.println("test");
 	}
 	
 	@PostMapping("/addTeamMember")
 	public void addTeamMember() {
-		System.out.println("연결 연결 !!!!!!1");
 	}
 	
 }
