@@ -14,7 +14,30 @@
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <title>멤버 관리</title>
+        
+        <script>
+        function addTeamMember(){
+        	let cpcode1 = document.getElementsByName("cpcode")[0];
+        	//let prcode1 = document.getElementsByName("prcode")[0];
+        	let userid1 = document.getElementsByName("userid")[0];
+        	let utype1 = document.getElementsByName("utype")[0];
+        	let wcode1 = document.getElementsByName("wcode")[0];
+        	
+        	let clientdata = [];
+        	clientdata.push({cpcode:cpcode1.value, userid:userid1.value, utype:utype1.value, wcode:wcode1.value});
+        	
+        	postAjax('rest/addTeamMember', JSON.stringify(clientdata) , getTeamMember);
+        	
+        }
+
+        function getTeamMember(jsonData){
+        	alert("멤버 추가 버튼 연결 ");
+        	// alert(jsonData);
+        }
+        </script>
     </head>
+    
+    
     <body onLoad="projectOnLoad()">
         	<input type="hidden" name="utype" value="${utype}">
         <div class="d-flex" id="wrapper">
@@ -36,6 +59,13 @@
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
+                    
+                    
+                    <div>::: TEAM LIST :::</div>
+                    
+                   
+                    
+                    
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
                       <!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -56,9 +86,23 @@
                         </div>-->
                     </div>
                 </nav>
+               
+                
                 <!-- Page content-->
                 <div class="container-fluid">
-
+               		<input type="hidden" name="userid" value="${userid }" />
+					<input type="hidden" name="uname" value="${uname }" />
+					<input type="hidden" name="cpcode" value="${cpcode }" />
+					
+					<input type="hidden" name="uphone" value="${uphone }" />
+					<input type="hidden" name="tecode" value="${tecode }" />
+					<input type="hidden" name="wcode" value="${wcode }" />
+					
+					
+					<input type="button" value="Add TeamMember" onClick="addTeamMember()" />
+					
+					
+					
                 </div>
             </div>
         </div>
