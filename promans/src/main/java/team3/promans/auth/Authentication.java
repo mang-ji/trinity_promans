@@ -34,7 +34,6 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 
 
 	public boolean idCheck(AccessHistory ah) {
-		System.out.println("idcheck!!!!! ");
 		return this.convertBoolean(sql.selectOne("idCheck", ah));
 
 	}
@@ -43,9 +42,7 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 
 	public ModelAndView logInCtl(AccessHistory ah) {
 		mav = new ModelAndView();
-		
-		System.out.println("loginCtl!!!!!");
-		
+
 		String encPass = this.getPass(ah);
 		
 		if(enc.matches(ah.getAcode(),encPass)) {
