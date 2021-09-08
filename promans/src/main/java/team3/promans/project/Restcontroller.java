@@ -15,8 +15,15 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.auth.SelectInfo;
 import team3.promans.beans.AccessHistory;
+
 import team3.promans.beans.Notice_CalendarBean;
+
+import team3.promans.beans.ProjectBean;
+
 import team3.promans.beans.ProjectMemberBean;
+import team3.promans.beans.ProjectStepBean;
+import team3.promans.beans.ScheduleBean;
+import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.TeamManagement;
 
@@ -29,6 +36,9 @@ public class Restcontroller {
 	Authentication auth;
 	
 	@Autowired
+	SelectInfo si;
+	
+	@Autowired
 	Encryption enc;
 	
 	@Autowired
@@ -37,8 +47,7 @@ public class Restcontroller {
 	@Autowired 
 	TeamManagement tm;
 	
-	@Autowired
-	SelectInfo si;
+
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
@@ -53,6 +62,7 @@ public class Restcontroller {
 	public void addTeamMember() {
 	}
 	
+
 	@PostMapping("/getNotice")
 	public List<Notice_CalendarBean> getNoticeList(@RequestBody List<Notice_CalendarBean> nc) {
 		return si.getNoticeList(nc.get(0));
@@ -60,4 +70,29 @@ public class Restcontroller {
 	
 
 	
+
+	@PostMapping("/GetProject")
+	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
+		
+		return si.getProject(pmb.get(0));
+	}
+	
+	@PostMapping("/GetProjectStep")
+	public List<ProjectStepBean> getProjectStep(@RequestBody List<ProjectMemberBean> pmb){
+		
+		return si.getProjectStep(pmb.get(0)); 
+	}
+	
+	@PostMapping("/GetSchedule")
+	public List<ScheduleBean> getSchedule(@RequestBody List<ProjectStepBean> psb){
+		
+		return si.selectSchedule(psb.get(0)) ;
+	}
+	
+	@PostMapping("/GetScheDetail")
+	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
+		
+		return si.getScheDetail(sdb.get(0));
+	}
+
 }

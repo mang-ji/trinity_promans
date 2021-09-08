@@ -35,21 +35,29 @@ function getAjax(jobCode,clientData,fn){
    ajax.send();
 }
 
-function postAjax(jobCode, clientData, fn,type) {
-      let ajax = new XMLHttpRequest();
 
-      ajax.onreadystatechange = function() {
-         if (ajax.readyState == 4 && ajax.status == 200) {
-            const jsonData = ajax.responseText;
-            window[fn](JSON.parse(jsonData));
-         }
-      };
-      ajax.open("POST", jobCode);
-   if(type==1){
-   ajax.setRequestHeader("content-type","application/x-www-form-urlencoded");
-    }else if(type==2){
-      ajax.setRequestHeader("content-type","application/json");
-   }
-      ajax.send(clientData);
 
-   }
+
+
+function postAjax(jobCode,clientData,fn,type){
+	let ajax = new XMLHttpRequest();
+	
+	ajax.onreadystatechange = function(){
+		
+		if(ajax.readyState==4 && ajax.status==200){
+			let jsonData = ajax.responseText;
+			
+			window[fn](JSON.parse(jsonData));
+		}
+	}
+	ajax.open("POST",jobCode);
+	
+	if(type==1){
+	ajax.setRequestHeader("content-type","application/x-www-form-urlencoded");
+	 }else if(type==2){
+		ajax.setRequestHeader("content-type","application/json");
+	}
+	ajax.send(clientData);
+	
+}
+

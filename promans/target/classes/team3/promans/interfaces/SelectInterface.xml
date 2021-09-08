@@ -16,4 +16,34 @@
 	WHERE NO_CPCODE = #{cpcode} and NO_USERID = #{writer} 
 	</select>
 
+ <select id ="getProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectBean">
+ 
+    SELECT CPCODE, PRCODE, PRNAME, PROPEN, TO_CHAR(PRDATE,'YYYY-MM-dd') AS PRDATE FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode}
+ 
+ </select>
+ 
+ <select id ="getProjectStep" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectStepBean">
+
+  SELECT PSNAME,STNAME,PSCODE FROM PROJECTVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode}
+   
+ </select>
+ 
+ <select id="selectSchedule" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ScheduleBean">
+   SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE FROM SCHEDULEVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
+ </select>
+
+ <select id = "getScheDetail" parameterType="team3.promans.beans.ScheduleDetailBean" resultType ="team3.promans.beans.ScheduleDetailBean">
+  SELECT 
+    SD.SD_CODE AS SDCODE,
+    SD.SD_NAME AS SDNAME,
+    SD.SD_TITLE AS SDCONTENT,
+    TO_CHAR(SD.SD_DATE, 'YYYY-MM-dd') AS SDDATE,
+    ST.ST_CODE AS SDDCODE,
+    ST.ST_NAME AS SDDSTATE,
+    CM.CM_UNAME AS USERNAME,
+    SD.SD_USERID AS USERID
+  FROM SD INNER JOIN ST  ON SD.SD_STATE = ST.ST_CODE
+          INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND SD.SD_USERID = CM.CM_USERID
+  WHERE SD.SD_CPCODE = #{cpcode} AND SD.SD_PRCODE = #{prcode} AND SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode} AND SD.SD_USERID = #{userid}
+ </select>
 </mapper>
