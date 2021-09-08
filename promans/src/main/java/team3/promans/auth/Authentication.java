@@ -36,7 +36,6 @@ public class Authentication implements AuthInterface {
 
 	public boolean idCheck(AccessHistory ah) {
 		return this.convertBoolean(sql.selectOne("idCheck", ah));
-
 	}
 
 
@@ -59,28 +58,16 @@ public class Authentication implements AuthInterface {
 					pu.setAttribute("utype", this.getUserInfo(ah).getUtype());
 				
 					mav.setViewName("mainPage");
-
 					
-					
-					
-					//일반멤버, 관리자에 따른 각각의 페이지 이동 
-//					if(pu.getAttribute("utype")== "G") {
-//						mav.setViewName("myPage");
-//					}else {
-//						mav.setViewName("memberManage");
-//					}
-//					
 				} catch (Exception e) {e.printStackTrace();}
-//			}else {
-//			mav.setViewName("redirect:/");
-//			mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
-//
-//			}
-			
-		
+			}else {
+			mav.setViewName("redirect:/");
+			mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
+
 			}
 		}
-		return mav;	
+		return mav;
+
 	}
 
 
@@ -101,8 +88,6 @@ public class Authentication implements AuthInterface {
 			
 		} catch (Exception e) {e.printStackTrace();}
 	}
-
-
 
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;

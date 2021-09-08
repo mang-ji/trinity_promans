@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+
+import team3.promans.beans.WorkDiaryBean;
 import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
@@ -16,6 +18,6 @@ public interface SelectInterface {
 	  public List<ProjectBean> getProject(ProjectMemberBean pmb); 
 	  public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb); 
 	  public List<ScheduleBean> selectSchedule(ProjectStepBean psb); 
-	  public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb); 
-
+	  public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb);
+	  
 }

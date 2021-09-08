@@ -79,6 +79,14 @@ public class HomeController {
 	public String memberForm() {
 		return "memberManage";
 	}
+	@GetMapping("myPageForm")
+	public String myPageForm() {
+		return "myPage";
+	}
+	@GetMapping("myScheduleForm")
+	public String myScheduleForm() {
+		return "mySchedule";
+	}
 	
 	@PostMapping("goAdminProjectForm")
 	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
@@ -91,3 +99,4 @@ public class HomeController {
 		return "adminProject";
 	}
 }
+

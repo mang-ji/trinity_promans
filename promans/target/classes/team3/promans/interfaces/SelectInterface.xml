@@ -4,7 +4,19 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="team3.promans.interfaces.SelectInterface">
+<!-- 내 업무 조회 -->
+<select id="getMySchedule" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="list">
+	SELECT * FROM SD
+	WHERE SD_CPCODE= #{cpcode}, SD_PRCODE= #{prcode}, SD_PSCODE= #{pscode}, SD_SCCODE= #{SCCODE}, SD_USERID= #{userid}, SD_CODE= #{sdcode}
+</select>
 
+<<<<<<< HEAD
+<!-- 업무 일지 조회 -->
+<select id="getDiary" parameterType="team3.promans.beans.WorkDiaryBean" resultType="list">
+	SELECT * FROM WD
+	WHERE WD_CPCODE= #{cpcode}, WD_PRCODE= #{prcode}, WD_USERID= #{userid}, WD_CODE= #{wdcode}, WD_TITLE= #{wdtitle}, WD_CONTENTS= #{wdcontents}, WD_DATE= #{wddate} 
+</select>
+=======
 	<select id = "getNoticeList" parameterType = "team3.promans.beans.Notice_CalendarBean" resultType = "team3.promans.beans.Notice_CalendarBean">
 	SELECT  NO_USERID as writer,
 			NO_TITLE as title,
@@ -46,4 +58,5 @@
           INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND SD.SD_USERID = CM.CM_USERID
   WHERE SD.SD_CPCODE = #{cpcode} AND SD.SD_PRCODE = #{prcode} AND SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode} AND SD.SD_USERID = #{userid}
  </select>
+>>>>>>> 1ab7156b2afae33bfb46de2108d5b147a1b71470
 </mapper>

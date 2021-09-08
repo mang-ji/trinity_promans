@@ -17,28 +17,24 @@ function projectOnLoad(){
     }
 
 function getAjax(jobCode,clientData,fn){
-   
-   let ajax = new XMLHttpRequest();
-   
-   ajax.onreadystatechange = function(){
-   if(ajax.readyState==4 && ajax.status==200){
-      
-      window[fn](JSON.parse(ajax.responseText));
-      
-   }
+	let ajax = new XMLHttpRequest();
+	
+	ajax.onreadystatechange = function(){
+	if(ajax.readyState==4 && ajax.status==200){
+		
+		window[fn](JSON.parse(ajax.responseText));
+		
+	}
 }
-   if(clientData != ""){
-      jobCode += "?" + clientData;
-   }
-   
-   ajax.open("GET", jobCode);
-   ajax.send();
+	if(clientData != ""){
+		jobCode += "?" + clientData;
+	}
+	alert(jobCode);
+	ajax.open("GET", jobCode);
+	ajax.send();
 }
 
-
-
-
-
+/*
 function postAjax(jobCode,clientData,fn,type){
 	let ajax = new XMLHttpRequest();
 	
@@ -59,5 +55,23 @@ function postAjax(jobCode,clientData,fn,type){
 	}
 	ajax.send(clientData);
 	
-}
+}*/
+
+function postAjax(jobCode, clientData, fn) {
+      let ajax = new XMLHttpRequest();
+
+      ajax.onreadystatechange = function() {
+         if (ajax.readyState == 4 && ajax.status == 200) {
+            const jsonData = ajax.responseText;
+
+            window[fn](JSON.parse(jsonData));
+         }
+      };
+	alert(jobCode);
+	alert(clientData);
+      ajax.open("POST", jobCode);
+      ajax.setRequestHeader("content-type", "application/json");
+      ajax.send(clientData);
+
+   }
 

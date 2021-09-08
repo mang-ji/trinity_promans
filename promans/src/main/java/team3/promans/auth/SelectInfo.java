@@ -1,11 +1,15 @@
 package team3.promans.auth;
 
-
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import team3.promans.beans.ScheduleBean;
+import team3.promans.beans.ScheduleDetailBean;
+import team3.promans.beans.WorkDiaryBean;
 
 import team3.promans.beans.Notice_CalendarBean;
 
@@ -32,16 +36,46 @@ import team3.promans.beans.ScheduleDetailBean;
 
 @Service
 public class SelectInfo implements team3.promans.interfaces.SelectInterface{
-	
+
 	@Autowired
 	SqlSessionTemplate sql;
-	
+
 	@Autowired
 	Encryption enc;
-	
+
 	@Autowired
 	ProjectUtils pu;
 
+
+	ModelAndView mav;
+
+
+
+
+
+	/*내 업무 조회*/
+	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb) {
+		List<ScheduleDetailBean> getMySchedulelist;
+		try {
+			//sdb.setSdtitle((String)pu.getAttribute("sdtitle"));
+			sdb.setSdname((String)pu.getAttribute("sdname"));
+			sdb.setUserid((String)pu.getAttribute("userid"));
+			sdb.setSddate((String)pu.getAttribute("sddate"));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(sdb.getUserid()+"확인해");
+		getMySchedulelist = sql.selectList("getMySchedule", sdb);
+		return getMySchedulelist;
+	}
+
+	/*업무 일지 조회*/
+	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
+		List<WorkDiaryBean> getDiarylist;
+
+		getDiarylist = sql.selectList("getDiary", wdb);
+		return getDiarylist;
+	}
 
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
 		List<Notice_CalendarBean> noticeList;
@@ -52,12 +86,12 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
-	
+
 		return  sql.selectList("getProject", pmb);
 	}
 
 	public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb) {
-		
+
 		return sql.selectList("getProjectStep", pmb);
 	}
 
@@ -68,9 +102,9 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb) {
 		List<ScheduleDetailBean> getSD = sql.selectList("getScheDetail", sdb);
-		
+
 		for(int i=0; i< getSD.size(); i++) {
-			
+
 			try {
 				getSD.get(i).setUsername(enc.aesDecode(getSD.get(i).getUsername(), getSD.get(i).getUserid()));
 			} catch (Exception e) {e.printStackTrace();} 
@@ -79,6 +113,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	}
 }
-	
-	
+
+
 
