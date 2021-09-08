@@ -11,5 +11,6 @@ public class ProjectStepBean {
 	private String wcode;
 	private String pscode;
 	private String psname;
-	private String psstate;
+	private String stcode;
+	private String stname;
 }

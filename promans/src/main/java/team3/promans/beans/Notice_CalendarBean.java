@@ -15,4 +15,5 @@ public class Notice_CalendarBean {
 	private String fname;
 	private String locate;
 	private String wdcode;
+	private String nocode;
 }

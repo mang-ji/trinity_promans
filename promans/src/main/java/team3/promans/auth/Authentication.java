@@ -16,9 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.interfaces.AuthInterface;
 
 @Service
-public class Authentication implements team3.promans.interfaces.AuthInterface {
+public class Authentication implements AuthInterface {
 
 	@Autowired
 	Encryption enc;
@@ -35,7 +36,6 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 
 	public boolean idCheck(AccessHistory ah) {
 		return this.convertBoolean(sql.selectOne("idCheck", ah));
-
 	}
 
 
@@ -57,17 +57,7 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 					pu.setAttribute("wcode", this.getUserInfo(ah).getWcode());
 					pu.setAttribute("utype", this.getUserInfo(ah).getUtype());
 				
-					mav.setViewName("adminProject");
-
-					
-					
-					
-					//일반멤버, 관리자에 따른 각각의 페이지 이동 
-					if(pu.getAttribute("utype")== "G") {
-						mav.setViewName("myPage");
-					}else {
-						mav.setViewName("memberManage");
-					}
+					mav.setViewName("mainPage");
 					
 				} catch (Exception e) {e.printStackTrace();}
 			}else {
@@ -77,6 +67,7 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 			}
 		}
 		return mav;
+
 	}
 
 
@@ -97,8 +88,6 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 			
 		} catch (Exception e) {e.printStackTrace();}
 	}
-
-
 
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Authentication;
@@ -40,8 +41,6 @@ public class HomeController {
 	
 	@PostMapping("accessInfo")
 	public ModelAndView logInCtl(@ModelAttribute AccessHistory ah) {
-		
-		System.out.println("homecontroller!!!!");
 		mav = auth.logInCtl(ah);
 		return mav;
 	}
@@ -80,4 +79,24 @@ public class HomeController {
 	public String memberForm() {
 		return "memberManage";
 	}
+	@GetMapping("myPageForm")
+	public String myPageForm() {
+		return "myPage";
+	}
+	@GetMapping("myScheduleForm")
+	public String myScheduleForm() {
+		return "mySchedule";
+	}
+	
+	@PostMapping("goAdminProjectForm")
+	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
+		
+		try {
+			pu.setAttribute("prcode", prcode);
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return "adminProject";
+	}
 }
+

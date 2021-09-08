@@ -15,10 +15,27 @@
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <title>관리자 프로젝트</title>
-
+     <script>
+     window.addEventListener('load',function(){
+    	    
+    		let userid1 = document.getElementsByName("userid")[0];
+    		let cpcode1 = document.getElementsByName("cpcode")[0];
+    		let prcode1 = document.getElementsByName("prcode")[0];
+    		
+    		let jsonData = [{cpcode:cpcode1.value, prcode:prcode1.value, userid:userid1.value}];
+    		
+    		let clientData = JSON.stringify(jsonData);
+    		
+    		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
+    		
+     });
+     </script>
     </head>
     <body onLoad="projectOnLoad()">
     	<input type="hidden" name="utype" value="${utype}">
+    	<input type="hidden" name="cpcode" value="${cpcode}">
+    	<input type="hidden" name="userid" value="${userid}">
+    	<input type="hidden" name="prcode" value="${prcode}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -30,6 +47,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myScheduleForm">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                 </div>
             </div>
@@ -60,7 +78,7 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-
+                    <div id="selectStep"></div>
                 </div>
             </div>
         </div>
