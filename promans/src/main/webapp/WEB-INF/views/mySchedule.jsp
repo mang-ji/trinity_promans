@@ -29,6 +29,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="getMySchedule()" id="getMySchedulelist">내 업무 조회</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
