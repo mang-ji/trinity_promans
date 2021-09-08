@@ -21,11 +21,8 @@ import team3.promans.services.ScheduleManagement;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.TeamManagement;
-
 import team3.promans.beans.Notice_CalendarBean;
-
 import team3.promans.beans.ProjectBean;
-
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleBean;
@@ -92,7 +89,9 @@ public class Restcontroller {
 	}*/
 		
 	@PostMapping("getCalendar")
-	public void getCalendar() {
+	public List<Notice_CalendarBean> getCalendars(@RequestBody List<Notice_CalendarBean> ncb) {
+		System.out.println(ncb.get(0).getCpcode()+" : controller");
+		return si.getCalendar(ncb.get(0));
 	}
 	
 	@PostMapping("/addTeamMember")

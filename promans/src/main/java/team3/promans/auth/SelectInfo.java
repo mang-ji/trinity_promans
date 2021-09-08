@@ -5,6 +5,9 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team3.promans.beans.Notice_CalendarBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.beans.ScheduleBean;
@@ -33,7 +36,6 @@ import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 
-
 @Service
 public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
@@ -45,13 +47,13 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	@Autowired
 	ProjectUtils pu;
-
-
+	
 	ModelAndView mav;
 
-
-
-
+	public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
+		List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb);
+		return list;
+	}
 
 	/*내 업무 조회*/
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb) {
