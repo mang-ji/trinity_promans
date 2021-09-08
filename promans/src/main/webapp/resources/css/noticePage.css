@@ -1,1 +1,31 @@
 @charset "UTF-8";
+
+#box{
+	border:1px solid #000000;
+	position:absolute; top:50%; left:50%;
+    transform:translate(-50%, -50%);
+}
+
+#title{
+	border:1px solid #000000;
+	width:800px;
+	font-size:30px;
+
+}
+
+#date{
+	font-size:20px;
+	margin-left:480px;
+}
+
+#contents{
+	border:1px solid #000000;
+	width:800px;
+	height:400px;
+
+}
+
+#btn{
+	margin-left:730px;
+	
+}

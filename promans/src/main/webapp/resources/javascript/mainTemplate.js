@@ -3,21 +3,20 @@ function projectOnLoad(){
        let project = document.getElementById("project");
        let adminMember = document.getElementById("adminMember");
        let utype = document.getElementsByName("utype")[0];
-        	
+           
        if(utype.value == "G"){
-        		adminProject.style.display = "none";
-        		project.style.display = "block";
-        		adminMember.style.display = "none";
-        	}else{
-        		adminProject.style.display = "block";
-        		project.style.display = "none";
-        		adminMember.style.display = "block";
-        	}
-        	
+              adminProject.style.display = "none";
+              project.style.display = "block";
+              adminMember.style.display = "none";
+           }else{
+              adminProject.style.display = "block";
+              project.style.display = "none";
+              adminMember.style.display = "block";
+           }
+           
     }
 
 function getAjax(jobCode,clientData,fn){
-	alert(jobCode);
 	let ajax = new XMLHttpRequest();
 	
 	ajax.onreadystatechange = function(){
@@ -47,7 +46,6 @@ function postAjax(jobCode,clientData,fn,type){
 			window[fn](JSON.parse(jsonData));
 		}
 	}
-	alert(jobCode);
 	ajax.open("POST",jobCode);
 	
 	if(type==1){
