@@ -78,4 +78,13 @@ public class HomeController {
 	public String memberForm() {
 		return "memberManage";
 	}
+	@GetMapping("myPageForm")
+	public String myPageForm() {
+		return "myPage";
+	}
+	@GetMapping("myScheduleForm")
+	public String myScheduleForm() {
+		return "mySchedule";
+	}
 }
+

@@ -35,14 +35,13 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 
 	public boolean idCheck(AccessHistory ah) {
 		return this.convertBoolean(sql.selectOne("idCheck", ah));
-
 	}
 
 
 
 	public ModelAndView logInCtl(AccessHistory ah) {
 		mav = new ModelAndView();
-		
+
 		String encPass = this.getPass(ah);
 		
 		if(enc.matches(ah.getAcode(),encPass)) {
@@ -56,19 +55,23 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 					pu.setAttribute("tecode", this.getUserInfo(ah).getTecode());
 					pu.setAttribute("wcode", this.getUserInfo(ah).getWcode());
 					pu.setAttribute("utype", this.getUserInfo(ah).getUtype());
+				
 					mav.setViewName("adminProject");
-
+					
+					//일반멤버, 관리자에 따른 각각의 페이지 이동 
+//					if(pu.getAttribute("utype") == "G") {
+//						mav.setViewName("myPage");
+//					}else {
+//						mav.setViewName("memberManage");
+//					}
+					
 				} catch (Exception e) {e.printStackTrace();}
-			}
-		}else {
+			}else {
 			mav.setViewName("redirect:/");
+			mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
 
-			mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요. 커밋");
-
-			mav.addObject("message", "아이디나 비밀번호를 다시 확인해주세요후후후 .");
-
+			}
 		}
-
 		return mav;
 	}
 
@@ -90,8 +93,6 @@ public class Authentication implements team3.promans.interfaces.AuthInterface {
 			
 		} catch (Exception e) {e.printStackTrace();}
 	}
-
-
 
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;

@@ -1,4 +1,4 @@
-let publicIP;
+	let publicIP;
 
 function sendUserId(){
 	let uCode = document.getElementsByName("userid")[0];
