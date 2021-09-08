@@ -9,11 +9,11 @@
 	SELECT  NO_USERID as writer,
 			NO_TITLE as title,
 			NO_CONTENTS as contents,
-			NO_DATE as sdate, 
+			TO_CHAR(NO_DATE, 'YYYY-MM-dd') as sdate, 
 			NO_FILEPATH as filepath,
 			NO_FNAME as fname 
 	FROM PNT 
-	WHERE NO_CPCODE = #{cpcode} and NO_USERID = #{writer} 
+	WHERE NO_CPCODE = #{cpcode} 
 	</select>
 
  <select id ="getProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectBean">
