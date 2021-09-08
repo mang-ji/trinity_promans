@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.auth.SelectInfo;
 import team3.promans.beans.AccessHistory;
+import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.TeamManagement;
+
 
 @RestController
 @RequestMapping("rest")
@@ -33,6 +36,9 @@ public class Restcontroller {
 
 	@Autowired 
 	TeamManagement tm;
+	
+	@Autowired
+	SelectInfo si;
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
@@ -46,5 +52,12 @@ public class Restcontroller {
 	@PostMapping("/addTeamMember")
 	public void addTeamMember() {
 	}
+	
+	@PostMapping("/getNotice")
+	public List<Notice_CalendarBean> getNoticeList(@RequestBody List<Notice_CalendarBean> nc) {
+		return si.getNoticeList(nc.get(0));
+	}
+	
+
 	
 }

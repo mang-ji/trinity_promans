@@ -40,8 +40,6 @@ public class HomeController {
 	
 	@PostMapping("accessInfo")
 	public ModelAndView logInCtl(@ModelAttribute AccessHistory ah) {
-		
-		System.out.println("homecontroller!!!!");
 		mav = auth.logInCtl(ah);
 		return mav;
 	}

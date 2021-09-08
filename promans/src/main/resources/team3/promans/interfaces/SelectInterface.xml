@@ -5,5 +5,15 @@
  
 <mapper namespace="team3.promans.interfaces.SelectInterface">
 
+	<select id = "getNoticeList" parameterType = "team3.promans.beans.Notice_CalendarBean" resultType = "team3.promans.beans.Notice_CalendarBean">
+	SELECT  NO_USERID as writer,
+			NO_TITLE as title,
+			NO_CONTENTS as contents,
+			NO_DATE as sdate, 
+			NO_FILEPATH as filepath,
+			NO_FNAME as fname 
+	FROM PNT 
+	WHERE NO_CPCODE = #{cpcode} and NO_USERID = #{writer} 
+	</select>
 
 </mapper>
