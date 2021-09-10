@@ -6,6 +6,7 @@ import lombok.Data;
 public class ProjectStepBean {
 	private String cpcode;
 	private String userid;
+	private String username;
 	private String prcode;
 	private String utype;
 	private String wcode;

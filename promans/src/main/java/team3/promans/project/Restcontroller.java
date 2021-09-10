@@ -8,24 +8,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
-import team3.promans.auth.SelectInfo;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ScheduleManagement;
+import team3.promans.services.SelectInfo;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.TeamManagement;
-
 import team3.promans.beans.Notice_CalendarBean;
-
 import team3.promans.beans.ProjectBean;
-
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleBean;
@@ -55,6 +53,9 @@ public class Restcontroller {
 	
 	@Autowired
 	ScheduleManagement sm;
+	
+	@Autowired
+	ProjectManagement pm;
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
@@ -93,7 +94,9 @@ public class Restcontroller {
 	}*/
 		
 	@PostMapping("getCalendar")
-	public void getCalendar() {
+	public List<Notice_CalendarBean> getCalendars(@RequestBody List<Notice_CalendarBean> ncb) {
+		System.out.println(ncb.get(0).getCpcode()+" : controller");
+		return si.getCalendar(ncb.get(0));
 	}
 	
 	@PostMapping("/addTeamMember")
@@ -106,8 +109,6 @@ public class Restcontroller {
 	public List<Notice_CalendarBean> getNoticeList(@RequestBody List<Notice_CalendarBean> nc) {
 		return si.getNoticeList(nc.get(0));
 	}
-	
-
 	
 
 	@PostMapping("/GetProject")
@@ -127,11 +128,31 @@ public class Restcontroller {
 		
 		return si.selectSchedule(psb.get(0)) ;
 	}
+	@PostMapping("/GetSDInfo")
+	public List<ScheduleDetailBean> getSDInfo(@RequestBody List<ScheduleDetailBean> sdb){
 	
-	@PostMapping("/GetScheDetail")
+		return si.getSDInfo(sdb.get(0));
+		
+	}
+	
+	@PostMapping("GetScheDetail")
 	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
 		
 		return si.getScheDetail(sdb.get(0));
+	}
+	
+	@PostMapping("/ReqForCompletion")
+	public List<ScheduleDetailBean> reqForCompletion(@RequestBody List<ScheduleDetailBean> sdb){
+	
+		System.out.println("요기 레컨");
+		return si.reqForCompletion(sdb.get(0));
+	}
+	
+	
+
+	@PostMapping("/SelectWaitingStep")
+	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
+		return si.selectStep(psb.get(0));
 	}
 
 }

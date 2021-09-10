@@ -26,20 +26,40 @@
 			let utypes = document.getElementsByName("userid")[0];
 			let cpcodes = document.getElementsByName("cpcode")[0];
 			let prcodes = document.getElementsByName("prcode")[0];
-			let data = [{utype:utypes.value,cpcode:cpcodes.value,prcode:prcodes.value}];
-			alert(JSON.stringify(data));
-			postAjax("rest/getCalendar", JSON.stringify(data),getCalendar,2);
-			
+			let data = [{writer:utypes.value,cpcode:cpcodes.value,prcode:prcodes.value}];
+			postAjax("rest/getCalendar", JSON.stringify(data), 'afterGetCalendar', 2);
+
 		});
 		
-		function getCalendar(){
-			console.log("test2");
+		function afterGetCalendar(data){
+			var sdate = new Array();
+			var ldate = new Array();
+			var getDate = new Array();
+			
+			
+			for(i=0; i<data.length; i++){
+				sdate[i] = data[i].sdate.substring(data[i].sdate,6)>10?data[i].sdate.substring(data[i].sdate,6):data[i].sdate.substring(data[i].sdate,7);
+				ldate[i] = data[i].ldate.substring(data[i].ldate,6)>10?data[i].ldate.substring(data[i].ldate,6):data[i].ldate.substring(data[i].ldate,7);
+				//console.log(sdate[i] + " : " + ldate[i] + " : 1");
+				for(r=0; r<document.getElementsByClassName("this").length; r++){
+					getDate[r] = document.getElementsByClassName("this")[r].innerText;
+					if(i<=r){
+						console.log(sdate[i] +" : "+ ldate[i] +" : "+ getDate[r]);
+					}
+				}
+			}			
 		}
+		
+		
+		
+		
+		
 	</script>
 
 </head>
 <body onLoad="projectOnLoad()">
 
+	<input type="hidden" name="utype" value="${utype}">
 	<input type="hidden" name="userid" value="${userid}">
 	<input type="hidden" name="cpcode" value="${cpcode}">
 	<input type="hidden" name="prcode" value="${prcode}">

@@ -18,7 +18,7 @@
 		<property name="password" value="1234"></property>
 		</bean>
 		
-		<bean id="ds" class="com.zaxxer.hikari.HikariDataSource">
+		<bean id="ds" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikari"></constructor-arg>
 		</bean>
 		
