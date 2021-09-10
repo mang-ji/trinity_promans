@@ -4,6 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<script type="text/javascript" src="resources/javascript/adminProject.js"></script>
+<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
+<title>메인페이지</title>
+ <script>
+
 <link href="resources/css/styles.css"rel="stylesheet"type="text/css">
 	<link href="resources/css/mainPage.css"rel="stylesheet"type="text/css">
 <script type="text/javascript"
@@ -12,6 +18,7 @@
 	src="resources/javascript/mainTemplate.js"></script>
 <title>Insert title here</title>
 <script>
+
      function getProject(){
     	 let cpcode1 = document.getElementsByName("cpcode")[0];
     	 let userid1 = document.getElementsByName("userid")[0];
@@ -25,15 +32,14 @@
      </script>
 </head>
 <body onLoad="getProject()">
-	<div id="modal_background">
+	<!-- <div id="modal_background">
 		<div id="modal_box"></div>
 		<div id="modal_close"><a href="#">close</a>></div>
-		<div id="modal_content"></div>
+		<div id="modal_content"></div> -->
 
 		<input type="hidden" name="utype" value="${utype}"> <input
 			type="hidden" name="cpcode" value="${cpcode}"> <input
 			type="hidden" name="userid" value="${userid}">
 		<div id="getProject"></div>
-	</div>
 </body>
 </html>

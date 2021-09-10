@@ -48,3 +48,24 @@ function getWaitingProStep(jsonData){
 function makeProjectStep(prcode){
 	
 }
+
+function goAdminProject(prcode){
+     let f = document.createElement("form");
+     let input = document.createElement("input");
+
+          input.type = "hidden";
+          input.value = prcode;
+          input.name = "prcode";
+
+       alert(input.value);
+
+     f.appendChild(input);
+
+     document.body.appendChild(f);
+
+     f.action= "goAdminProjectForm";
+     f.method= "POST";
+	
+	f.submit();
+	
+}

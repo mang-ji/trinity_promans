@@ -16,6 +16,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.beans.ScheduleDetailBean;
 
 
 @Controller
@@ -87,6 +88,10 @@ public class HomeController {
 	public String myScheduleForm() {
 		return "mySchedule";
 	}
+	@GetMapping("myDiaryForm")
+	public String myDiaryForm() {
+		return "myDiary";
+	}
 	
 	@PostMapping("goAdminProjectForm")
 	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
@@ -97,6 +102,18 @@ public class HomeController {
 		} catch (Exception e) {e.printStackTrace();}
 		
 		return "adminProject";
+	}
+	
+	@PostMapping("GoAdminScheduleForm")
+	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
+		try {
+			pu.setAttribute("pscode", sdb.getPscode());
+			pu.setAttribute("sccode", sdb.getSccode());
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return "adminSchedule";
+		
 	}
 }
 

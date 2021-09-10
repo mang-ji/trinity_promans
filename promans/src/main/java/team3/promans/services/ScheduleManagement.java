@@ -21,13 +21,19 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	@Autowired
 	SqlSessionTemplate sql;
 
-/*업무디테일 작성(글 작성)*/
+
 	public int writeSchedule(ScheduleDetailBean sdb) {
-	
+		try {
+			pu.setAttribute("sdcontent", sdb.getSdcontent());
+			pu.setAttribute("sdname", sdb.getSdname());
+			pu.setAttribute("sddate", sdb.getSddstate());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 		return sql.insert("writeSchedule", sdb);
 	}
 	
-/*업무 일지 작성*/
+
 	public int writeDiary(WorkDiaryBean wdb) {
 	
 		return sql.insert("writeDiary", wdb);

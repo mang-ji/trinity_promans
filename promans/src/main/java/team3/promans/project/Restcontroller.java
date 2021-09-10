@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
@@ -61,15 +62,16 @@ public class Restcontroller {
 		return auth.idCheck(ah);
 	}
 	
-	/*내 업무 조회*/
+	
 	@PostMapping("/GetMySchedule")
-	public List<ScheduleDetailBean> getMySchedule(@RequestBody ScheduleDetailBean sdb){
-		return si.getMySchedule(sdb);
+	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb) throws Exception{
+		return si.getMySchedule(sdb.get(0));
 	}
 	
-	/*업무 작성(글작성)*/
+	
 	@PostMapping("/WriteSchedule")
 	public int writeSchedule(@ModelAttribute ScheduleDetailBean sdb) {
+		
 		return sm.writeSchedule(sdb);
 	}
 	
@@ -81,8 +83,8 @@ public class Restcontroller {
 	
 	/*업무 일지 조회*/
 	@PostMapping("/GetDiary")
-	public List<WorkDiaryBean> getDiary(@RequestBody WorkDiaryBean wdb){
-		return si.getDiary(wdb);
+	public List<WorkDiaryBean> getDiary(@RequestBody List<WorkDiaryBean> wdb){
+		return si.getDiary(wdb.get(0));
 	}
 	
 	/*업무 완료요청(일반멤버)
@@ -109,8 +111,6 @@ public class Restcontroller {
 	}
 	
 
-	
-
 	@PostMapping("/GetProject")
 	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
 		
@@ -128,12 +128,27 @@ public class Restcontroller {
 		
 		return si.selectSchedule(psb.get(0)) ;
 	}
+	@PostMapping("/GetSDInfo")
+	public List<ScheduleDetailBean> getSDInfo(@RequestBody List<ScheduleDetailBean> sdb){
 	
-	@PostMapping("/GetScheDetail")
+		return si.getSDInfo(sdb.get(0));
+		
+	}
+	
+	@PostMapping("GetScheDetail")
 	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
 		
 		return si.getScheDetail(sdb.get(0));
 	}
+	
+	@PostMapping("/ReqForCompletion")
+	public List<ScheduleDetailBean> reqForCompletion(@RequestBody List<ScheduleDetailBean> sdb){
+	
+		System.out.println("요기 레컨");
+		return si.reqForCompletion(sdb.get(0));
+	}
+	
+	
 
 	@PostMapping("/SelectWaitingStep")
 	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
