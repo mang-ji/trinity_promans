@@ -1,10 +1,14 @@
-package team3.promans.auth;
+package team3.promans.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import team3.promans.auth.Encryption;
+import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.Notice_CalendarBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,6 +118,26 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return getSD;
 
 	}
+
+	public List<ScheduleDetailBean> getSDInfo(ScheduleDetailBean sdb) {
+		
+		return  sql.selectList("getSDInfo", sdb);
+	}
+	
+	
+	public List<ScheduleDetailBean> reqForCompletion(ScheduleDetailBean sdb){
+		List<ScheduleDetailBean> req = sql.selectList("reqForCompletion", sdb);
+		
+		for(int i=0; i< req.size(); i++) {
+
+			try {
+				req.get(i).setUsername(enc.aesDecode(req.get(i).getUsername(), req.get(i).getUserid()));
+			} catch (Exception e) {e.printStackTrace();} 
+		}
+		
+		return req;
+	}
+
 }
 
 

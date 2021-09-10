@@ -31,7 +31,7 @@
      });
      </script>
     </head>
-    <body onLoad="projectOnLoad()">
+    <body onLoad="projectOnLoad()"> 
     	<input type="hidden" name="utype" value="${utype}">
     	<input type="hidden" name="cpcode" value="${cpcode}">
     	<input type="hidden" name="userid" value="${userid}">
@@ -77,14 +77,20 @@
                     </div>
                 </nav>
                 <!-- Page content-->
+                
                 <div class="container-fluid">
-                    <div id="selectStep"></div>
+             
+                    <div id="selectStep"></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
+                     <div id="ShceduleEdit"></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
+                  <div class="modal" tabindex="-1" role="dialog" name="modal">
+              </div>
                 </div>
             </div>
+           
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="resources/javascript/scripts.js"></script>
-    </body>
+   </body>
 </html>

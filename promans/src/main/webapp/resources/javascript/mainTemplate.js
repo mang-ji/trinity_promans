@@ -54,6 +54,18 @@ function postAjax(jobCode,clientData,fn,type){
       ajax.send(clientData);
 	
 }
+
+function makeInput(type, name, value){
+	let input = document.createElement("input");
+	
+	input.setAttribute("type" , type);
+	input.setAttribute("name" , name);
+	input.setAttribute("value" , value);
+	
+	return input;
+	
+	
+}
 /*
 function postAjax(jobCode, clientData, fn) {
       let ajax = new XMLHttpRequest();

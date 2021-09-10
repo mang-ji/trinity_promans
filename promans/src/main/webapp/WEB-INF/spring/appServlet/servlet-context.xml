@@ -23,8 +23,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="team3.promans.project" />
-	
 		<beans:bean class="com.google.gson.Gson" />
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
