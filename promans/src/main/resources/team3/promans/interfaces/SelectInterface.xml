@@ -36,11 +36,11 @@
 		SELECT NO_USERID as writer,
 		NO_TITLE as title,
 		NO_CONTENTS as contents,
-		NO_DATE as sdate,
+		TO_CHAR(NO_DATE,'YYYY-MM-DD') as sdate,
 		NO_FILEPATH as filepath,
 		NO_FNAME as fname
 		FROM PNT
-		WHERE NO_CPCODE = #{cpcode} and NO_USERID = #{writer}
+		WHERE NO_CPCODE = #{cpcode}
 	</select>
 
 	<select id="getProject"
@@ -67,7 +67,6 @@
 		resultType="team3.promans.beans.ScheduleBean">
 		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE FROM SCHEDULEVIEW WHERE
 		CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
->>>>>>> 12bcd1d15126b65381a77f5aafc2da21d3b47538
 	</select>
 
 	<select id="getScheDetail"

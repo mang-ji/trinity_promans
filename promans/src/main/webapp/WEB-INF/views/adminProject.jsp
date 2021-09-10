@@ -29,6 +29,8 @@
     		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
     		
      });
+     
+
      </script>
     </head>
     <body onLoad="projectOnLoad()">

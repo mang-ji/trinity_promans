@@ -130,6 +130,12 @@ public class Restcontroller {
 	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
 		
 		return si.getScheDetail(sdb.get(0));
+
 	}
 
+	@PostMapping("addJob")
+	public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
+		return tm.addJob(psb.get(0));
+		
+	}
 }
