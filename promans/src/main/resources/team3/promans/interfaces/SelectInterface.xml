@@ -29,6 +29,7 @@
 	</select>
 
 	<!-- 업무 일지 조회 -->
+
 	<select id="getDiary" parameterType="team3.promans.beans.WorkDiaryBean" 
 	resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
@@ -80,7 +81,6 @@
 		resultType="team3.promans.beans.ScheduleBean">
 		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE FROM SCHEDULEVIEW WHERE
 		CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
-
 	</select>
 
 	<select id="getScheDetail"
