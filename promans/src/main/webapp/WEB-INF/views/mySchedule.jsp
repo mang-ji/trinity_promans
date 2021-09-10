@@ -13,10 +13,53 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <title>내 업무</title>
+	<script>
+		window.addEventListener('load',function() {
+			let prcode1 = document.getElementsByName("prcode")[0].value;
+			let pscode1 = document.getElementsByName("pscode")[0].value;
+			let cpcode1 = document.getElementsByName("cpcode")[0].value;
+			let userid1 = document.getElementsByName("userid")[0].value;
+			let data = [{prcode:prcode1,pscode:"PS01",cpcode:cpcode1,userid:userid1}];
+			let clientData = JSON.stringify(data);
+			postAjax("rest/GetMySchedule", clientData, 'mySchedulelist', 2);
+		});
+
+		function mySchedulelist(data) {
+			let tablebody = document.getElementById("table_body");
+			let html = "";
+			
+			for (i = 0; i < data.length; i++) {
+				html += "<tr onClick = \"mySchedule(\'"+data[i].sdcontent+"\',\'"+data[i].sdname+"\', \'"+data[i].sddate+"\')\">";
+				html += "<td>" + data[i].sdcontent + "</td>";
+				html += "<td>" + data[i].sdname + "</td>";
+				html += "<td>" + data[i].sddate + "</td></tr>";
+			}
+			tablebody.innerHTML = html;
+		}
+
+		function mySchedule(sdcontent,sddate,sdname) {
+			let mySchedule = document.getElementById("mySchedule");
+			let html = "";
+			html += "<div id = \"sdcontent\">"+"제목 :"+sdcontent+"</div>";
+			html += "<div id = \"sdname\">"+"내용 :"+sdname+"</div>";
+			html += "<div id = \"sddate\">"+"날짜 :"+sddate+"</div>";
+			mSchedule.innerHTML = html;
+		}
+	</script>
+    <title>내 업무</title>
+	<style>
+	table{
+		width: 95%;
+		border: 1px #ddddddd;
+	}	
+	</style>    
     </head>
     <body onLoad="projectOnLoad()">
         	<input type="hidden" name="utype" value="${utype}">
+        	<input type="hidden" name="cpcode" value="${cpcode}">
+        	<input type="hidden" name="prcode" value="${prcode}">
+        	<input type="hidden" name="pscode" value="${pscode}">
+        	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -29,7 +72,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="getMySchedule()" id="getMySchedulelist">내 업무 조회</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myDiaryForm">업무 일지</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -58,10 +101,29 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
-
-                </div>
-            </div>
+			<div class="container-fluid">
+				<table border = 1 id = "mySchedule">
+						<tr >
+							<th style="width: 10%">제목</th>
+							<th style="width: 10%">내용</th>
+							<th style="width: 10%">날짜</th>
+						</tr>
+					<tbody id = "table_body">
+							<tr>
+		
+							</tr>
+					</tbody>
+				</table>
+			<div id = "mSchedule">
+				<input type="submit" name="wSchedule" value="작성" onClick="writeSchedule()">
+				<input type="text" name="sdcontent" placeholder="제목" value="">
+				<input type="text" name="sdname" placeholder="내용" value="">
+				<button type="submit" name="sub">작성하기</button>  
+			</div>
+			
+			</div>
+			</div>
+		</div>
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

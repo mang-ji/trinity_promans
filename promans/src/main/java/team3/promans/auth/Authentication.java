@@ -61,6 +61,7 @@ public class Authentication implements AuthInterface {
 					
 				} catch (Exception e) {e.printStackTrace();}
 			}else {
+	
 			mav.setViewName("redirect:/");
 			mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
 

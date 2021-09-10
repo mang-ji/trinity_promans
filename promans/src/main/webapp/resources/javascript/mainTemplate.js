@@ -29,7 +29,6 @@ function getAjax(jobCode,clientData,fn){
 	if(clientData != ""){
 		jobCode += "?" + clientData;
 	}
-	alert(jobCode);
 	ajax.open("GET", jobCode);
 	ajax.send();
 }
@@ -67,8 +66,6 @@ function postAjax(jobCode, clientData, fn) {
             window[fn](JSON.parse(jsonData));
          }
       };
-	alert(jobCode);
-	alert(clientData);
       ajax.open("POST", jobCode);
       ajax.setRequestHeader("content-type", "application/json");
       ajax.send(clientData);

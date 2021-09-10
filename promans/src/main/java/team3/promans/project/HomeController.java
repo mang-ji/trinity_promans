@@ -87,6 +87,10 @@ public class HomeController {
 	public String myScheduleForm() {
 		return "mySchedule";
 	}
+	@GetMapping("myDiaryForm")
+	public String myDiaryForm() {
+		return "myDiary";
+	}
 	
 	@PostMapping("goAdminProjectForm")
 	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {

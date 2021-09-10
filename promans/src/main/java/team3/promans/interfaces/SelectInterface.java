@@ -14,10 +14,10 @@ import team3.promans.beans.ScheduleDetailBean;
 
 @Component
 public interface SelectInterface {
-	
 	  public List<ProjectBean> getProject(ProjectMemberBean pmb); 
 	  public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb); 
 	  public List<ScheduleBean> selectSchedule(ProjectStepBean psb); 
 	  public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb);
-	  
+	  public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb);
+	  public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb);
 }

@@ -53,30 +53,21 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
-	/*내 업무 조회*/
-	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb) {
-		List<ScheduleDetailBean> getMySchedulelist;
-		try {
-			//sdb.setSdtitle((String)pu.getAttribute("sdtitle"));
-			sdb.setSdname((String)pu.getAttribute("sdname"));
-			sdb.setUserid((String)pu.getAttribute("userid"));
-			sdb.setSddate((String)pu.getAttribute("sddate"));
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println(sdb.getUserid()+"확인해");
-		getMySchedulelist = sql.selectList("getMySchedule", sdb);
-		return getMySchedulelist;
+
+	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
+		System.out.println(sdb.getCpcode() + " : " + sdb.getPrcode() + " : " + sdb.getPscode() + " : " + sdb.getUserid());
+		List<ScheduleDetailBean> myScheduleList = sql.selectList("getMySchedule", sdb);
+		
+		System.out.println(myScheduleList);
+		return myScheduleList;
 	}
 
-	/*업무 일지 조회*/
 	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
-		List<WorkDiaryBean> getDiarylist;
-
-		getDiarylist = sql.selectList("getDiary", wdb);
-		return getDiarylist;
+		List<WorkDiaryBean> DiaryList = sql.selectList("getDiary", wdb);
+		return DiaryList;
 	}
 
+	
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
 		List<Notice_CalendarBean> noticeList;
 		noticeList = sql.selectList("getNoticeList", nc);

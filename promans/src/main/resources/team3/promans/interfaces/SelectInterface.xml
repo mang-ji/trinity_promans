@@ -5,21 +5,36 @@
 
 <mapper namespace="team3.promans.interfaces.SelectInterface">
 	<!-- 내 업무 조회 -->
-	<select id="getMySchedule"
-		parameterType="team3.promans.beans.ScheduleDetailBean"
-		resultType="list">
-		SELECT * FROM SD
-		WHERE SD_CPCODE= #{cpcode}, SD_PRCODE= #{prcode}, SD_PSCODE= #{pscode},
-		SD_SCCODE= #{SCCODE}, SD_USERID= #{userid}, SD_CODE= #{sdcode}
+	<select id="getMySchedule" parameterType="team3.promans.beans.ScheduleDetailBean"
+	resultType="team3.promans.beans.ScheduleDetailBean">
+		SELECT
+		SD_USERID as userid,
+		SD_CODE as sdcode,
+		SD_NAME as sdname,
+		SD_TITLE as sdcontent,
+		SD_DATE as sddate 
+		FROM SD
+		WHERE SD_CPCODE= #{cpcode} and
+		SD_PRCODE= #{prcode} and
+		SD_PSCODE= #{pscode} and
+		SD_USERID= #{userid}
 	</select>
 
 	<!-- 업무 일지 조회 -->
-	<select id="getDiary"
-		parameterType="team3.promans.beans.WorkDiaryBean" resultType="list">
-		SELECT * FROM WD
-		WHERE WD_CPCODE= #{cpcode}, WD_PRCODE= #{prcode}, WD_USERID= #{userid},
-		WD_CODE= #{wdcode}, WD_TITLE= #{wdtitle}, WD_CONTENTS= #{wdcontents},
-		WD_DATE= #{wddate}
+	<select id="getDiary" parameterType="team3.promans.beans.WorkDiaryBean" 
+	resultType="team3.promans.beans.WorkDiaryBean">
+		SELECT WD_CPCODE as cpcode,
+		WD_PRCODE as prcode,
+		WD_USERID as userid,
+		WD_CODE as wdcode,
+		WD_TITLE as wdtitle,
+		WD_CONTENTS as wdcontents,
+		WD_DATE as wddate
+		FROM WD
+		WHERE WD_CPCODE = #{cpcode}
+		and WD_PRCODE = #{prcode}
+		and WD_USERID = #{userid} 
+		
 	</select>
 
 	<select id="getNoticeList"
