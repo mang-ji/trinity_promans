@@ -25,15 +25,14 @@
      </script>
 </head>
 <body onLoad="getProject()">
-	<div id="modal_background">
+	<!-- <div id="modal_background">
 		<div id="modal_box"></div>
 		<div id="modal_close"><a href="#">close</a>></div>
-		<div id="modal_content"></div>
+		<div id="modal_content"></div> -->
 
 		<input type="hidden" name="utype" value="${utype}"> <input
 			type="hidden" name="cpcode" value="${cpcode}"> <input
 			type="hidden" name="userid" value="${userid}">
 		<div id="getProject"></div>
-	</div>
 </body>
 </html>
