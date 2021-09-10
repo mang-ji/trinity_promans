@@ -29,7 +29,6 @@ function getAjax(jobCode,clientData,fn){
 	if(clientData != ""){
 		jobCode += "?" + clientData;
 	}
-	alert(jobCode);
 	ajax.open("GET", jobCode);
 	ajax.send();
 }

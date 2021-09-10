@@ -6,17 +6,55 @@
 	<meta charset="utf-8" />
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
-	<link href="resources/css/sendMailPage.css"rel="stylesheet"type="text/css">
-	<script type="text/javascript" src="resources/javascript/sendMailPage.js"></script>
+	<link href="resources/css/mySchedule.css"rel="stylesheet"type="text/css">
+	<script type="text/javascript" src="resources/javascript/mySchedule.js"></script>
+	<script type="text/javascript" src="resources/javascript/myDiary.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <title>메일발송</title>
+	<script>
+        window.addEventListener('load', function(){
+        	let cpcode2 = document.getElementsByName("cpcode")[0].value;
+        	let prcode2 = document.getElementsByName("prcode")[0].value;
+			let wdcode2 = document.getElementsByName("wdcode")[0].value;
+			
+        	let data = [{cpcode:cpcode2,prcode:prcode2,wdcode:wdcode2}];
+			let clientData = JSON.stringify(data);
+			postAjax("rest/GetDiary", clientData, 'getDiarylist', 2);
+		});
+        
+        function getDiarylist(data){
+        	let tablebody = document.getElementById("table_body");
+			let html = "";
+			
+			for (i=0; i<data.length; i++){
+				html += "<tr onClick = \"getDiary(\'"+data[i].wdtitle+"\',\'"+data[i].wdcontents+"\',\'"+data[i].wddate+"\')\">";
+				html += "<td>" + data[i].wdtitle + "</td>";
+				html += "<td>" + data[i].wdcontents + "</td>";
+				html += "<td>" + data[i].wddate + "</td></tr>";
+			}
+			tablebody.innerHTML = html;
+		}
+        
+        function getDiary(wdtitle,wddate,wdcontents){
+        	let mySchedule = document.getElementById("getDiary");
+			let html = "";
+			html += "<div id = \"wdtitle\">"+"제목 :"+wdtitle+"</div>";
+			html += "<div id = \"wdcontents\">"+"내용 :"+wdcontents+"</div>";
+			html += "<div id = \"wddate\">"+"날짜 :"+wddate+"</div>";
+			mSchedule.innerHTML = html;
+		}
+        </script>
+        <title>업무 일지</title>
     </head>
     <body onLoad="projectOnLoad()">
         	<input type="hidden" name="utype" value="${utype}">
+        	<input type="hidden" name="cpcode" value="${cpcode}">
+        	<input type="hidden" name="prcode" value="${prcode}">
+        	<input type="hidden" name="wdcode" value="${wdcode}">
+        	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -28,8 +66,8 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
-                              <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myScheduleForm">내 업무</a>          
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myDiaryForm" id="myDiary">업무 일지</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -57,11 +95,26 @@
                         </div>-->
                     </div>
                 </nav>
-                <!-- Page content-->
-                <div class="container-fluid">
-
-                </div>
-            </div>
+                <!-- Page content (게시판 형식)-->
+			<div class="container-fluid">
+				<table border = 1 id = "getDiary">
+						<tr >
+							<th style="width: 10%">제목</th>
+							<th style="width: 10%">내용</th>
+							<th style="width: 10%">날짜</th>
+						</tr>
+					<tbody id = "table_body">
+							
+							<tr>
+								
+							</tr>
+					</tbody>
+				</table>
+				<div id="writeSchedule">
+					<input type="button" name="wSchedule" value="작성" onClick="writeDiary()">
+				</div>
+			</div>
+		</div>
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

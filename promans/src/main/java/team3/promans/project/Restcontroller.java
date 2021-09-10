@@ -62,15 +62,16 @@ public class Restcontroller {
 		return auth.idCheck(ah);
 	}
 	
-	/*내 업무 조회*/
+	
 	@PostMapping("/GetMySchedule")
-	public List<ScheduleDetailBean> getMySchedule(@RequestBody ScheduleDetailBean sdb){
-		return si.getMySchedule(sdb);
+	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb) throws Exception{
+		return si.getMySchedule(sdb.get(0));
 	}
 	
-	/*업무 작성(글작성)*/
+	
 	@PostMapping("/WriteSchedule")
 	public int writeSchedule(@ModelAttribute ScheduleDetailBean sdb) {
+		
 		return sm.writeSchedule(sdb);
 	}
 	
@@ -82,8 +83,8 @@ public class Restcontroller {
 	
 	/*업무 일지 조회*/
 	@PostMapping("/GetDiary")
-	public List<WorkDiaryBean> getDiary(@RequestBody WorkDiaryBean wdb){
-		return si.getDiary(wdb);
+	public List<WorkDiaryBean> getDiary(@RequestBody List<WorkDiaryBean> wdb){
+		return si.getDiary(wdb.get(0));
 	}
 	
 	/*업무 완료요청(일반멤버)
@@ -138,6 +139,7 @@ public class Restcontroller {
 	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
 		
 		return si.getScheDetail(sdb.get(0));
+
 	}
 	
 	@PostMapping("/ReqForCompletion")
@@ -154,4 +156,9 @@ public class Restcontroller {
 		return si.selectStep(psb.get(0));
 	}
 
+	@PostMapping("addJob")
+	public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
+		return tm.addJob(psb.get(0));
+		
+	}
 }
