@@ -22,20 +22,26 @@
 		let cpcodes = document.getElementsByName("cpcode")[0];
 		let userids = document.getElementsByName("writer")[0];
 		let data = [ {cpcode : cpcodes.value, writer : userids.value} ];
-		postAjax("rest/getNotice", JSON.stringify(data), 'afterNotice', 2);
+		let clientData = JSON.stringify(data);
+		postAjax("rest/getNotice", clientData, 'afterNotice', 2);
+		
+		
 	});
 
-	function afterNotice(data) {
+	function afterNotice(jsonData) {
 		let tablebody = document.getElementById("table_body");
 		let html = "";
 		
-		for (i = 0; i < data.length; i++) {
-			html += "<tr onClick = \"NoticeClick(\'"+data[i].title+"\', \'"+data[i].sdate+"\', \'" +data[i].contents+ "\')\">";
+		alert(JSON.stringify(jsonData));
+		
+		for (i = 0; i < jsonData.length; i++) {
+			html += "<tr onClick = \"NoticeClick(\'"+jsonData[i].title+"\', \'"+jsonData[i].sdate+"\', \'" +jsonData[i].contents+ "\')\">";
 			html += "<td>1</td>";
-			html += "<td>" + data[i].title + "</td>";
-			html += "<td>" + data[i].sdate + "</td></tr>";
+			html += "<td>" + jsonData[i].title + "</td>";
+			html += "<td>" + jsonData[i].sdate + "</td></tr>";
 			
 		}
+		
 
 		tablebody.innerHTML = html;
 	}
@@ -53,6 +59,7 @@
 		html += "<div id = \"contents\">"+contents+"</div>";
 		html += "<a href=\"noticeForm\"><input type =\"button\" id = \"btn\" value =\"목록\" ></a>";
 		html += "</div>";
+		
 		Notice.innerHTML = html;
 	}
 	

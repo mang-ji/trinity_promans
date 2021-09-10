@@ -29,7 +29,6 @@ function getAjax(jobCode,clientData,fn){
 	if(clientData != ""){
 		jobCode += "?" + clientData;
 	}
-	alert(jobCode);
 	ajax.open("GET", jobCode);
 	ajax.send();
 }
@@ -52,6 +51,18 @@ function postAjax(jobCode,clientData,fn,type){
 		ajax.setRequestHeader("content-type", "application/json");
 	}
       ajax.send(clientData);
+	
+}
+
+function makeInput(type, name, value){
+	let input = document.createElement("input");
+	
+	input.setAttribute("type" , type);
+	input.setAttribute("name" , name);
+	input.setAttribute("value" , value);
+	
+	return input;
+	
 	
 }
 /*

@@ -5,20 +5,18 @@ function getSchedule(){
 }
 
 
-function postAjax(jobCode,clientData,fn){
-	let ajax = new XMLHttpRequest();
+
+function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑션.
 	
-	ajax.onreadystatechange = function(){
+	
+	let list = "";
+	let selectSD = document.getElementById("selectScheduleDetail");
+	
+	for(i=0; i<jsonData.length; i++){
 		
-		if(ajax.readyState==4 && ajax.status==200){
-			let jsonData = ajax.responseText;
-			
-			window[fn](JSON.parse(jsonData));
-		}
+	list += "<div>"+ jsonData[i].sdname + jsonData[i].sdcontent + jsonData[i].sddstate + jsonData[i].sddate + jsonData[i].username+"</div><br>";	
 	}
 	
-	ajax.open("POST",jobCode);
-	ajax.setRequestHeader("content-type","application/x-www-form-urlencoded");
-	ajax.send(clientData);
+	selectSD.innerHTML = list;
 	
 }
