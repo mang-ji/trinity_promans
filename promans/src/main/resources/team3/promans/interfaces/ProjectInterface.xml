@@ -5,5 +5,8 @@
  
 <mapper namespace="team3.promans.interfaces.ProjectInterface">
 
+	<update id="updateStep" parameterType="team3.promans.beans.ProjectStepBean">
+	
+	</update>
 
 </mapper>

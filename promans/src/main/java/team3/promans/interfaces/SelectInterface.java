@@ -18,4 +18,5 @@ public interface SelectInterface {
 	  public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb); 
 	  public List<ScheduleBean> selectSchedule(ProjectStepBean psb); 
 	  public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb);
+	  public List<ProjectStepBean> selectStep(ProjectStepBean psb);
 }

@@ -32,6 +32,8 @@
      </script>
     </head>
     <body onLoad="projectOnLoad()">
+    
+   
     	<input type="hidden" name="utype" value="${utype}">
     	<input type="hidden" name="cpcode" value="${cpcode}">
     	<input type="hidden" name="userid" value="${userid}">
@@ -79,6 +81,7 @@
                 <!-- Page content-->
                 <div class="container-fluid">
                     <div id="selectStep"></div>
+                    
                 </div>
             </div>
         </div>
@@ -86,5 +89,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="resources/javascript/scripts.js"></script>
+    
     </body>
 </html>

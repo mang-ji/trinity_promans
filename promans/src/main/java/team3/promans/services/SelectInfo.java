@@ -1,10 +1,13 @@
-package team3.promans.auth;
+package team3.promans.services;
 
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import team3.promans.auth.Encryption;
+import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.Notice_CalendarBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,6 +117,22 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return getSD;
 
 	}
+	
+	/* 승인 대기중인 스텝 리스트 조회 */
+	public List<ProjectStepBean> selectStep(ProjectStepBean psb) {
+		List<ProjectStepBean> list = sql.selectList("selectStep", psb);
+		for(int i=0; i < list.size(); i++) {
+			try {
+				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	
 }
 
 
