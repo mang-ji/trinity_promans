@@ -86,7 +86,7 @@
              
                     <div id="selectStep"></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
                      <div id="ShceduleEdit"></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
-                  <div class="modal" tabindex="-1" role="dialog" name="modal"></div>
+                  <div class="modal" tabindex="-1" role="dialog" id="modal"></div>
               </div>
                
             </div>
