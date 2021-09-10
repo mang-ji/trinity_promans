@@ -53,6 +53,9 @@ public class Restcontroller {
 	
 	@Autowired
 	ScheduleManagement sm;
+	
+	@Autowired
+	ProjectManagement pm;
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
@@ -145,5 +148,10 @@ public class Restcontroller {
 	}
 	
 	
+
+	@PostMapping("/SelectWaitingStep")
+	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
+		return si.selectStep(psb.get(0));
+	}
 
 }

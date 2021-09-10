@@ -115,4 +115,8 @@
 	
 	
 	
+	<select id="selectStep" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
+		select psname, username, stname,userid from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode}
+	</select>
+	
 </mapper>

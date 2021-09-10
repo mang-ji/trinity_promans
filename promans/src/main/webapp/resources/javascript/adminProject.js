@@ -1,15 +1,3 @@
-function getProject1 (jsonData){
-	let list = "";
-	let getProject = document.getElementById("getProject");
-	for(i=0; i<jsonData.length; i++){
-		
-	list += "<div onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\">"+ jsonData[i].prname + jsonData[i].prdate + jsonData[i].propen + "</div><br>";	
-
-	}
-	
-	getProject.innerHTML = list;
-
-}
 
 function goAdminProject(prcode){
      let f = document.createElement("form");

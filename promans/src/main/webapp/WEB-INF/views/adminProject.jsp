@@ -31,7 +31,13 @@
      });
      </script>
     </head>
+<<<<<<< HEAD
     <body onLoad="projectOnLoad()"> 
+=======
+    <body onLoad="projectOnLoad()">
+    
+   
+>>>>>>> 48a41e6f07bf6f2c058ba37b32e3f01f1f8547c3
     	<input type="hidden" name="utype" value="${utype}">
     	<input type="hidden" name="cpcode" value="${cpcode}">
     	<input type="hidden" name="userid" value="${userid}">
@@ -79,12 +85,13 @@
                 <!-- Page content-->
                 
                 <div class="container-fluid">
+
              
                     <div id="selectStep"></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
                      <div id="ShceduleEdit"></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
                   <div class="modal" tabindex="-1" role="dialog" name="modal">
               </div>
-                </div>
+               
             </div>
            
         </div>
@@ -92,5 +99,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="resources/javascript/scripts.js"></script>
+<<<<<<< HEAD
    </body>
+=======
+    
+    </body>
+>>>>>>> 48a41e6f07bf6f2c058ba37b32e3f01f1f8547c3
 </html>
