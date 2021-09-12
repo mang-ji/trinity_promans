@@ -54,6 +54,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	
 	ModelAndView mav;
 
+	
 	public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
 		List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb);
 		return list;
@@ -141,15 +142,28 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	
 	/* 승인 대기중인 스텝 리스트 조회 */
-	public List<ProjectStepBean> selectStep(ProjectStepBean psb) {
-		List<ProjectStepBean> list = sql.selectList("selectStep", psb);
+	public List<ProjectStepBean> selectStepReq(ProjectStepBean psb) {
+		List<ProjectStepBean> list = sql.selectList("selectStepReq", psb);
 		for(int i=0; i < list.size(); i++) {
 			try {
+				System.out.println(list.get(i).getUsername() + " : 복호화 전 ");
 				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				System.out.println(list.get(i).getUsername() + "  : 복호화 후  ");	
+			} catch (Exception e) {e.printStackTrace();}
 		}
+		return list;
+	}
+
+	/* 프로젝트 멤버 테이블에 있고 유저타입이 일반인 멤버 조회 */
+	public List<ProjectStepBean> selectManager(ProjectStepBean psb) {
+		List<ProjectStepBean> list = null;
+		try {
+			psb.setCpcode((String)pu.getAttribute("cpcode"));
+			list = sql.selectList("selectManager",psb);
+			for(int i=0; i<list.size();i++) {
+				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
+			}
+		} catch (Exception e) {e.printStackTrace();}
 		
 		return list;
 	}

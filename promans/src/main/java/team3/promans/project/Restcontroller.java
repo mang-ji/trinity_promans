@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -158,10 +159,21 @@ public class Restcontroller {
 	
 	
 
-	@PostMapping("/SelectWaitingStep")
-	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
-		return si.selectStep(psb.get(0));
+//	@PostMapping("/SelectWaitingStep")
+//	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
+//		return si.selectStep(psb.get(0));
+//	}
+//	
+	@PostMapping("/selectManager")
+	public List<ProjectStepBean> selectManager(@RequestBody ProjectStepBean psb){
+		return si.selectManager(psb);
 	}
+	@PostMapping("/makeStep")
+	public Map<String,String> makeStep(@RequestBody List<ProjectStepBean> psb) {
+		
+		return pm.makeStep(psb.get(0));
+	}
+
 	
 	@PostMapping("/ScheFeedback")
 	public Map<String, String> scheFeedback(@RequestBody List<ScheduleDetailBean> sdb){
@@ -172,6 +184,17 @@ public class Restcontroller {
 		
 		return map;
 		
+	}
+	@PostMapping("/SelectStepReq")
+	public List<ProjectStepBean> selectStepReq(@RequestBody List<ProjectStepBean> psb) {
+		return si.selectStepReq(psb.get(0));
+	}
+
+
+	@PostMapping("addJob")
+	public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
+		return tm.addJob(psb.get(0));
+
 		
 	}
 	
