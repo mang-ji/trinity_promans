@@ -1,6 +1,8 @@
 package team3.promans.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +63,6 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		return mav;
 	}
 
-
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;
 	}
@@ -70,8 +71,22 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public int updateComplete(ScheduleDetailBean sdb) {
 		return sqlSession.update("updateComplete", sdb);
 	}
-	
 
-	
+	public Map<String, String> makeStep(ProjectStepBean psb) {
+		Map<String,String> map = new HashMap<>();
+		
+		/* pscode 생성 어케하쥐 */
+		psb.setPscode("PS08");
+		
+		if(this.convertData(sqlSession.insert("insStep", psb))){
+			map.put("message", "스텝 생성이 완료되었습니다.");
+		}else {map.put("message","해당 스텝이 이미 존재합니다.");}
+		
+		return map;
+	}
+
+	public boolean convertData(int value) {
+		return value>0? true:false;
+	}
 	
 }

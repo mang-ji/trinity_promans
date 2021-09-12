@@ -7,7 +7,7 @@
 <!-- 업무 디테일 작성(글 작성) -->
 	<insert id="writeSchedule" parameterType="team3.promans.beans.ScheduleDetailBean">
 		INSERT INTO SD 
-		VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{userid},#{sdcode},#{sdname},#{sdtitle},sysdate,w)
+		VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{userid},#{sdcode},#{sdname},#{sdcontent},sysdate,'w')
 	</insert>
 
 <!-- 업무 일지 작성 -->
@@ -20,4 +20,25 @@
 	<update id="reqSchedule" parameterType="team3.promans.beans.ScheduleDetailBean">
 	
 	</update> -->	
+	
+	
+	<!-- 업무 디테일 완료 승인(업데이트, 관리자) -->
+	<update id="reqPass" parameterType="team3.promans.beans.ScheduleDetailBean">
+	
+	  UPDATE SCHEDULE_DETAIL SET SD_STATE = 'S' WHERE SD_USERID = #{userid} AND SD_STATE = 'W' AND SD_PRCODE = #{prcode}  AND SD_PSCODE = #{pscode} AND SD_SCCODE = #{sccode} AND SD_CODE = #{sdcode}
+	  	</update>
+	  	
+	  	<insert id="scheFeedback" parameterType = "team3.promans.beans.ScheduleDetailBean">
+	  	
+	  	INSERT INTO FT
+	  	VALUES(#{cpcode}, #{prcode}, #{pscode}, #{sccode}, #{sdcode}, #{userid}, 1 , #{sdcontent}, SYSDATE )
+	  	
+	  	</insert>
+	  	
+	  	<update id="updateScheFeedback" parameterType = "team3.promans.beans.ScheduleDetailBean">
+	  	
+	  	 UPDATE SCHEDULE_DETAIL SET SD_STATE = 'I' 
+	  	 WHERE SD_USERID = #{userid} AND SD_STATE = 'W' AND SD_PRCODE = #{prcode}  AND SD_PSCODE = #{pscode} AND SD_SCCODE = #{sccode} AND SD_CODE = #{sdcode}
+	  	
+	  	</update>
 </mapper>

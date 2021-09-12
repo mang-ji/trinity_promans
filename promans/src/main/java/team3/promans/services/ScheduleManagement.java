@@ -1,5 +1,7 @@
 package team3.promans.services;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +25,33 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 
 
 	public int writeSchedule(ScheduleDetailBean sdb) {
+		//세션
+		try {
+			sdb.setCpcode((String)pu.getAttribute("cpcode"));
+			sdb.setUserid((String)pu.getAttribute("userid"));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		sdb.setPrcode("PR04");
+		sdb.setPscode("PS01");
+		sdb.setSccode("SC03");
+		sdb.setSdcode("SD01");
+		//유저작성 
+		System.out.println(sdb.getSdname());
+		System.out.println(sdb.getSdcontent());
+		String result = "0";
 		try {
 			pu.setAttribute("sdcontent", sdb.getSdcontent());
 			pu.setAttribute("sdname", sdb.getSdname());
-			pu.setAttribute("sddate", sdb.getSddstate());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		return sql.insert("writeSchedule", sdb);
+		
+		if(sql.insert("writeSchedule", sdb)==1) {
+			result = "1";
+		}
+		
+		return Integer.parseInt(result);
 	}
 	
 
@@ -50,5 +71,29 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	public int writeDiary(ScheduleDetailBean sdb) {
 		return 0;
 	}
+
+
+	public int reqPass(ScheduleDetailBean sdb) {
+	
+		return sql.update("reqPass", sdb);
+		
+	}
+
+
+	public void scheFeedback(List<ScheduleDetailBean> sdb) {
+	     sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
+	    System.out.println(sdb.get(0));
+		sql.insert("scheFeedback", sdb.get(0));
+		this.updateScheFeedback(sdb);
+		
+		
+	}
+	
+	public void updateScheFeedback (List<ScheduleDetailBean> sdb) {
+		System.out.println("피드백 여기 업뎃");
+		sql.update("updateScheFeedback",sdb.get(0));
+	}
+	
+	
 
 }

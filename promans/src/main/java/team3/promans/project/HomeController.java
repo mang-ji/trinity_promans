@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.ProjectManagement;
+import team3.promans.services.SelectInfo;
 
 
 @Controller
@@ -34,6 +35,9 @@ public class HomeController {
 	
 	@Autowired
 	ProjectManagement pm;
+	
+	@Autowired
+	SelectInfo si;
 	
 	private ModelAndView mav;
 	
@@ -90,6 +94,8 @@ public class HomeController {
 	}
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm() {
+		
+		
 		return "mySchedule";
 	}
 	@GetMapping("myDiaryForm")
@@ -108,6 +114,14 @@ public class HomeController {
 		return "adminProject";
 	}
 	
+
+	/* 공지사항 추가*/
+	@PostMapping("insNotice")
+	public ModelAndView insNotice(@ModelAttribute Notice_CalendarBean nc) {
+		mav = si.insNotice(nc);
+		return mav;
+	}
+
 	@PostMapping("GoAdminScheduleForm")
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
 		try {
@@ -118,6 +132,7 @@ public class HomeController {
 		
 		return "adminSchedule";
 		
+
 	}
 	
 	@PostMapping("reqComplete")

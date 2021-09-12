@@ -16,5 +16,9 @@
 	<update id="updateComplete" parameterType="team3.promans.beans.ScheduleDetailBean">
 		UPDATE SC SET SC_STATE = #{sddstate} WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE = #{pscode} AND SC_CODE = #{sccode}
 	</update>
+	
+	<insert id="insStep" parameterType="team3.promans.beans.ProjectStepBean">
+		insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L')
+	</insert>
 
 </mapper>

@@ -1,6 +1,7 @@
 package team3.promans.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,4 +15,5 @@ public interface ProjectInterface {
 	public List<ProjectStepBean> updateStep(List<ProjectStepBean> psb);
 	public ModelAndView reqComplete(ScheduleDetailBean sdb);
 	public int updateComplete(ScheduleDetailBean sdb);
+	public Map<String, String> makeStep(ProjectStepBean psb);
 }
