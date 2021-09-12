@@ -31,6 +31,21 @@
 
 	<!-- 업무 일지 조회 -->
 
+	<!-- 공지사항 리스트 조회 -->
+	<select id="getNoticeList"
+		parameterType="team3.promans.beans.Notice_CalendarBean"
+		resultType="team3.promans.beans.Notice_CalendarBean">
+		SELECT NO_USERID as writer,
+		NO_TITLE as title,
+		NO_CONTENTS as contents,
+		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
+		NO_FILEPATH as filepath,
+		NO_FNAME as fname
+		FROM PNT
+		WHERE NO_CPCODE = #{cpcode}
+		</select>
+	
+	
 	<select id="getDiary" parameterType="team3.promans.beans.WorkDiaryBean" 
 	resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
@@ -45,34 +60,31 @@
 		and WD_PRCODE = #{prcode}
 		and WD_USERID = #{userid} 
 		
+
 	</select>
+	
+	<!-- 공지사항 글쓰기 -->
+	<insert id="insNotice" parameterType="team3.promans.beans.Notice_CalendarBean">
+		INSERT INTO PNT 
+		VALUES(#{cpcode}, #{prcode}, #{nocode}, #{writer}, #{title}, #{contents}, to_char(sysdate,'YYMMDD'), #{filepath}, #{fname})
+	</insert>
+	
 
 	<select id="getProject"
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectBean">
 
 		SELECT CPCODE, PRCODE, PRNAME, PROPEN, TO_CHAR(PRDATE,'YYYY-MM-dd') AS
-		PRDATE FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE =
-		#{cpcode}
+		PRDATE FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode}
        </select>
        
-	<select id = "getNoticeList" parameterType = "team3.promans.beans.Notice_CalendarBean" resultType = "team3.promans.beans.Notice_CalendarBean">
-	SELECT  NO_USERID as writer,
-			NO_TITLE as title,
-			NO_CONTENTS as contents,
-			TO_CHAR(NO_DATE, 'YYYY-MM-dd') as sdate, 
-			NO_FILEPATH as filepath,
-			NO_FNAME as fname 
-	FROM PNT 
-	WHERE NO_CPCODE = #{cpcode} 
 
-	</select>
 
 	<select id="getProjectStep"
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectStepBean">
 
-		SELECT PSNAME,STNAME,PSCODE FROM PROJECTVIEW WHERE CPCODE = #{cpcode} AND
+		SELECT CPCODE,PSNAME,STNAME,PSCODE,STCODE FROM PROJECTVIEW WHERE CPCODE = #{cpcode} AND
 		PRCODE = #{prcode}
 
 	</select>
@@ -138,6 +150,22 @@
 	
 	<select id="selectManager" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
 		select distinct username as username, userid from projectmemberview where utcode='G' and wcode='1'and prcode =#{prcode} and cpcode=#{cpcode}
+	</select>
+	
+	
+	<select id="getCompleteList" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
+		SELECT 
+		PS_CPCODE AS CPCODE,
+		PS_PRCODE AS PRCODE,
+		PS_CODE AS PSCODE,
+		PS_NAME AS PSNAME,
+		PS_USERID AS USERID,
+		PS_UTYPE AS UTYPE,
+		PS_STATE AS STCODE,
+		ST.ST_NAME AS STNAME 
+		FROM PS INNER JOIN ST ON PS.PS_STATE = ST.ST_CODE 
+		WHERE PS_CPCODE=#{cpcode} AND PS_PRCODE=#{prcode} AND PS_UTYPE=#{utype} AND PS_USERID=#{userid}
+	
 	</select>
 	
 </mapper>

@@ -20,7 +20,7 @@
 			//얘는 이미 세션에 들어있음 
 			let cpcode5 = document.getElementsByName("cpcode")[0].value;
 			let userid5 = document.getElementsByName("userid")[0].value;
-			let data = [{prcode:"PR04",pscode:"PS01",cpcode:cpcode5,userid:userid5}];
+			let data = [{prcode:"PR01",pscode:"PS01",cpcode:cpcode5,userid:userid5}];
 			let clientData = JSON.stringify(data);
 			alert(clientData);
 			postAjax("rest/GetMySchedule", clientData, 'mySchedulelist', 2);

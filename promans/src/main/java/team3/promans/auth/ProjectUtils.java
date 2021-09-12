@@ -55,13 +55,13 @@ public class ProjectUtils {
     
     /* Upload된 파일을 Local Repository에 저장 : savingFile(MultipartFile) */
     public String savingFile(MultipartFile file) {
-    	/*C:\Users\back\Desktop\java\SpringMVC\Schedule\src\main\webapp\resources\image*/
-    	String locate = "C:"+ File.separator + "Users"+ File.separator +
-    			"back" + File.separator + "Desktop" + File.separator + "java"
-    			+ File.separator + "SpringMVC"+ File.separator +"Schedule"
-    			+ File.separator +"src"+ File.separator +"main"+ File.separator +"webapp"
-    			+ File.separator +"resources"+ File.separator +"image";
     	String fileInfo = null;
+    	/*C:\repo\trinity_promans\promans\src\main\webapp\resources\images*/
+    	String locate = "C:"+ File.separator + "repo"+ File.separator +
+    			"trinity_promans" + File.separator + "promans" + File.separator + "src"
+    			+ File.separator + "main"+ File.separator +"webapp"
+    			+ File.separator +"resources"+ File.separator +"images";
+    	
     	
     	/*랜덤 이름 지정*/
     	UUID uuid = UUID.randomUUID();

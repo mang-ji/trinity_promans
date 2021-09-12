@@ -12,7 +12,34 @@
 		PM_USERID AS USERID,
         CM.CM_UNAME AS USERNAME 
 		FROM PM INNER JOIN CM ON PM.PM_USERID = CM.CM_USERID 
-		WHERE PM_CPCODE= #{cpcode} AND PM_PRCODE = #{prcode} AND PM_WCODE = '1'
+		WHERE PM_CPCODE= #{cpcode} AND PM_PRCODE = #{prcode} AND PM_WCODE = '1' AND PM_USERID != #{userid}
+	
 	</select>
+	
+	<select id="getMaxSc" parameterType="team3.promans.beans.ScheduleBean" resultType="int">
+		SELECT NVL(MAX(SUBSTR(SC_CODE,3,4)),0) FROM SC WHERE SC_PRCODE = #{prcode} AND SC_PSCODE = #{pscode}
+		
+	</select>
+	
+	<select id="getComplete" parameterType="team3.promans.beans.ScheduleBean" resultType="team3.promans.beans.ScheduleBean">
+		SELECT*FROM SCHEDULEVIEW 
+        WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode} AND SCSTCODE = #{scstcode}
+	</select>
+	
+	<insert id="insSchedule" parameterType="team3.promans.beans.ScheduleBean">
+		INSERT INTO SC VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{scname},#{scstate})
+		
+	</insert>
+	
+	<insert id="insScheduleMember" parameterType="team3.promans.beans.ScheduleBean">
+		INSERT INTO SM VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{userid},(SELECT CM_WCODE FROM CM WHERE CM_USERID = #{userid}),#{utype})
+	</insert>
+		
+	<update id="requestComplete" parameterType="team3.promans.beans.ProjectStepBean">
+	    UPDATE PS SET PS_STATE = #{stcode}
+        WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_CODE = #{pscode}
+	
+	</update>
+	
 	
 </mapper>
