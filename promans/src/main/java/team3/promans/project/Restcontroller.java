@@ -1,6 +1,8 @@
 package team3.promans.project;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
@@ -150,9 +153,24 @@ public class Restcontroller {
 	
 	
 
-	@PostMapping("/SelectWaitingStep")
-	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
-		return si.selectStep(psb.get(0));
+//	@PostMapping("/SelectWaitingStep")
+//	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
+//		return si.selectStep(psb.get(0));
+//	}
+//	
+	@PostMapping("/selectManager")
+	public List<ProjectStepBean> selectManager(@RequestBody ProjectStepBean psb){
+		return si.selectManager(psb);
 	}
+	@PostMapping("/makeStep")
+	public Map<String,String> makeStep(@RequestBody List<ProjectStepBean> psb) {
+		
+		return pm.makeStep(psb.get(0));
+	}
+	@PostMapping("/SelectStepReq")
+	public List<ProjectStepBean> selectStepReq(@RequestBody List<ProjectStepBean> psb) {
+		return si.selectStepReq(psb.get(0));
+	}
+
 
 }
