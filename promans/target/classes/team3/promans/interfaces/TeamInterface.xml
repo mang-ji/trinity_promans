@@ -4,5 +4,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="team3.promans.interfaces.TeamInterface">
-
+	
+	<select id="addJob" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ScheduleDetailBean">
+		SELECT 
+		PM_CPCODE AS CPCODE,
+		PM_PRCODE AS PRCODE,
+		PM_USERID AS USERID,
+        CM.CM_UNAME AS USERNAME 
+		FROM PM INNER JOIN CM ON PM.PM_USERID = CM.CM_USERID 
+		WHERE PM_CPCODE= #{cpcode} AND PM_PRCODE = #{prcode} AND PM_WCODE = '1'
+	</select>
+	
 </mapper>

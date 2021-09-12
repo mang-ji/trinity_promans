@@ -1,5 +1,7 @@
 package team3.promans.services;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,5 +71,29 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	public int writeDiary(ScheduleDetailBean sdb) {
 		return 0;
 	}
+
+
+	public int reqPass(ScheduleDetailBean sdb) {
+	
+		return sql.update("reqPass", sdb);
+		
+	}
+
+
+	public void scheFeedback(List<ScheduleDetailBean> sdb) {
+	     sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
+	    System.out.println(sdb.get(0));
+		sql.insert("scheFeedback", sdb.get(0));
+		this.updateScheFeedback(sdb);
+		
+		
+	}
+	
+	public void updateScheFeedback (List<ScheduleDetailBean> sdb) {
+		System.out.println("피드백 여기 업뎃");
+		sql.update("updateScheFeedback",sdb.get(0));
+	}
+	
+	
 
 }

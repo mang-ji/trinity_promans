@@ -8,5 +8,9 @@
 	<update id="updateStep" parameterType="team3.promans.beans.ProjectStepBean">
 	
 	</update>
+	
+	<insert id="insStep" parameterType="team3.promans.beans.ProjectStepBean">
+		insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L')
+	</insert>
 
 </mapper>
