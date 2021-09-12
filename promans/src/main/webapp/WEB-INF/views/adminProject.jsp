@@ -96,6 +96,7 @@
                   <div class="modal" tabindex="-1" role="dialog" name="modal"></div>
               </div>
                
+               <div id="mainPop"><div id="popUp"></div></div>
             </div>
            
         </div>

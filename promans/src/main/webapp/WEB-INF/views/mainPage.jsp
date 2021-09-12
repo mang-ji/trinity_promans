@@ -5,18 +5,15 @@
 <head>
 <meta charset="UTF-8">
 
-<script type="text/javascript" src="resources/javascript/adminProject.js"></script>
-<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
 <title>메인페이지</title>
- <script>
-
-<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
+<link href="resources/css/styles.css" rel="stylesheet" type="text/css">
 	<link href="resources/css/mainPage.css"rel="stylesheet"type="text/css">
 <script type="text/javascript"
 	src="resources/javascript/mainPage.js"></script>
 <script type="text/javascript"
 	src="resources/javascript/mainTemplate.js"></script>
 <title>Insert title here</title>
+
 <script>
 
      function getProject(){

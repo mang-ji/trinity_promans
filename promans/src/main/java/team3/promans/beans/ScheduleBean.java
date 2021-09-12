@@ -11,4 +11,6 @@ public class ScheduleBean {
 	private String scname;
 	private String scstate;
 	private String scstcode;
+	private String userid;
+	private String utype;
 }

@@ -154,6 +154,16 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return list;
 	}
 
+	public List<ProjectStepBean> getCompleteList(ProjectStepBean psb) {
+		psb.setUtype("L");
+		List<ProjectStepBean> list = sql.selectList("getCompleteList", psb);
+		return list;
+	}
+
+	
+	
+	
+	
 }
 
 

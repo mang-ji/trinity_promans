@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
@@ -56,6 +58,7 @@ public class Restcontroller {
 	
 	@Autowired
 	ProjectManagement pm;
+	
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
@@ -160,5 +163,26 @@ public class Restcontroller {
 	public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
 		return tm.addJob(psb.get(0));
 		
+	}
+	
+	@PostMapping("insSchedule")
+	public boolean insSchedule(@RequestBody List<ScheduleBean> sb) {
+		return tm.insSchedule(sb.get(0));
+	}
+	
+	@PostMapping("requestComplete")
+	public boolean requestComplete(@RequestBody List<ProjectStepBean> psb){
+		
+		return tm.requestComplete(psb.get(0));
+	}
+	
+	@PostMapping("getComplete")
+	public List<ScheduleBean> getComplete(@RequestBody List<ScheduleBean> sb){
+		return tm.getComplete(sb.get(0));
+	}
+	
+	@PostMapping("getCompleteList")
+	public List<ProjectStepBean> getCompleteList(@RequestBody List<ProjectStepBean> psb){
+		return si.getCompleteList(psb.get(0));
 	}
 }

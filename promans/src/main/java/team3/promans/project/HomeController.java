@@ -17,6 +17,7 @@ import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.ScheduleDetailBean;
+import team3.promans.services.ProjectManagement;
 
 
 @Controller
@@ -30,6 +31,9 @@ public class HomeController {
 	
 	@Autowired
 	Authentication auth;
+	
+	@Autowired
+	ProjectManagement pm;
 	
 	private ModelAndView mav;
 	
@@ -114,6 +118,12 @@ public class HomeController {
 		
 		return "adminSchedule";
 		
+	}
+	
+	@PostMapping("reqComplete")
+	public ModelAndView reqComplete(@ModelAttribute ScheduleDetailBean sdb) {
+		mav = pm.reqComplete(sdb);
+		return mav;
 	}
 }
 
