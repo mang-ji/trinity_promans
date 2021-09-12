@@ -17,52 +17,6 @@
 <meta name="author" content="" />
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
-<script>
-	window.addEventListener('load', function() {
-		let cpcodes = document.getElementsByName("cpcode")[0];
-		let userids = document.getElementsByName("writer")[0];
-		let data = [ {cpcode : cpcodes.value, writer : userids.value} ];
-		postAjax("rest/getNotice", JSON.stringify(data), 'afterNotice', 2);
-	});
-
-	function afterNotice(data) {
-		let tablebody = document.getElementById("table_body");
-		let html = "";
-		
-		for (i = 0; i < data.length; i++) {
-			html += "<tr onClick = \"NoticeClick(\'"+data[i].title+"\', \'"+data[i].sdate+"\', \'" +data[i].contents+ "\')\">";
-			html += "<td>1</td>";
-			html += "<td>" + data[i].title + "</td>";
-			html += "<td>" + data[i].sdate + "</td></tr>";
-			
-		}
-
-		tablebody.innerHTML = html;
-	}
-	
-	function NoticeClick(title, sdate, contents){
-		let Notice = document.getElementById("Notice");
-		let table_notice = document.getElementById("table_notice");
-		let html = "";
-		
-		table_notice.remove();
-		//"<input type='text' name='NoticeDetail' onClick='NoticeDetail()'/>
-		html += "<div id =\"box\">";
-		html += "<div id = \"title\">"+"제목 : "+title+"</div>";
-		html += "<div id = \"date\">"+"작성날짜 : "+sdate+"</div>";
-		html += "<div id = \"contents\">"+contents+"</div>";
-		html += "<a href=\"noticeForm\"><input type =\"button\" id = \"btn\" value =\"목록\" ></a>";
-		html += "</div>";
-		Notice.innerHTML = html;
-	}
-	
-	
-	
-	
-	
-	
-</script>
-
 
 <title>공지사항</title>
 
@@ -77,6 +31,7 @@ table {
 <body onLoad="projectOnLoad()">
 	<input type="hidden" name="utype" value="${utype}">
 	<input type="hidden" name="cpcode" value="${cpcode}">
+	<input type="hidden" name="prcode" value="${prcode}">
 	<input type="hidden" name="writer" value="${userid}">
 
 	<div class="d-flex" id="wrapper">
@@ -129,26 +84,32 @@ table {
 			</nav>
 			<!-- Page content-->
 			<div class="container-fluid">
-				<table id = "table_notice">
-						<tr >
-							<th></th>
-							<th>제목</th>
-							<th>작성날짜</th>
-						</tr>
-					<tbody id = "table_body">
-						
+				<table id="table_notice">
+					<tr>
+						<th></th>
+						<th>제목</th>
+						<th>작성날짜</th>
+					</tr>
+					<tbody id="table_body">
+
 					</tbody>
-					
+
 				</table>
-			<div id = "Notice">
-				
-			</div>
-			
+
+				<div>
+					<input type="button" id="Writebtn" value="글쓰기"
+						onClick="OpenPopup()" />
+				</div>
+
+				<div id="Notice"></div>
+
+
 			</div>
 		</div>
 	</div>
 
-	<!-- 공지사항 틀 -->
+	<div id="popup"><div id="popup1"></div></div>
+
 
 
 

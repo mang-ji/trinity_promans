@@ -99,13 +99,11 @@ public class Restcontroller {
 		
 	}
 	
-
+	/* 공지사항 리스트 조회 */
 	@PostMapping("/getNotice")
 	public List<Notice_CalendarBean> getNoticeList(@RequestBody List<Notice_CalendarBean> nc) {
 		return si.getNoticeList(nc.get(0));
 	}
-	
-
 	
 
 	@PostMapping("/GetProject")

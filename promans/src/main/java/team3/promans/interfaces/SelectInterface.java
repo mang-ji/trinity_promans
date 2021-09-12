@@ -3,6 +3,8 @@ package team3.promans.interfaces;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
+
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.beans.ProjectBean;
@@ -18,4 +20,5 @@ public interface SelectInterface {
 	  public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb); 
 	  public List<ScheduleBean> selectSchedule(ProjectStepBean psb); 
 	  public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb);
+	  public ModelAndView insNotice(Notice_CalendarBean nc);
 }

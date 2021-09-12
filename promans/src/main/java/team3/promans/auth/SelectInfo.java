@@ -50,10 +50,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	
 	ModelAndView mav;
 
-	public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
-		List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb);
-		return list;
-	}
+	/*
+	 * public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
+	 * List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb); return
+	 * list; }
+	 */
 
 	/*내 업무 조회*/
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb) {
@@ -79,13 +80,36 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return getDiarylist;
 	}
 
+	/* 공지사항 리스트 조회 */
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
 		List<Notice_CalendarBean> noticeList;
 		noticeList = sql.selectList("getNoticeList", nc);
 		return noticeList;
-
 	}
-
+	
+	/* 공지사항 추가*/
+	public ModelAndView insNotice(Notice_CalendarBean nc) {
+		mav = new ModelAndView();
+		nc.setNocode("1212");
+		
+		if(nc.getFile().isEmpty()) {
+			nc.setFilepath("");
+		}else {
+			nc.setFname(nc.getFile().getOriginalFilename());
+			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
+		}
+		
+		/*
+		 * if(ub.getMpfile().isEmpty()){ ub.setStickerpath("");
+		 * 
+		 * }else { ub.setStickerpath("/resources/image/"+pu.savingFile(ub.getMpfile()));
+		 */
+		
+		sql.insert("insNotice", nc);
+		mav.setViewName("noticePage");
+		return mav;
+		
+	}
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
 
@@ -113,6 +137,12 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		}
 		return getSD;
 
+	}
+
+	@Override
+	public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean nc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
