@@ -18,41 +18,21 @@
         window.addEventListener('load', function(){
         	let cpcode2 = document.getElementsByName("cpcode")[0].value;
         	let prcode2 = document.getElementsByName("prcode")[0].value;
-			let wdcode2 = document.getElementsByName("wdcode")[0].value;
+        	let pscode2 = document.getElementsByName("pscode")[0].value;
+        	let wdcode2 = document.getElementsByName("wdcode")[0].value;
 			
-        	let data = [{cpcode:cpcode2,prcode:prcode2,wdcode:wdcode2}];
+        	let data = [{cpcode:cpcode2,prcode:prcode2,pscode:pscode2,wdcode:wdcode2}];
 			let clientData = JSON.stringify(data);
 			postAjax("rest/GetDiary", clientData, 'getDiarylist', 2);
 		});
-        
-        function getDiarylist(data){
-        	let tablebody = document.getElementById("table_body");
-			let html = "";
-			
-			for (i=0; i<data.length; i++){
-				html += "<tr onClick = \"getDiary(\'"+data[i].wdtitle+"\',\'"+data[i].wdcontents+"\',\'"+data[i].wddate+"\')\">";
-				html += "<td>" + data[i].wdtitle + "</td>";
-				html += "<td>" + data[i].wdcontents + "</td>";
-				html += "<td>" + data[i].wddate + "</td></tr>";
-			}
-			tablebody.innerHTML = html;
-		}
-        
-        function getDiary(wdtitle,wddate,wdcontents){
-        	let mySchedule = document.getElementById("getDiary");
-			let html = "";
-			html += "<div id = \"wdtitle\">"+"제목 :"+wdtitle+"</div>";
-			html += "<div id = \"wdcontents\">"+"내용 :"+wdcontents+"</div>";
-			html += "<div id = \"wddate\">"+"날짜 :"+wddate+"</div>";
-			mSchedule.innerHTML = html;
-		}
-        </script>
+    </script>
         <title>업무 일지</title>
     </head>
     <body onLoad="projectOnLoad()">
         	<input type="hidden" name="utype" value="${utype}">
         	<input type="hidden" name="cpcode" value="${cpcode}">
         	<input type="hidden" name="prcode" value="${prcode}">
+        	<input type="hidden" name="pscode" value="${pscode}">
         	<input type="hidden" name="wdcode" value="${wdcode}">
         	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
@@ -96,26 +76,17 @@
                     </div>
                 </nav>
                 <!-- Page content (게시판 형식)-->
-			<div class="container-fluid">
-				<table border = 1 id = "getDiary">
-						<tr >
-							<th style="width: 10%">제목</th>
-							<th style="width: 10%">내용</th>
-							<th style="width: 10%">날짜</th>
-						</tr>
-					<tbody id = "table_body">
-							
-							<tr>
-								
-							</tr>
-					</tbody>
-				</table>
-				<div id="writeSchedule">
-					<input type="button" name="wSchedule" value="작성" onClick="writeDiary()">
+		<div class="container-fluid">
+			<div id = "myDiary"></div>
+					<input class="inputBox" style=display:none type="text" name="wdtitle1" placeholder="제목" />
+					<input class="inputBox" style=display:none type="text" name="wdcontents1" placeholder="내용" />	
+				<div id= "writeDiary">
+					<input type="button" id="wBtn" name="wDiary" value="작성하기" onClick="writeDiary()">
+					<input type="button" id="sBtn" style=display:none name="sDiary" value="작성" onClick="sendDiary()">
 				</div>
-			</div>
 		</div>
-        </div>
+	</div>
+</div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

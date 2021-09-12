@@ -25,14 +25,33 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 
 
 	public int writeSchedule(ScheduleDetailBean sdb) {
+		//세션
+		try {
+			sdb.setCpcode((String)pu.getAttribute("cpcode"));
+			sdb.setUserid((String)pu.getAttribute("userid"));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		sdb.setPrcode("PR04");
+		sdb.setPscode("PS01");
+		sdb.setSccode("SC03");
+		sdb.setSdcode("SD01");
+		//유저작성 
+		System.out.println(sdb.getSdname());
+		System.out.println(sdb.getSdcontent());
+		String result = "0";
 		try {
 			pu.setAttribute("sdcontent", sdb.getSdcontent());
 			pu.setAttribute("sdname", sdb.getSdname());
-			pu.setAttribute("sddate", sdb.getSddstate());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		return sql.insert("writeSchedule", sdb);
+		
+		if(sql.insert("writeSchedule", sdb)==1) {
+			result = "1";
+		}
+		
+		return Integer.parseInt(result);
 	}
 	
 

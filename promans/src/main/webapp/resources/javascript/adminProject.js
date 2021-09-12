@@ -1,4 +1,5 @@
 
+
 function goAdminProject(prcode){
      let f = document.createElement("form");
      let input = document.createElement("input");
@@ -18,6 +19,7 @@ function goAdminProject(prcode){
 	f.submit();
 	
 }
+
 /*function getProjectStep(cpcode, prcode){
 	
 	

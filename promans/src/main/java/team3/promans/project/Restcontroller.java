@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,24 +75,26 @@ public class Restcontroller {
 	
 	
 	@PostMapping("/GetMySchedule")
-	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb) throws Exception{
+	@ResponseBody
+	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
 		return si.getMySchedule(sdb.get(0));
 	}
 	
 	
 	@PostMapping("/WriteSchedule")
-	public int writeSchedule(@ModelAttribute ScheduleDetailBean sdb) {
-		
-		return sm.writeSchedule(sdb);
+	@ResponseBody
+	public int writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+		//sm.writeSchedule(sdb.get(0))
+		return 1;
 	}
 	
-	/*업무 일지 작성*/
+	
 	@PostMapping("/WriteDiary")
 	public int writeDiary(@ModelAttribute WorkDiaryBean wdb) {
 		return sm.writeDiary(wdb);
 	}
 	
-	/*업무 일지 조회*/
+	
 	@PostMapping("/GetDiary")
 	public List<WorkDiaryBean> getDiary(@RequestBody List<WorkDiaryBean> wdb){
 		return si.getDiary(wdb.get(0));
