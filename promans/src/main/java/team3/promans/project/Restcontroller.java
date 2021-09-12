@@ -1,6 +1,9 @@
 package team3.promans.project;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
@@ -56,6 +61,8 @@ public class Restcontroller {
 	
 	@Autowired
 	ProjectManagement pm;
+	
+	ModelAndView mav;
 
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
@@ -145,7 +152,7 @@ public class Restcontroller {
 	@PostMapping("/ReqForCompletion")
 	public List<ScheduleDetailBean> reqForCompletion(@RequestBody List<ScheduleDetailBean> sdb){
 	
-		System.out.println("요기 레컨");
+	
 		return si.reqForCompletion(sdb.get(0));
 	}
 	
@@ -155,10 +162,29 @@ public class Restcontroller {
 	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
 		return si.selectStep(psb.get(0));
 	}
-
-	@PostMapping("addJob")
-	public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
-		return tm.addJob(psb.get(0));
+	
+	@PostMapping("/ScheFeedback")
+	public Map<String, String> scheFeedback(@RequestBody List<ScheduleDetailBean> sdb){
+		Map<String, String> map = new HashMap<>();
+		map.put("message", "업데이트");
+		
+		sm.scheFeedback(sdb);
+		
+		return map;
+		
 		
 	}
+	
+	@PostMapping("/ReqPass")
+	public int reqPass(@RequestBody List<ScheduleDetailBean> sdb){
+		
+		
+		return sm.reqPass(sdb.get(0));
+	}
+
+	//@PostMapping("addJob")
+	//public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
+	//	return tm.addJob(psb.get(0));
+		
+	//}
 }
