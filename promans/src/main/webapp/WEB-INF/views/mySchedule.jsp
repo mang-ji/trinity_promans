@@ -13,10 +13,33 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <title>내 업무</title>
+	<script>
+		window.addEventListener('load',function() {
+			let prcode5 = document.getElementsByName("prcode")[0].value;
+			let pscode5 = document.getElementsByName("pscode")[0].value;
+			//얘는 이미 세션에 들어있음 
+			let cpcode5 = document.getElementsByName("cpcode")[0].value;
+			let userid5 = document.getElementsByName("userid")[0].value;
+			let data = [{prcode:"PR04",pscode:"PS01",cpcode:cpcode5,userid:userid5}];
+			let clientData = JSON.stringify(data);
+			alert(clientData);
+			postAjax("rest/GetMySchedule", clientData, 'mySchedulelist', 2);
+		});
+	</script>
+    <title>내 업무</title>
+	<style>
+	table{
+		width: 95%;
+		border: 1px #ddddddd;
+	}	
+	</style>    
     </head>
     <body onLoad="projectOnLoad()">
         	<input type="hidden" name="utype" value="${utype}">
+        	<input type="hidden" name="cpcode" value="${cpcode}">
+        	<input type="hidden" name="prcode" value="${prcode}">
+        	<input type="hidden" name="pscode" value="${pscode}">
+        	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -29,7 +52,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="getMySchedule()" id="getMySchedulelist">내 업무 조회</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myDiaryForm">업무 일지</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -58,11 +81,17 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
-
-                </div>
-            </div>
-        </div>
+			<div class="container-fluid">
+				<div id = "mySchedule"></div>
+					<input class="inputBox" style=display:none type="text" name="sdcontent1" placeholder="제목" />
+					<input class="inputBox" style=display:none type="text" name="sdname1" placeholder="내용" />	
+				<div id= "writeSchedule">
+					<input type="button" id="wBtn" name="wSchedule" value="작성하기" onClick="writeSchedule()">
+					<input type="button" id="sBtn" style=display:none name="sSchedule" value="작성" onClick="sendSchedule()">
+				</div>
+			</div>
+			</div>
+		</div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

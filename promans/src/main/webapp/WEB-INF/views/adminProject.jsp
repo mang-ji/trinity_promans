@@ -29,13 +29,27 @@
     		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
     		
      });
+     
+
      </script>
+
+     </head>
+
     </head>
+
+
     <body onLoad="projectOnLoad()">
+    
+  
     	<input type="hidden" name="utype" value="${utype}">
-    	<input type="hidden" name="cpcode" value="${cpcode}">
-    	<input type="hidden" name="userid" value="${userid}">
-    	<input type="hidden" name="prcode" value="${prcode}">
+        <input type="hidden" name="cpcode" value="${cpcode}">
+        <input type="hidden" name="prcode" value="${prcode}">
+        <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="userid" value="${userid}">
+        
+        <div id = "modal1" style="display:none;" ></div>
+        <div id = "modal2"  style="display:none;"></div>
+        
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -51,8 +65,10 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                 </div>
             </div>
+            
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
+          
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
@@ -77,14 +93,25 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
-                    <div id="selectStep"></div>
-                </div>
-            </div>
-        </div>
+                
+                <div class="container-fluid" >
+           
+                    <div id="selectStep"></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
+                     <div id="ShceduleEdit" ></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
+              </div>
+               
+            
+           </div>
+           </div>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="resources/javascript/scripts.js"></script>
+
+   </body>
+
+    
     </body>
+
 </html>

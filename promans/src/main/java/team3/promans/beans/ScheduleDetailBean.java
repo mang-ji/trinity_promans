@@ -18,4 +18,5 @@ public class ScheduleDetailBean {
 	private String sddate;
 	private String sddstate;
 	private String sddcode;
+	
 }

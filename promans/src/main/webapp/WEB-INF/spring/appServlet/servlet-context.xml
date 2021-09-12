@@ -23,8 +23,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="team3.promans.project" />
-	
 		<beans:bean class="com.google.gson.Gson" />
 	
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -39,5 +37,6 @@
 	<context:component-scan base-package="team3.promans.auth"></context:component-scan>
 	<context:component-scan base-package="team3.promans.project"></context:component-scan>
 	<context:component-scan base-package="team3.promans.services"></context:component-scan>
+	<context:component-scan base-package="team3.promans.beans"></context:component-scan>
 	
 </beans:beans>

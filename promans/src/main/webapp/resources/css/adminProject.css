@@ -1,1 +1,38 @@
 @charset "UTF-8";
+
+
+#modal1{
+	
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	width:800px;
+	height:300px;
+	z-index: 700;
+	border: 2px solid #f6f8f8;
+	background-color:#FFFFFF;
+	
+	
+}
+
+#modal2{
+	
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	width:800px;
+	height:300px;
+	z-index: 700;
+	border: 2px solid #f6f8f8;
+	background-color:#FFFFFF;
+	
+	
+}
+
+#btnSearch{
+	
+	text-align:center;
+	margin-left: 350px;
+}
