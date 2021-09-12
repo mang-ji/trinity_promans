@@ -15,36 +15,16 @@
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 	<script>
 		window.addEventListener('load',function() {
-			let prcode1 = document.getElementsByName("prcode")[0].value;
-			let pscode1 = document.getElementsByName("pscode")[0].value;
-			let cpcode1 = document.getElementsByName("cpcode")[0].value;
-			let userid1 = document.getElementsByName("userid")[0].value;
-			let data = [{prcode:prcode1,pscode:"PS01",cpcode:cpcode1,userid:userid1}];
+			let prcode5 = document.getElementsByName("prcode")[0].value;
+			let pscode5 = document.getElementsByName("pscode")[0].value;
+			//얘는 이미 세션에 들어있음 
+			let cpcode5 = document.getElementsByName("cpcode")[0].value;
+			let userid5 = document.getElementsByName("userid")[0].value;
+			let data = [{prcode:"PR01",pscode:"PS01",cpcode:cpcode5,userid:userid5}];
 			let clientData = JSON.stringify(data);
+			alert(clientData);
 			postAjax("rest/GetMySchedule", clientData, 'mySchedulelist', 2);
 		});
-
-		function mySchedulelist(data) {
-			let tablebody = document.getElementById("table_body");
-			let html = "";
-			
-			for (i = 0; i < data.length; i++) {
-				html += "<tr onClick = \"mySchedule(\'"+data[i].sdcontent+"\',\'"+data[i].sdname+"\', \'"+data[i].sddate+"\')\">";
-				html += "<td>" + data[i].sdcontent + "</td>";
-				html += "<td>" + data[i].sdname + "</td>";
-				html += "<td>" + data[i].sddate + "</td></tr>";
-			}
-			tablebody.innerHTML = html;
-		}
-
-		function mySchedule(sdcontent,sddate,sdname) {
-			let mySchedule = document.getElementById("mySchedule");
-			let html = "";
-			html += "<div id = \"sdcontent\">"+"제목 :"+sdcontent+"</div>";
-			html += "<div id = \"sdname\">"+"내용 :"+sdname+"</div>";
-			html += "<div id = \"sddate\">"+"날짜 :"+sddate+"</div>";
-			mSchedule.innerHTML = html;
-		}
 	</script>
     <title>내 업무</title>
 	<style>
@@ -102,29 +82,16 @@
                 </nav>
                 <!-- Page content-->
 			<div class="container-fluid">
-				<table border = 1 id = "mySchedule">
-						<tr >
-							<th style="width: 10%">제목</th>
-							<th style="width: 10%">내용</th>
-							<th style="width: 10%">날짜</th>
-						</tr>
-					<tbody id = "table_body">
-							<tr>
-		
-							</tr>
-					</tbody>
-				</table>
-			<div id = "mSchedule">
-				<input type="submit" name="wSchedule" value="작성" onClick="writeSchedule()">
-				<input type="text" name="sdcontent" placeholder="제목" value="">
-				<input type="text" name="sdname" placeholder="내용" value="">
-				<button type="submit" name="sub">작성하기</button>  
-			</div>
-			
+				<div id = "mySchedule"></div>
+					<input class="inputBox" style=display:none type="text" name="sdcontent1" placeholder="제목" />
+					<input class="inputBox" style=display:none type="text" name="sdname1" placeholder="내용" />	
+				<div id= "writeSchedule">
+					<input type="button" id="wBtn" name="wSchedule" value="작성하기" onClick="writeSchedule()">
+					<input type="button" id="sBtn" style=display:none name="sSchedule" value="작성" onClick="sendSchedule()">
+				</div>
 			</div>
 			</div>
 		</div>
-        </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

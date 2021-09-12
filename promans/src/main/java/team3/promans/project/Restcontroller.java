@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,24 +75,24 @@ public class Restcontroller {
 	
 	
 	@PostMapping("/GetMySchedule")
-	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb) throws Exception{
+	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
 		return si.getMySchedule(sdb.get(0));
 	}
 	
 	
 	@PostMapping("/WriteSchedule")
-	public int writeSchedule(@ModelAttribute ScheduleDetailBean sdb) {
-		
-		return sm.writeSchedule(sdb);
+	public int writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+		//sm.writeSchedule(sdb.get(0))
+		return 1;
 	}
 	
-	/*업무 일지 작성*/
+	
 	@PostMapping("/WriteDiary")
 	public int writeDiary(@ModelAttribute WorkDiaryBean wdb) {
 		return sm.writeDiary(wdb);
 	}
 	
-	/*업무 일지 조회*/
+	
 	@PostMapping("/GetDiary")
 	public List<WorkDiaryBean> getDiary(@RequestBody List<WorkDiaryBean> wdb){
 		return si.getDiary(wdb.get(0));
@@ -112,7 +115,7 @@ public class Restcontroller {
 		
 	}
 	
-
+	/* 공지사항 리스트 조회 */
 	@PostMapping("/getNotice")
 	public List<Notice_CalendarBean> getNoticeList(@RequestBody List<Notice_CalendarBean> nc) {
 		return si.getNoticeList(nc.get(0));
@@ -152,8 +155,6 @@ public class Restcontroller {
 	
 	@PostMapping("/ReqForCompletion")
 	public List<ScheduleDetailBean> reqForCompletion(@RequestBody List<ScheduleDetailBean> sdb){
-	
-	
 		return si.reqForCompletion(sdb.get(0));
 	}
 	
@@ -198,6 +199,28 @@ public class Restcontroller {
 		
 	}
 	
+	@PostMapping("insSchedule")
+	public boolean insSchedule(@RequestBody List<ScheduleBean> sb) {
+		return tm.insSchedule(sb.get(0));
+	}
+	
+	@PostMapping("requestComplete")
+	public boolean requestComplete(@RequestBody List<ProjectStepBean> psb){
+		
+		return tm.requestComplete(psb.get(0));
+	}
+	
+	@PostMapping("getComplete")
+	public List<ScheduleBean> getComplete(@RequestBody List<ScheduleBean> sb){
+		return tm.getComplete(sb.get(0));
+	}
+	
+	@PostMapping("getCompleteList")
+	public List<ProjectStepBean> getCompleteList(@RequestBody List<ProjectStepBean> psb){
+		return si.getCompleteList(psb.get(0));
+		
+	}
+		
 	@PostMapping("/ReqPass")
 	public int reqPass(@RequestBody List<ScheduleDetailBean> sdb){
 		
@@ -205,9 +228,4 @@ public class Restcontroller {
 		return sm.reqPass(sdb.get(0));
 	}
 
-	//@PostMapping("addJob")
-	//public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
-	//	return tm.addJob(psb.get(0));
-		
-	//}
 }

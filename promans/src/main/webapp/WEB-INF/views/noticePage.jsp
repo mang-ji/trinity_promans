@@ -17,6 +17,7 @@
 <meta name="author" content="" />
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
+
 <script>
 	window.addEventListener('load', function() {
 		let cpcodes = document.getElementsByName("cpcode")[0];
@@ -84,6 +85,7 @@ table {
 <body onLoad="projectOnLoad()">
 	<input type="hidden" name="utype" value="${utype}">
 	<input type="hidden" name="cpcode" value="${cpcode}">
+	<input type="hidden" name="prcode" value="${prcode}">
 	<input type="hidden" name="writer" value="${userid}">
 
 	<div class="d-flex" id="wrapper">
@@ -138,26 +140,32 @@ table {
 			</nav>
 			<!-- Page content-->
 			<div class="container-fluid">
-				<table id = "table_notice">
-						<tr >
-							<th></th>
-							<th>제목</th>
-							<th>작성날짜</th>
-						</tr>
-					<tbody id = "table_body">
-						
+				<table id="table_notice">
+					<tr>
+						<th></th>
+						<th>제목</th>
+						<th>작성날짜</th>
+					</tr>
+					<tbody id="table_body">
+
 					</tbody>
-					
+
 				</table>
-			<div id = "Notice">
-				
-			</div>
-			
+
+				<div>
+					<input type="button" id="Writebtn" value="글쓰기"
+						onClick="OpenPopup()" />
+				</div>
+
+				<div id="Notice"></div>
+
+
 			</div>
 		</div>
 	</div>
 
-	<!-- 공지사항 틀 -->
+	<div id="popup"><div id="popup1"></div></div>
+
 
 
 
