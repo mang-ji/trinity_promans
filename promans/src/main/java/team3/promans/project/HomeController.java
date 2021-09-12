@@ -86,6 +86,8 @@ public class HomeController {
 	}
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm() {
+		
+		
 		return "mySchedule";
 	}
 	@GetMapping("myDiaryForm")

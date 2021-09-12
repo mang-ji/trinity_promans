@@ -12,7 +12,6 @@
 		WHERE CM.CM_USERID = #{writer}
 		</select>
 		
-	<!-- 내 업무 조회 -->
 	<select id="getMySchedule" parameterType="team3.promans.beans.ScheduleDetailBean"
 	resultType="team3.promans.beans.ScheduleDetailBean">
 		SELECT
@@ -20,7 +19,9 @@
 		SD_CODE as sdcode,
 		SD_NAME as sdname,
 		SD_TITLE as sdcontent,
-		SD_DATE as sddate 
+		SD_DATE as sddate,
+		SD_PRCODE as prcode,
+		SD_PSCODE as pscode  
 		FROM SD
 		WHERE SD_CPCODE= #{cpcode} and
 		SD_PRCODE= #{prcode} and
@@ -28,7 +29,6 @@
 		SD_USERID= #{userid}
 	</select>
 
-	<!-- 업무 일지 조회 -->
 	<select id="getDiary" parameterType="team3.promans.beans.WorkDiaryBean" 
 	resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
