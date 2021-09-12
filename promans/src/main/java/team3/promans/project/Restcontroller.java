@@ -75,14 +75,12 @@ public class Restcontroller {
 	
 	
 	@PostMapping("/GetMySchedule")
-	@ResponseBody
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
 		return si.getMySchedule(sdb.get(0));
 	}
 	
 	
 	@PostMapping("/WriteSchedule")
-	@ResponseBody
 	public int writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
 		//sm.writeSchedule(sdb.get(0))
 		return 1;
@@ -157,8 +155,6 @@ public class Restcontroller {
 	
 	@PostMapping("/ReqForCompletion")
 	public List<ScheduleDetailBean> reqForCompletion(@RequestBody List<ScheduleDetailBean> sdb){
-	
-	
 		return si.reqForCompletion(sdb.get(0));
 	}
 	
@@ -232,9 +228,4 @@ public class Restcontroller {
 		return sm.reqPass(sdb.get(0));
 	}
 
-	//@PostMapping("addJob")
-	//public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
-	//	return tm.addJob(psb.get(0));
-		
-	//}
 }

@@ -44,7 +44,8 @@
 		FROM PNT
 		WHERE NO_CPCODE = #{cpcode}
 		</select>
-
+	
+	
 	<select id="getDiary" parameterType="team3.promans.beans.WorkDiaryBean" 
 	resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
@@ -77,17 +78,7 @@
 		PRDATE FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode}
        </select>
        
-	<select id = "getNoticeList" parameterType = "team3.promans.beans.Notice_CalendarBean" resultType = "team3.promans.beans.Notice_CalendarBean">
-	SELECT  NO_USERID as writer,
-			NO_TITLE as title,
-			NO_CONTENTS as contents,
-			TO_CHAR(NO_DATE, 'YYYY-MM-dd') as sdate, 
-			NO_FILEPATH as filepath,
-			NO_FNAME as fname 
-	FROM PNT 
-	WHERE NO_CPCODE = #{cpcode} 
 
-	</select>
 
 	<select id="getProjectStep"
 		parameterType="team3.promans.beans.ProjectMemberBean"

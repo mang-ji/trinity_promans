@@ -27,7 +27,6 @@ public interface SelectInterface {
 	  public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb);
 	  public List<ScheduleDetailBean> getSDInfo(ScheduleDetailBean sdb);
 	  public List<ScheduleDetailBean> reqForCompletion(ScheduleDetailBean sdb);
-	  public List<ProjectStepBean> selectStep(ProjectStepBean psb);
 	  
 	  public List<ProjectStepBean> getCompleteList(ProjectStepBean psb);
 	  public List<ProjectStepBean> selectStepReq(ProjectStepBean psb);

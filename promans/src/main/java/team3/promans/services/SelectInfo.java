@@ -58,7 +58,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	 * list; }
 	 */
 
-	
+
 	public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
 		List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb);
 		return list;
@@ -85,36 +85,37 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	/* 공지사항 리스트 조회 */
 
-	
+
 
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
 		List<Notice_CalendarBean> noticeList;
 		noticeList = sql.selectList("getNoticeList", nc);
 		return noticeList;
 	}
-	
+
 	/* 공지사항 추가*/
 	public ModelAndView insNotice(Notice_CalendarBean nc) {
 		mav = new ModelAndView();
 		nc.setNocode("1212");
-		
+
 		if(nc.getFile().isEmpty()) {
+			nc.setFname("");
 			nc.setFilepath("");
 		}else {
 			nc.setFname(nc.getFile().getOriginalFilename());
 			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
 		}
-		
+
 		/*
 		 * if(ub.getMpfile().isEmpty()){ ub.setStickerpath("");
 		 * 
 		 * }else { ub.setStickerpath("/resources/image/"+pu.savingFile(ub.getMpfile()));
 		 */
-		
+
 		sql.insert("insNotice", nc);
 		mav.setViewName("noticePage");
 		return mav;
-		
+
 	}
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
@@ -147,25 +148,23 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
-	@Override
 	public List<ScheduleDetailBean> getSDInfo(ScheduleDetailBean sdb) {
-		// TODO Auto-generated method stub
-		return null;
+		return  sql.selectList("getSDInfo", sdb);
 	}
 
-	@Override
-	public List<ScheduleDetailBean> reqForCompletion(ScheduleDetailBean sdb) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ScheduleDetailBean> reqForCompletion(ScheduleDetailBean sdb){
+		List<ScheduleDetailBean> req = sql.selectList("reqForCompletion", sdb);
+
+		for(int i=0; i< req.size(); i++) {
+
+			try {
+				req.get(i).setUsername(enc.aesDecode(req.get(i).getUsername(), req.get(i).getUserid()));
+			} catch (Exception e) {e.printStackTrace();} 
+		}
+
+		return req;
 	}
 
-
-	//@Override
-	public List<ProjectStepBean> selectStep(ProjectStepBean psb) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	/* 승인 대기중인 스텝 리스트 조회 */
 	public List<ProjectStepBean> selectStepReq(ProjectStepBean psb) {
 		List<ProjectStepBean> list = sql.selectList("selectStepReq", psb);
@@ -195,7 +194,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
 			}
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		return list;
 	}
 }

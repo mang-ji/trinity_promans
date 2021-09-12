@@ -398,10 +398,6 @@ function selectSchedule(jsonData){
 	for(i=0; i<jsonData.length; i++){
 	list += "<div  onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\">"+ jsonData[i].scname + jsonData[i].scstate + "</div></label><br>";	
 	
-	
-	edit += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo' style = 'display:none'>완료요청</div><div onClick = 'addScheduleDetail()' name = 'addScheduleDetail' style = 'display:none'>추가</div>"
-
-	list += "<div onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\">"+ jsonData[i].scname + jsonData[i].scstate + "</div></label><br>";	
 	}
 	edit += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div><div onClick = 'addScheduleDetail()' name = 'send' style = 'display:none'>완료요청</div><div onClick = 'addScheduleDetail()' name = 'addScheduleDetail' style = 'display:none'>추가</div>"
 	
@@ -465,23 +461,19 @@ function getSDInfo(ParamPscode){ //완료요청 누르면 실행되는 펑션 , 
 }
 
 function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테일 조회하려고 필요한 값 보내고 받는 곳
-	
-	  
    let prcode = document.getElementsByName("prcode")[0];
    let cpcode = document.getElementsByName("cpcode")[0];
    let userid = document.getElementsByName("userid")[0];
    let pscode = document.getElementsByName("pscode")[0];
-   
-	pscode.value = jsonData1[0].pscode;
 
 	let json = [];
- 	    for(i=0; i<jsonData1.length; i++){
 	
-   json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:jsonData1[i].sccode , sddcode:jsonData1[i].sddcode, userid:userid.value});
-    	}	
+ 	for(i=0; i<jsonData1.length; i++){
+   		json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:jsonData1[i].sccode , sddcode:jsonData1[i].sddcode, userid:userid.value});
+    }
    let clientData = JSON.stringify(json);
-  alert(clientData);
-
+  	alert(clientData);
+	pscode.value = jsonData1[0].pscode;
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
 	
 	
