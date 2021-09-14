@@ -20,5 +20,21 @@
 	<insert id="insStep" parameterType="team3.promans.beans.ProjectStepBean">
 		insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L')
 	</insert>
+	
+	<insert id="insProjectMember" parameterType="team3.promans.beans.ProjectMemberBean">
+	 	insert into pm values(#{cpcode},#{prcode},#{userid},'G','1')
+	</insert>
+	
+	<select id="checkUserid" parameterType="team3.promans.beans.ProjectMemberBean" resultType="int" >
+		select count(*) from pm where pm_userid = #{userid}
+	</select>
+	
+	<insert id="insProjectFeedback" parameterType="team3.promans.beans.ScheduleDetailBean">
+		insert into psft values(#{cpcode},#{prcode},#{pscode},#{userid},#{sdcontent},sysdate,'1')
+	</insert>
+	
+	<update id="updateProjectStep" parameterType="team3.promans.beans.ScheduleDetailBean">
+		update ps set ps_state='I' where ps_userid = #{userid}
+	</update>
 
 </mapper>

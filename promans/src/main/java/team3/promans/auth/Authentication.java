@@ -44,9 +44,9 @@ public class Authentication implements AuthInterface {
 		mav = new ModelAndView();
 
 		String encPass = this.getPass(ah);
-		
+
 		if(enc.matches(ah.getAcode(),encPass)) {
-		 	ah.setCpcode(this.getUserInfo(ah).getCpcode());
+			ah.setCpcode(this.getUserInfo(ah).getCpcode());
 			if(this.insAccessHistory(ah)) {
 				try {
 					pu.setAttribute("userid", this.getUserInfo(ah).getUserid());
@@ -56,14 +56,14 @@ public class Authentication implements AuthInterface {
 					pu.setAttribute("tecode", this.getUserInfo(ah).getTecode());
 					pu.setAttribute("wcode", this.getUserInfo(ah).getWcode());
 					pu.setAttribute("utype", this.getUserInfo(ah).getUtype());
-				
+
 					mav.setViewName("mainPage");
-					
+
 				} catch (Exception e) {e.printStackTrace();}
 			}else {
-	
-			mav.setViewName("redirect:/");
-			mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
+
+				mav.setViewName("redirect:/");
+				mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
 
 			}
 		}
@@ -84,8 +84,7 @@ public class Authentication implements AuthInterface {
 	      } catch (Exception e) {e.printStackTrace();}
 	      
 	      return "adminProject";
-	}
-
+	  }
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;
 	}
