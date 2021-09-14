@@ -18,6 +18,7 @@ import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.ProjectManagement;
+import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
 
 
@@ -39,6 +40,9 @@ public class HomeController {
 	@Autowired
 	SelectInfo si;
 	
+	@Autowired
+	ScheduleManagement sm;
+	
 	private ModelAndView mav;
 	
 	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
@@ -54,14 +58,9 @@ public class HomeController {
 		return mav;
 	}
 	
-	@GetMapping("test")
-	public void test(@ModelAttribute CpMemberBean cm) {
-		auth.test(cm);
-	}
-	
-	@GetMapping("SignUp")
-	public String test2() {
-		return "test";
+	@PostMapping("SignUp")
+	   public String test(@ModelAttribute CpMemberBean cm) {
+	      return auth.test(cm);
 	}
 	
 	@GetMapping("noticeForm")
@@ -93,13 +92,14 @@ public class HomeController {
 		return "myPage";
 	}
 	@GetMapping("myScheduleForm")
-	public String myScheduleForm() {
-		
-		
+	public String myScheduleForm(ScheduleDetailBean sdb) {
+		System.out.println("업무련아");
 		return "mySchedule";
 	}
+
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm() {
+		System.out.println("너도 그만좀해라");
 		return "myDiary";
 	}
 	

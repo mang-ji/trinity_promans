@@ -1,4 +1,5 @@
 function myDiarylist(data) {
+	alert("여기는 오냐?");
 	let myDiary1 = document.getElementById("myDiary");
 	let html = `<table><th>제목</th><th>내용</th><th>날짜</th>`;		
 	for (i=0; i<data.length; i++) {
@@ -11,10 +12,10 @@ function myDiarylist(data) {
 	}
 	html += `</table>`;
 	alert(html);
-	myDiary1.innerHTML = html;
+	Dlist.innerHTML = html;
 }
         
-function getDiary(wdtitle,wdcontents,wddate){
+function getDiary(){
 	let myDiary2 = document.getElementById("myDiary")[0];
 	let title2 = document.getElementsByName("wdtitle");
 	let write2 = document.getElementsByNaMe("wdcontents");
@@ -65,7 +66,7 @@ function sendDiary(){
 	let title3 = document.getElementsByName("wdtitle1")[0].value;
 	let write3 = document.getElementsByName("wdcontents1")[0].value;
 	
-	let data = [{wdtitle:title3,wdcontets:write3}];
+	let data = [{wdtitle1:title3,wdcontets1:write3}];
 	let clientData = JSON.stringify(data);
 	
 	postAjax('rest/WriteDiary', clientData, 'reLoadPage',2);	
