@@ -72,23 +72,19 @@ public class Authentication implements AuthInterface {
 	}
 
 
-	public void test(CpMemberBean cm) {
-		cm.setCpcode("A123456");
-		cm.setWcode("1");
-		cm.setUtype("A");
-		cm.setTecode("I");
-		cm.setUphone("01012345678");
-		cm.setMail("rltjs@rltjs.com");
-		try {
-		 	cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
-			cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
-			cm.setAcode(enc.encode(cm.getAcode()));
-			cm.setUname(enc.aesEncode(cm.getUname(), cm.getUserid()));
-			
-			this.insCpMember(cm);
-			
-		} catch (Exception e) {e.printStackTrace();}
-	}
+	public String test(CpMemberBean cm) {
+	      try {
+	          cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
+	         cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
+	         cm.setAcode(enc.encode(cm.getAcode()));
+	         cm.setUname(enc.aesEncode(cm.getUname(), cm.getUserid()));
+	         
+	         this.insCpMember(cm);
+	         
+	      } catch (Exception e) {e.printStackTrace();}
+	      
+	      return "adminProject";
+	   }
 
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;

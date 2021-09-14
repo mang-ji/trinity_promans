@@ -197,6 +197,23 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 		return list;
 	}
+
+
+
+
+
+
+
+	public List<ProjectMemberBean> selectProjectMember(ProjectMemberBean pmb) {
+		List<ProjectMemberBean> list = sql.selectList("selectProjectMember", pmb);
+		for(int i=0; i<list.size();i++) {
+			try {
+				list.get(i).setUname(enc.aesDecode(list.get(i).getUname(),list.get(i).getUserid()));
+			} catch (Exception e) {e.printStackTrace();
+			}
+		}
+		return list;
+	}
 }
 
 

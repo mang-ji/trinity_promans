@@ -54,16 +54,16 @@ public class HomeController {
 		return mav;
 	}
 	
-	@GetMapping("test")
-	public void test(@ModelAttribute CpMemberBean cm) {
-		auth.test(cm);
-	}
-	
-	@GetMapping("SignUp")
-	public String test2() {
-		return "test";
-	}
-	
+	@PostMapping("SignUp")
+	   public String test(@ModelAttribute CpMemberBean cm) {
+	      return auth.test(cm);
+	   }
+//	
+//	@GetMapping("SignUp")
+//	public String test2() {
+//		return "test";
+//	}
+//	
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";

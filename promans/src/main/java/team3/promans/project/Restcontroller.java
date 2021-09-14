@@ -223,9 +223,22 @@ public class Restcontroller {
 		
 	@PostMapping("/ReqPass")
 	public int reqPass(@RequestBody List<ScheduleDetailBean> sdb){
-		
-		
+	
 		return sm.reqPass(sdb.get(0));
+	}
+	
+	@PostMapping("/SelectProjectMember")
+	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
+		return si.selectProjectMember(pmb.get(0));
+	}
+	@PostMapping("/InsProjectMember")
+	public Map<String,String> insProjectMember(@RequestBody List<ProjectMemberBean> pmb){
+		return pm.insProjectMember(pmb.get(0));
+	}
+	
+	@PostMapping("/InsProjectFeedback")
+	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
+		return pm.insProjectFeedback(sdb.get(0));
 	}
 
 }

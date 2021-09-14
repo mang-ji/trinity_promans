@@ -31,5 +31,6 @@ public interface SelectInterface {
 	  public List<ProjectStepBean> getCompleteList(ProjectStepBean psb);
 	  public List<ProjectStepBean> selectStepReq(ProjectStepBean psb);
 	  public List<ProjectStepBean> selectManager(ProjectStepBean psb);
+	  public List<ProjectMemberBean> selectProjectMember(ProjectMemberBean pmb);
 
 }
