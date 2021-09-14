@@ -1,6 +1,14 @@
 package team3.promans.services;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +42,13 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 
 	public List<ScheduleDetailBean> addJob(ProjectStepBean pmb) {
 		List<ScheduleDetailBean> list = sql.selectList("addJob", pmb);
+		
+		for(int i=0; i<list.size(); i++) {
+			try {
+				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
+			} catch (Exception e) {e.printStackTrace();}
+		}
+		
 		list.get(0).setPscode(pmb.getPscode());
 		return list;
 	}

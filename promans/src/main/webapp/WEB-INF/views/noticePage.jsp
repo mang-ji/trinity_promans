@@ -17,61 +17,6 @@
 <meta name="author" content="" />
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
-
-<script>
-	window.addEventListener('load', function() {
-		let cpcodes = document.getElementsByName("cpcode")[0];
-		let userids = document.getElementsByName("writer")[0];
-		let data = [ {cpcode : cpcodes.value, writer : userids.value} ];
-		let clientData = JSON.stringify(data);
-		postAjax("rest/getNotice", clientData, 'afterNotice', 2);
-		
-		
-	});
-
-	function afterNotice(jsonData) {
-		let tablebody = document.getElementById("table_body");
-		let html = "";
-		
-		alert(JSON.stringify(jsonData));
-		
-		for (i = 0; i < jsonData.length; i++) {
-			html += "<tr onClick = \"NoticeClick(\'"+jsonData[i].title+"\', \'"+jsonData[i].sdate+"\', \'" +jsonData[i].contents+ "\')\">";
-			html += "<td>1</td>";
-			html += "<td>" + jsonData[i].title + "</td>";
-			html += "<td>" + jsonData[i].sdate + "</td></tr>";
-			
-		}
-		
-
-		tablebody.innerHTML = html;
-	}
-	
-	function NoticeClick(title, sdate, contents){
-		let Notice = document.getElementById("Notice");
-		let table_notice = document.getElementById("table_notice");
-		let html = "";
-		
-		table_notice.remove();
-		//"<input type='text' name='NoticeDetail' onClick='NoticeDetail()'/>
-		html += "<div id =\"box\">";
-		html += "<div id = \"title\">"+"제목 : "+title+"</div>";
-		html += "<div id = \"date\">"+"작성날짜 : "+sdate+"</div>";
-		html += "<div id = \"contents\">"+contents+"</div>";
-		html += "<a href=\"noticeForm\"><input type =\"button\" id = \"btn\" value =\"목록\" ></a>";
-		html += "</div>";
-		
-		Notice.innerHTML = html;
-	}
-	
-	
-	
-	
-	
-	
-</script>
-
-
 <title>공지사항</title>
 
 <style>
@@ -110,6 +55,7 @@ table {
 					 <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="memberForm" id="adminMember">멤버 관리</a>
+					<input type="button" onClick="logout()" value="로그아웃">
 			</div>
 		</div>
 		<!-- Page content wrapper-->
@@ -141,7 +87,7 @@ table {
 			<!-- Page content-->
 			<div class="container-fluid">
 				<table id="table_notice">
-					<tr>
+					<tr id="trNotice">
 						<th></th>
 						<th>제목</th>
 						<th>작성날짜</th>
@@ -152,9 +98,12 @@ table {
 
 				</table>
 
-				<div>
-					<input type="button" id="Writebtn" value="글쓰기"
-						onClick="OpenPopup()" />
+				<div >
+					<input type="button" id="editbtn" value="편집" name="deleteNotice"/>
+					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display:none;"/>
+					
+				
+					<input type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup()" />
 				</div>
 
 				<div id="Notice"></div>

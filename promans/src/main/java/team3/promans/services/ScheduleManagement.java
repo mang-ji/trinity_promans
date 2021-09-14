@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
@@ -22,42 +23,30 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 
 	@Autowired
 	SqlSessionTemplate sql;
+	
+	ModelAndView mav;
 
 
-	public int writeSchedule(ScheduleDetailBean sdb) {
-		//세션
-		try {
-			sdb.setCpcode((String)pu.getAttribute("cpcode"));
-			sdb.setUserid((String)pu.getAttribute("userid"));
-		} catch (Exception e1) {
-			e1.printStackTrace();
+	public String writeSchedule(ScheduleDetailBean sdb) {
+		System.out.println(sdb);
+		String msg = "";
+		System.out.println("작성띠 여긴오냐?");
+		if(this.convertBoolean(sql.insert("writeSchedule", sdb))) {
+			msg = "성공";
+		}else {
+			msg = "실패";
 		}
-		sdb.setPrcode("PR04");
-		sdb.setPscode("PS01");
-		sdb.setSccode("SC03");
-		sdb.setSdcode("SD01");
-		//유저작성 
-		System.out.println(sdb.getSdname());
-		System.out.println(sdb.getSdcontent());
-		String result = "0";
-		try {
-			pu.setAttribute("sdcontent", sdb.getSdcontent());
-			pu.setAttribute("sdname", sdb.getSdname());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-		
-		if(sql.insert("writeSchedule", sdb)==1) {
-			result = "1";
-		}
-		
-		return Integer.parseInt(result);
+
+		return msg;
 	}
 	
 
-	public int writeDiary(WorkDiaryBean wdb) {
-	
-		return sql.insert("writeDiary", wdb);
+	public String writeDiary(WorkDiaryBean wdb) {
+		wdb.setWdtitle(wdb.getWdtitle());
+		wdb.setWdcontents(wdb.getWdcontents());
+		sql.insert("writeDiary", wdb);
+		mav.setViewName("myDiary");
+		return "";
 	}
 
 
@@ -67,10 +56,6 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 		return sql.update("reqSchedule", sdb);
 	}*/
 
-	@Override
-	public int writeDiary(ScheduleDetailBean sdb) {
-		return 0;
-	}
 
 
 	public int reqPass(ScheduleDetailBean sdb) {
@@ -94,6 +79,7 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	}
 
 
+<<<<<<< HEAD
 	public void insSD(ScheduleDetailBean sdb) {
 		System.out.println(sdb);
 		sql.insert("insSD", sdb);
@@ -104,6 +90,16 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	
 	public void insSM(ScheduleDetailBean sdb) {
 		sql.insert("insSM", sdb);
+=======
+	@Override
+	public ModelAndView writeDiary(ScheduleDetailBean sdb) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private boolean convertBoolean(int value) {
+		return (value>0)?true:false;
+>>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 	}
 
 }

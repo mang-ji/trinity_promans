@@ -48,6 +48,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myDiaryForm" id="myDiary">업무 일지</a>
+               		<input type="button" onClick="logout()" value="로그아웃">
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -77,7 +78,8 @@
                 </nav>
                 <!-- Page content (게시판 형식)-->
 		<div class="container-fluid">
-			<div id = "myDiary"></div>
+			<div id="Dlist"></div>
+				<div id = "myDiary"></div>
 					<input class="inputBox" style=display:none type="text" name="wdtitle1" placeholder="제목" />
 					<input class="inputBox" style=display:none type="text" name="wdcontents1" placeholder="내용" />	
 				<div id= "writeDiary">

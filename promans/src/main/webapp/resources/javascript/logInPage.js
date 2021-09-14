@@ -11,8 +11,6 @@ function sendUserId(){
 		uCode.focus();
 		return;
 	}
-	console.log(uCode.value+" : click");
-	
 	getAjax("rest/idCheck","userid="+uCode.value,"idCheck");
 	
 }
@@ -78,6 +76,7 @@ function EntersendUserId(){
 	const pubIp = makeInput("hidden", "publicip", publicIP);
 	const priIp = makeInput("hidden", "privateip", location.host);
 	let button2 = document.getElementById("button2");
+	
 	
 	let form = makeForm("accessInfo","post");
 	

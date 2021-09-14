@@ -1,9 +1,21 @@
+ 	 let publicIP;
+
+     window.addEventListener('load',function(){
+    	 getAjax('https://api.ipify.org','format=json','setPublicIP');
+     });
+     function setPublicIP(data){
+    	 publicIP = data.ip;
+     }
+
+
 function projectOnLoad(){
        let adminProject = document.getElementById("adminProject");
        let project = document.getElementById("project");
        let adminMember = document.getElementById("adminMember");
        let utype = document.getElementsByName("utype")[0];
-           
+       let pscode = document.getElementsByName("pscode")[0];
+	   let mysc = document.getElementById("myScheduleCate");
+
        if(utype.value == "G"){
               adminProject.style.display = "none";
               project.style.display = "block";
@@ -13,8 +25,35 @@ function projectOnLoad(){
               project.style.display = "none";
               adminMember.style.display = "block";
            }
-           
+		/*if(pscode.value == ""){
+			mysc.style.display = "none";
+
+		}else{
+			mysc.style.display="block";			
+		}*/
     }
+
+     function logout(){
+ 		 let userid1 = document.getElementsByName("userid")[0];
+		 let cpcode1 = document.getElementsByName("cpcode")[0];
+    	 let form = document.createElement("form");
+    	 let puIp = makeInput('hidden','publicip',publicIP);
+    	 let prIp = makeInput('hidden','privateip',location.host);
+    	 let method = makeInput('hidden','method',-1);
+    	 form.action = "logOut";
+    	 form.method = "post";
+    	 
+    	 form.appendChild(userid1);
+    	 form.appendChild(cpcode1);
+    	 form.appendChild(puIp);
+    	 form.appendChild(prIp);
+    	 form.appendChild(method);
+    	 
+    	 document.body.appendChild(form);
+    	 
+    	 form.submit();
+     }
+     
 
 function getAjax(jobCode,clientData,fn){
 	let ajax = new XMLHttpRequest();

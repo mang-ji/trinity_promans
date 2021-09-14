@@ -68,7 +68,6 @@ function selectProject(jsonData){
 		for(i=0; i<jsonData.length; i++){
 			addList += "<input type=\"radio\" name=\"clickAddJobMember\" id=\"addRadio"+i+"\" onClick=\"addJobMember(\'"+jsonData[i].pscode+"\')\"><label for=\"addRadio"+i+"\">"
 			+ jsonData[i].psname + jsonData[i].stname + "</label><br>";
-			
 			addListCss += "input[id=\"addRadio"+i+"\"] \+ label{border:1px solid #bbbbbb; width:500px; cursor:pointer;}";
 			addListCss += "input[id=\"addRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb;color:#ffffff;}";
 			addListCss += "input[id=\"addRadio"+i+"\"]{display:none;}";
@@ -112,7 +111,8 @@ function ajaxReqList(jsonData){
 	let headCss = document.createElement("style");
 	let selectStep = document.getElementById("selectStep");
 	let utype = jsonData[0].utype;
-		
+	
+		console.log(jsonData[0].stcode);
 	for(i=0; i<jsonData.length; i++){
 		if(jsonData[i].stcode == "I"){
 		list2 += "<input type=\"radio\" id=\"radio"+i+"\" name=\"radio\" onClick=\"requestComplete(\'"+ jsonData[i].pscode +"\',\'"+jsonData[i].psname+"\')\"><label for=\"radio"+i+"\">"

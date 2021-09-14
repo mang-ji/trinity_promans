@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleDetailBean;
 
@@ -16,4 +17,6 @@ public interface ProjectInterface {
 	public ModelAndView reqComplete(ScheduleDetailBean sdb);
 	public int updateComplete(ScheduleDetailBean sdb);
 	public Map<String, String> makeStep(ProjectStepBean psb);
+	public Map<String,String> insProjectMember(ProjectMemberBean pmb);
+	public Map<String, String> insProjectFeedback(ScheduleDetailBean sdb);
 }

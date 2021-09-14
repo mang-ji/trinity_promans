@@ -1,5 +1,7 @@
 package team3.promans.beans;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -16,4 +18,5 @@ public class CloudBean {
 	private String fwriter;
 	private String fopen;
 	private String userid;
+	private MultipartFile file;
 }

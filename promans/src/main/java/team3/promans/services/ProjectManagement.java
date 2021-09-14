@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleDetailBean;
 
@@ -63,9 +64,6 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		return mav;
 	}
 
-	private boolean convertBoolean(int value) {
-		return (value>0)?true:false;
-	}
 
 	@Override
 	public int updateComplete(ScheduleDetailBean sdb) {
@@ -85,8 +83,37 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		return map;
 	}
 
+
+	/* 스텝에 멤버추가시 이미 존재하는 회원은 거르고 스텝 테이블에 인서트 하는 부분 */
+	public Map<String,String> insProjectMember(ProjectMemberBean pmb) {
+		Map<String,String> map = new HashMap<String, String>();
+		int i = sqlSession.selectOne("checkUserid",pmb);
+
+		if(this.convertData(i)) {
+			map.put("message", "멤버가 이미 존재합니다.");
+		}else {
+			sqlSession.insert("insProjectMember", pmb);
+			map.put("message", "멤버 추가 완료하였습니다.");
+		}
+
+		return map;
+		
+	}
+	
+/* 피드백 테이블에 프로젝트*/
+	public Map<String,String> insProjectFeedback(ScheduleDetailBean sdb) {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("message", "피드백에 실패하였습니다.");
+		if(this.convertData(sqlSession.insert("insProjectFeedback", sdb))) {
+			if(this.convertData(sqlSession.update("updateProjectStep",sdb))) {
+				map.put("message", "피드백이 완료되었습니다.");
+			}
+		}
+		return map;
+	}
+	
 	public boolean convertData(int value) {
 		return value>0? true:false;
 	}
-	
+
 }

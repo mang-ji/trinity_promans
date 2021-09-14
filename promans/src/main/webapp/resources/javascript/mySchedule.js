@@ -1,24 +1,27 @@
 function mySchedulelist(data) {
-	let mySchedule1 = document.getElementById("mySchedule");
-	let html = `<table><th>제목</th><th>내용</th><th>날짜</th>`;		
+	alert(JSON.stringify(data));
+	let mySchedule = document.getElementById("mySchedule");
+	let html = "";
+	let list = "";	
 	for (i=0; i<data.length; i++) {
-		html += 
-		`<tr onClick = getmSchedule(${data[i].userid}, ${data[i].prcode},${data[i].pscode})
+		html += `<table class="table"><th>제목</th><th>내용</th><th>날짜</th>`;
+		list += 
+		`<tr onClick = getmSchedule(${data[i].sdcontent},${data[i].sdname},${data[i].sddate})>
 			<td>${data[i].sdcontent}</td>
 			<td>${data[i].sdname}</td>
 			<td>${data[i].sddate}</td>
-		</tr>`;
+			</tr>`;
 	}
-	html += `</table>`;
-	alert(html);
-	mySchedule1.innerHTML = html;
+		html += `</table>`;
+	listhead.innerHTML = html;
+	listBox.innerHTML = list;
 }
 
 function getmSchedule(){
-	let mySchedule2 = document.getElementById("myschedule")[0];
-	let title1 = document.getElementsByName("sdcontent");
-	let write1 = document.getElementsByNaMe("sdname");
-	let sdate = document.getElementsByName("sddate");
+	let mySchedule2 = document.getElementById("mySchedule");
+	let title1 = document.getElementsByName("sdcontent")[0];
+	let write1 = document.getElementsByName("sdname")[0];
+	let sdate = document.getElementsByName("sddate")[0];
 	
 	let f = document.createElement("form");
 	
@@ -27,7 +30,7 @@ function getmSchedule(){
 	f.appendChild(write1);
 	f.appendChild(sdate);
 	
-	f.method = "myScheduleForm"
+	f.method = "myScheduleForm";
 	f.action = "GET";
 	
 	document.body.appendChild(f);
@@ -36,17 +39,17 @@ function getmSchedule(){
 }
 
 function writeSchedule(){
-	let inputbox = document.querySelectorAll(".inputBox");
-	let wBtn = document.querySelector("#wBtn");
-	let sBtn = document.querySelector("#sBtn");
+	let title = document.getElementsByName("sdcontent")[0];
+	let write1 = document.getElementsByName("sdname")[0];
 	
-	for(i=0; i<inputbox.length;i++){
-		inputbox[i].style.display="inline";
-	}
-	wBtn.style.display="none";
-	sBtn.style.display="inline";
+	let f = document.createElement("form");
 	
+	f.appendChild(title);
+	f.appendChild(write1);
 	
+	document.body.appendChild(f);
+	
+	f.submit();
 }
 
 function reLoadPage(data){
@@ -57,17 +60,18 @@ function reLoadPage(data){
 	}else{
 		alert("업무추가 실패");
 	}
-	
 	location.reload();	
 }
 
 function sendSchedule(){
-	let title = document.getElementsByName("sdcontent1")[0].value;
-	let write = document.getElementsByName("sdname1")[0].value;
-	
-	let data = [{sdcontent:title,sdname:write}];
+	let title = document.getElementsByName("sdcontent")[0].value;
+	let write = document.getElementsByName("sdname")[0].value;
+	let data = {sdcontent:title,sdname:write};
 	let clientData = JSON.stringify(data);
 	
-	postAjax('rest/WriteSchedule', clientData, 'reLoadPage',2);	
+	if(data!=""){
+		postAjax('rest/WriteSchedule', clientData, 'reLoadPage', 2);
+	}
+	
 }
 
