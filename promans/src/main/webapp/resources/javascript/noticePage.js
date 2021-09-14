@@ -34,12 +34,13 @@ function afterNotice(data) {
 			html += "<td>" + data[i].title + "</td>";
 			html += "<td>" + data[i].sdate + "</td></tr>";
 		}
-		deletebtn.remove();
+		//deletebtn.remove();
 		tablebody.innerHTML = html;
 	
 		delNotice.addEventListener('click',function(){
 			/*style.innerHTML = css;
 			document.head.append(style);*/
+			deletebtn.style.display = "block";
 			trNotice.innerHTML = "<th></th><th></th>"+
 						"<th>제목</th>"+
 						"<th>작성날짜</th>";
