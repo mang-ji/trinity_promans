@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="resources/css/styles.css" rel="stylesheet" type="text/css">
@@ -55,7 +56,7 @@
 				<div class="container-fluid">
 					<div>::: TEAM LIST :::</div>
 					<!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
-					<!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
+					<!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                          <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
@@ -76,32 +77,26 @@
                 </nav>           
                 <!-- Page content-->
                 <div class="container-fluid">
-               		<input type="hidden" name="userid" value="${userid }" />
-					<input type="hidden" name="uname" value="${uname }" />
-					<%-- input type="hidden" name="cpcode" value="${cpcode }" /> --%>
-					
-					<input type="hidden" name="uphone" value="${uphone }" />
-					<input type="hidden" name="tecode" value="${tecode }" />
-					<input type="hidden" name="wcode" value="${wcode }" />
-
-
-				<form action="SignUp" method="post">
-					<input type="text" name="userid" placeholder="아이디" /> 
-					<input type="text" name="uname" placeholder="이름" /> 
-					<input type="password" name="acode" placeholder="비밀번호" /> 
-					<input type="hidden" name="cpcode" value="${cpcode }" /> 
-					<input type="text" name="uphone" placeholder="핸드폰" /> 
-					<input type="text" name="mail" placeholder="메일" /> 
+                <form action="SignUp" method="post">
+               		<input type="text" name="userid" placeholder="아이디" />
+               		<input type="text" name="uname" placeholder="이름" />
+					<input type="password" name="acode"  placeholder="비밀번호"/>
+					<input type="hidden" name="cpcode" value="${cpcode }" />
+					<input type="text" name="uphone" placeholder="핸드폰" />
+					<input type="text" name="mail" placeholder="메일" />
 					<select name="tecode">
-						<option value="I">인사팀</option>
-						<option value="G">개발팀</option>
-						<option value="D">디자인팀</option>
-						<option value="M">마케팅팀</option>
-						<option value="Y">영업팀</option>
-					</select> <input type="hidden" name="wcode" value="1" /> 
-					<input type="hidden" name="utype" value="G" /> <input type="submit" value="등록">
-				</form>
-			</div>
+					<option value="I">인사팀</option>
+					<option value="G">개발팀</option>
+					<option value="D">디자인팀</option>
+					<option value="M">마케팅팀</option>
+					<option value="Y">영업팀</option>
+					</select>
+					<input type="hidden" name="wcode" value="1" />
+					<input type="hidden" name="utype" value="G" />
+					<input type="submit" value="등록">
+					</form>	
+					
+                </div>
             </div>
         </div>
 

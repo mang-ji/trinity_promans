@@ -48,10 +48,10 @@ public class HomeController {
 	private ModelAndView mav;
 
 	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
-	public String rootCtl() {
-
-
-		return "logInPage";
+	public ModelAndView rootCtl() {
+		mav = auth.rootCtl();
+		
+		return mav;
 	}
 
 	@PostMapping("accessInfo")
@@ -60,9 +60,15 @@ public class HomeController {
 		return mav;
 	}
 	
+	@PostMapping("logOut")
+	public ModelAndView logOut(@ModelAttribute AccessHistory ah) {
+		mav = auth.logOutCtl(ah);
+		return mav;
+	}
+	
 	@PostMapping("SignUp")
-	   public String test(@ModelAttribute CpMemberBean cm) {
-	      return auth.test(cm);
+	public String SignUp(@ModelAttribute CpMemberBean cm) {
+		return auth.SignUp(cm);
 
 	}
 

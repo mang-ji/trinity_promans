@@ -16,6 +16,8 @@
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <title>관리자 프로젝트</title>
      <script>
+ 	 //let publicIP;
+ 	 
      window.addEventListener('load',function(){
     	    
     		let userid1 = document.getElementsByName("userid")[0];
@@ -30,7 +32,13 @@
     		
      });
      
-
+     /*window.addEventListener('load',function(){
+    	 getAjax('https://api.ipify.org','format=json','setPublicIP');
+     });
+     function setPublicIP(data){
+    	 publicIP = data.ip;
+     }*/
+     
      </script>
 
      </head>
@@ -63,6 +71,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myScheduleForm" id="myScheduleCate">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
+                    <input type="button" onClick="logout()" value="로그아웃">
                 </div>
             </div>
             
