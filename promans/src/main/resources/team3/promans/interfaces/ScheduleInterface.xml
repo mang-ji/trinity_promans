@@ -6,21 +6,26 @@
 <mapper namespace="team3.promans.interfaces.ScheduleInterface">
 <!-- 업무 디테일 작성(글 작성) -->
 	<insert id="writeSchedule" parameterType="team3.promans.beans.ScheduleDetailBean">
-		INSERT INTO SD 
-		VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{userid},#{sdcode},#{sdname},#{sdcontent},sysdate,'w')
+		INSERT INTO SD(SD_CPCODE,SD_PRCODE,SD_PSCODE,SD_SCCODE,SD_USERID,SD_CODE,SD_NAME,SD_TITLE,SD_DATE,SD_STATE)
+		VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{userid},#{sdcode},#{sdname},#{sdcontent},TO_CHAR(SYSDATE,'YYYYMMDD'),'W')
 	</insert>
 
 <!-- 업무 일지 작성 -->
-	<insert id="writeDiary" parameterType="team3.promans.beans.WorkDiaryBean" >
+	<insert id="writeDiary" parameterType="team3.promans.beans.WorkDiaryBean">
 		INSERT INTO WD 
-		VALUES(#{cpcode},#{prcode},#{userid},#{wdcode},#{wdtitle},#{wdcontents},sysdate)
+		VALUES(#{cpcode},#{prcode},#{userid},#{wdcode},#{wdtitle},#{wdcontents},SYSDATE)
 	</insert>
 	
 <!-- 업무 디테일 완료 요청(일반멤버)
 	<update id="reqSchedule" parameterType="team3.promans.beans.ScheduleDetailBean">
-	
+		UPDATE SCHEDULE_DETAIL SET SD_STATE = 'W'
+		WHERE SD_STATE='I' AND
+		SD_UTYPE='G' AND
+		SD_USERID=#{userid} AND
+		SD_PRCODE=#{prcode} AND
+		SD_PSCODE=#{pscode} AND
+		SD_CODE=#{sdcode} 
 	</update> -->	
-	
 	
 	<!-- 업무 디테일 완료 승인(업데이트, 관리자) -->
 	<update id="reqPass" parameterType="team3.promans.beans.ScheduleDetailBean">

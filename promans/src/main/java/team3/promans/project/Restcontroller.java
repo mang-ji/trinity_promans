@@ -76,25 +76,30 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
+		System.out.println("뜰때됐잖아");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
-	
+	//업무디테일작성
 	@PostMapping("/WriteSchedule")
-	public int writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+	public String writeSchedule(@RequestBody ScheduleDetailBean sdb) {
 		//sm.writeSchedule(sdb.get(0))
-		return 1;
+		System.out.println("글작성 첫번째에러다");
+		return sm.writeSchedule(sdb);
 	}
 	
-	
+	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public int writeDiary(@ModelAttribute WorkDiaryBean wdb) {
+	public String writeDiary(@RequestBody WorkDiaryBean wdb) {
+		System.out.println("일지작성?");
 		return sm.writeDiary(wdb);
 	}
 	
 	
 	@PostMapping("/GetDiary")
 	public List<WorkDiaryBean> getDiary(@RequestBody List<WorkDiaryBean> wdb){
+		System.out.println("퍼킹다이어리");
+		
 		return si.getDiary(wdb.get(0));
 	}
 	
@@ -121,7 +126,12 @@ public class Restcontroller {
 		return si.getNoticeList(nc.get(0));
 	}
 	
-
+	/* 공지사항 디테일 조회 */
+	@PostMapping("/getNoticeDetail")
+	public List<Notice_CalendarBean> getNoticeDetail(@RequestBody List<Notice_CalendarBean> nc) {
+		return si.getNoticeDetail(nc.get(0));
+		
+	}
 	@PostMapping("/GetProject")
 	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
 		
@@ -158,13 +168,7 @@ public class Restcontroller {
 		return si.reqForCompletion(sdb.get(0));
 	}
 	
-	
 
-//	@PostMapping("/SelectWaitingStep")
-//	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
-//		return si.selectStep(psb.get(0));
-//	}
-//	
 	@PostMapping("/selectManager")
 	public List<ProjectStepBean> selectManager(@RequestBody ProjectStepBean psb){
 		return si.selectManager(psb);
@@ -223,9 +227,22 @@ public class Restcontroller {
 		
 	@PostMapping("/ReqPass")
 	public int reqPass(@RequestBody List<ScheduleDetailBean> sdb){
-		
-		
+	
 		return sm.reqPass(sdb.get(0));
+	}
+	
+	@PostMapping("/SelectProjectMember")
+	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
+		return si.selectProjectMember(pmb.get(0));
+	}
+	@PostMapping("/InsProjectMember")
+	public Map<String,String> insProjectMember(@RequestBody List<ProjectMemberBean> pmb){
+		return pm.insProjectMember(pmb.get(0));
+	}
+	
+	@PostMapping("/InsProjectFeedback")
+	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
+		return pm.insProjectFeedback(sdb.get(0));
 	}
 
 }

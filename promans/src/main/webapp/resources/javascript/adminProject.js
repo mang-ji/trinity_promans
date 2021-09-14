@@ -468,15 +468,18 @@ function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테�
 
 	let json = [];
 	
+
+   json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:jsonData1[i].sccode , sddcode:jsonData1[i].sddcode, userid:userid.value});
+
+    		
  	for(i=0; i<jsonData1.length; i++){
    		json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:jsonData1[i].sccode , sddcode:jsonData1[i].sddcode, userid:userid.value});
     }
+
    let clientData = JSON.stringify(json);
   	alert(clientData);
 	pscode.value = jsonData1[0].pscode;
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
-	
-	
 	
 }
 

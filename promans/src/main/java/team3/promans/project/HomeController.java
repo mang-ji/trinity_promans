@@ -18,36 +18,42 @@ import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.ProjectManagement;
+import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
 
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	Encryption enc;
-	
+
 	@Autowired
 	ProjectUtils pu;
-	
+
 	@Autowired
 	Authentication auth;
-	
+
 	@Autowired
 	ProjectManagement pm;
-	
+
 	@Autowired
 	SelectInfo si;
+
 	
+	@Autowired
+	ScheduleManagement sm;
+	
+
 	private ModelAndView mav;
-	
+
 	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView rootCtl() {
 		mav = auth.rootCtl();
 		
 		return mav;
 	}
-	
+
 	@PostMapping("accessInfo")
 	public ModelAndView logInCtl(@ModelAttribute AccessHistory ah) {
 		mav = auth.logInCtl(ah);
@@ -63,8 +69,9 @@ public class HomeController {
 	@PostMapping("SignUp")
 	public String SignUp(@ModelAttribute CpMemberBean cm) {
 		return auth.SignUp(cm);
+
 	}
-	
+
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -94,27 +101,29 @@ public class HomeController {
 		return "myPage";
 	}
 	@GetMapping("myScheduleForm")
-	public String myScheduleForm() {
-		
-		
+
+	public String myScheduleForm(ScheduleDetailBean sdb) {
+		System.out.println("업무련아");
 		return "mySchedule";
 	}
+
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm() {
+		System.out.println("너도 그만좀해라");
 		return "myDiary";
 	}
-	
+
 	@PostMapping("goAdminProjectForm")
 	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
-		
+
 		try {
 			pu.setAttribute("prcode", prcode);
-			
+
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		return "adminProject";
 	}
-	
+
 
 	/* 공지사항 추가*/
 	@PostMapping("insNotice")
@@ -128,14 +137,14 @@ public class HomeController {
 		try {
 			pu.setAttribute("pscode", sdb.getPscode());
 			pu.setAttribute("sccode", sdb.getSccode());
-			
+
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		return "adminSchedule";
-		
+
 
 	}
-	
+
 	@PostMapping("reqComplete")
 	public ModelAndView reqComplete(@ModelAttribute ScheduleDetailBean sdb) {
 		mav = pm.reqComplete(sdb);

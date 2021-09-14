@@ -13,7 +13,9 @@ function projectOnLoad(){
        let project = document.getElementById("project");
        let adminMember = document.getElementById("adminMember");
        let utype = document.getElementsByName("utype")[0];
-           
+       let pscode = document.getElementsByName("pscode")[0];
+	   let mysc = document.getElementById("myScheduleCate");
+
        if(utype.value == "G"){
               adminProject.style.display = "none";
               project.style.display = "block";
@@ -23,7 +25,12 @@ function projectOnLoad(){
               project.style.display = "none";
               adminMember.style.display = "block";
            }
-           
+		if(pscode.value == ""){
+			mysc.style.display = "none";
+
+		}else{
+			mysc.style.display="block";			
+		}
     }
 
      function logout(){
