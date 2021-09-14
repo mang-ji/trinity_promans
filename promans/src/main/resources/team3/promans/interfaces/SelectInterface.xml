@@ -144,11 +144,7 @@
 
 	</select>
 
-<<<<<<< HEAD
-	<select id="selectSchedule" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ScheduleBean">
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE FROM SCHEDULEVIEW WHERE
-		CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
-=======
+
 	<select id="selectSchedule"
 		parameterType="team3.promans.beans.ProjectStepBean"
 		resultType="team3.promans.beans.ScheduleBean">
@@ -156,7 +152,6 @@
 		SCHEDULEVIEW WHERE
 		CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE
 		= #{pscode}
->>>>>>> 16cab559a78f9253a0497ff607759edaa5e1b1a4
 	</select>
 
 	<select id="getScheDetail"
