@@ -12,5 +12,7 @@ public interface AuthInterface {
 	public CpMemberBean getUserInfo(AccessHistory ah);
 	public boolean insAccessHistory(AccessHistory ah);
 	public int insCpMember(CpMemberBean cm);
+	public int getMethod(AccessHistory ah);
+	public int logOutAh(AccessHistory ah);
 	
 }

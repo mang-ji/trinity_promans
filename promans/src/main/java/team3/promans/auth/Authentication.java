@@ -34,6 +34,24 @@ public class Authentication implements AuthInterface {
 
 
 
+	public ModelAndView rootCtl() {
+		mav = new ModelAndView();
+		try {
+			String session = (String)pu.getAttribute("userid");
+
+			if(session != null) {
+				mav.setViewName("mainPage");
+			}else {
+				mav.setViewName("logInPage");
+			}
+
+		} catch (Exception e) {e.printStackTrace();}
+
+		return mav;
+
+	}
+
+
 	public boolean idCheck(AccessHistory ah) {
 		return this.convertBoolean(sql.selectOne("idCheck", ah));
 	}
@@ -44,9 +62,9 @@ public class Authentication implements AuthInterface {
 		mav = new ModelAndView();
 
 		String encPass = this.getPass(ah);
-		
+
 		if(enc.matches(ah.getAcode(),encPass)) {
-		 	ah.setCpcode(this.getUserInfo(ah).getCpcode());
+			ah.setCpcode(this.getUserInfo(ah).getCpcode());
 			if(this.insAccessHistory(ah)) {
 				try {
 					pu.setAttribute("userid", this.getUserInfo(ah).getUserid());
@@ -56,14 +74,14 @@ public class Authentication implements AuthInterface {
 					pu.setAttribute("tecode", this.getUserInfo(ah).getTecode());
 					pu.setAttribute("wcode", this.getUserInfo(ah).getWcode());
 					pu.setAttribute("utype", this.getUserInfo(ah).getUtype());
-				
+
 					mav.setViewName("mainPage");
-					
+
 				} catch (Exception e) {e.printStackTrace();}
 			}else {
-	
-			mav.setViewName("redirect:/");
-			mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
+
+				mav.setViewName("redirect:/");
+				mav.addObject("message", "아이디와 비밀번호를 다시 확인해주세요.");
 
 			}
 		}
@@ -71,23 +89,68 @@ public class Authentication implements AuthInterface {
 
 	}
 
-
-	public void test(CpMemberBean cm) {
-		cm.setCpcode("A123456");
-		cm.setWcode("1");
-		cm.setUtype("A");
-		cm.setTecode("I");
-		cm.setUphone("01012345678");
-		cm.setMail("rltjs@rltjs.com");
+	public ModelAndView logOutCtl(AccessHistory ah) {
+		mav = new ModelAndView();
+		String session = "";
+		int method = this.getMethod(ah);
 		try {
-		 	cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
+			session = (String)pu.getAttribute("userid");
+		} catch (Exception e1) {e1.printStackTrace();}
+
+		try {
+			if(session != null) {
+				if(method>0) {
+					ah.setMethod("-" + method);
+					if(this.convertBoolean(this.logOutAh(ah))) {
+						pu.removeAttribute("userid");
+						pu.removeAttribute("uname");
+						pu.removeAttribute("cpcode");
+						pu.removeAttribute("prcode");
+						pu.removeAttribute("pscode");
+						pu.removeAttribute("uphone");
+						pu.removeAttribute("tecode");
+						pu.removeAttribute("wcode");
+						pu.removeAttribute("utype");
+						mav.setViewName("redirect:/");
+						mav.addObject("message", "로그아웃에 성공하셨습니다!");
+
+					}else {
+						pu.removeAttribute("userid");
+						pu.removeAttribute("uname");
+						pu.removeAttribute("cpcode");
+						pu.removeAttribute("prcode");
+						pu.removeAttribute("pscode");
+						pu.removeAttribute("uphone");
+						pu.removeAttribute("tecode");
+						pu.removeAttribute("wcode");
+						pu.removeAttribute("utype");
+						mav.setViewName("redirect:/");
+						mav.addObject("message", "다시 시도해주세요.");				
+
+					}
+				}
+			}else {
+				mav.setViewName("redirect:/");
+				mav.addObject("message", "이미 로그아웃 되어있습니다.");	
+			}
+		} catch (Exception e) {e.printStackTrace();}
+
+		return mav;
+	}
+
+
+	public String SignUp(CpMemberBean cm) {
+		try {
+			cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
 			cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
 			cm.setAcode(enc.encode(cm.getAcode()));
 			cm.setUname(enc.aesEncode(cm.getUname(), cm.getUserid()));
-			
+
 			this.insCpMember(cm);
-			
+
 		} catch (Exception e) {e.printStackTrace();}
+
+		return "adminProject";
 	}
 
 	private boolean convertBoolean(int value) {
@@ -112,4 +175,20 @@ public class Authentication implements AuthInterface {
 	public int insCpMember(CpMemberBean cm) {
 		return sql.insert("insCpMember", cm);
 	}
+
+
+
+	public int getMethod(AccessHistory ah) {
+		return sql.selectOne("getMethod", ah);
+	}
+
+
+
+	@Override
+	public int logOutAh(AccessHistory ah) {
+		return sql.insert("logOutAh", ah);
+	}
+
+
+
 }

@@ -18,14 +18,15 @@
         <script>
         function addTeamMember(){
         	let cpcode1 = document.getElementsByName("cpcode")[0];
-        	//let prcode1 = document.getElementsByName("prcode")[0];
         	let userid1 = document.getElementsByName("userid")[0];
         	let utype1 = document.getElementsByName("utype")[0];
         	let wcode1 = document.getElementsByName("wcode")[0];
+        	let uphone1 = document.getElementsByName("uphone")[0];
+        	let tecode1 = document.getElementsByName("tecode")[0];
         	
         	let clientdata = [];
-        	clientdata.push({cpcode:cpcode1.value, userid:userid1.value, utype:utype1.value, wcode:wcode1.value});
-        	
+        	clientdata.push({cpcode:cpcode1.value, userid:userid1.value, utype:utype1.value, wcode:wcode1.value,uphone:uphone1.value,tecode:tecode1.value});
+        	alert(JSON.stringify(clientdata));
         	postAjax('rest/addTeamMember', JSON.stringify(clientdata) , getTeamMember);
         	
         }
@@ -39,7 +40,6 @@
     
     
     <body onLoad="projectOnLoad()">
-        	<input type="hidden" name="utype" value="${utype}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -91,16 +91,26 @@
                 
                 <!-- Page content-->
                 <div class="container-fluid">
-               		<input type="hidden" name="userid" value="${userid }" />
-					<input type="hidden" name="uname" value="${uname }" />
+                
+                <form action="SignUp" method="post">
+               		<input type="text" name="userid" placeholder="아이디" />
+               		<input type="text" name="uname" placeholder="이름" />
+					<input type="password" name="acode"  placeholder="비밀번호"/>
 					<input type="hidden" name="cpcode" value="${cpcode }" />
+					<input type="text" name="uphone" placeholder="핸드폰" />
+					<input type="text" name="mail" placeholder="메일" />
+					<select name="tecode">
+					<option value="I">인사팀</option>
+					<option value="G">개발팀</option>
+					<option value="D">디자인팀</option>
+					<option value="M">마케팅팀</option>
+					<option value="Y">영업팀</option>
+					</select>
+					<input type="hidden" name="wcode" value="1" />
+					<input type="hidden" name="utype" value="G" />
+					<input type="submit" value="등록">
+					</form>
 					
-					<input type="hidden" name="uphone" value="${uphone }" />
-					<input type="hidden" name="tecode" value="${tecode }" />
-					<input type="hidden" name="wcode" value="${wcode }" />
-					
-					
-					<input type="button" value="Add TeamMember" onClick="addTeamMember()" />
 					
 					
 					
