@@ -27,10 +27,13 @@ public interface SelectInterface {
 	  public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb);
 	  public List<ScheduleDetailBean> getSDInfo(ScheduleDetailBean sdb);
 	  public List<ScheduleDetailBean> reqForCompletion(ScheduleDetailBean sdb);
-	  
 	  public List<ProjectStepBean> getCompleteList(ProjectStepBean psb);
 	  public List<ProjectStepBean> selectStepReq(ProjectStepBean psb);
 	  public List<ProjectStepBean> selectManager(ProjectStepBean psb);
 	  public List<ProjectMemberBean> selectProjectMember(ProjectMemberBean pmb);
+
+
+	  public int getMaxNocode(Notice_CalendarBean nc);
+	  public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc);
 
 }

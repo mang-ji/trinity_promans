@@ -121,7 +121,12 @@ public class Restcontroller {
 		return si.getNoticeList(nc.get(0));
 	}
 	
-
+	/* 공지사항 디테일 조회 */
+	@PostMapping("/getNoticeDetail")
+	public List<Notice_CalendarBean> getNoticeDetail(@RequestBody List<Notice_CalendarBean> nc) {
+		return si.getNoticeDetail(nc.get(0));
+		
+	}
 	@PostMapping("/GetProject")
 	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
 		
@@ -158,13 +163,7 @@ public class Restcontroller {
 		return si.reqForCompletion(sdb.get(0));
 	}
 	
-	
 
-//	@PostMapping("/SelectWaitingStep")
-//	public List<ProjectStepBean> updateStep(@RequestBody List<ProjectStepBean> psb){
-//		return si.selectStep(psb.get(0));
-//	}
-//	
 	@PostMapping("/selectManager")
 	public List<ProjectStepBean> selectManager(@RequestBody ProjectStepBean psb){
 		return si.selectManager(psb);
