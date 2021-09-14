@@ -37,7 +37,6 @@
 		SD_USERID= #{userid}
 	</select>
 
-
 	<!-- 공지사항 리스트 조회 -->
 	<select id="getNoticeList"
 		parameterType="team3.promans.beans.Notice_CalendarBean"
@@ -97,18 +96,19 @@
 		resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
 		WD_PRCODE as prcode,
-		WD_USERID as
-		userid,
+		WD_USERID as userid,
 		WD_CODE as wdcode,
 		WD_TITLE as wdtitle,
-		WD_CONTENTS as
-		wdcontents,
+		WD_CONTENTS as wdcontents,
 		WD_DATE as wddate
 		FROM WD
 		WHERE WD_CPCODE = #{cpcode}
-		and
-		WD_PRCODE = #{prcode}
+		and WD_PRCODE = #{prcode}
+		and WD_CODE = #{wdcode}
+		and WD_USERID = #{userid} 
+		and WD_PRCODE = #{prcode}
 		and WD_USERID = #{userid}
+
 	</select>
 
 	<!-- 공지사항 글쓰기 -->

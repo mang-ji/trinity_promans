@@ -77,7 +77,8 @@
                 </nav>
                 <!-- Page content (게시판 형식)-->
 		<div class="container-fluid">
-			<div id = "myDiary"></div>
+			<div id="Dlist"></div>
+				<div id = "myDiary"></div>
 					<input class="inputBox" style=display:none type="text" name="wdtitle1" placeholder="제목" />
 					<input class="inputBox" style=display:none type="text" name="wdcontents1" placeholder="내용" />	
 				<div id= "writeDiary">

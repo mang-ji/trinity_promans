@@ -76,25 +76,30 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
+		System.out.println("뜰때됐잖아");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
-	
+	//업무디테일작성
 	@PostMapping("/WriteSchedule")
-	public int writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+	public String writeSchedule(@RequestBody ScheduleDetailBean sdb) {
 		//sm.writeSchedule(sdb.get(0))
-		return 1;
+		System.out.println("글작성 첫번째에러다");
+		return sm.writeSchedule(sdb);
 	}
 	
-	
+	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public int writeDiary(@ModelAttribute WorkDiaryBean wdb) {
+	public String writeDiary(@RequestBody WorkDiaryBean wdb) {
+		System.out.println("일지작성?");
 		return sm.writeDiary(wdb);
 	}
 	
 	
 	@PostMapping("/GetDiary")
 	public List<WorkDiaryBean> getDiary(@RequestBody List<WorkDiaryBean> wdb){
+		System.out.println("퍼킹다이어리");
+		
 		return si.getDiary(wdb.get(0));
 	}
 	

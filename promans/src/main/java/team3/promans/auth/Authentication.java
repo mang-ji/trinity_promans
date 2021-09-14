@@ -73,7 +73,6 @@ public class Authentication implements AuthInterface {
 
 
 	public String test(CpMemberBean cm) {
-
 	      try {
 	          cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
 	         cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
@@ -85,11 +84,7 @@ public class Authentication implements AuthInterface {
 	      } catch (Exception e) {e.printStackTrace();}
 	      
 	      return "adminProject";
-	   }
-
-	
-
-
+	  }
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;
 	}

@@ -50,16 +50,10 @@
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
 			<!-- Top navigation-->
-			<nav
+			<nav>
 				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<div class="container-fluid">
-
-
 					<div>::: TEAM LIST :::</div>
-
-
-
-
 					<!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
 					<!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -78,16 +72,13 @@
                                 </li>
                             </ul>
                         </div>-->
-
                     </div>
-                </nav>
-               
-                
+                </nav>           
                 <!-- Page content-->
                 <div class="container-fluid">
                		<input type="hidden" name="userid" value="${userid }" />
 					<input type="hidden" name="uname" value="${uname }" />
-					<<%-- input type="hidden" name="cpcode" value="${cpcode }" /> --%>
+					<%-- input type="hidden" name="cpcode" value="${cpcode }" /> --%>
 					
 					<input type="hidden" name="uphone" value="${uphone }" />
 					<input type="hidden" name="tecode" value="${tecode }" />
@@ -110,8 +101,6 @@
 					</select> <input type="hidden" name="wcode" value="1" /> 
 					<input type="hidden" name="utype" value="G" /> <input type="submit" value="등록">
 				</form>
-
-
 			</div>
             </div>
         </div>
