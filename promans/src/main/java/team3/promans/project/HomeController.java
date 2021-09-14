@@ -23,47 +23,43 @@ import team3.promans.services.SelectInfo;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	Encryption enc;
-	
+
 	@Autowired
 	ProjectUtils pu;
-	
+
 	@Autowired
 	Authentication auth;
-	
+
 	@Autowired
 	ProjectManagement pm;
-	
+
 	@Autowired
 	SelectInfo si;
-	
+
 	private ModelAndView mav;
-	
+
 	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
 	public String rootCtl() {
-		
-		
+
+
 		return "logInPage";
 	}
-	
+
 	@PostMapping("accessInfo")
 	public ModelAndView logInCtl(@ModelAttribute AccessHistory ah) {
 		mav = auth.logInCtl(ah);
 		return mav;
 	}
-	
-	@GetMapping("test")
-	public void test(@ModelAttribute CpMemberBean cm) {
-		auth.test(cm);
+
+	@PostMapping("SignUp")
+	public String test(@ModelAttribute CpMemberBean cm) {
+		return auth.test(cm);
 	}
-	
-	@GetMapping("SignUp")
-	public String test2() {
-		return "test";
-	}
-	
+
+
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -94,26 +90,26 @@ public class HomeController {
 	}
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm() {
-		
-		
+
+
 		return "mySchedule";
 	}
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm() {
 		return "myDiary";
 	}
-	
+
 	@PostMapping("goAdminProjectForm")
 	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
-		
+
 		try {
 			pu.setAttribute("prcode", prcode);
-			
+
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		return "adminProject";
 	}
-	
+
 
 	/* 공지사항 추가*/
 	@PostMapping("insNotice")
@@ -127,14 +123,14 @@ public class HomeController {
 		try {
 			pu.setAttribute("pscode", sdb.getPscode());
 			pu.setAttribute("sccode", sdb.getSccode());
-			
+
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		return "adminSchedule";
-		
+
 
 	}
-	
+
 	@PostMapping("reqComplete")
 	public ModelAndView reqComplete(@ModelAttribute ScheduleDetailBean sdb) {
 		mav = pm.reqComplete(sdb);
