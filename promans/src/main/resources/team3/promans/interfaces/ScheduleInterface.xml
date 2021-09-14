@@ -41,4 +41,16 @@
 	  	 WHERE SD_USERID = #{userid} AND SD_STATE = 'W' AND SD_PRCODE = #{prcode}  AND SD_PSCODE = #{pscode} AND SD_SCCODE = #{sccode} AND SD_CODE = #{sdcode}
 	  	
 	  	</update>
+	  	
+	  	<insert id ="insSD" parameterType = "team3.promans.beans.ScheduleDetailBean">
+	  	
+	  	INSERT INTO SD VALUES (#{cpcode}, #{prcode}, #{pscode}, #{sccode},#{userid} ,'SD04', #{sdname}, #{sdcontent}, SYSDATE, 'I' )
+	  	
+	  	</insert>
+	  	
+	  	<insert id ="insSM" parameterType = "team3.promans.beans.ScheduleDetailBean">
+	  	
+	  	  INSERT INTO SM VALUES(#{cpcode}, #{prcode}, #{pscode}, #{sccode}, #{userid}, 1 , 'G')
+	  	
+	  	</insert>
 </mapper>

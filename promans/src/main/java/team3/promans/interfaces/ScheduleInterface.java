@@ -14,4 +14,6 @@ public interface ScheduleInterface {
 	//public int reqSchedule(ScheduleDetailBean sdb);
 	public int reqPass(ScheduleDetailBean sdb);
 	public void scheFeedback(List<ScheduleDetailBean> sdb);
+	public void insSD(ScheduleDetailBean sdb);
+	public void insSM(ScheduleDetailBean sdb);
 }

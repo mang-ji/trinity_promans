@@ -166,9 +166,14 @@ public class Restcontroller {
 //	}
 //	
 	@PostMapping("/selectManager")
-	public List<ProjectStepBean> selectManager(@RequestBody ProjectStepBean psb){
-		return si.selectManager(psb);
+	public List<ProjectStepBean> selectManager(@RequestBody List<ProjectStepBean> psb){
+		
+		
+		return si.selectManager(psb.get(0));
 	}
+	
+	
+	
 	@PostMapping("/makeStep")
 	public Map<String,String> makeStep(@RequestBody List<ProjectStepBean> psb) {
 		
@@ -226,6 +231,15 @@ public class Restcontroller {
 		
 		
 		return sm.reqPass(sdb.get(0));
+	}
+	@PostMapping("/InsSD")
+	public  Map<String, String> InsSD(@RequestBody List<ScheduleDetailBean> sdb) {
+		Map<String, String> map = new HashMap<>();
+		map.put("message", "업무가 추가되었습니다.");
+		
+		sm.insSD(sdb.get(0));
+		
+		return map;
 	}
 
 }

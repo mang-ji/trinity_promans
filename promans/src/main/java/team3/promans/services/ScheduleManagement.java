@@ -79,7 +79,6 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 		
 	}
 
-
 	public void scheFeedback(List<ScheduleDetailBean> sdb) {
 	     sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
 	    System.out.println(sdb.get(0));
@@ -93,7 +92,18 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 		System.out.println("피드백 여기 업뎃");
 		sql.update("updateScheFeedback",sdb.get(0));
 	}
+
+
+	public void insSD(ScheduleDetailBean sdb) {
+		System.out.println(sdb);
+		sql.insert("insSD", sdb);
+			this.insSM(sdb);	
+		
+		
+	}
 	
-	
+	public void insSM(ScheduleDetailBean sdb) {
+		sql.insert("insSM", sdb);
+	}
 
 }

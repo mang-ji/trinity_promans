@@ -1,4 +1,5 @@
-
+let sdname;
+let sccode;
 
 function goAdminProject(prcode){
      let f = document.createElement("form");
@@ -48,7 +49,7 @@ function selectProject(jsonData){
 	
 	for(i=0; i<jsonData.length; i++){
 		
-	list += "<div onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\">"
+	list += "<div onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"+jsonData[i].pscode+"\' />"
 	+ jsonData[i].psname + jsonData[i].stname + "</div><br>";	
 	
 	}
@@ -280,7 +281,7 @@ function setButton(){
 	setBtn2.style.display = "block";
 	setBtn3.style.display = "block";
 	changeBtn.innerHTML = 
-	"<input type=\"button\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\">";
+	"<input type=\"button\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
 }
 function setButton2(){
 	let closeButton = document.getElementsByName("closeButton")[0];
@@ -380,7 +381,8 @@ function getSchedule(pscode){
 	let prcode = document.getElementsByName("prcode")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
 	let userid = document.getElementsByName("userid")[0];
-	
+
+		
 	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode, userid:userid.value}];
 	let clientData = JSON.stringify(jsonData);
 	
@@ -389,17 +391,26 @@ function getSchedule(pscode){
 }
 
 function selectSchedule(jsonData){
+	
+	alert(JSON.stringify(jsonData));
 	let list = "";
 	let edit = "";
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
 	let ShceduleEdit = document.getElementById("ShceduleEdit");
+	let count=1;
 	
+	
+	list += "<span>No.</span><span>Schedule</span><span>Progress</span>";
 	for(i=0; i<jsonData.length; i++){
-	list += "<div  onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\">"+ jsonData[i].scname + jsonData[i].scstate + "</div></label><br>";	
-	
+		
+	list += "<div onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode
+	+"\')\" id ='SSC'>"+count+"<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/><input type ='hidden' name = 'pscode' value = \'"+jsonData[i].pscode
+	+"\'/>"+ jsonData[i].scname + jsonData[i].scstate + "</div></label><div onClick = \"addScheduleDetail(\'"+jsonData[i].scname+
+	","+jsonData[i].sccode+"\')\" name = 'addScheduleDetail' style = 'display:none'>추가</div>";	
+	   count++;
 	}
-	edit += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div><div onClick = 'addScheduleDetail()' name = 'send' style = 'display:none'>완료요청</div><div onClick = 'addScheduleDetail()' name = 'addScheduleDetail' style = 'display:none'>추가</div>"
+	edit += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>"
 	
 	selectStep.innerHTML = list;
 	ShceduleEdit.innerHTML = edit;
@@ -413,12 +424,11 @@ function getScheDetail(sccode1, pscode1){
 	let sccode = makeInput("hidden","sccode", sccode1);
 	let prcode = document.getElementsByName("prcode")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
-	let userid = document.getElementsByName("userid")[0];
+	
 		
      	
 	  f.appendChild(prcode);
 	  f.appendChild(cpcode);
-	  f.appendChild(userid);
 	  f.appendChild(pscode);
 	  f.appendChild(sccode);
 
@@ -435,25 +445,29 @@ function getScheDetail(sccode1, pscode1){
 function editSchedule(){ //편집 누르면 완료요청, 업무추가 버튼 나옴
 	
 
-	let addScheduleDetail = document.getElementsByName("addScheduleDetail")[0];
+	let addScheduleDetail = document.getElementsByName("addScheduleDetail");
   
-	
-		addScheduleDetail.style.display="block";
+		for(i=0; i<addScheduleDetail.length; i++){
+			addScheduleDetail[i].style.display="block";
+		}
+		
 		
 		
 		
 		
 }
 
-function getSDInfo(ParamPscode){ //완료요청 누르면 실행되는 펑션 , 완료 요청 정보 가져오려면 필요한 데이터 받아오는 펑션
+function getSDInfo(Param){ //완료요청 누르면 실행되는 펑션 , 완료 요청 정보 가져오려면 필요한 데이터 받아오는 펑션
 
    let prcode = document.getElementsByName("prcode")[0];
    let cpcode = document.getElementsByName("cpcode")[0];
-   let modal = document.getElementById("modal1");
+    let pscode = document.getElementsByName("pscode")[0];
+//let sdname = document.getElementsByName("scname")[0];  
+ let modal = document.getElementById("modal1");
 
     modal.style.display = "block";
 
-   let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
+   let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value}];
    let clientData = JSON.stringify(jsonData); 
 
   postAjax("rest/GetSDInfo" , clientData, "getReqForCompletion", 2);
@@ -461,24 +475,23 @@ function getSDInfo(ParamPscode){ //완료요청 누르면 실행되는 펑션 , 
 }
 
 function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테일 조회하려고 필요한 값 보내고 받는 곳
+
    let prcode = document.getElementsByName("prcode")[0];
    let cpcode = document.getElementsByName("cpcode")[0];
    let userid = document.getElementsByName("userid")[0];
    let pscode = document.getElementsByName("pscode")[0];
 
+	pscode.value = jsonData1[0].pscode;
+
 	let json = [];
 	
-
-   json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:jsonData1[i].sccode , sddcode:jsonData1[i].sddcode, userid:userid.value});
-
-    		
  	for(i=0; i<jsonData1.length; i++){
    		json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:jsonData1[i].sccode , sddcode:jsonData1[i].sddcode, userid:userid.value});
     }
 
    let clientData = JSON.stringify(json);
   	alert(clientData);
-	pscode.value = jsonData1[0].pscode;
+
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
 	
 }
@@ -538,7 +551,7 @@ alert(arr[2]);
     }
 
 
-  }) 
+  }); 
 //box.innerHTML += "<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
 box.innerHTML += "<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>Send Feedback";
 box.innerHTML += "<div class='modal-body'><form>";
@@ -560,16 +573,22 @@ let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, 
 
 function closee(){ //업무 완료 승인 창 스타일 주기
 	let div = document.getElementById("modal1");
-
-		div.style.display="none";
+    let modal = document.getElementById("modalDiv");
+		div.remove();
+		modal.innerHTML="<div id = 'modal1' style='display:none;' ></div><div id = 'modal2'  style='display:none;'></div>";
 		
 	
 }
 
+
 function  closeScheFeedback(message){ //피드백 창 끄는 펑션
 	
 	let div = document.getElementById("modal2");
+	let div1 = document.getElementById("modal1");
+	let modal = document.getElementById("modalDiv");
 	div.remove();
+	div1.remove();
+	modal.innerHTML="<div id = 'modal1' style='display:none;' ></div><div id = 'modal2'  style='display:none;'></div>";
 }
 
 function sendScheFeedback(jsonData){ //피드백 전송
@@ -583,7 +602,7 @@ function sendScheFeedback(jsonData){ //피드백 전송
      jsonData.push({sdcontent:sdcontent.value});
 	 postAjax("rest/ScheFeedback", JSON.stringify(jsonData), "closeScheFeedback", 2 );
 	
-})
+});
 	
 }
 
@@ -615,7 +634,7 @@ alert(userid);
     }
 
 
-  }) 
+  });
 
 let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, userid:arr[0], sdcode:arr[1] , sccode:arr[2]}];
 
@@ -629,35 +648,96 @@ postAjax("rest/ReqPass", clientData, 'upPass', 2);
 
 function upPass(){ //업무 디테일 완료 승인해주면 모달 창 다 꺼지는 거
 	let modal1 = document.getElementById("modal1");
-	 let modal2 = document.getElementById("modal2");
+	let modal2 = document.getElementById("modal2");
 	modal2.remove();
 	modal1.remove();
 	
 	
 }
 
-function addScheduleDetail(){ //업무추가 누르면 실행되는 펑션
+function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되는 펑션
 	
-	let box = document.getElementById("modal1");
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
 	
+	sccode = sccode1;
+	sdname = sdname1;
+	
+	alert(cpcode.value + prcode.value + sdname1);
+	
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
+	
+	let clientData = JSON.stringify(jsonData);
+	
+	postAjax('rest/selectManager', clientData, 'getScheManager', 2);
+	
+	
+	
+}
+
+
+function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 추가하려고 프로젝트 멤버 조회하는 곳
+   
+    let box = document.getElementById("modal1");
+    
+
 	box.style.display = "block";
 
 	box.innerHTML += "<div class='modal' id = 'modal3' tabindex='-1' role='dialog' style='border:1px solid black;'>";
-	box.innerHTML += "<div class='modal-dialog' role='document'><div class='modal-content' name = 'promem'><div class='modal-header'>";
-	box.innerHTML += "<div class='modal-body'><p></p></div>";
+	
+	
+		
+	box.innerHTML += "<div class='modal-dialog' role='document'>Schedule Detail<input type = 'text' class='modal-content' name = 'sdcontent'/><div class='modal-header'>";
+	
+	for(i=0; i<jsonData.length; i++){
+	box.innerHTML += "<div class='modal-body'><p></p></div><input type ='radio'value= \'"+jsonData[i].userid+"\' name = 'radioo'/>"+jsonData[i].username+"";
+	}
 	box.innerHTML += "<div class='modal-footer'>";
 	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"insScheduleDetail()\">추가하기</button>";
 	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'closee()'>Close</button>";
-	box.innerHTML += "</div></div></div></div>";
+	box.innerHTML += "</div></div></div>";
 	
 }
 
+function insScheduleDetail(){
+	
+	let cpcode = document.getElementsByName("cpcode")[0];
+    let prcode = document.getElementsByName("prcode")[0]; 
+    let sdcontent = document.getElementsByName("sdcontent")[0];
+    let pscode = document.getElementsByName("pscode")[0];
+	let userid="";
+	let arr= "";
 
-function getScheManager(){ //업무 디테일 추가하면서 관리자 추가하려고 프로젝트 멤버 조회하는 곳
+	
+		 const radioNodeList
+  = document.getElementsByName('radioo'); 
+  
+	 radioNodeList.forEach((node) => {
 
+    if(node.checked)  {
+     userid 
+        = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
      
-	
+
+    }
+
+  }); 
+arr = sdname.split(",");
+
+let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode:pscode.value,sdname:arr[0], sdcontent:sdcontent.value,sccode:arr[1]}];
+
+let clientData = JSON.stringify(jsonData);
+console.log(sccode);
+console.log(sdname);
+alert(clientData);
+
+postAjax("rest/InsSD", clientData, 'upPass', 2);
+
+
 }
+
+
+
 
 
 

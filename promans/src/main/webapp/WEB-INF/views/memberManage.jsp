@@ -100,7 +100,24 @@
 					<input type="hidden" name="wcode" value="${wcode }" />
 					
 					
-					<input type="button" value="Add TeamMember" onClick="addTeamMember()" />
+					               <form action="SignUp" method="post">
+                     <input type="text" name="userid" placeholder="아이디" />
+                     <input type="text" name="uname" placeholder="이름" />
+               <input type="password" name="acode"  placeholder="비밀번호"/>
+               <input type="hidden" name="cpcode" value="${cpcode }" />
+               <input type="text" name="uphone" placeholder="핸드폰" />
+               <input type="text" name="mail" placeholder="메일" />
+               <select name="tecode">
+               <option value="I">인사팀</option>
+               <option value="G">개발팀</option>
+               <option value="D">디자인팀</option>
+               <option value="M">마케팅팀</option>
+               <option value="Y">영업팀</option>
+               </select>
+               <input type="hidden" name="wcode" value="1" />
+               <input type="hidden" name="utype" value="G" />
+               <input type="submit" value="등록">
+               </form>
 					
 					
 					

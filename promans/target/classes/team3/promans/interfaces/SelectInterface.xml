@@ -60,7 +60,6 @@
 		and WD_PRCODE = #{prcode}
 		and WD_USERID = #{userid} 
 		
-
 	</select>
 	
 	<!-- 공지사항 글쓰기 -->
@@ -69,7 +68,6 @@
 		VALUES(#{cpcode}, #{prcode}, #{nocode}, #{writer}, #{title}, #{contents}, to_char(sysdate,'YYMMDD'), #{filepath}, #{fname})
 	</insert>
 	
-
 	<select id="getProject"
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectBean">
@@ -112,8 +110,7 @@
 		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND SD.SD_USERID =
 		CM.CM_USERID
 		WHERE SD.SD_CPCODE = #{cpcode} AND SD.SD_PRCODE = #{prcode} AND
-		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode} AND SD.SD_USERID
-		= #{userid}
+		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode}
 	</select>
 	
 	<select id="getSDInfo" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType =  "team3.promans.beans.ScheduleDetailBean" >
@@ -149,8 +146,9 @@
 	</select>
 	
 	<select id="selectManager" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
-		select distinct username as username, userid from projectmemberview where utcode='G' and wcode='1'and prcode =#{prcode} and cpcode=#{cpcode}
+		select distinct username as username, userid from projectmemberview where wcode='1'and prcode =#{prcode} and cpcode=#{cpcode}
 	</select>
+	
 	
 	
 	<select id="getCompleteList" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">

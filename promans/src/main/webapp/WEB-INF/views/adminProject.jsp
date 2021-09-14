@@ -21,6 +21,7 @@
     		let userid1 = document.getElementsByName("userid")[0];
     		let cpcode1 = document.getElementsByName("cpcode")[0];
     		let prcode1 = document.getElementsByName("prcode")[0];
+    	
     		
     		let jsonData = [{cpcode:cpcode1.value, prcode:prcode1.value, userid:userid1.value}];
     		
@@ -46,7 +47,8 @@
         <input type="hidden" name="prcode" value="${prcode}">
         <input type="hidden" name="pscode" value="${pscode}">
         <input type="hidden" name="userid" value="${userid}">
-        
+      
+        <div id="modalDiv"></div>
         <div id = "modal1" style="display:none;" ></div>
         <div id = "modal2"  style="display:none;"></div>
         
@@ -95,8 +97,9 @@
                 <!-- Page content-->
                 
                 <div class="container-fluid" >
-           
-                    <div id="selectStep"></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
+                     <div id = "selectBack">
+                     <div id = "selHeight"></div>
+                    <div id="selectStep"></div></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
                      <div id="ShceduleEdit" ></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
               </div>
                
