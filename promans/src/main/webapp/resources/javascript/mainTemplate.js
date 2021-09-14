@@ -25,12 +25,12 @@ function projectOnLoad(){
               project.style.display = "none";
               adminMember.style.display = "block";
            }
-		if(pscode.value == ""){
+		/*if(pscode.value == ""){
 			mysc.style.display = "none";
 
 		}else{
 			mysc.style.display="block";			
-		}
+		}*/
     }
 
      function logout(){

@@ -100,6 +100,8 @@ table {
 
 				<div >
 					<input type="button" id="editbtn" value="편집" name="deleteNotice"/>
+					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display:none;"/>
+					
 				
 					<input type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup()" />
 				</div>
