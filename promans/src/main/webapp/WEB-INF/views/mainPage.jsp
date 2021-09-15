@@ -19,7 +19,6 @@
         let userid1 = document.getElementsByName("userid")[0];
         let jsonData =[{cpcode:cpcode1.value, userid:userid1.value}];
         let clientData = JSON.stringify(jsonData);
-        let clientData = JSON.stringify(jsonData);
 
         postAjax('rest/GetProject', clientData, 'getProject1', 2);
  
