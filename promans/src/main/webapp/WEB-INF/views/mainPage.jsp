@@ -30,11 +30,6 @@
       <div id="modal_box"></div>
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
-      <input type="hidden" name="utype" value="${utype}"> 
-      <input type="hidden" name="cpcode" value="${cpcode}">
-      <input type="hidden" name="userid" value="${userid}">
-      <input type="hidden" name="prcode" value="${prcode}">
-      <div id="getProject"></div>
 
 	 <div id="modal_background">
 	 	<div id="modal_box">
@@ -49,5 +44,6 @@
       <input type="hidden" name="userid" value="${userid}">
       <input type="hidden" name="prcode" value="">
       <div id="getProject"></div>
+
 </body>
 </html>

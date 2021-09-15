@@ -17,4 +17,5 @@ public interface ScheduleInterface {
 	public void scheFeedback(List<ScheduleDetailBean> sdb);
 	public void insSD(ScheduleDetailBean sdb);
 	public void insSM(ScheduleDetailBean sdb);
+	public int maxScCode(ScheduleDetailBean sdb);
 }

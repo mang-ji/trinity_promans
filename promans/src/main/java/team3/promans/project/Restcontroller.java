@@ -247,7 +247,7 @@ public class Restcontroller {
 		return map;
 	}
 	
-	@PostMapping("/SelectProjectMember")
+	@PostMapping("/selectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
 	}

@@ -119,11 +119,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		} catch (Exception e) {e.printStackTrace();}
 		
 		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
-		
-		try {
-			pu.setAttribute("utype", list.get(0).getUtype());
-		} catch (Exception e) {e.printStackTrace();}
-		
 		return list;
 	}
 
@@ -131,6 +126,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		List<ScheduleBean> list = sql.selectList("selectSchedule", psb);
 		try {
 			pu.setAttribute("pscode", list.get(0).getPscode());
+			pu.setAttribute("utype", list.get(0).getUtype());
 		} catch (Exception e) {e.printStackTrace();}
 		return list;
 	}

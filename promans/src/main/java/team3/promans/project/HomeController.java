@@ -114,6 +114,10 @@ public class HomeController {
 	public String mainPageForm() {
 		return "mainPage";
 	}
+	@GetMapping("scheduleForm")
+	public String scheduleForm() {
+		return "adminSchedule";
+	}
 	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
@@ -156,9 +160,8 @@ public class HomeController {
 	@PostMapping("GoAdminScheduleForm")
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
 		try {
-			pu.setAttribute("pscode", sdb.getPscode());
 			pu.setAttribute("sccode", sdb.getSccode());
-
+			System.out.println(sdb.getSccode() + " : " + pu.getAttribute("sccode"));
 		} catch (Exception e) {e.printStackTrace();}
 
 		return "adminSchedule";
