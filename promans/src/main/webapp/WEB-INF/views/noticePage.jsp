@@ -86,6 +86,7 @@ table {
 			</nav>
 			<!-- Page content-->
 			<div class="container-fluid">
+			<form action="noticeForm" method="get" id="testDiv">
 				<table id="table_notice">
 					<tr id="trNotice">
 						<th></th>
@@ -97,12 +98,10 @@ table {
 					</tbody>
 
 				</table>
-
+		</form>
 				<div >
 					<input type="button" id="editbtn" value="편집" name="deleteNotice"/>
-					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display:none;"/>
-					
-				
+					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display:none;" onClick="deleteNotice()"/>
 					<input type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup()" />
 				</div>
 

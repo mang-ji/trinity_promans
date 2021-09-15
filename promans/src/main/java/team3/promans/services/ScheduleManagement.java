@@ -84,13 +84,12 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 		System.out.println(sdb);
 		sql.insert("insSD", sdb);
 			this.insSM(sdb);	
-		
-		
 	}
 	
 	public void insSM(ScheduleDetailBean sdb) {
 		sql.insert("insSM", sdb);
 	}
+
 	@Override
 	public ModelAndView writeDiary(ScheduleDetailBean sdb) {
 		// TODO Auto-generated method stub
