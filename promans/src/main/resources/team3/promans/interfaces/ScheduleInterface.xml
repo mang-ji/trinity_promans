@@ -49,7 +49,7 @@
 	  	
 	  	<insert id ="insSD" parameterType = "team3.promans.beans.ScheduleDetailBean">
 	  	
-	  	INSERT INTO SD VALUES (#{cpcode}, #{prcode}, #{pscode}, #{sccode},#{userid} ,'SD04', #{sdname}, #{sdcontent}, SYSDATE, 'I' )
+	  	INSERT INTO SD VALUES (#{cpcode}, #{prcode}, #{pscode}, #{sccode},#{userid} ,#{sdcode}, #{sdcontent}, SYSDATE, 'I' )
 	  	
 	  	</insert>
 	  	
@@ -58,4 +58,10 @@
 	  	  INSERT INTO SM VALUES(#{cpcode}, #{prcode}, #{pscode}, #{sccode}, #{userid}, 1 , 'G')
 	  	
 	  	</insert>
+	  	
+	  	
+	  	<select id="maxScCode" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="int">
+	  		SELECT NVL(SUBSTR(MAX(SD_CODE),3,4),0) FROM SD WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE=#{sccode}
+	  	
+	  	</select>
 </mapper>

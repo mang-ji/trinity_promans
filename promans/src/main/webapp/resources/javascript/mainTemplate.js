@@ -7,6 +7,16 @@
     	 publicIP = data.ip;
      }
 
+function cloudCate(){
+	let sc = document.getElementsByName("sccode")[0];
+	if(sc.value == ""){
+		alert("업무를 선택하거나 다시 시도해주세요.");
+		location.href = "projectForm";
+	}else{
+		location.href = "cloudForm";
+	}
+}
+
 
 function projectOnLoad(){
        let adminProject = document.getElementById("adminProject");

@@ -14,11 +14,21 @@
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <title>로그인</title>
+        <script>
+	    window.addEventListener('load',function(){
+			        let fwriter = document.getElementsByName("fwriter")[0].value;
+			        let cpcode = document.getElementsByName("cpcode")[0].value;
+			        let prcode = document.getElementsByName("prcode")[0].value;
+			        let pscode = document.getElementsByName("pscode")[0].value;
+			        let sccode = document.getElementsByName("sccode")[0].value;
+        			let data = [{fwriter:fwriter,cpcode:cpcode,prcode:prcode,pscode:pscode,sccode:sccode}];
+			       	alert(JSON.stringify(data));
+        			postAjax("rest/getFileList",JSON.stringify(data),"getFileList",2);
+	     });
+	        
+        </script>
     </head>
     <body onLoad="projectOnLoad()">
-        	<input type="hidden" name="utype" value="${utype}">
-        	<input type="hidden" name="userid" value="${userid}">
-        	<input type="hidden" name="cpcode" value="${cpcode}">
         	
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
@@ -63,7 +73,24 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-					<input type="file" name="file">
+                <form action="insFile" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="utype" value="${utype}">
+		        	<input type="hidden" name="fwriter" value="${userid}">
+		        	<input type="hidden" name="cpcode" value="${cpcode}">
+		        	<input type="hidden" name="prcode" value="${prcode}">
+		        	<input type="hidden" name="pscode" value="${pscode}">
+		        	<input type="hidden" name="sccode" value="${sccode}">
+                	<input type="button" value="파일추가" onClick="clickBtn()">
+                	<div id="popup" style="display:none;"><div id="popup1">
+                	<input type="file" name="file" multiple>
+					<input type="text" name="ftitle" placeholder="파일 제목">
+					<select name="fopen">
+					<option value="O">공개</option>
+					<option value="C">비공개</option>
+					</select>
+					<input type="submit" value="전송">
+                	</div></div>
+				</form>
                 </div>
             </div>
         </div>

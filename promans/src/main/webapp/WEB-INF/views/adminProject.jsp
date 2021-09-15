@@ -19,11 +19,9 @@
  	 //let publicIP;
  	 
      window.addEventListener('load',function(){
-    	    
     		let userid1 = document.getElementsByName("userid")[0];
     		let cpcode1 = document.getElementsByName("cpcode")[0];
     		let prcode1 = document.getElementsByName("prcode")[0];
-    	
     		
     		let jsonData = [{cpcode:cpcode1.value, prcode:prcode1.value, userid:userid1.value}];
     		
@@ -54,6 +52,7 @@
         <input type="hidden" name="cpcode" value="${cpcode}">
         <input type="hidden" name="prcode" value="${prcode}">
         <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
       
         <div id="modalDiv"></div>

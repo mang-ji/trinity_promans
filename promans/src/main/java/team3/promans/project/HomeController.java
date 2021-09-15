@@ -19,9 +19,11 @@ import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
+import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ScheduleDetailBean;
+import team3.promans.services.FileManagement;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.ScheduleManagement;
@@ -45,8 +47,10 @@ public class HomeController {
 
 	@Autowired
 	SelectInfo si;
-
-
+	
+	@Autowired
+	FileManagement fm;
+	
 	@Autowired
 	ScheduleManagement sm;
 
@@ -65,7 +69,7 @@ public class HomeController {
 		mav = auth.logInCtl(ah);
 		return mav;
 	}
-
+	
 	@PostMapping("logOut")
 	public ModelAndView logOut(@ModelAttribute AccessHistory ah) {
 		mav = auth.logOutCtl(ah);
@@ -77,6 +81,7 @@ public class HomeController {
 		System.out.println(cm);
 		return auth.SignUp(cm);
 	}
+	
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -108,6 +113,10 @@ public class HomeController {
 	@GetMapping("mainPageForm")
 	public String mainPageForm() {
 		return "mainPage";
+	}
+	@GetMapping("scheduleForm")
+	public String scheduleForm() {
+		return "adminSchedule";
 	}
 	
 	@GetMapping("myScheduleForm")
@@ -151,9 +160,8 @@ public class HomeController {
 	@PostMapping("GoAdminScheduleForm")
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
 		try {
-			pu.setAttribute("pscode", sdb.getPscode());
 			pu.setAttribute("sccode", sdb.getSccode());
-
+			System.out.println(sdb.getSccode() + " : " + pu.getAttribute("sccode"));
 		} catch (Exception e) {e.printStackTrace();}
 
 		return "adminSchedule";
@@ -180,6 +188,12 @@ public class HomeController {
 	@PostMapping("reqComplete")
 	public ModelAndView reqComplete(@ModelAttribute ScheduleDetailBean sdb) {
 		mav = pm.reqComplete(sdb);
+		return mav;
+	}
+	
+	@PostMapping("insFile")
+	public ModelAndView insFile(@ModelAttribute CloudBean cb) {
+		mav =  fm.insFile(cb);
 		return mav;
 	}
 }

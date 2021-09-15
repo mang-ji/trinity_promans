@@ -41,9 +41,9 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	}
 	
 
-	public String writeDiary(WorkDiaryBean wdb) {
+	public String writeDiary(ScheduleDetailBean sdb) {
 		System.out.println("일지작성?");
-		sql.insert("writeDiary", wdb);
+		sql.insert("writeDiary", sdb);
 		return "";
 	}
 
@@ -77,25 +77,26 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	}
 
 
-
 	public void insSD(ScheduleDetailBean sdb) {
-		System.out.println(sdb);
+		int max = this.maxScCode(sdb)+1;
+		
+		sdb.setSdcode((max<10)?"SD0"+max:"SD"+max);
 		sql.insert("insSD", sdb);
-			this.insSM(sdb);	
+		this.insSM(sdb);	
 	}
 	
 	public void insSM(ScheduleDetailBean sdb) {
 		sql.insert("insSM", sdb);
 	}
-
-	@Override
-	public ModelAndView writeDiary(ScheduleDetailBean sdb) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	
 	
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;
+	}
+	
+	public int maxScCode(ScheduleDetailBean sdb) {
+		return sql.selectOne("maxScCode", sdb);
 	}
 
 }

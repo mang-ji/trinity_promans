@@ -11,10 +11,11 @@ import team3.promans.beans.ScheduleDetailBean;
 public interface ScheduleInterface {
 
 	public String writeSchedule(ScheduleDetailBean sdb);
-	public ModelAndView writeDiary(ScheduleDetailBean sdb);
+	public String writeDiary(ScheduleDetailBean sdb);
 	//public int reqSchedule(ScheduleDetailBean sdb);
 	public int reqPass(ScheduleDetailBean sdb);
 	public void scheFeedback(List<ScheduleDetailBean> sdb);
 	public void insSD(ScheduleDetailBean sdb);
 	public void insSM(ScheduleDetailBean sdb);
+	public int maxScCode(ScheduleDetailBean sdb);
 }

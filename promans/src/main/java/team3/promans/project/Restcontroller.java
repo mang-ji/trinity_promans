@@ -23,12 +23,14 @@ import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
+import team3.promans.beans.CloudBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
 import team3.promans.beans.ProjectMemberBean;
+import team3.promans.services.FileManagement;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.TeamManagement;
 import team3.promans.beans.Notice_CalendarBean;
@@ -66,6 +68,9 @@ public class Restcontroller {
 	@Autowired
 	ProjectManagement pm;
 	
+	@Autowired
+	FileManagement fm;
+	
 	ModelAndView mav;
 
 	@GetMapping("/idCheck")
@@ -89,8 +94,8 @@ public class Restcontroller {
 	
 	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public String writeDiary(@RequestBody WorkDiaryBean wdb) {
-		return sm.writeDiary(wdb);
+	public String writeDiary(@RequestBody ScheduleDetailBean sdb) {
+		return sm.writeDiary(sdb);
 	}
 	
 	
@@ -241,7 +246,8 @@ public class Restcontroller {
 		
 		return map;
 	}
-	@PostMapping("/SelectProjectMember")
+	
+	@PostMapping("/selectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
 	}
@@ -254,10 +260,15 @@ public class Restcontroller {
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
 	}
+	
+	@PostMapping("getFileList")
+	public List<CloudBean> getFileList(@RequestBody List<CloudBean> cb){
+		return fm.getFileList(cb.get(0));
+	}
 	@PostMapping("ReqProjectAccept")
 	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));
-
+		
 	}
 
 }

@@ -3,14 +3,9 @@ let sccode;
 
 function goAdminProject(prcode){
      let f = document.createElement("form");
-     let input = document.createElement("input");
+     let prcodes = makeInput("hidden","prcode",prcode);
 
-          input.type = "hidden";
-          input.value = prcode;
-          input.name = "prcode";
-
-
-     f.appendChild(input);
+     f.appendChild(prcodes);
 
      document.body.appendChild(f);
 
@@ -44,8 +39,7 @@ function selectProject(jsonData){
 	let headCss = document.createElement("style");
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
-	
-	
+
 	
 	for(i=0; i<jsonData.length; i++){
 		
@@ -53,10 +47,11 @@ function selectProject(jsonData){
 	+ jsonData[i].psname + jsonData[i].stname + "</div><br>";	
 	
 	}
-		list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
+		//list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
+	selectStep.innerHTML = list;
 	
-	
-	if(utype == "L" || utype == "A"){
+	/*if(utype == "L" || utype == "A"){
+		
 		list += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>";
 		list += "<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
 		list += "<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" name=\"clickAdd\">";
@@ -91,7 +86,7 @@ function selectProject(jsonData){
 		document.head.append(headCss);
 		selectStep.innerHTML = list2;
 		
-	});
+	});*/
 
 }
 
@@ -298,14 +293,13 @@ function setButton2(){
 }
 
 
-function addJobMember(ParamPscode){
+function addJobMember(){
 	let prcodes = document.getElementsByName("prcode")[0];
 	let cpcodes = document.getElementsByName("cpcode")[0];
 	let userids = document.getElementsByName("userid")[0];
 	let pscode = document.getElementsByName("pscode")[0];
-	pscode.value = ParamPscode;
 	
-	let data = [{prcode:prcodes.value,cpcode:cpcodes.value,userid:userids.value}];
+	let data = [{prcode:prcodes.value,cpcode:cpcodes.value,userid:userids.value,pscode:pscode.value}];
 	
 	postAjax("rest/addJob",JSON.stringify(data),"afterJobMember",2);
 }
@@ -392,18 +386,79 @@ function getSchedule(pscode){
 
 function selectSchedule(jsonData){
 	
-	alert(JSON.stringify(jsonData));
-	let list = "";
-	let edit = "";
+	/*let list = "";
+	let list2 = "";
+	let addList = "";
+	let addListCss = "";
+	let get = "";
+	let css = "";
+	let getCss = "";
+	let headCss = document.createElement("style");
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
+	
+	for(i=0; i<jsonData.length; i++){
+		
+	list += "<div onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"+jsonData[i].pscode+"\' />"
+	+ jsonData[i].psname + jsonData[i].stname + "</div><br>";	
+	
+	}
+		list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
+	
+	
+	if(utype == "L" || utype == "A"){
+		
+		list += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>";
+		list += "<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
+		list += "<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" name=\"clickAdd\">";
+		
+	}
+	selectStep.innerHTML = list;
+	let clickAdd = document.getElementsByName("clickAdd")[0];
+	clickAdd.addEventListener('click',function(){
+		for(i=0; i<jsonData.length; i++){
+			addList += "<input type=\"radio\" name=\"clickAddJobMember\" id=\"addRadio"+i+"\" onClick=\"addJobMember(\'"+jsonData[i].pscode+"\')\"><label for=\"addRadio"+i+"\">"
+			+ jsonData[i].psname + jsonData[i].stname + "</label><br>";
+			addListCss += "input[id=\"addRadio"+i+"\"] \+ label{border:1px solid #bbbbbb; width:500px; cursor:pointer;}";
+			addListCss += "input[id=\"addRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb;color:#ffffff;}";
+			addListCss += "input[id=\"addRadio"+i+"\"]{display:none;}";
+			
+		}
+		
+		headCss.innerHTML = addListCss;
+		document.head.append(headCss);
+		selectStep.innerHTML = addList;
+		
+	});
+	let cpcode = document.getElementsByName("cpcode")[0].value;
+	let prcode = document.getElementsByName("prcode")[0].value;
+	
+
+	
+	let btn = document.getElementById("setBtn2");
+	btn.addEventListener('click',function(){
+		btn.style.display="none";
+		headCss.innerHTML = css;
+		document.head.append(headCss);
+		selectStep.innerHTML = list2;
+		
+	});*/
+	
+	let list = "";
+	let edit = "";
 	let ShceduleEdit = document.getElementById("ShceduleEdit");
 	let count=1;
+	let addList = "";
+	let addListCss = "";
+	let css = "";
+	let headCss = document.createElement("style");
+	let selectStep = document.getElementById("selectStep");
+	let utype = document.getElementsByName("utype")[0].value;
 	
 	list += "<span id='span1'>No.</span><span  id='span1' >Schedule</span><span  id='span1'>Progress</span>";
 	
 	for(i=0; i<jsonData.length; i++){
-		
+	
 	list += "<div onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\" id ='SSC'>"
 	
 	+"<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/>"
@@ -414,29 +469,40 @@ function selectSchedule(jsonData){
 	
 	+"<div onClick = \"addScheduleDetail(\'"+jsonData[i].scname+","+jsonData[i].sccode+"\')\" name = 'addScheduleDetail' style = 'display:none'>"
 	+"추가</div>";	
-	
-	   count++;
-	}
-	edit += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>"
-	
+	   count++;}
+
+	list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
+
+	if(jsonData[0].utype == "L"){
+		edit += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
+			+"<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>"
+			+"<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" onClick=\"addJobMember()\">";
+		}
 	selectStep.innerHTML = list;
 	ShceduleEdit.innerHTML = edit;
 	
-
+	let btn = document.getElementById("setBtn2");
+	btn.addEventListener('click',function(){
+		btn.style.display="none";
+		headCss.innerHTML = css;
+		document.head.append(headCss);
+		//selectStep.innerHTML = list2;
+		selectStep.innerHTML = list;
+		ShceduleEdit.innerHTML = edit;
+	
+	});
 }
+
+
 function getScheDetail(sccode1, pscode1){
 	
     let f = document.createElement("form");
-	let pscode = makeInput("hidden","pscode", pscode1); //파라미터 이름과 새로 선언하는 변수 이름 겹치면 오류가 납니다
-	let sccode = makeInput("hidden","sccode", sccode1);
 	let prcode = document.getElementsByName("prcode")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
-	
-		
-     	
+	let sccode = makeInput("hidden","sccode",sccode1);  
+	   	
 	  f.appendChild(prcode);
 	  f.appendChild(cpcode);
-	  f.appendChild(pscode);
 	  f.appendChild(sccode);
 
 	  f.action = "GoAdminScheduleForm";

@@ -1,5 +1,7 @@
 package team3.promans.beans;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -10,13 +12,13 @@ public class CloudBean {
 	private String prcode;
 	private String pscode;
 	private String sccode;
-	private String fcode;
-	private String fname;
-	private String filepath;
 	private String ftitle;
 	private String fdate;
 	private String fwriter;
 	private String fopen;
 	private String userid;
-	private MultipartFile file;
+	private String fcode;
+	private String fname;
+	private String filepath;
+	private List<MultipartFile> file;
 }

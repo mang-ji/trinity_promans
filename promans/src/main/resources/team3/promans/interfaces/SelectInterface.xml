@@ -131,7 +131,8 @@
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectStepBean">
 
-		SELECT CPCODE,PSNAME,STNAME,PSCODE,STCODE FROM PROJECTVIEW
+		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME
+		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
 		PRCODE = #{prcode}
 
@@ -141,10 +142,10 @@
 	<select id="selectSchedule"
 		parameterType="team3.promans.beans.ProjectStepBean"
 		resultType="team3.promans.beans.ScheduleBean">
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE FROM
-		SCHEDULEVIEW WHERE
-		CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE
-		= #{pscode}
+		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE,
+		NVL((SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid}),'G') AS UTYPE 
+		FROM SCHEDULEVIEW 
+		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
 	</select>
 
 	<select id="getScheDetail"
@@ -152,22 +153,18 @@
 		resultType="team3.promans.beans.ScheduleDetailBean">
 		SELECT
 		SD.SD_CODE AS SDCODE,
-		SD.SD_NAME AS SDNAME,
 		SD.SD_TITLE AS SDCONTENT,
 		TO_CHAR(SD.SD_DATE, 'YYYY-MM-dd') AS SDDATE,
 		ST.ST_CODE AS SDDCODE,
 		ST.ST_NAME AS SDDSTATE,
 		CM.CM_UNAME AS USERNAME,
-		SD.SD_USERID AS USERID
-		FROM SD INNER JOIN ST ON SD.SD_STATE =
-		ST.ST_CODE
+		SD.SD_USERID AS USERID 
+		FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
 		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND
-		SD.SD_USERID =
-		CM.CM_USERID
+		SD.SD_USERID = CM.CM_USERID
 		WHERE SD.SD_CPCODE = #{cpcode} AND
 		SD.SD_PRCODE = #{prcode} AND
-		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE
-		= #{sccode}
+		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode}
 
 	</select>
 
@@ -186,7 +183,6 @@
 		resultType="team3.promans.beans.ScheduleDetailBean">
 		SELECT
 		SD.SD_CODE AS SDCODE,
-		SD.SD_NAME AS SDNAME,
 		SD.SD_SCCODE AS SCCODE,
 		SD.SD_TITLE AS SDCONTENT,
 		TO_CHAR(SD.SD_DATE,

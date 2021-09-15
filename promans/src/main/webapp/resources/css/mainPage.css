@@ -93,6 +93,7 @@ body {
 	box-shadow : 5px 5px 8px 2px gray;
 	width:350px; height:300px;
 	margin-left:50px; 
+	cursor:pointer;
 	
 }
 
