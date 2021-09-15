@@ -235,7 +235,7 @@ public class Restcontroller {
 	
 		return sm.reqPass(sdb.get(0));
 	}
-<<<<<<< HEAD
+
 	@PostMapping("/InsSD")
 	public  Map<String, String> InsSD(@RequestBody List<ScheduleDetailBean> sdb) {
 		Map<String, String> map = new HashMap<>();
@@ -244,7 +244,7 @@ public class Restcontroller {
 		sm.insSD(sdb.get(0));
 		
 		return map;
-=======
+	}
 	
 	@PostMapping("/SelectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
@@ -258,7 +258,7 @@ public class Restcontroller {
 	@PostMapping("/InsProjectFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
+
 	}
 
 }

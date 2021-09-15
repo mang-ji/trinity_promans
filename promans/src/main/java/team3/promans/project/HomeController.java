@@ -60,13 +60,12 @@ public class HomeController {
 		return mav;
 	}
 	
-<<<<<<< HEAD
-	   @PostMapping("SignUp")
-	   public String test(@ModelAttribute CpMemberBean cm) {
-	      return auth.test(cm);
-	   }
-	
-=======
+
+//	   @PostMapping("SignUp")
+//	   public String test(@ModelAttribute CpMemberBean cm) {
+//	      return auth.test(cm);
+//	   }
+
 	@PostMapping("logOut")
 	public ModelAndView logOut(@ModelAttribute AccessHistory ah) {
 		mav = auth.logOutCtl(ah);
@@ -79,7 +78,6 @@ public class HomeController {
 
 	}
 
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";

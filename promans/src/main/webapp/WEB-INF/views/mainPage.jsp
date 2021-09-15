@@ -18,19 +18,11 @@
         let cpcode1 = document.getElementsByName("cpcode")[0];
         let userid1 = document.getElementsByName("userid")[0];
         let jsonData =[{cpcode:cpcode1.value, userid:userid1.value}];
-<<<<<<< HEAD
-        
-=======
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 
 
          let clientData = JSON.stringify(jsonData);
 
-<<<<<<< HEAD
-        
-        
-=======
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
+
         postAjax('rest/GetProject', clientData, 'getProject1', 2);
  
      }
@@ -41,17 +33,8 @@
       <div id="modal_box"></div>
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
-<<<<<<< HEAD
 
 
-
-      <input type="hidden" name="utype" value="${utype}"> <input
-         type="hidden" name="cpcode" value="${cpcode}"> <input
-         type="hidden" name="userid" value="${userid}">
-      <div id="getProject"></div>
-
-=======
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 	 <div id="modal_background">
 	 	<div id="modal_box">
 	 	<div id="requestList"></div>
@@ -63,12 +46,6 @@
       <input type="hidden" name="userid" value="${userid}">
       <input type="hidden" name="prcode" value="">
       <div id="getProject"></div>
-<<<<<<< HEAD
-      
-    
-=======
 
-
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 </body>
 </html>

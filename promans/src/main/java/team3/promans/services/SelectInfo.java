@@ -126,16 +126,12 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 	public List<ScheduleBean> selectSchedule(ProjectStepBean psb) {
-<<<<<<< HEAD
-             
-		return sql.selectList("selectSchedule", psb);
-=======
 		List<ScheduleBean> list = sql.selectList("selectSchedule", psb);
 		try {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 		} catch (Exception e) {e.printStackTrace();}
 		return list;
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
+
 	}
 
 	public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb) {
@@ -211,8 +207,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 
-<<<<<<< HEAD
-=======
+
 	public List<ProjectMemberBean> selectProjectMember(ProjectMemberBean pmb) {
 		List<ProjectMemberBean> list = sql.selectList("selectProjectMember", pmb);
 		for(int i=0; i<list.size();i++) {
@@ -236,7 +231,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return sql.selectList("getNoticeDetail",nc);
 
 	}
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
+
 }
 
 

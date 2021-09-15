@@ -79,7 +79,7 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	}
 
 
-<<<<<<< HEAD
+
 	public void insSD(ScheduleDetailBean sdb) {
 		System.out.println(sdb);
 		sql.insert("insSD", sdb);
@@ -90,7 +90,7 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	
 	public void insSM(ScheduleDetailBean sdb) {
 		sql.insert("insSM", sdb);
-=======
+	}
 	@Override
 	public ModelAndView writeDiary(ScheduleDetailBean sdb) {
 		// TODO Auto-generated method stub
@@ -99,7 +99,6 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 	}
 
 }
