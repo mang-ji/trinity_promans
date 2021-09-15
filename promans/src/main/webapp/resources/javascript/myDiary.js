@@ -1,38 +1,40 @@
-function myDiarylist(data) {
-	alert("여기는 오냐?");
-	let myDiary1 = document.getElementById("myDiary");
-	let html = `<table><th>제목</th><th>내용</th><th>날짜</th>`;		
+function getDiarylist(data) {
+	alert(JSON.stringify(data));
+	let myDiary = document.getElementById("myDiarylist");
+	let html = "";
+	let list = "";		
 	for (i=0; i<data.length; i++) {
-		html += 
-		`<tr onClick = getDiary(${data[i].userid},${data[i].wdcode}, ${data[i].prcode},${data[i].pscode})
-			<td>${data[i].wdtitle}</td>
-			<td>${data[i].wdcontents}</td>
-			<td>${data[i].wddate}</td>
-		</tr>`;
+		html +=`<table class="table"><th>제목</th><th>날짜</th>`;
+		list +=`<tr onClick = getDiary(${data[i].wdtitle},${data[i].wddate})>
+					<td>${data[i].wdtitle}</td>
+					<td>${data[i].wdcontents}</td>
+					<td>${data[i].wddate}</td>
+				 </tr>`;
 	}
-	html += `</table>`;
-	alert(html);
+	html +=`</table>`;
+	console.log(list);
 	Dlist.innerHTML = html;
+	myDiary.innerHTML = list;
 }
         
 function getDiary(){
-	let myDiary2 = document.getElementById("myDiary")[0];
-	let title2 = document.getElementsByName("wdtitle");
-	let write2 = document.getElementsByNaMe("wdcontents");
-	let wdate2 = document.getElementsByName("wddate");
+	let myDiary2 = document.getElementById("myDiary");
+	let wdtitle = document.getElementsByName("wdtitle")[0];
+	let wdcontents = document.getElementsByName("wdcontents")[0];
+	let wdate = document.getElementsByName("wddate")[0];
 	
 	let f = document.createElement("form");
 	
 	f.appendChild(myDiary2);
-	f.appendChild(title2);
-	f.appendChild(write2);
-	f.appendChild(wdate2);
+	f.appendChild(wdtitle);
+	f.appendChild(wdcontents);
+	f.appendChild(wdate);
 	
-	f.method = "myDiaryForm"
+	f.method = "myDiaryForm";
 	f.action = "GET";
 	
 	document.body.appendChild(f);
-		
+	
 	f.submit();
 }
 

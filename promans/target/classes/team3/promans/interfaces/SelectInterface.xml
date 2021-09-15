@@ -22,18 +22,15 @@
 		SELECT
 		SD_USERID as userid,
 		SD_CODE as sdcode,
-		SD_NAME as
-		sdname,
+		SD_NAME as sdname,
 		SD_TITLE as sdcontent,
 		SD_DATE as sddate,
 		SD_PRCODE as prcode,
 		SD_PSCODE as pscode
 		FROM SD
 		WHERE SD_CPCODE= #{cpcode} and
-		SD_PRCODE=
-		#{prcode} and
-		SD_PSCODE=
-		#{pscode} and
+		SD_PRCODE= #{prcode} and
+		SD_PSCODE= #{pscode} and
 		SD_USERID= #{userid}
 	</select>
 
@@ -43,8 +40,7 @@
 		resultType="team3.promans.beans.Notice_CalendarBean">
 		SELECT NO_USERID as writer,
 		NO_TITLE as title,
-		NO_CODE as
-		nocode,
+		NO_CODE as nocode,
 		NO_CONTENTS as
 		contents,
 		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
@@ -64,6 +60,7 @@
 		FROM PNT
 		WHERE NO_CPCODE = #{cpcode}
 	</select>
+	
 
 	<!-- 공지사항디테일 -->
 	<select id="getNoticeDetail"
@@ -84,14 +81,14 @@
 		#{cpcode} and NO_CODE = #{nocode}
 	</select>
 
-
-	<delete id="deleteNotice">
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="team3.promans.beans.Notice_CalendarBean">
 		DELETE 
 		FROM PNT 
-		WHERE 
+		WHERE NO_CPCODE =#{cpcode} and NO_CODE = #{nocode}
 	</delete>
 
-	<select id="getDiary"
+	<select id="getDiary" 
 		parameterType="team3.promans.beans.WorkDiaryBean"
 		resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
@@ -104,9 +101,7 @@
 		FROM WD
 		WHERE WD_CPCODE = #{cpcode}
 		and WD_PRCODE = #{prcode}
-		and WD_CODE = #{wdcode}
 		and WD_USERID = #{userid} 
-
 	</select>
 
 	<!-- 공지사항 글쓰기 -->
@@ -174,8 +169,7 @@
 		WHERE SD.SD_CPCODE = #{cpcode} AND
 		SD.SD_PRCODE = #{prcode} AND
 		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE
-		= #{sccode} AND SD.SD_USERID
-		= #{userid}
+		= #{sccode}
 
 	</select>
 
@@ -227,7 +221,8 @@
 		projectmemberview where utcode='G' and wcode='1'and prcode =#{prcode}
 		and cpcode=#{cpcode}
 	</select>
-
+    
+ 
 
 	<select id="getCompleteList"
 		parameterType="team3.promans.beans.ProjectStepBean"
@@ -251,7 +246,6 @@
 
 	</select>
 
-	
 	<select id="selectProjectMember" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectMemberBean">
 		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} 
 	</select>

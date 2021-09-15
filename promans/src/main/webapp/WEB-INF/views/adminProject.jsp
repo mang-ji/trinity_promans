@@ -62,15 +62,17 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+               <div>
+                	<a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
+                </div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myScheduleForm" id="myScheduleCate">내 업무</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                     <input type="button" onClick="logout()" value="로그아웃">
                 </div>
@@ -106,7 +108,8 @@
                 
                 <div class="container-fluid" >
                      <div id = "selectBack">
-                     <div id = "selHeight"></div>
+                     
+                     <div id = "selHeight">ProMan'S</div>
                     <div id="selectStep"></div></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
                      <div id="ShceduleEdit" ></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
               </div>

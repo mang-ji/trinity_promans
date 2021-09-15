@@ -1,18 +1,21 @@
 function getProject1 (jsonData){
-	
 	let list = "";
-	let getProject = document.getElementById("getProject");
-	list += "<div> 프로젝트명    생성날짜   공개여부</div><br>";
+	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
 	
 	for(i=0; i<jsonData.length; i++){
-		
-	list += "<div onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\">"+ jsonData[i].prname +"   "+ jsonData[i].prdate +"   "+ jsonData[i].propen + "</div>";	
-	list += "<input type='button' value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
-	list += "<input type='button' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
-	list += "<input type='button' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\">";
-	list += "<div id='makeStep'></div>";
+		if(jsonData[i].propen== "클로즈"){
+			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
+			list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
+			list += "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
+			list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>";
+		}else{
+			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;공개</div></div>";	
+			list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
+			list += "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
+			list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>";
+		}
 	}
-	list += "<div id='createBtn'></div>";
+	
 	
 	getProject.innerHTML = list;
 }
@@ -108,9 +111,9 @@ function sendFeedback2(data){
 function sendProjectInfo(prcode){
 	let createBtn = document.getElementById("createBtn");
 	let data = "";
-	/* 프로젝트 완료요청은 일단 재낌 , 프로젝트용 피드백 테이블이 없삼 
-	data += "<input type='button' value='완료 요청' onClick=\"acceptComplete(\'"+prcode+"\')\"><br>"; */
-	data += "<input type='button' value='스텝 생성' onClick=\"makeProjectStep(\'"+prcode+"\')\"><br>";
+	// 프로젝트 완료요청은 일단 재낌 , 프로젝트용 피드백 테이블이 없삼 
+	data += "<input type='button' class='stepbuttonStyle' value='승인 요청' onClick=\"reqProjectAccept(\'"+prcode+"\')\">"; 
+	data += "<input type='button' class='stepbuttonStyle' value='스텝 생성' onClick=\"makeProjectStep(\'"+prcode+"\')\"><br>";
 	
 	createBtn.innerHTML = data;
 }
@@ -175,7 +178,7 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 
    		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
   		 box.innerHTML += "<div class='modal-footer'>";
-  		 box.innerHTML += "<button type='button' class='btn btn-primary' id='make' >Make Steps</button>";
+  		 box.innerHTML += "<button type='button' class='btn btn-primary' id='make' >Make Step</button>";
   		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
   		 box.innerHTML += "</div></div></div></div>";
 
@@ -196,7 +199,7 @@ function makeBtnClick(prcode){
 		let cpcode1 = document.getElementsByName("cpcode")[0];
 		let clientData = [{cpcode:cpcode1.value, prcode:prcode ,psname:psname1.value, userid:userid1.value}];
 
-		postAjax("rest/makeStep",JSON.stringify(clientData),"insStep",2);
+		postAjax("rest/MakeStep",JSON.stringify(clientData),"insStep",2);
 	});
 	
 }
@@ -207,8 +210,7 @@ function insStep(jsonData){
 
 /* 관리자 시킬 사람 조회 */
 function selectManager(prcode1){
-
-	let clientData = {prcode:prcode1};
+	let clientData = [{prcode:prcode1}];
 	postAjax("rest/selectManager", JSON.stringify(clientData), "getManagerList",2);
 }
 
@@ -256,14 +258,18 @@ function selectStepManager(){
 }
 
 /* 프로젝트 스텝들의 완료 요청 리스트 불러오는 함수 */
-function acceptComplete(prcode1){
+function reqProjectAccept(prcode){
+	let cpcode = document.getElementById("cpcode");
+	let clientData = [{cpcode:cpcode.value, prcode:prcode}];
 	
-	alert(prcode1);
-	let cpcode1 = document.getElementsByName("cpcode")[0];
-	let clientData = [{cpcode:cpcode1.value, prcode:prcode1}];
-	
-	postAjax("rest/SelectWaitingStep", JSON.stringify(clientData),"getWaitingProStep",2);
+	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectAccept",2);
+	//postAjax("rest/SelectWaitingStep", JSON.stringify(clientData),"getWaitingProStep",2);
 }
+function reqProjectAccept(jsonData){
+	alert(jsonData);
+}
+
+
 function getWaitingProStep(jsonData){
 	/*let modal_background = document.getElementById("modal_background");
 	let modal_box = document.getElementById("modal_box");
@@ -327,8 +333,11 @@ function close1(){
 	let modal_background = document.getElementById("modal_background");
 	//let close = document.getElementById("modal_close");
 	
+	/*
 	modal_box.style.display= "none";
-	modal_background.style.display= "none";
+	modal_background.style.display= "none";*/
+	modal_box.remove();
+	modal_background.remove();
 	//close.style.display ="none";
 }
 

@@ -53,30 +53,24 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	ModelAndView mav;
 
 
-	/*
-	 * public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
-	 * List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb); return
-	 * list; }
-	 */
-
-
 	public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
 		List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb);
 		return list;
 	}
 
 
-
+	
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
-		System.out.println("개새끼야");
+		System.out.println("업무조회다");
 		List<ScheduleDetailBean> myScheduleList;
 		myScheduleList = sql.selectList("getMySchedule", sdb);
 		return myScheduleList;
 	}
 
 	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
-		List<WorkDiaryBean> DiaryList = sql.selectList("getDiary", wdb);
-		return DiaryList;
+		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
+		System.out.println(getDiaryList);
+		return getDiaryList;
 	}
 
 
@@ -91,9 +85,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public ModelAndView insNotice(Notice_CalendarBean nc) {
 		mav = new ModelAndView();
 		int max = this.getMaxNocode(nc);
-		
-		nc.setNocode(max+1+"");
-		
+			nc.setNocode(max+1+"");
 
 		if(nc.getFile().isEmpty()) {
 			nc.setFname("");
@@ -103,17 +95,17 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
 		}
 
-		/*
-		 * if(ub.getMpfile().isEmpty()){ ub.setStickerpath("");
-		 * 
-		 * }else { ub.setStickerpath("/resources/image/"+pu.savingFile(ub.getMpfile()));
-		 */
-
 		sql.insert("insNotice", nc);
 		mav.setViewName("noticePage");
 		return mav;
 
 	}
+	
+	/* 공지사항 삭제 */
+	public boolean noticeDelete(Notice_CalendarBean nc) {
+		return convertBoolean(sql.delete("deleteNotice", nc));
+	}
+
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
 
@@ -233,12 +225,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return sql.selectOne("getMaxNocode", nc);
 	}
 
-
-
 	public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc) {
 		return sql.selectList("getNoticeDetail",nc);
-
 	}
+
+	
+	private boolean convertBoolean(int value) {
+		return value > 0?true:false;
+	}
+	
 }
 
 

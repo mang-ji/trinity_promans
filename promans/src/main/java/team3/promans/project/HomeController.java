@@ -1,11 +1,16 @@
 package team3.promans.project;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +24,7 @@ import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.FileManagement;
+import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
@@ -47,14 +53,14 @@ public class HomeController {
 	
 	@Autowired
 	ScheduleManagement sm;
-	
+
 
 	private ModelAndView mav;
 
 	@RequestMapping(value = "/", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView rootCtl() {
 		mav = auth.rootCtl();
-		
+
 		return mav;
 	}
 
@@ -69,13 +75,13 @@ public class HomeController {
 		mav = auth.logOutCtl(ah);
 		return mav;
 	}
-	
+
 	@PostMapping("SignUp")
 	public String SignUp(@ModelAttribute CpMemberBean cm) {
+		System.out.println(cm);
 		return auth.SignUp(cm);
-
 	}
-
+	
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -104,16 +110,27 @@ public class HomeController {
 	public String myPageForm() {
 		return "myPage";
 	}
+	@GetMapping("mainPageForm")
+	public String mainPageForm() {
+		return "mainPage";
+	}
+	
 	@GetMapping("myScheduleForm")
-
 	public String myScheduleForm(ScheduleDetailBean sdb) {
-		System.out.println("업무련아");
+		System.out.println("업무11아");
+
 		return "mySchedule";
+	}
+	@PostMapping("writeSchedule")
+	public String writeSchedule(ScheduleDetailBean sdb) {
+		System.out.println("작성됐냐");
+		return sm.writeSchedule(sdb);
 	}
 
 	@GetMapping("myDiaryForm")
-	public String myDiaryForm() {
-		System.out.println("너도 그만좀해라");
+	public String myDiaryForm(WorkDiaryBean wdb) {
+	
+		System.out.println("일지 그만좀해라");
 		return "myDiary";
 	}
 
@@ -148,6 +165,22 @@ public class HomeController {
 
 
 	}
+	
+	/* 공지사항 삭제 */
+	@GetMapping("noticeDelete")
+	public boolean noticeDelete(@ModelAttribute Notice_CalendarBean list) {
+		String[] list2 = list.getNocode().split(",");
+		List<Notice_CalendarBean> nc = new ArrayList<Notice_CalendarBean>();
+		List<String> list3 = new ArrayList<String>();
+
+		for(int i=0; i<list2.length; i++) {
+			list3.add(list2[i]);
+			nc.add(list);
+			nc.get(i).setNocode(list3.get(i));
+		}
+		return si.noticeDelete(list);
+	}
+
 
 	@PostMapping("reqComplete")
 	public ModelAndView reqComplete(@ModelAttribute ScheduleDetailBean sdb) {

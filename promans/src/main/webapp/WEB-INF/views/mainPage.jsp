@@ -18,8 +18,8 @@
         let cpcode1 = document.getElementsByName("cpcode")[0];
         let userid1 = document.getElementsByName("userid")[0];
         let jsonData =[{cpcode:cpcode1.value, userid:userid1.value}];
+        let clientData = JSON.stringify(jsonData);
 
-         let clientData = JSON.stringify(jsonData);
         postAjax('rest/GetProject', clientData, 'getProject1', 2);
  
      }
@@ -30,7 +30,6 @@
       <div id="modal_box"></div>
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
-      
       <input type="hidden" name="utype" value="${utype}"> 
       <input type="hidden" name="cpcode" value="${cpcode}">
       <input type="hidden" name="userid" value="${userid}">
@@ -42,7 +41,13 @@
 	 	<div id="requestList"></div>
 	 	</div>
 	 </div>
-	 
-	 
+	
+	 <div style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S</div>
+	
+      <input type="hidden" name="utype" value="${utype}"> 
+      <input type="hidden" name="cpcode" value="${cpcode}"> 
+      <input type="hidden" name="userid" value="${userid}">
+      <input type="hidden" name="prcode" value="">
+      <div id="getProject"></div>
 </body>
 </html>

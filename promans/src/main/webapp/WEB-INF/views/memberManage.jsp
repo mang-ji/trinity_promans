@@ -51,7 +51,8 @@
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
 			<!-- Top navigation-->
-				<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+			<nav>
+				<div class ="navbar navbar-expand-lg navbar-light bg-lightborder-bottom">
 				<div class="container-fluid">
 					<div>::: TEAM LIST :::</div>
 					<!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
@@ -72,6 +73,7 @@
                                 </li>
                             </ul>
                         </div>-->
+                    </div>
                     </div>
                 </nav>           
                 <!-- Page content-->
@@ -94,12 +96,10 @@
 					<input type="hidden" name="utype" value="G" />
 					<input type="submit" value="등록">
 					</form>	
-					
                 </div>
             </div>
         </div>
 
-	
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
