@@ -89,7 +89,7 @@ public class Authentication implements AuthInterface {
 
 	}
 
-<<<<<<< HEAD
+
 	   public String test(CpMemberBean cm) {
 		      try {
 		          cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
@@ -104,7 +104,6 @@ public class Authentication implements AuthInterface {
 		      return "adminProject";
 		   }
 	
-=======
 	public ModelAndView logOutCtl(AccessHistory ah) {
 		mav = new ModelAndView();
 		String session = "";
@@ -168,7 +167,7 @@ public class Authentication implements AuthInterface {
 
 		return "adminProject";
 	}
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
+
 
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;

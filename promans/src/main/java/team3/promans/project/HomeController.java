@@ -60,13 +60,13 @@ public class HomeController {
 		return mav;
 	}
 	
-<<<<<<< HEAD
-	   @PostMapping("SignUp")
-	   public String test(@ModelAttribute CpMemberBean cm) {
-	      return auth.test(cm);
-	   }
-	
-=======
+//
+//	   @PostMapping("SignUp")
+//	   public String test(@ModelAttribute CpMemberBean cm) {
+//	      return auth.test(cm);
+//	   }
+//	
+
 	@PostMapping("logOut")
 	public ModelAndView logOut(@ModelAttribute AccessHistory ah) {
 		mav = auth.logOutCtl(ah);
@@ -75,11 +75,10 @@ public class HomeController {
 	
 	@PostMapping("SignUp")
 	public String SignUp(@ModelAttribute CpMemberBean cm) {
+		System.out.println(cm);
 		return auth.SignUp(cm);
 
 	}
-
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -108,8 +107,12 @@ public class HomeController {
 	public String myPageForm() {
 		return "myPage";
 	}
+	@GetMapping("mainPageForm")
+	public String mainPageForm() {
+		return "mainPage";
+	}
+	
 	@GetMapping("myScheduleForm")
-
 	public String myScheduleForm(ScheduleDetailBean sdb) {
 		System.out.println("업무련아");
 		return "mySchedule";

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleDetailBean;
@@ -74,7 +75,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		Map<String,String> map = new HashMap<>();
 		
 		/* pscode 생성 어케하쥐 */
-		psb.setPscode("PS08");
+		psb.setPscode("PS03");
 		
 		if(this.convertData(sqlSession.insert("insStep", psb))){
 			map.put("message", "스텝 생성이 완료되었습니다.");
@@ -114,6 +115,15 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	
 	public boolean convertData(int value) {
 		return value>0? true:false;
+	}
+
+
+
+
+	/* 프로젝트가 총괄한테 프로젝트 완료요청하는 부분 (필요는 없지만 일단 써놓는거임용) */
+	public Map<String, String> reqProjectAccept(ProjectBean projectBean) {
+		//sqlSession.insert();
+		return null;
 	}
 
 }
