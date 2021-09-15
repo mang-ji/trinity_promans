@@ -65,7 +65,6 @@ public class HomeController {
 		return mav;
 	}
 
-
 	@PostMapping("logOut")
 	public ModelAndView logOut(@ModelAttribute AccessHistory ah) {
 		mav = auth.logOutCtl(ah);
@@ -74,11 +73,10 @@ public class HomeController {
 
 	@PostMapping("SignUp")
 	public String SignUp(@ModelAttribute CpMemberBean cm) {
+		System.out.println(cm);
 		return auth.SignUp(cm);
-
 	}
-
-
+	
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -107,8 +105,12 @@ public class HomeController {
 	public String myPageForm() {
 		return "myPage";
 	}
+	@GetMapping("mainPageForm")
+	public String mainPageForm() {
+		return "mainPage";
+	}
+	
 	@GetMapping("myScheduleForm")
-
 	public String myScheduleForm(ScheduleDetailBean sdb) {
 		return "mySchedule";
 	}

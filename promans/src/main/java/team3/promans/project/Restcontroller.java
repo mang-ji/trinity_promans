@@ -169,13 +169,12 @@ public class Restcontroller {
 	@PostMapping("/selectManager")
 	public List<ProjectStepBean> selectManager(@RequestBody List<ProjectStepBean> psb){
 		
-		
 		return si.selectManager(psb.get(0));
 	}
 	
 	
 	
-	@PostMapping("/makeStep")
+	@PostMapping("/MakeStep")
 	public Map<String,String> makeStep(@RequestBody List<ProjectStepBean> psb) {
 		
 		return pm.makeStep(psb.get(0));
@@ -241,7 +240,7 @@ public class Restcontroller {
 		
 		return map;
 	}
-	
+
 	@PostMapping("/SelectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
@@ -254,6 +253,11 @@ public class Restcontroller {
 	@PostMapping("/InsProjectFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
+
+	}
+	@PostMapping("ReqProjectAccept")
+	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
+		return pm.reqProjectAccept(pb.get(0));
 	}
 
 }

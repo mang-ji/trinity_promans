@@ -217,6 +217,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc) {
 		return sql.selectList("getNoticeDetail",nc);
 	}
+
 	
 	private boolean convertBoolean(int value) {
 		return value > 0?true:false;
