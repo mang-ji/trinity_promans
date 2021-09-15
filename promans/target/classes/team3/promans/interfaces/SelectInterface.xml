@@ -225,7 +225,8 @@
 		projectmemberview where utcode='G' and wcode='1'and prcode =#{prcode}
 		and cpcode=#{cpcode}
 	</select>
-
+    
+ 
 
 	<select id="getCompleteList"
 		parameterType="team3.promans.beans.ProjectStepBean"

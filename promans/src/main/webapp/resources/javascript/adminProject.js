@@ -682,7 +682,7 @@ function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되
 	
 	let clientData = JSON.stringify(jsonData);
 	
-	postAjax('rest/selectManager', clientData, 'getScheManager', 2);
+	postAjax('rest/selectProjectMember', clientData, 'getScheManager', 2);
 	
 	
 	
