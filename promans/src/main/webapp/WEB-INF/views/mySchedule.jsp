@@ -86,15 +86,13 @@
 				<div class = "table" id="listhead"></div>
 				<div class = "table" id="listBox"></div>
 				<div id = "mySchedule"></div>
-					<input class="inputBox" style=display:none type="text" value="${sdcontent}" name="sdcontent" placeholder="제목"/>
+				<div id="wmySchedule"></div>	
+					<!--  <input class="inputBox" style=display:none type="text" value="${sdcontent}" name="sdcontent" placeholder="제목"/>
 					<input class="inputBox" style=display:none type="text" value="${sdname}" name="sdname" placeholder="내용"/>	
 				<div id= "writeSchedule">
 					<input type="button" id="wBtn" name="wSchedule" value="작성하기" onClick="writeSchedule()">
 					<input type="submit" id="sBtn" style=display:none name="sSchedule" value="작성" onClick="sendSchedule()">
-				</div>
-				
-				
-			
+				</div>  -->
 			</div>
 			</div>
 		</div>

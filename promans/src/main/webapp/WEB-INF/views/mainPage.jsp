@@ -30,7 +30,6 @@
       <div id="modal_box"></div>
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
-
 	 <div id="modal_background">
 	 	<div id="modal_box">
 	 	<div id="requestList"></div>
@@ -44,6 +43,5 @@
       <input type="hidden" name="userid" value="${userid}">
       <input type="hidden" name="prcode" value="">
       <div id="getProject"></div>
-
 </body>
 </html>

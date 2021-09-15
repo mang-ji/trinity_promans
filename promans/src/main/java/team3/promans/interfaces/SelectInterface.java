@@ -17,7 +17,6 @@ import team3.promans.beans.ScheduleDetailBean;
 public interface SelectInterface {
 
 	  public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean nc);
-
 	  public List<ProjectBean> getProject(ProjectMemberBean pmb); 
 	  public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb); 
 	  public List<ScheduleBean> selectSchedule(ProjectStepBean psb); 

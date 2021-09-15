@@ -22,6 +22,7 @@ import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ScheduleDetailBean;
+import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
@@ -65,7 +66,6 @@ public class HomeController {
 		return mav;
 	}
 
-
 	@PostMapping("logOut")
 	public ModelAndView logOut(@ModelAttribute AccessHistory ah) {
 		mav = auth.logOutCtl(ah);
@@ -77,7 +77,6 @@ public class HomeController {
 		System.out.println(cm);
 		return auth.SignUp(cm);
 	}
-
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -113,11 +112,20 @@ public class HomeController {
 	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
+		System.out.println("업무11아");
+
 		return "mySchedule";
+	}
+	@PostMapping("writeSchedule")
+	public String writeSchedule(ScheduleDetailBean sdb) {
+		System.out.println("작성됐냐");
+		return sm.writeSchedule(sdb);
 	}
 
 	@GetMapping("myDiaryForm")
-	public String myDiaryForm() {
+	public String myDiaryForm(WorkDiaryBean wdb) {
+	
+		System.out.println("일지 그만좀해라");
 		return "myDiary";
 	}
 

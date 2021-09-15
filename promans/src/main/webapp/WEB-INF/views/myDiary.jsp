@@ -7,8 +7,8 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
 	<link href="resources/css/mySchedule.css"rel="stylesheet"type="text/css">
-	<script type="text/javascript" src="resources/javascript/mySchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/myDiary.js"></script>
+	<script type="text/javascript" src="resources/javascript/mySchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -18,11 +18,12 @@
         window.addEventListener('load', function(){
         	let cpcode2 = document.getElementsByName("cpcode")[0].value;
         	let prcode2 = document.getElementsByName("prcode")[0].value;
-        	let pscode2 = document.getElementsByName("pscode")[0].value;
         	let wdcode2 = document.getElementsByName("wdcode")[0].value;
+        	let userid2 = document.getElementsByName("userid")[0].value;
 			
-        	let data = [{cpcode:cpcode2,prcode:prcode2,pscode:pscode2,wdcode:wdcode2}];
+        	let data = [{cpcode:cpcode2,prcode:prcode2,userid:userid2}];
 			let clientData = JSON.stringify(data);
+			alert(clientData);
 			postAjax("rest/GetDiary", clientData, 'getDiarylist', 2);
 		});
     </script>
@@ -32,7 +33,6 @@
         	<input type="hidden" name="utype" value="${utype}">
         	<input type="hidden" name="cpcode" value="${cpcode}">
         	<input type="hidden" name="prcode" value="${prcode}">
-        	<input type="hidden" name="pscode" value="${pscode}">
         	<input type="hidden" name="wdcode" value="${wdcode}">
         	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
@@ -78,14 +78,14 @@
                 </nav>
                 <!-- Page content (게시판 형식)-->
 		<div class="container-fluid">
-			<div id="Dlist"></div>
-				<div id = "myDiary"></div>
-					<input class="inputBox" style=display:none type="text" name="wdtitle1" placeholder="제목" />
+			<table class="table" id="Dlist"></table>
+				<div class="mdlist" id = "myDiarylist"></div>
+					<!--  <input class="inputBox" style=display:none type="text" name="wdtitle1" placeholder="제목" />
 					<input class="inputBox" style=display:none type="text" name="wdcontents1" placeholder="내용" />	
 				<div id= "writeDiary">
 					<input type="button" id="wBtn" name="wDiary" value="작성하기" onClick="writeDiary()">
 					<input type="button" id="sBtn" style=display:none name="sDiary" value="작성" onClick="sendDiary()">
-				</div>
+				</div>-->
 		</div>
 	</div>
 </div>

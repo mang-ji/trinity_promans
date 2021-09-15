@@ -81,9 +81,10 @@ public class Restcontroller {
 	
 	//업무디테일작성
 	@PostMapping("/WriteSchedule")
-	public String writeSchedule(@RequestBody ScheduleDetailBean sdb) {
+	public String writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
 		//sm.writeSchedule(sdb.get(0))
-		return sm.writeSchedule(sdb);
+		System.out.println("글작성 첫번째에러다");
+		return sm.writeSchedule(sdb.get(0));
 	}
 	
 	//업무일지작성
@@ -240,7 +241,6 @@ public class Restcontroller {
 		
 		return map;
 	}
-
 	@PostMapping("/SelectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
@@ -253,7 +253,6 @@ public class Restcontroller {
 	@PostMapping("/InsProjectFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
-
 	}
 	@PostMapping("ReqProjectAccept")
 	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
