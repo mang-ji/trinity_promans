@@ -89,22 +89,8 @@ public class Authentication implements AuthInterface {
 
 	}
 
-<<<<<<< HEAD
-	   public String test(CpMemberBean cm) {
-		      try {
-		          cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
-		         cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
-		         cm.setAcode(enc.encode(cm.getAcode()));
-		         cm.setUname(enc.aesEncode(cm.getUname(), cm.getUserid()));
-		         
-		         this.insCpMember(cm);
-		         
-		      } catch (Exception e) {e.printStackTrace();}
-		      
-		      return "adminProject";
-		   }
-	
-=======
+
+
 	public ModelAndView logOutCtl(AccessHistory ah) {
 		mav = new ModelAndView();
 		String session = "";
@@ -168,7 +154,7 @@ public class Authentication implements AuthInterface {
 
 		return "adminProject";
 	}
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
+
 
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;

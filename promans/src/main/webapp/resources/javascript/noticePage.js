@@ -15,17 +15,18 @@ function afterNotice(data) {
 		let trNotice = document.getElementById("trNotice");
 		let deletebtn = document.getElementById("deletebtn");
 		let index =0;
-		
 		for (i = 0; i < data.length; i++) {
+			
 			html2 += "<tr>";
-			html2 += "<td><input type=\"checkbox\" name=\"CheckBox\" id=\"noticeBox"+i+"\"><label for=\"noticeBox"+i+"\"></td>";
+			html2 += "<td><input type=\"checkbox\" name=\"nocode\" id=\"noticeBox"+i+"\" value=\""+data[i].nocode+"\"><label for=\"noticeBox"+i+"\"></td>";
 			html2 += "<td>" + (i+1) + "</td>";
 			html2 += "<td>" + data[i].title + "</td>";
 			html2 += "<td>" + data[i].sdate + "</td></tr>";
+			
 			css += "input[id=\"noticeBox"+i+"\"] \+ label{border:1px solid #bbbbbbb; width:500px; cursor:pointer;}";
 			css += "input[id=\"noticeBox"+i+"\"]:checked \+ label{background-color:#bbbbbb;}";
 			css += "input[id=\"noticeBox"+i+"\"]{display:none;}";
-		}
+		}	
 			/*html2 += "<td><input type = \"button\" value = \"삭제\"></td>";*/
 			
 		for (i = 0; i < data.length; i++) {
@@ -111,20 +112,36 @@ function afterNotice(data) {
 	}
 	
 	/*공지사항 삭제*/
-	function deleteNotice(data){
-		let editbtn = document.getElementById("editbtn");
-		let html = "";
+	function deleteNotice(){
+		let CheckBox = document.getElementsByName("CheckBox");
+		let f = document.getElementById("testDiv");
 		
-		for(i=0; i<data[i].length; i++){
+			f.submit();
+			/*for(i=0; i<CheckBox.length; i++){
+				if(CheckBox[i].checked){
+					if(CheckBox[i].value != ""){
+					select[i] = CheckBox[i].value;					
+				}
+				}
+			}
+			f.action = "test";
+			f.method = "get";
+			for(i=CheckBox.length-1; i>=0;i--){
+				if(CheckBox[i].checked){
+					f.appendChild(CheckBox[i].value);
+				}
+			}
 			
-			
+			document.body.appendChild(f);
+			f.submit();
+		
+		
+		if(select){
+			form.action = "noticeForm";
+			form.submit();
+				}else{
+					alert("삭제할 항목을 선택하세요.");
+				}
+			}*/
+		
 		}
-		
-		html += "<input type = \"checkbox\" name = \"check\" >";
-	}
-	
-	
-	/*
-	  for(var i = 0; i < document.getElementsByTagName('input').length; i++){
-        if(document.getElementsByTagName('input')[i].getAttribute('type') == 'checkbox'){
-            document.getElementsByTagName('input')[i].checked = true;*/

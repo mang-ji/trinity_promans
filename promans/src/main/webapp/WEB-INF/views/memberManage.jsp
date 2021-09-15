@@ -52,7 +52,7 @@
 		<div id="page-content-wrapper">
 			<!-- Top navigation-->
 			<nav>
-				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+				<class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 				<div class="container-fluid">
 					<div>::: TEAM LIST :::</div>
 					<!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
@@ -73,63 +73,53 @@
                                 </li>
                             </ul>
                         </div>-->
-                    </div>
-                </nav>           
-                <!-- Page content-->
-                <div class="container-fluid">
-                <form action="SignUp" method="post">
-               		<input type="text" name="userid" placeholder="아이디" />
-               		<input type="text" name="uname" placeholder="이름" />
-					<input type="password" name="acode"  placeholder="비밀번호"/>
-					<input type="hidden" name="cpcode" value="${cpcode }" />
-<<<<<<< HEAD
-					
-					<input type="hidden" name="uphone" value="${uphone }" />
-					<input type="hidden" name="tecode" value="${tecode }" />
-					<input type="hidden" name="wcode" value="${wcode }" />
-					
-					
-					               <form action="SignUp" method="post">
-                     <input type="text" name="userid" placeholder="아이디" />
-                     <input type="text" name="uname" placeholder="이름" />
-               <input type="password" name="acode"  placeholder="비밀번호"/>
-               <input type="hidden" name="cpcode" value="${cpcode }" />
-               <input type="text" name="uphone" placeholder="핸드폰" />
-               <input type="text" name="mail" placeholder="메일" />
-               <select name="tecode">
-               <option value="I">인사팀</option>
-               <option value="G">개발팀</option>
-               <option value="D">디자인팀</option>
-               <option value="M">마케팅팀</option>
-               <option value="Y">영업팀</option>
-               </select>
-               <input type="hidden" name="wcode" value="1" />
-               <input type="hidden" name="utype" value="G" />
-               <input type="submit" value="등록">
-               </form>
-					
-					
-=======
-					<input type="text" name="uphone" placeholder="핸드폰" />
-					<input type="text" name="mail" placeholder="메일" />
-					<select name="tecode">
-					<option value="I">인사팀</option>
-					<option value="G">개발팀</option>
-					<option value="D">디자인팀</option>
-					<option value="M">마케팅팀</option>
-					<option value="Y">영업팀</option>
-					</select>
-					<input type="hidden" name="wcode" value="1" />
-					<input type="hidden" name="utype" value="G" />
-					<input type="submit" value="등록">
-					</form>	
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
-					
-                </div>
-            </div>
-        </div>
+				</div>
+			</nav>
+			<!-- Page content-->
+			<div class="container-fluid">
+				<form action="SignUp" method="post">
+					<input type="text" name="userid" placeholder="아이디" /> <input
+						type="text" name="uname" placeholder="이름" /> <input
+						type="password" name="acode" placeholder="비밀번호" /> <input
+						type="hidden" name="cpcode" value="${cpcode }" /> <input
+						type="hidden" name="uphone" value="${uphone }" /> <input
+						type="hidden" name="tecode" value="${tecode }" /> <input
+						type="hidden" name="wcode" value="${wcode }" />
+					<form action="SignUp" method="post">
+						<input type="text" name="userid" placeholder="아이디" /> <input
+							type="text" name="uname" placeholder="이름" /> <input
+							type="password" name="acode" placeholder="비밀번호" /> <input
+							type="hidden" name="cpcode" value="${cpcode }" /> <input
+							type="text" name="uphone" placeholder="핸드폰" /> <input
+							type="text" name="mail" placeholder="메일" /> <select
+							name="tecode">
+							<option value="I">인사팀</option>
+							<option value="G">개발팀</option>
+							<option value="D">디자인팀</option>
+							<option value="M">마케팅팀</option>
+							<option value="Y">영업팀</option>
+						</select> <input type="hidden" name="wcode" value="1" /> <input
+							type="hidden" name="utype" value="G" /> <input type="submit"
+							value="등록">
+					</form>
 
-	
+
+					<input type="text" name="uphone" placeholder="핸드폰" /> <input
+						type="text" name="mail" placeholder="메일" /> <select name="tecode">
+						<option value="I">인사팀</option>
+						<option value="G">개발팀</option>
+						<option value="D">디자인팀</option>
+						<option value="M">마케팅팀</option>
+						<option value="Y">영업팀</option>
+					</select> <input type="hidden" name="wcode" value="1" /> <input
+						type="hidden" name="utype" value="G" /> <input type="submit"
+						value="등록">
+				</form>
+			</div>
+		</div>
+	</div>
+
+
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

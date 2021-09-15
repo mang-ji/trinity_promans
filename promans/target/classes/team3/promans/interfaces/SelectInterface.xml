@@ -64,6 +64,7 @@
 		FROM PNT
 		WHERE NO_CPCODE = #{cpcode}
 	</select>
+	
 
 	<!-- 공지사항디테일 -->
 	<select id="getNoticeDetail"
@@ -84,11 +85,11 @@
 		#{cpcode} and NO_CODE = #{nocode}
 	</select>
 
-
-	<delete id="deleteNotice">
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="team3.promans.beans.Notice_CalendarBean">
 		DELETE 
 		FROM PNT 
-		WHERE 
+		WHERE NO_CPCODE =#{cpcode} and NO_CODE = #{nocode}
 	</delete>
 
 	<select id="getDiary"
