@@ -14,9 +14,11 @@ import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
+import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ScheduleDetailBean;
+import team3.promans.services.FileManagement;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
@@ -39,7 +41,9 @@ public class HomeController {
 
 	@Autowired
 	SelectInfo si;
-
+	
+	@Autowired
+	FileManagement fm;
 	
 	@Autowired
 	ScheduleManagement sm;
@@ -148,6 +152,12 @@ public class HomeController {
 	@PostMapping("reqComplete")
 	public ModelAndView reqComplete(@ModelAttribute ScheduleDetailBean sdb) {
 		mav = pm.reqComplete(sdb);
+		return mav;
+	}
+	
+	@PostMapping("insFile")
+	public ModelAndView insFile(@ModelAttribute CloudBean cb) {
+		mav =  fm.insFile(cb);
 		return mav;
 	}
 }

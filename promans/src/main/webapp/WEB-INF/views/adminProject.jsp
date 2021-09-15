@@ -19,11 +19,9 @@
  	 //let publicIP;
  	 
      window.addEventListener('load',function(){
-    	    
     		let userid1 = document.getElementsByName("userid")[0];
     		let cpcode1 = document.getElementsByName("cpcode")[0];
     		let prcode1 = document.getElementsByName("prcode")[0];
-    	
     		
     		let jsonData = [{cpcode:cpcode1.value, prcode:prcode1.value, userid:userid1.value}];
     		
@@ -54,6 +52,7 @@
         <input type="hidden" name="cpcode" value="${cpcode}">
         <input type="hidden" name="prcode" value="${prcode}">
         <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
       
         <div id="modalDiv"></div>
@@ -70,7 +69,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myScheduleForm" id="myScheduleCate">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                     <input type="button" onClick="logout()" value="로그아웃">

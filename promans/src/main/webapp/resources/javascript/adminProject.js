@@ -3,14 +3,9 @@ let sccode;
 
 function goAdminProject(prcode){
      let f = document.createElement("form");
-     let input = document.createElement("input");
+     let prcodes = makeInput("hidden","prcode",prcode);
 
-          input.type = "hidden";
-          input.value = prcode;
-          input.name = "prcode";
-
-
-     f.appendChild(input);
+     f.appendChild(prcodes);
 
      document.body.appendChild(f);
 

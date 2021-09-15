@@ -136,7 +136,9 @@
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectStepBean">
 
-		SELECT CPCODE,PSNAME,STNAME,PSCODE,STCODE FROM PROJECTVIEW
+		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID,
+		(SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid}) AS UTYPE
+		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
 		PRCODE = #{prcode}
 

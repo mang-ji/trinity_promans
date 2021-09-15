@@ -23,12 +23,14 @@ import team3.promans.auth.Authentication;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
+import team3.promans.beans.CloudBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
 import team3.promans.beans.ProjectMemberBean;
+import team3.promans.services.FileManagement;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.TeamManagement;
 import team3.promans.beans.Notice_CalendarBean;
@@ -65,6 +67,9 @@ public class Restcontroller {
 	
 	@Autowired
 	ProjectManagement pm;
+	
+	@Autowired
+	FileManagement fm;
 	
 	ModelAndView mav;
 
@@ -258,6 +263,11 @@ public class Restcontroller {
 	@PostMapping("/InsProjectFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
+	}
+	
+	@PostMapping("getFileList")
+	public List<CloudBean> getFileList(@RequestBody List<CloudBean> cb){
+		return fm.getFileList(cb.get(0));
 	}
 
 }

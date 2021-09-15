@@ -121,8 +121,18 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 	public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb) {
-
-		return sql.selectList("getProjectStep", pmb);
+		
+		try {
+			pmb.setUserid((String)pu.getAttribute("userid"));
+		} catch (Exception e) {e.printStackTrace();}
+		
+		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
+		
+		try {
+			pu.setAttribute("utype", list.get(0).getUtype());
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return list;
 	}
 
 	public List<ScheduleBean> selectSchedule(ProjectStepBean psb) {

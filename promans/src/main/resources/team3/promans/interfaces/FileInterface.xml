@@ -4,6 +4,26 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="team3.promans.interfaces.FileInterface">
+	<insert id="insFile" parameterType="team3.promans.beans.CloudBean">
+		INSERT INTO CLOUD VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{fcode},#{fname},#{filepath},#{ftitle},SYSDATE,#{fwriter},#{fopen})
+	</insert>
 
-
+	<select id="getMaxFcode" parameterType="team3.promans.beans.CloudBean" resultType="int">
+		SELECT NVL(SUBSTR(MAX(CL_FCODE),3,4),0) FROM CLOUD WHERE CL_CPCODE=#{cpcode} AND 
+		CL_PRCODE=#{prcode} AND CL_PSCODE=#{pscode} AND CL_SCCODE = #{sccode}
+	</select>
+	
+	<select id="getFileList" parameterType="team3.promans.beans.CloudBean" resultType="team3.promans.beans.CloudBean">
+		SELECT CL_FCODE AS FCODE,
+		CL_FNAME AS FNAME,
+		CL_FILEPATH AS FILEPATH,
+		CL_FTITLE AS FTITLE,
+		CL_FDATE AS FDATE,
+		CL_USERID AS USERID,
+		CL_OPEN AS FOPEN 
+		FROM CLOUD 
+		WHERE CL_CPCODE = #{cpcode} AND CL_PRCODE = #{prcode} AND
+		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode}
+	</select>
+	
 </mapper>
