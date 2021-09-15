@@ -22,18 +22,15 @@
 		SELECT
 		SD_USERID as userid,
 		SD_CODE as sdcode,
-		SD_NAME as
-		sdname,
+		SD_NAME as sdname,
 		SD_TITLE as sdcontent,
 		SD_DATE as sddate,
 		SD_PRCODE as prcode,
 		SD_PSCODE as pscode
 		FROM SD
 		WHERE SD_CPCODE= #{cpcode} and
-		SD_PRCODE=
-		#{prcode} and
-		SD_PSCODE=
-		#{pscode} and
+		SD_PRCODE= #{prcode} and
+		SD_PSCODE= #{pscode} and
 		SD_USERID= #{userid}
 	</select>
 
@@ -43,8 +40,7 @@
 		resultType="team3.promans.beans.Notice_CalendarBean">
 		SELECT NO_USERID as writer,
 		NO_TITLE as title,
-		NO_CODE as
-		nocode,
+		NO_CODE as nocode,
 		NO_CONTENTS as
 		contents,
 		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
@@ -91,7 +87,7 @@
 		WHERE 
 	</delete>
 
-	<select id="getDiary"
+	<select id="getDiary" 
 		parameterType="team3.promans.beans.WorkDiaryBean"
 		resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
@@ -104,9 +100,7 @@
 		FROM WD
 		WHERE WD_CPCODE = #{cpcode}
 		and WD_PRCODE = #{prcode}
-		and WD_CODE = #{wdcode}
 		and WD_USERID = #{userid} 
-
 	</select>
 
 	<!-- 공지사항 글쓰기 -->

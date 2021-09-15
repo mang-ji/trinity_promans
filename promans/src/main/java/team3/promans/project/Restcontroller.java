@@ -82,10 +82,10 @@ public class Restcontroller {
 	
 	//업무디테일작성
 	@PostMapping("/WriteSchedule")
-	public String writeSchedule(@RequestBody ScheduleDetailBean sdb) {
+	public String writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
 		//sm.writeSchedule(sdb.get(0))
 		System.out.println("글작성 첫번째에러다");
-		return sm.writeSchedule(sdb);
+		return sm.writeSchedule(sdb.get(0));
 	}
 	
 	//업무일지작성
@@ -98,8 +98,6 @@ public class Restcontroller {
 	
 	@PostMapping("/GetDiary")
 	public List<WorkDiaryBean> getDiary(@RequestBody List<WorkDiaryBean> wdb){
-		System.out.println("퍼킹다이어리");
-		
 		return si.getDiary(wdb.get(0));
 	}
 	
@@ -235,7 +233,7 @@ public class Restcontroller {
 	
 		return sm.reqPass(sdb.get(0));
 	}
-<<<<<<< HEAD
+
 	@PostMapping("/InsSD")
 	public  Map<String, String> InsSD(@RequestBody List<ScheduleDetailBean> sdb) {
 		Map<String, String> map = new HashMap<>();
@@ -244,7 +242,7 @@ public class Restcontroller {
 		sm.insSD(sdb.get(0));
 		
 		return map;
-=======
+	}
 	
 	@PostMapping("/SelectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
@@ -258,7 +256,6 @@ public class Restcontroller {
 	@PostMapping("/InsProjectFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 	}
 
 }

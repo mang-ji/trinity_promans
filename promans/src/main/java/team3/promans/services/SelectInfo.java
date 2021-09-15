@@ -66,17 +66,18 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 
-
+	
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
-		System.out.println("개새끼야");
+		System.out.println("업무조회다");
 		List<ScheduleDetailBean> myScheduleList;
 		myScheduleList = sql.selectList("getMySchedule", sdb);
 		return myScheduleList;
 	}
 
 	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
-		List<WorkDiaryBean> DiaryList = sql.selectList("getDiary", wdb);
-		return DiaryList;
+		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
+		System.out.println(getDiaryList);
+		return getDiaryList;
 	}
 
 
@@ -126,16 +127,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 	public List<ScheduleBean> selectSchedule(ProjectStepBean psb) {
-<<<<<<< HEAD
-             
-		return sql.selectList("selectSchedule", psb);
-=======
 		List<ScheduleBean> list = sql.selectList("selectSchedule", psb);
 		try {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 		} catch (Exception e) {e.printStackTrace();}
 		return list;
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
 	}
 
 	public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb) {
@@ -210,9 +206,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return list;
 	}
 
-
-<<<<<<< HEAD
-=======
 	public List<ProjectMemberBean> selectProjectMember(ProjectMemberBean pmb) {
 		List<ProjectMemberBean> list = sql.selectList("selectProjectMember", pmb);
 		for(int i=0; i<list.size();i++) {
@@ -236,7 +229,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return sql.selectList("getNoticeDetail",nc);
 
 	}
->>>>>>> e2dbf1b730d7ae38913c5baf8a97de5b3cb9529f
+
 }
 
 
