@@ -36,6 +36,8 @@
 	 	</div>
 	 </div>
 	
+	 <div style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S</div>
+	
       <input type="hidden" name="utype" value="${utype}"> 
       <input type="hidden" name="cpcode" value="${cpcode}"> 
       <input type="hidden" name="userid" value="${userid}">

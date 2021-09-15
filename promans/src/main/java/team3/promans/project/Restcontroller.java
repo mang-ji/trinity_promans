@@ -76,7 +76,6 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
-		System.out.println("뜰때됐잖아");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
@@ -91,7 +90,6 @@ public class Restcontroller {
 	//업무일지작성
 	@PostMapping("/WriteDiary")
 	public String writeDiary(@RequestBody WorkDiaryBean wdb) {
-		System.out.println("일지작성?");
 		return sm.writeDiary(wdb);
 	}
 	
@@ -130,6 +128,8 @@ public class Restcontroller {
 		return si.getNoticeDetail(nc.get(0));
 		
 	}
+	
+
 	@PostMapping("/GetProject")
 	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
 		
@@ -170,13 +170,12 @@ public class Restcontroller {
 	@PostMapping("/selectManager")
 	public List<ProjectStepBean> selectManager(@RequestBody List<ProjectStepBean> psb){
 		
-		
 		return si.selectManager(psb.get(0));
 	}
 	
 	
 	
-	@PostMapping("/makeStep")
+	@PostMapping("/MakeStep")
 	public Map<String,String> makeStep(@RequestBody List<ProjectStepBean> psb) {
 		
 		return pm.makeStep(psb.get(0));
@@ -203,7 +202,6 @@ public class Restcontroller {
 	public List<ScheduleDetailBean> addJob(@RequestBody List<ProjectStepBean> psb) {
 		return tm.addJob(psb.get(0));
 
-		
 	}
 	
 	@PostMapping("insSchedule")
@@ -243,7 +241,6 @@ public class Restcontroller {
 		
 		return map;
 	}
-	
 	@PostMapping("/SelectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
@@ -256,6 +253,11 @@ public class Restcontroller {
 	@PostMapping("/InsProjectFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
+	}
+	@PostMapping("ReqProjectAccept")
+	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
+		return pm.reqProjectAccept(pb.get(0));
+
 	}
 
 }

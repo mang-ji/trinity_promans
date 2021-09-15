@@ -400,14 +400,21 @@ function selectSchedule(jsonData){
 	let ShceduleEdit = document.getElementById("ShceduleEdit");
 	let count=1;
 	
+	list += "<span id='span1'>No.</span><span  id='span1' >Schedule</span><span  id='span1'>Progress</span>";
 	
-	list += "<span>No.</span><span>Schedule</span><span>Progress</span>";
 	for(i=0; i<jsonData.length; i++){
 		
-	list += "<div onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode
-	+"\')\" id ='SSC'>"+count+"<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/><input type ='hidden' name = 'pscode' value = \'"+jsonData[i].pscode
-	+"\'/>"+ jsonData[i].scname + jsonData[i].scstate + "</div></label><div onClick = \"addScheduleDetail(\'"+jsonData[i].scname+
-	","+jsonData[i].sccode+"\')\" name = 'addScheduleDetail' style = 'display:none'>추가</div>";	
+	list += "<div onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\" id ='SSC'>"
+	
+	+"<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/>"
+	+"<input type ='hidden' name = 'pscode' value = \'"+jsonData[i].pscode+"\'/>"
+	
+	+"<span  id ='sccount'>"
+	+ count +"<span  id ='scname'>"+ jsonData[i].scname + "<span  id='scstate'> "+ jsonData[i].scstate + "</span ></span ></span ></div>"
+	
+	+"<div onClick = \"addScheduleDetail(\'"+jsonData[i].scname+","+jsonData[i].sccode+"\')\" name = 'addScheduleDetail' style = 'display:none'>"
+	+"추가</div>";	
+	
 	   count++;
 	}
 	edit += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>"
@@ -415,8 +422,8 @@ function selectSchedule(jsonData){
 	selectStep.innerHTML = list;
 	ShceduleEdit.innerHTML = edit;
 	
-}
 
+}
 function getScheDetail(sccode1, pscode1){
 	
     let f = document.createElement("form");
@@ -446,11 +453,17 @@ function editSchedule(){ //편집 누르면 완료요청, 업무추가 버튼 �
 	
 
 	let addScheduleDetail = document.getElementsByName("addScheduleDetail");
-  
+          
+        if(addScheduleDetail[0].style.display=='none'){
 		for(i=0; i<addScheduleDetail.length; i++){
 			addScheduleDetail[i].style.display="block";
 		}
-		
+		}else{
+			for(i=0; i<addScheduleDetail.length; i++){
+			addScheduleDetail[i].style.display="none";
+		}
+			
+		}
 		
 		
 		
@@ -669,7 +682,7 @@ function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되
 	
 	let clientData = JSON.stringify(jsonData);
 	
-	postAjax('rest/selectManager', clientData, 'getScheManager', 2);
+	postAjax('rest/selectProjectMember', clientData, 'getScheManager', 2);
 	
 	
 	

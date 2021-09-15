@@ -60,6 +60,7 @@
 		FROM PNT
 		WHERE NO_CPCODE = #{cpcode}
 	</select>
+	
 
 	<!-- 공지사항디테일 -->
 	<select id="getNoticeDetail"
@@ -80,11 +81,11 @@
 		#{cpcode} and NO_CODE = #{nocode}
 	</select>
 
-
-	<delete id="deleteNotice">
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="team3.promans.beans.Notice_CalendarBean">
 		DELETE 
 		FROM PNT 
-		WHERE 
+		WHERE NO_CPCODE =#{cpcode} and NO_CODE = #{nocode}
 	</delete>
 
 	<select id="getDiary" 
@@ -166,8 +167,7 @@
 		WHERE SD.SD_CPCODE = #{cpcode} AND
 		SD.SD_PRCODE = #{prcode} AND
 		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE
-		= #{sccode} AND SD.SD_USERID
-		= #{userid}
+		= #{sccode}
 
 	</select>
 
@@ -219,7 +219,8 @@
 		projectmemberview where utcode='G' and wcode='1'and prcode =#{prcode}
 		and cpcode=#{cpcode}
 	</select>
-
+    
+ 
 
 	<select id="getCompleteList"
 		parameterType="team3.promans.beans.ProjectStepBean"
@@ -243,7 +244,6 @@
 
 	</select>
 
-	
 	<select id="selectProjectMember" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectMemberBean">
 		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} 
 	</select>

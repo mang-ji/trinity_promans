@@ -58,9 +58,10 @@
 #SSC{
 
 	border-top:2px solid #f6f8f8;
-	border-bottom:2px solid #f6f8f8;
 	font-family:Sans-Serif;
 	color:#c0c5cd;
+
+	
 
 	
 }
@@ -70,6 +71,7 @@
 #selectStep{
        
 	   border:2px solid #f6f8f8;
+	   border-top: 4px solid black;
 	  
 	
 }
@@ -77,11 +79,48 @@
 #selHeight{
          
          height:100px;
+         padding-top:20px;
+         text-align: center;
+         font-family:Sans-Serif;
+         font-size:40px;
+         font-weight:bold;
+         color:#4f5f86;
+         
 }
 
-span{
-	
+#span1{
+    margin-left:80px;
 	padding-left:200px;
+	font-weight:bold;
+	height:100px;
+	padding-top:60px;
+	padding-bottom:60px;
+	
 }
 
+
+#scstate{
+	
+    position:relative;
+  width:200px;
+   left:300px;
+   
+	
+}
+
+#scname{
+
+	  position:relative;
+	  	width:400px;
+	  left:300px;
+}
+
+#sccount{
+	
+	  position:relative;
+	  width:200px;
+      left:290px;
+	
+	
+}
 

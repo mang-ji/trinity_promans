@@ -53,13 +53,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	ModelAndView mav;
 
 
-	/*
-	 * public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
-	 * List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb); return
-	 * list; }
-	 */
-
-
 	public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean ncb){
 		List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb);
 		return list;
@@ -92,9 +85,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public ModelAndView insNotice(Notice_CalendarBean nc) {
 		mav = new ModelAndView();
 		int max = this.getMaxNocode(nc);
-		
-		nc.setNocode(max+1+"");
-		
+			nc.setNocode(max+1+"");
 
 		if(nc.getFile().isEmpty()) {
 			nc.setFname("");
@@ -104,17 +95,17 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
 		}
 
-		/*
-		 * if(ub.getMpfile().isEmpty()){ ub.setStickerpath("");
-		 * 
-		 * }else { ub.setStickerpath("/resources/image/"+pu.savingFile(ub.getMpfile()));
-		 */
-
 		sql.insert("insNotice", nc);
 		mav.setViewName("noticePage");
 		return mav;
 
 	}
+	
+	/* 공지사항 삭제 */
+	public boolean noticeDelete(Notice_CalendarBean nc) {
+		return convertBoolean(sql.delete("deleteNotice", nc));
+	}
+
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
 
@@ -223,11 +214,13 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return sql.selectOne("getMaxNocode", nc);
 	}
 
-
-
 	public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc) {
 		return sql.selectList("getNoticeDetail",nc);
+	}
 
+	
+	private boolean convertBoolean(int value) {
+		return value > 0?true:false;
 	}
 
 }
