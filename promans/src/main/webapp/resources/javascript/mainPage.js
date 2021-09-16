@@ -1,7 +1,7 @@
 function getProject1 (jsonData){
 	let list = "";
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
-		alert(jsonData.length);
+	
 	for(i=0; i<jsonData.length; i++){
 
 			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
@@ -262,7 +262,7 @@ function reqProjectAccept(prcode){
 	//postAjax("rest/SelectWaitingStep", JSON.stringify(clientData),"getWaitingProStep",2);
 }
 function reqProjectAccept(jsonData){
-	alert(jsonData);
+
 }
 
 
@@ -311,7 +311,7 @@ function goAdminProject(prcode){
           input.value = prcode;
           input.name = "prcode";
 
-       alert(input.value);
+    
 
      f.appendChild(input);
 
@@ -357,3 +357,6 @@ function test(){
 		//써봐야지 
 //	} )	
 }
+
+
+

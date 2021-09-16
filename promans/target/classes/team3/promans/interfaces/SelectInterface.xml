@@ -22,7 +22,6 @@
 		SELECT
 		SD_USERID as userid,
 		SD_CODE as sdcode,
-		SD_NAME as sdname,
 		SD_TITLE as sdcontent,
 		SD_DATE as sddate,
 		SD_PRCODE as prcode,
