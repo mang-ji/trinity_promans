@@ -88,10 +88,10 @@ public class ProjectUtils {
     
     
     
-    public boolean savingFile(MultipartFile[] file) {
-    	boolean result = false;
+    public void downloadFile(String fname) {
     	
-    	return result;
+    	
+    	
     }
 
 
