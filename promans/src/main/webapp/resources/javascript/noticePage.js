@@ -127,31 +127,5 @@ function afterNotice(data) {
 		let f = document.getElementById("testDiv");
 		
 			f.submit();
-			/*for(i=0; i<CheckBox.length; i++){
-				if(CheckBox[i].checked){
-					if(CheckBox[i].value != ""){
-					select[i] = CheckBox[i].value;					
-				}
-				}
-			}
-			f.action = "test";
-			f.method = "get";
-			for(i=CheckBox.length-1; i>=0;i--){
-				if(CheckBox[i].checked){
-					f.appendChild(CheckBox[i].value);
-				}
-			}
-			
-			document.body.appendChild(f);
-			f.submit();
-		
-		
-		if(select){
-			form.action = "noticeForm";
-			form.submit();
-				}else{
-					alert("삭제할 항목을 선택하세요.");
-				}
-			}*/
 		
 		}
