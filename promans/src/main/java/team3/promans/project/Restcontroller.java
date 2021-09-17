@@ -247,7 +247,7 @@ public class Restcontroller {
 		return map;
 	}
 	
-	@PostMapping("/selectProjectMember")
+	@PostMapping("/SelectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
 	}
@@ -269,6 +269,10 @@ public class Restcontroller {
 	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));
 		
+	}
+	@PostMapping("DeleteProjectMember")
+	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
+		return pm.deleteProjectMember(pmb.get(0));
 	}
 
 }

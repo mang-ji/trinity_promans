@@ -42,7 +42,7 @@
       <input type="hidden" name="utype" value="${utype}"> 
       <input type="hidden" name="cpcode" value="${cpcode}"> 
       <input type="hidden" name="userid" value="${userid}">
-      <input type="hidden" name="prcode" value="">
+      <input type="hidden" name="prcode" value=" "> <!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
       <div id="getProject"></div>
 
 </body>
