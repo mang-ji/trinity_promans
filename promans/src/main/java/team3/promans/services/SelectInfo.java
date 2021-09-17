@@ -1,5 +1,6 @@
 package team3.promans.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -102,8 +103,26 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 	
 	/* 공지사항 삭제 */
-	public boolean noticeDelete(Notice_CalendarBean nc) {
-		return convertBoolean(sql.delete("deleteNotice", nc));
+	public ModelAndView noticeDelete(Notice_CalendarBean list) {
+		mav = new ModelAndView();
+		String[] list2 = list.getNocode().split(",");
+		List<Notice_CalendarBean> nc = new ArrayList<Notice_CalendarBean>();
+		List<String> list3 = new ArrayList<String>();
+		
+		for(int i=0; i<list2.length; i++) {
+			list3.add(list2[i]);
+			nc.add(list);
+			nc.get(i).setNocode(list3.get(i));
+			nc.get(i).setCpcode(list.getCpcode());
+			if(this.convertBoolean(sql.delete("noticeDelete",nc.get(i)))) {
+				mav.setViewName("noticePage");
+			}else {
+				mav.setViewName("noticePage");
+				mav.addObject("message","다시 시도해주세요.");
+			}
+		}
+		
+		return mav;
 	}
 
 
@@ -229,6 +248,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	private boolean convertBoolean(int value) {
 		return value > 0?true:false;
 	}
+
 	
 }
 

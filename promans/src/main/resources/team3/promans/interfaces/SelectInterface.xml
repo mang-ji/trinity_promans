@@ -82,7 +82,7 @@
 	</select>
 
 	<!-- 공지사항 삭제 -->
-	<delete id="deleteNotice" parameterType="team3.promans.beans.Notice_CalendarBean">
+	<delete id="noticeDelete" parameterType="team3.promans.beans.Notice_CalendarBean">
 		DELETE 
 		FROM PNT 
 		WHERE NO_CPCODE =#{cpcode} and NO_CODE = #{nocode}
