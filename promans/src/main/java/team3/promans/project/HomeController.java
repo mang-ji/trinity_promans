@@ -121,20 +121,17 @@ public class HomeController {
 	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
-		System.out.println("업무11아");
 
 		return "mySchedule";
 	}
 	@PostMapping("writeSchedule")
 	public String writeSchedule(ScheduleDetailBean sdb) {
-		System.out.println("작성됐냐");
 		return sm.writeSchedule(sdb);
 	}
 
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm(WorkDiaryBean wdb) {
-	
-		System.out.println("일지 그만좀해라");
+
 		return "myDiary";
 	}
 
@@ -170,17 +167,9 @@ public class HomeController {
 	}
 	
 	/* 공지사항 삭제 */
-	@GetMapping("noticeDelete")
-	public boolean noticeDelete(@ModelAttribute Notice_CalendarBean list) {
-		String[] list2 = list.getNocode().split(",");
-		List<Notice_CalendarBean> nc = new ArrayList<Notice_CalendarBean>();
-		List<String> list3 = new ArrayList<String>();
+	@PostMapping("noticeDelete")
+	public ModelAndView noticeDelete(@ModelAttribute Notice_CalendarBean list) {
 
-		for(int i=0; i<list2.length; i++) {
-			list3.add(list2[i]);
-			nc.add(list);
-			nc.get(i).setNocode(list3.get(i));
-		}
 		return si.noticeDelete(list);
 	}
 

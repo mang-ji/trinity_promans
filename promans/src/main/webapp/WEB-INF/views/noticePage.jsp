@@ -46,15 +46,13 @@ table {
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="projectForm" id="project">프로젝트</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="calendarForm">캘린더</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="calendarForm">캘린더</a> <a class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="mailForm">메일 발송</a> 
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
-					<a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="memberForm" id="adminMember">멤버 관리</a>
-					<input type="button" onClick="logout()" value="로그아웃">
+					<a class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="memberForm" id="adminMember">멤버 관리</a> <input type="button"
+					onClick="logout()" value="로그아웃">
 			</div>
 		</div>
 		<!-- Page content wrapper-->
@@ -85,22 +83,29 @@ table {
 			</nav>
 			<!-- Page content-->
 			<div class="container-fluid">
-			<form action="noticeForm" method="get" id="testDiv">
-				<table id="table_notice">
-					<tr id="trNotice">
-						<th></th>
-						<th>제목</th>
-						<th>작성날짜</th>
-					</tr>
-					<tbody id="table_body">
+				<div id="selectBack">
+					<div id="selHeight">ProMan'S</div>
+					<div id="selectStep"></div>
+				</div>
 
-					</tbody>
+				<form action="noticeDelete" method="post" id="testDiv">
+					<input type="hidden" name="cpcode" value="${cpcode}">
+					<table id="table_notice">
+						<tr id="trNotice">
+							<th></th>
+							<th style="padding-left: 250px">제목</th>
+							<th style="padding-left: 250px">작성날짜</th>
+						</tr>
+						<tbody id="table_body">
 
-				</table>
-		</form>
-				<div >
-					<input type="button" id="editbtn" value="편집" name="deleteNotice"/>
-					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display:none;" onClick="deleteNotice()"/>
+						</tbody>
+
+					</table>
+				</form>
+				<div>
+					<input type="button" id="editbtn" value="편집" name="editBtn" />
+					<!-- <div id="change"></div> -->
+					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display: none;" onClick="deleteNotice()" /> 
 					<input type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup()" />
 				</div>
 
@@ -111,7 +116,9 @@ table {
 		</div>
 	</div>
 
-	<div id="popup"><div id="popup1"></div></div>
+	<div id="popup">
+		<div id="popup1"></div>
+	</div>
 
 
 

@@ -24,6 +24,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
+import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
@@ -247,7 +248,7 @@ public class Restcontroller {
 		return map;
 	}
 	
-	@PostMapping("/selectProjectMember")
+	@PostMapping("/SelectProjectMember")
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
 	}
@@ -269,6 +270,20 @@ public class Restcontroller {
 	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));
 		
+	}
+<<<<<<< HEAD
+	
+	@PostMapping("/GetDataGraph")
+	public GraphDataBean getDataGraph(@RequestBody List<ProjectBean> pb) {
+	System.out.println(pb);
+		
+		return si.getDataGraph(pb);
+		
+=======
+	@PostMapping("DeleteProjectMember")
+	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
+		return pm.deleteProjectMember(pmb.get(0));
+>>>>>>> 152244380c64f9d2f0cd1f42e6adde1771a2e8ad
 	}
 
 }

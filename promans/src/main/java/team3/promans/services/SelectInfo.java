@@ -1,5 +1,6 @@
 package team3.promans.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,6 +15,7 @@ import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.Notice_CalendarBean;
 
 import java.io.UnsupportedEncodingException;
@@ -102,8 +104,26 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 	
 	/* 공지사항 삭제 */
-	public boolean noticeDelete(Notice_CalendarBean nc) {
-		return convertBoolean(sql.delete("deleteNotice", nc));
+	public ModelAndView noticeDelete(Notice_CalendarBean list) {
+		mav = new ModelAndView();
+		String[] list2 = list.getNocode().split(",");
+		List<Notice_CalendarBean> nc = new ArrayList<Notice_CalendarBean>();
+		List<String> list3 = new ArrayList<String>();
+		
+		for(int i=0; i<list2.length; i++) {
+			list3.add(list2[i]);
+			nc.add(list);
+			nc.get(i).setNocode(list3.get(i));
+			nc.get(i).setCpcode(list.getCpcode());
+			if(this.convertBoolean(sql.delete("noticeDelete",nc.get(i)))) {
+				mav.setViewName("noticePage");
+			}else {
+				mav.setViewName("noticePage");
+				mav.addObject("message","다시 시도해주세요.");
+			}
+		}
+		
+		return mav;
 	}
 
 
@@ -173,9 +193,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		List<ProjectStepBean> list = sql.selectList("selectStepReq", psb);
 		for(int i=0; i < list.size(); i++) {
 			try {
-				System.out.println(list.get(i).getUsername() + " : 복호화 전 ");
 				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
-				System.out.println(list.get(i).getUsername() + "  : 복호화 후  ");	
 			} catch (Exception e) {e.printStackTrace();}
 		}
 		return list;
@@ -229,6 +247,46 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	private boolean convertBoolean(int value) {
 		return value > 0?true:false;
 	}
+
+<<<<<<< HEAD
+
+
+	public GraphDataBean getDataGraph(List<ProjectBean> pb) {
+		GraphDataBean gdb= new GraphDataBean();
+		int PsW, ScheW, SdW , PsI, ScheI, SdI, PsC, ScheC, SdC;
+		
+		for(int i=0; i<pb.size(); i++) {
+			 PsW = sql.selectOne("getDataGraphPsW", pb.get(i));
+			gdb.setStepW(PsW);
+			ScheW = sql.selectOne("getDataGraphScW", pb.get(i));
+			gdb.setScheW(ScheW);
+			SdW = sql.selectOne("getDataGraphSdW", pb.get(i));
+			gdb.setSdW(SdW);
+			PsI = sql.selectOne("getDataGraphPsI", pb.get(i));
+			gdb.setStepI(PsI);
+			ScheI = sql.selectOne("getDataGraphScI", pb.get(i));
+			gdb.setScheI(ScheI);
+			SdI = sql.selectOne("getDataGraphSdI", pb.get(i));
+			gdb.setSdI(SdI);
+			PsC = sql.selectOne("getDataGraphPsC", pb.get(i));
+			gdb.setStepC(PsC);
+			ScheC = sql.selectOne("getDataGraphScC", pb.get(i));
+			gdb.setScheC(ScheC);
+			SdC = sql.selectOne("getDataGraphSdC", pb.get(i));
+			gdb.setSdC(SdC);
+			
+		}
+//		
+		//gdb.setStepW((int)sql.selectOne("getDataGraphPsW", pb.get(0)));
+//		gdb.setScheW(sql.selectOne("getDataGraphScW", pb.get(0)));
+//		gdb.setSdW(sql.selectOne("getDataGraphSdW", pb.get(0)));
+		 System.out.println((int)sql.selectOne("getDataGraphSdW", pb.get(0)));
+		  
+		return gdb;
+		
+	}
+=======
+>>>>>>> 152244380c64f9d2f0cd1f42e6adde1771a2e8ad
 	
 }
 
