@@ -118,90 +118,28 @@ function getProject1 (jsonData){
     let cpcode = document.getElementsByName("cpcode")[0];
  
 	for(i=0; i<jsonData.length; i++){
+
 				prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
 			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
 			list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
 			list += "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
 			list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>";
 
+			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div></div>";	
+/*
+
+
+list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
+list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>"; */
 	}
 
 	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 	getProject.innerHTML = list;
 }
 
-/* 요청 대기중인 스텝 리스트 가져오기 */
-function selectStepList(prcode){
-	let cpcode = document.getElementsByName("cpcode")[0];
-    let clientData = [{cpcode:cpcode.value, prcode:prcode}];
 
-	
-	postAjax("rest/SelectStepReq", JSON.stringify(clientData), "getStep", 2);
-}
-function getStep(jsonData){
-	let box = document.getElementById("modal_box");
-	let modal_background = document.getElementById("modal_background");
 
-	box.innerHTML += "<div id='modal_background2'>"
-	box.innerHTML += "<div id='modal_box2'></div>"
 
-	for(i=0;i<jsonData.length;i++){
-		box.innerHTML +="<input type='radio' name='stepReq' value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' >"+ "스텝명 : "+jsonData[i].psname+"  관리자 : " +jsonData[i].username + "  진행상태 : "+ jsonData[i].stname+"</><br>";
-	}
-	
-	box.innerHTML += "<button type='button' class='btn btn-primary' id='selectStep1' >Select</button>";
-  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
-
-	box.style.display = "block";
-	modal_background.style.display = "block";
-
-	stepAccept(jsonData[0].prcode); 
-}
-
-/* 피드백할지 완료할지 팝업창 보여주는 부분 */
-function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, contents
-	let radio = document.getElementsByName("stepReq");
-	let box = document.getElementById("modal_box2"); 
-	let modal_background = document.getElementById("modal_background2");
-	let selectButton = document.getElementById("selectStep1");
-	let arr;
-	let pscode;
-	let userid;
-	let cpcode;
-	
-	selectButton.addEventListener('click', function(){
-		radio.forEach((node) => {
-	    if(node.checked)  {
-	      	arr = node.value;
-			pscode = arr.split(",")[0];
-			userid = arr.split(",")[1];
-			cpcode = arr.split(",")[2];
-	    }
-	 	 });
-		box.innerHTML +="<div id='modal_edge'>";
-		box.innerHTML += "<input type='radio' name='feedback' value='feed' onClick=\"getFeedState(event)\" >피드백</>";
-		box.innerHTML += "<input type='radio' name='feedback' value='accept' onClick=\"getFeedState(event)\">승인</><br>";
-		box.innerHTML += "<input type='text' id='feedcontents' placeholder='피드백을 입력하세요' style='width:400px; height:200px;' /><br>";
-		box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendFeedback(\'"+prcode+","+pscode+","+userid+","+cpcode+"\')\">Complete</button>";
-	  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close2()'>Close</button></div>";
-		
-		modal_background.style.display = "block";
-		box.style.display = "block";
-	});
-	
-
-}
-
-function getFeedState(event) {
-	let textBox = document.getElementById("feedcontents");
-	
-   	if(event.target.value == "feed"){
-		textBox.style.display = "block";
-		
-	}else if(event.target.value == "accept"){
-		textBox.style.display = "none";
-	}
-}
 
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
@@ -379,6 +317,8 @@ function reqProjectAccept(prcode){
 function reqProjectAccept(jsonData){
 
 }
+
+
 
 
 function getWaitingProStep(jsonData){

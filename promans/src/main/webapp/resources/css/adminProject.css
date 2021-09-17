@@ -124,3 +124,78 @@
 	
 }
 
+#modal_background {
+	display: none;
+	position : absolute;
+	width: 100%;
+	height:100%;
+	background-color :rgba(0,0,0,0.7);
+	top:0; left:0; z-index:1;
+}
+
+#modal_background2 {
+	display: none;
+	position : absolute;
+	width: 100%;
+	height:100%;
+	background-color :rgba(0,0,0,0.7);
+	top:0; left:0; z-index:1;
+}
+#modal_background3 {
+	display: none;
+	position : absolute;
+	width: 100%;
+	height:100%;
+	background-color :rgba(0,0,0,0.7);
+	top:0; left:0; z-index:1;
+}
+
+
+#modal_box {
+	display: none;
+	position : absolute;
+	top : 50%; left : 50%;
+	width: 600px; height: 600px;
+	margin : -250px 0 0 -250px;
+	background-color :rgb(255,255,255);
+	border-radius: 5px;
+	z-index : 2;
+}
+
+#modal_box2 {
+	display: none;
+	position : absolute;
+	top : 50%; left : 50%;
+	width: 400px; height: 400px;
+	margin : -250px 0 0 -250px;
+	background-color :rgb(255,255,255);
+	border-radius: 5px;
+	z-index : 2;
+}
+#modal_box3 {
+	display: none;
+	position : absolute;
+	top : 50%; left : 50%;
+	width: 600px; height: 600px;
+	margin : -250px 0 0 -250px;
+	background-color :rgb(255,255,255);
+	border-radius: 5px;
+	z-index : 2;
+}
+
+#buttons { margin-left: 160px; margin-top:5px; }
+#dates { margin-left: 130px; }
+#steptitle { font-size: 30px; font-weight: bold; margin-left:10px;}
+#circle { border-radius: 50%; width:50px; height:50px;} 
+.buttonStyle{
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px;
+}
+.stepbuttonStyle {
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px; margin-top:3px;}
+.steplists {
+	
+}

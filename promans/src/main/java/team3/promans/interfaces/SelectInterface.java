@@ -31,7 +31,8 @@ public interface SelectInterface {
 	  public List<ProjectStepBean> selectStepReq(ProjectStepBean psb);
 	  public List<ProjectStepBean> selectManager(ProjectStepBean psb);
 	  public List<ProjectMemberBean> selectProjectMember(ProjectMemberBean pmb);
-
+	  
+	  public ModelAndView noticeDelete(Notice_CalendarBean nc);
 	  public int getMaxNocode(Notice_CalendarBean nc);
 	  public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc);
 	  public GraphDataBean getDataGraph(List<ProjectBean> pb);

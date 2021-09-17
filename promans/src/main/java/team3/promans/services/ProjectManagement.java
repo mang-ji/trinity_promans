@@ -74,8 +74,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public Map<String, String> makeStep(ProjectStepBean psb) {
 		Map<String,String> map = new HashMap<>();
 		
-		/* pscode 생성 어케하쥐 */
-		psb.setPscode("PS03");
+		psb.setPscode(this.stepMax(psb));
 		
 		if(this.convertData(sqlSession.insert("insStep", psb))){
 			map.put("message", "스텝 생성이 완료되었습니다.");
@@ -84,6 +83,17 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		return map;
 	}
 
+	public String stepMax(ProjectStepBean psb) {
+		/* pscode 생성 어케하쥐 */
+		int psMax = sqlSession.selectOne("selectStepMax",psb);
+		String stringMax ="";
+		if(psMax<10) {
+			stringMax = "PS0" + (psMax+1);
+		}else {
+			stringMax = "PS" +(psMax+1);
+		}
+		return stringMax;
+	}
 
 	/* 스텝에 멤버추가시 이미 존재하는 회원은 거르고 스텝 테이블에 인서트 하는 부분 */
 	public Map<String,String> insProjectMember(ProjectMemberBean pmb) {
@@ -124,6 +134,17 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public Map<String, String> reqProjectAccept(ProjectBean projectBean) {
 		//sqlSession.insert();
 		return null;
+	}
+
+
+
+
+	public Map<String,String> deleteProjectMember(ProjectMemberBean pmb) {
+		Map<String,String> map = new HashMap<>();
+		if(this.convertData(sqlSession.delete("deleteProjectMember", pmb))) {
+			map.put("message", "팀원 삭제가 완료되었습니다. ");
+		}
+		return map;
 	}
 
 }
