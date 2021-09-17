@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.beans.ProjectBean;
@@ -33,5 +34,6 @@ public interface SelectInterface {
 
 	  public int getMaxNocode(Notice_CalendarBean nc);
 	  public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc);
+	  public GraphDataBean getDataGraph(List<ProjectBean> pb);
 
 }

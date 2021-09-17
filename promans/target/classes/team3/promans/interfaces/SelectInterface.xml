@@ -243,4 +243,55 @@
 		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} 
 	</select>
 	
+	<select id ="getDataGraphPsW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS stepW FROM PS 
+     WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'W'
+	</select>
+	
+	<select id ="getDataGraphScW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS scheW FROM SC 
+     WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'W'
+	</select>
+	
+	<select id ="getDataGraphSdW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS sdW FROM SD 
+     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'W'
+	</select>
+	
+	<select id ="getDataGraphPsI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
+	 SELECT COUNT(*) AS stepI FROM  PS
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I'
+	</select>
+	
+	<select id ="getDataGraphScI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
+	 SELECT COUNT(*) AS ScheI FROM  SC
+     WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'I'
+	</select>
+	
+	<select id ="getDataGraphSdI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
+	 SELECT COUNT(*) AS SdI FROM  SD
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'I'
+	</select>
+	
+	<select id ="getDataGraphPsC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS stepC FROM  PS
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'S'
+	
+	</select>
+	
+	<select id ="getDataGraphScC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS scheC FROM  SC
+     WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'S'
+	
+	</select>
+	
+	<select id ="getDataGraphSdC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS SdC FROM  SD
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'S'
+	
+	</select>
+	
 </mapper>
