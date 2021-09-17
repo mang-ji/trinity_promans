@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: alswl
-=======
-Built-By: ￬ﾠﾕ￬ﾘﾈ￬ﾝﾀ
->>>>>>> 152244380c64f9d2f0cd1f42e6adde1771a2e8ad
-Build-Jdk: 15.0.2
+Built-By: back
+Build-Jdk: 11.0.11
 Created-By: Maven Integration for Eclipse
 
