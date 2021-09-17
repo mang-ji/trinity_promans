@@ -473,11 +473,11 @@ function selectSchedule(jsonData){
 
 	list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
 
-	if(jsonData[0].utype == "L"){
+	//if(jsonData[0].utype != "G"){
 		edit += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
 			+"<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>"
 			+"<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" onClick=\"addJobMember()\">";
-		}
+	//	}
 	selectStep.innerHTML = list;
 	ShceduleEdit.innerHTML = edit;
 	

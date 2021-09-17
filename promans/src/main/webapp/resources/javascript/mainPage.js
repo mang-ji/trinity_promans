@@ -110,8 +110,6 @@ chart.scrollbarX = new am4core.Scrollbar();
 // 업무 - ''
 //업무 디테일 - ''
 function getProject1 (jsonData){
-	alert("여긴?");
-	alert(jsonData[0].prcode);
 	let list = "";
 		let prcode1=[];
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
@@ -119,27 +117,13 @@ function getProject1 (jsonData){
  
 	for(i=0; i<jsonData.length; i++){
 
-				prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
+			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
 			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
-			list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
-			list += "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
-			list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>";
-
-			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div></div>";	
-/*
-
-
-list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
-list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>"; */
 	}
 
 	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 	getProject.innerHTML = list;
 }
-
-
-
-
 
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
