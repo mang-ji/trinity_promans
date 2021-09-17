@@ -205,7 +205,7 @@
 	
 	
 	<select id="selectStepReq" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
-		select cpcode, prcode, pscode, psname, username, stname, userid from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode}
+		select cpcode, prcode, pscode, psname, username, stcode ,stname, userid,utype from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode}
 	</select>
 
 	<select id="selectManager"

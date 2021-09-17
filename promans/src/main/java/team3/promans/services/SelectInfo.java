@@ -173,9 +173,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		List<ProjectStepBean> list = sql.selectList("selectStepReq", psb);
 		for(int i=0; i < list.size(); i++) {
 			try {
-				System.out.println(list.get(i).getUsername() + " : 복호화 전 ");
 				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
-				System.out.println(list.get(i).getUsername() + "  : 복호화 후  ");	
 			} catch (Exception e) {e.printStackTrace();}
 		}
 		return list;
