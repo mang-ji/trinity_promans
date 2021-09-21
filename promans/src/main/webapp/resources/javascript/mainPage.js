@@ -12,7 +12,9 @@ am4core.useTheme(am4themes_animated);
 var chart = am4core.create("chartdiv", am4charts.XYChart);
 chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-chart.data = [
+
+
+chart[i].data = [
   {
     category: "스텝",
     value1: jsonData.stepW,
@@ -121,11 +123,11 @@ function getProject1 (jsonData){
 
 				prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
 			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
-			list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
-			list += "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
-			list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>";
+			//list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
+			//list += "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
+			//list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>";
 
-			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div></div>";	
+		//	list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div></div>";	
 /*
 
 

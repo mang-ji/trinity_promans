@@ -293,5 +293,10 @@
      WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'S'
 	
 	</select>
+	<select id ="selectPrcode" parameterType = "team3.promans.beans.ProjectBean" resultType= "team3.promans.beans.ProjectBean">
+	
+	SELECT PS_PRCODE AS PRCODE FROM PS WHERE PS_CPCODE = #{cpcode} AND PS_USERID = #{userid}
+	
+	</select>
 	
 </mapper>

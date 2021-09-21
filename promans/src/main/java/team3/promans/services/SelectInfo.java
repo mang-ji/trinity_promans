@@ -248,32 +248,23 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return value > 0?true:false;
 	}
 
-<<<<<<< HEAD
+
 
 
 	public GraphDataBean getDataGraph(List<ProjectBean> pb) {
 		GraphDataBean gdb= new GraphDataBean();
-		int PsW, ScheW, SdW , PsI, ScheI, SdI, PsC, ScheC, SdC;
 		
 		for(int i=0; i<pb.size(); i++) {
-			 PsW = sql.selectOne("getDataGraphPsW", pb.get(i));
-			gdb.setStepW(PsW);
-			ScheW = sql.selectOne("getDataGraphScW", pb.get(i));
-			gdb.setScheW(ScheW);
-			SdW = sql.selectOne("getDataGraphSdW", pb.get(i));
-			gdb.setSdW(SdW);
-			PsI = sql.selectOne("getDataGraphPsI", pb.get(i));
-			gdb.setStepI(PsI);
-			ScheI = sql.selectOne("getDataGraphScI", pb.get(i));
-			gdb.setScheI(ScheI);
-			SdI = sql.selectOne("getDataGraphSdI", pb.get(i));
-			gdb.setSdI(SdI);
-			PsC = sql.selectOne("getDataGraphPsC", pb.get(i));
-			gdb.setStepC(PsC);
-			ScheC = sql.selectOne("getDataGraphScC", pb.get(i));
-			gdb.setScheC(ScheC);
-			SdC = sql.selectOne("getDataGraphSdC", pb.get(i));
-			gdb.setSdC(SdC);
+			
+			gdb.setStepW(sql.selectOne("getDataGraphPsW", pb.get(i)));
+			gdb.setScheW(sql.selectOne("getDataGraphScW", pb.get(i)));
+			gdb.setSdW(sql.selectOne("getDataGraphSdW", pb.get(i)));
+			gdb.setStepI(sql.selectOne("getDataGraphPsI", pb.get(i)));
+			gdb.setScheI(sql.selectOne("getDataGraphScI", pb.get(i)));
+			gdb.setSdI(sql.selectOne("getDataGraphSdI", pb.get(i)));
+			gdb.setStepC(sql.selectOne("getDataGraphPsC", pb.get(i)));
+			gdb.setScheC(sql.selectOne("getDataGraphScC", pb.get(i)));
+			gdb.setSdC(sql.selectOne("getDataGraphSdC", pb.get(i)));
 			
 		}
 //		
@@ -285,8 +276,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return gdb;
 		
 	}
-=======
->>>>>>> 152244380c64f9d2f0cd1f42e6adde1771a2e8ad
+
 	
 }
 

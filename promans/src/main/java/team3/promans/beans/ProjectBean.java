@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ProjectBean {
 	private String cpcode;
+	private String userid;
 	private String prcode;
 	private String prname;
 	private String propen;

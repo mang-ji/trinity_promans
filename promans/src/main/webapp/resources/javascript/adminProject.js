@@ -691,7 +691,7 @@ let cpcode = document.getElementsByName("cpcode")[0];
 let prcode = document.getElementsByName("prcode")[0];
 let pscode = document.getElementsByName("pscode")[0];
 
- let box = document.getElementById("modal2");
+ let box = document.getElementById("modal_box");
 
 box.style.display ="block";
 	
@@ -757,10 +757,11 @@ function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되
 
 function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 추가하려고 프로젝트 멤버 조회하는 곳
    
-    let box = document.getElementById("modal1");
-    
+    let box = document.getElementById("modal_box");
+    let background = document.getElementById("modal_background");
 
 	box.style.display = "block";
+	background.style.display = "block";
 
 	box.innerHTML += "<div class='modal' id = 'modal3' tabindex='-1' role='dialog' style='border:1px solid black;'>";
 	
