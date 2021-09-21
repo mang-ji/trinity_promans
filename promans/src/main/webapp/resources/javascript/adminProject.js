@@ -458,7 +458,6 @@ function firstInsSchedule(data){
 		css += "input[id=\"radio"+i+"\"] \+ label{border:1px solid #bbbbbb; width:500px; cursor:pointer;}";
 		css += "input[id=\"radio"+i+"\"]:checked \+ label{background-color:#bbbbbb}";
 		css += "input[id=\"radio"+i+"\"]{display:none}";
-		
 		}
 		html += "<input type=\"text\" name=\"scname\"><br>";
 		

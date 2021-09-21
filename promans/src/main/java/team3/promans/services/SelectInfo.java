@@ -63,14 +63,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
+		List<ScheduleDetailBean> myScheduleList = sql.selectList("getMySchedule", sdb); 
 		System.out.println("업무조회다");
-		List<ScheduleDetailBean> myScheduleList;
-		myScheduleList = sql.selectList("getMySchedule", sdb);
 		return myScheduleList;
 	}
 
 	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
 		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
+		System.out.println("일지 잘뜨네이제");
 		System.out.println(getDiaryList);
 		return getDiaryList;
 	}

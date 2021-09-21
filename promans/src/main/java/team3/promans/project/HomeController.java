@@ -140,6 +140,12 @@ public class HomeController {
 
 		return "myDiary";
 	}
+	@PostMapping("writeDiary")
+	public ModelAndView writeDiary(WorkDiaryBean wdb) {
+		System.out.println("일지좀써라");
+		mav = sm.writeDiary(wdb);
+		return mav;
+	}
 
 	@PostMapping("goAdminProjectForm")
 	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
