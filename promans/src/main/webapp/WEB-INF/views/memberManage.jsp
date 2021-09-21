@@ -27,7 +27,7 @@
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+			<a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
 			<div class="list-group list-group-flush">
 				<a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
@@ -39,11 +39,10 @@
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="calendarForm">캘린더</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="mailForm">메일 발송</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="cloudForm">파일함</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="myScheduleForm">내 업무</a> <a
+					href="mailForm">메일 발송</a>
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
+					 <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="memberForm" id="adminMember">멤버 관리</a>
 			</div>
@@ -54,7 +53,7 @@
 			<nav>
 				<div class ="navbar navbar-expand-lg navbar-light bg-lightborder-bottom">
 				<div class="container-fluid">
-					<div>::: TEAM LIST :::</div>
+					<div> ::  팀원 추가 :: </div>
 					<!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
 					<!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

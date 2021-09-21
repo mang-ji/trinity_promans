@@ -19,4 +19,5 @@ public interface ProjectInterface {
 	public Map<String, String> makeStep(ProjectStepBean psb);
 	public Map<String,String> insProjectMember(ProjectMemberBean pmb);
 	public Map<String, String> insProjectFeedback(ScheduleDetailBean sdb);
+	public Map<String,String> deleteProjectMember(ProjectMemberBean pmb);
 }

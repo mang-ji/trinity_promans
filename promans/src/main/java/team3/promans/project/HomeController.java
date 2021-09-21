@@ -28,6 +28,7 @@ import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
+import team3.promans.services.TeamManagement;
 
 
 @Controller
@@ -53,6 +54,9 @@ public class HomeController {
 	
 	@Autowired
 	ScheduleManagement sm;
+	
+	@Autowired
+	TeamManagement tm;
 
 
 	private ModelAndView mav;
@@ -78,10 +82,12 @@ public class HomeController {
 
 	@PostMapping("SignUp")
 	public String SignUp(@ModelAttribute CpMemberBean cm) {
-		System.out.println(cm);
 		return auth.SignUp(cm);
 	}
-	
+	@GetMapping("InsCompany")
+	public String insCompany() {
+		return "insCompany";
+	}
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -121,19 +127,17 @@ public class HomeController {
 	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
-		System.out.println("업무 잘뜨는구나");
 
 		return "mySchedule";
 	}
 	@PostMapping("writeSchedule")
 	public String writeSchedule(ScheduleDetailBean sdb) {
-		System.out.println("작성됐냐");
 		return sm.writeSchedule(sdb);
 	}
 
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm(WorkDiaryBean wdb) {
-		System.out.println("일지 그만좀해라");
+
 		return "myDiary";
 	}
 	@PostMapping("writeDiary")
@@ -175,17 +179,9 @@ public class HomeController {
 	}
 	
 	/* 공지사항 삭제 */
-	@GetMapping("noticeDelete")
-	public boolean noticeDelete(@ModelAttribute Notice_CalendarBean list) {
-		String[] list2 = list.getNocode().split(",");
-		List<Notice_CalendarBean> nc = new ArrayList<Notice_CalendarBean>();
-		List<String> list3 = new ArrayList<String>();
+	@PostMapping("noticeDelete")
+	public ModelAndView noticeDelete(@ModelAttribute Notice_CalendarBean list) {
 
-		for(int i=0; i<list2.length; i++) {
-			list3.add(list2[i]);
-			nc.add(list);
-			nc.get(i).setNocode(list3.get(i));
-		}
 		return si.noticeDelete(list);
 	}
 
@@ -200,6 +196,17 @@ public class HomeController {
 	public ModelAndView insFile(@ModelAttribute CloudBean cb) {
 		mav =  fm.insFile(cb);
 		return mav;
+	}
+	
+	@PostMapping("RegisterCompany")
+	public ModelAndView registerCompany(@ModelAttribute CpMemberBean cmb) {
+		mav = auth.registerCompany(cmb);
+		return mav;
+	}
+	
+	@GetMapping("TestYuna")
+	public String testYuna() {
+		return "testyuna";
 	}
 }
 

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.BadPaddingException;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleBean;
@@ -50,6 +52,24 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 		}
 		
 		list.get(0).setPscode(pmb.getPscode());
+		return list;
+	}
+	
+	public List<ScheduleDetailBean> firstInsSchedule(ProjectStepBean pmb) {
+		
+		boolean result = this.getPsUtype(pmb);
+		System.out.println(pmb);
+		System.out.println(result);
+		List<ScheduleDetailBean> list = new ArrayList<ScheduleDetailBean>(); 
+		if(result == true) {
+			list = sql.selectList("addJob", pmb);
+			for(int i=0; i<list.size(); i++) {
+				try {
+					list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
+				} catch (Exception e) {e.printStackTrace();}
+			}
+			list.get(0).setPscode(pmb.getPscode());
+		}
 		return list;
 	}
 	
@@ -91,5 +111,10 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	@Override
 	public int insScheduleMember(ScheduleBean sb) {
 		return sql.insert("insScheduleMember", sb);
+	}
+	@Override
+	public boolean getPsUtype(ProjectStepBean psb) {
+		String result = sql.selectOne("getPsUtype", psb);
+		return (result!=null)?true:false;
 	}
 }

@@ -1,91 +1,150 @@
+
+
+function am5core(jsonData){
+
+for(i=0; i<jsonData.length ;i++){
+
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("chartdiv", am4charts.XYChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+chart.data = [
+  {
+    category: "스텝",
+    value1: jsonData[i].stepW,
+    value2: jsonData[i].stepI,
+    value3: jsonData[i].stepC
+  },
+  {
+    category: "업무",
+    value1: jsonData[i].scheW,
+    value2: jsonData[i].scheI,
+    value3: jsonData[i].scheC
+  },
+  {
+    category: "업무 디테일",
+    value1: jsonData[i].sdW,
+    value2: jsonData[i].sdI,
+    value3: jsonData[i].sdC
+  }
+];
+
+chart.colors.step = 2;
+chart.padding(30, 30, 10, 30);
+chart.legend = new am4charts.Legend();
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "category";
+categoryAxis.renderer.grid.template.location = 0;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.min = 0;
+valueAxis.max = 100; //전체 퍼센트 지정
+valueAxis.strictMinMax = true;
+valueAxis.calculateTotals = true;
+valueAxis.renderer.minWidth = 50;
+
+
+var series1 = chart.series.push(new am4charts.ColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.columns.template.tooltipText =
+  "{name}: {valueY.totalPercent.formatNumber('#.0')}%";
+series1.name = "진행 중";
+series1.dataFields.categoryX = "category";
+series1.dataFields.valueY = "value1";
+series1.dataFields.valueYShow = "totalPercent";
+series1.dataItems.template.locations.categoryX = 0.5;
+series1.stacked = true;
+series1.tooltip.pointerOrientation = "vertical";
+
+var bullet1 = series1.bullets.push(new am4charts.LabelBullet());
+bullet1.interactionsEnabled = false;
+bullet1.label.text = "{valueY.totalPercent.formatNumber('#.0')}%";
+bullet1.label.fill = am4core.color("#ffffff");
+bullet1.locationY = 0.5;
+
+var series2 = chart.series.push(new am4charts.ColumnSeries());
+series2.columns.template.width = am4core.percent(80);
+series2.columns.template.tooltipText =
+  "{name}: {valueY.totalPercent.formatNumber('#.0')}%";
+series2.name = "승인 대기 중";
+series2.dataFields.categoryX = "category";
+series2.dataFields.valueY = "value2";
+series2.dataFields.valueYShow = "totalPercent";
+series2.dataItems.template.locations.categoryX = 0.5;
+series2.stacked = true;
+series2.tooltip.pointerOrientation = "vertical";
+
+var bullet2 = series2.bullets.push(new am4charts.LabelBullet());
+bullet2.interactionsEnabled = false;
+bullet2.label.text = "{valueY.totalPercent.formatNumber('#.0')}%";
+bullet2.locationY = 0.5;
+bullet2.label.fill = am4core.color("#ffffff");
+
+var series3 = chart.series.push(new am4charts.ColumnSeries());
+series3.columns.template.width = am4core.percent(80);
+series3.columns.template.tooltipText =
+  "{name}: {valueY.totalPercent.formatNumber('#.0')}%";
+series3.name = "완료";
+series3.dataFields.categoryX = "category";
+series3.dataFields.valueY = "value3";
+series3.dataFields.valueYShow = "totalPercent";
+series3.dataItems.template.locations.categoryX = 0.5;
+series3.stacked = true;
+series3.tooltip.pointerOrientation = "vertical";
+
+var bullet3 = series3.bullets.push(new am4charts.LabelBullet());
+bullet3.interactionsEnabled = false;
+bullet3.label.text = "{valueY.totalPercent.formatNumber('#.0')}%";
+bullet3.locationY = 0.5;
+bullet3.label.fill = am4core.color("#ffffff");
+
+chart.scrollbarX = new am4core.Scrollbar();
+
+});
+}}
+
+//프로젝트 스텝 - 스텝의 전체 개수 , 스텝 완료 구하고, 진행 구하고, 대기 구하고. 
+// 업무 - ''
+//업무 디테일 - ''
 function getProject1 (jsonData){
 	let list = "";
+		let prcode1=[];
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
-		alert(jsonData.length);
+    let cpcode = document.getElementsByName("cpcode")[0];
+	
+	list +="<div id='parent'>";
 	for(i=0; i<jsonData.length; i++){
-
-			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
-			list += "<div id='buttons'><input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+ jsonData[i].prcode +"\')\"/>";
-			list += "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+ jsonData[i].prcode +"\')\">";
-			list += "<input type='button' class='buttonStyle' value='멤버 추가' onClick=\"getProjectMember(\'"+ jsonData[i].prcode +"\')\"><div id='createBtn'></div></div></div>";
-
+			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
+			if(jsonData[i].propen =="O"){
+				if(jsonData[i].prldate == null){
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+				}else{
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+				}
+				
+			}else{
+				if(jsonData[i].prldate == null){
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+				}else{
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+				}
+			}
 	}
-	
-	
+	list+= "<div class='projectBox' ><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
+	list+="</div>";
+
+	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 	getProject.innerHTML = list;
-}
-
-/* 요청 대기중인 스텝 리스트 가져오기 */
-function selectStepList(prcode){
-	let cpcode = document.getElementsByName("cpcode")[0];
-    let clientData = [{cpcode:cpcode.value, prcode:prcode}];
-
-	
-	postAjax("rest/SelectStepReq", JSON.stringify(clientData), "getStep", 2);
-}
-function getStep(jsonData){
-	let box = document.getElementById("modal_box");
-	let modal_background = document.getElementById("modal_background");
-
-	box.innerHTML += "<div id='modal_background2'>"
-	box.innerHTML += "<div id='modal_box2'></div>"
-
-	for(i=0;i<jsonData.length;i++){
-		box.innerHTML +="<input type='radio' name='stepReq' value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' >"+ "스텝명 : "+jsonData[i].psname+"  관리자 : " +jsonData[i].username + "  진행상태 : "+ jsonData[i].stname+"</><br>";
-	}
-	
-	box.innerHTML += "<button type='button' class='btn btn-primary' id='selectStep1' >Select</button>";
-  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
-
-	box.style.display = "block";
-	modal_background.style.display = "block";
-
-	stepAccept(jsonData[0].prcode); 
-}
-
-/* 피드백할지 완료할지 팝업창 보여주는 부분 */
-function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, contents
-	let radio = document.getElementsByName("stepReq");
-	let box = document.getElementById("modal_box2"); 
-	let modal_background = document.getElementById("modal_background2");
-	let selectButton = document.getElementById("selectStep1");
-	let arr;
-	let pscode;
-	let userid;
-	let cpcode;
-	
-	selectButton.addEventListener('click', function(){
-		radio.forEach((node) => {
-	    if(node.checked)  {
-	      	arr = node.value;
-			pscode = arr.split(",")[0];
-			userid = arr.split(",")[1];
-			cpcode = arr.split(",")[2];
-	    }
-	 	 });
-		box.innerHTML +="<div id='modal_edge'>";
-		box.innerHTML += "<input type='radio' name='feedback' value='feed' onClick=\"getFeedState(event)\" >피드백</>";
-		box.innerHTML += "<input type='radio' name='feedback' value='accept' onClick=\"getFeedState(event)\">승인</><br>";
-		box.innerHTML += "<input type='text' id='feedcontents' placeholder='피드백을 입력하세요' style='width:400px; height:200px;' /><br>";
-		box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendFeedback(\'"+prcode+","+pscode+","+userid+","+cpcode+"\')\">Complete</button>";
-	  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close2()'>Close</button></div>";
-		
-		modal_background.style.display = "block";
-		box.style.display = "block";
-	});
-	
-
-}
-
-function getFeedState(event) {
-	let textBox = document.getElementById("feedcontents");
-	
-   	if(event.target.value == "feed"){
-		textBox.style.display = "block";
-		
-	}else if(event.target.value == "accept"){
-		textBox.style.display = "none";
-	}
 }
 
 
@@ -262,8 +321,10 @@ function reqProjectAccept(prcode){
 	//postAjax("rest/SelectWaitingStep", JSON.stringify(clientData),"getWaitingProStep",2);
 }
 function reqProjectAccept(jsonData){
-	alert(jsonData);
+
 }
+
+
 
 
 function getWaitingProStep(jsonData){
@@ -311,7 +372,7 @@ function goAdminProject(prcode){
           input.value = prcode;
           input.name = "prcode";
 
-       alert(input.value);
+    
 
      f.appendChild(input);
 
@@ -350,10 +411,11 @@ function close2(){
 }
 
 
-
-
 function test(){
 	//.addEventListener('click',function(){
 		//써봐야지 
 //	} )	
 }
+
+
+

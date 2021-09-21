@@ -54,12 +54,18 @@
         <input type="hidden" name="pscode" value="${pscode}">
         <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
-      
+      <!-- 
         <div id="modalDiv"></div>
         <div id = "modal1" style="display:none;" ></div>
         <div id = "modal2"  style="display:none;"></div>
-        
-        <div class="d-flex" id="wrapper">
+	         -->
+		<div id="modal_background">
+			<div id="modal_box">
+				<div id="requestList"></div>
+			</div>
+		</div>
+	
+		<div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
                <div>
@@ -71,7 +77,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                     <input type="button" onClick="logout()" value="로그아웃">
@@ -110,8 +116,18 @@
                      <div id = "selectBack">
                      
                      <div id = "selHeight">ProMan'S</div>
-                    <div id="selectStep"></div></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
+                    <div id="selectStep"></div>
+                    	
+                    </div> 
+                    <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
                      <div id="ShceduleEdit" ></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
+                     <div id='buttons'>
+                     	<input type='button' class='buttonStyle' value='승인' onClick="selectStepList('${prcode}')" />
+                     	<input type='button' class='buttonStyle'  value='편집' onClick="sendProjectInfo('${prcode}')" />
+						<input type='button' class='buttonStyle' value='팀원 추가' onClick="getCompanyMember('${prcode}')"/>
+						<input type='button' class='buttonStyle' value='팀원 삭제' onClick="deleteProjectMember('${prcode}')"/>
+					 	<div id='createBtn'></div>
+					 </div>
               </div>
                
                <div id="mainPop"><div id="popUp"></div></div>

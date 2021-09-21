@@ -7,47 +7,55 @@ window.addEventListener('load', function() {
 
 function afterNotice(data) {
 		let tablebody = document.getElementById("table_body");
-		let delNotice = document.getElementsByName("deleteNotice")[0];
+		//let closeBtn = document.getElementsByName("closeBtn");
+		let deletebtn = document.getElementsByName("deletebtn")[0];
+		let editBtn = document.getElementsByName("editBtn")[0];
 		let html = "";
 		let html2 = "";
 		let css = "";
 		let style = document.createElement("style");
 		let trNotice = document.getElementById("trNotice");
-		let deletebtn = document.getElementById("deletebtn");
+		let change = document.getElementById("change");
 		let index =0;
 		for (i = 0; i < data.length; i++) {
 			
 			html2 += "<tr>";
 			html2 += "<td><input type=\"checkbox\" name=\"nocode\" id=\"noticeBox"+i+"\" value=\""+data[i].nocode+"\"><label for=\"noticeBox"+i+"\"></td>";
-			html2 += "<td>" + (i+1) + "</td>";
-			html2 += "<td>" + data[i].title + "</td>";
-			html2 += "<td>" + data[i].sdate + "</td></tr>";
+			html2 += "<td style=\"padding-left:30px\">" + (i+1) + "</td>";
+			html2 += "<td style=\"padding-left:250px\">" + data[i].title + "</td>";
+			html2 += "<td style=\"padding-left:250px\">" + data[i].sdate + "</td></tr>";
 			
-			css += "input[id=\"noticeBox"+i+"\"] \+ label{border:1px solid #bbbbbbb; width:500px; cursor:pointer;}";
-			css += "input[id=\"noticeBox"+i+"\"]:checked \+ label{background-color:#bbbbbb;}";
-			css += "input[id=\"noticeBox"+i+"\"]{display:none;}";
 		}	
-			/*html2 += "<td><input type = \"button\" value = \"삭제\"></td>";*/
-			
+
 		for (i = 0; i < data.length; i++) {
 			html += "<tr onClick = \"NoticeClick(\'"+data[i].nocode+"\')\">";
-			html += "<td>" + (i+1) + "</td>";
-			html += "<td>" + data[i].title + "</td>";
-			html += "<td>" + data[i].sdate + "</td></tr>";
+			html += "<td style=\"padding-left:30px\">" + (i+1) + "</td>";
+			html += "<td style=\"padding-left:250px\">" + data[i].title + "</td>";
+			html += "<td style=\"padding-left:250px\">" + data[i].sdate + "</td></tr>";
 		}
 		//deletebtn.remove();
 		tablebody.innerHTML = html;
 	
-		delNotice.addEventListener('click',function(){
-			/*style.innerHTML = css;
-			document.head.append(style);*/
+		editBtn.addEventListener('click',function(){
+			//editBtn.remove();
+			//change.innerHTML = "<input type=\"button\" id=\"editbtn\" value=\"편집\" onClick=\"closeBtn()\"/>";
+			deletebtn.style.display = "none";
 			deletebtn.style.display = "block";
 			trNotice.innerHTML = "<th></th><th></th>"+
-						"<th>제목</th>"+
-						"<th>작성날짜</th>";
+						"<th style=\"padding-left:250px\">제목</th>"+
+						"<th style=\"padding-left:250px\">작성날짜</th>";
 			tablebody.innerHTML = html2;
 		});
 	}
+	/*function editBtn(){
+		let delBtn = document.getElementsByName("deletebtn")[0];
+		let editbtn = document.getElementById("editbtn");
+		let change = document.getElementById("change");
+		delBtn.style.display = "block";
+		change.innerHTML = "<input type=\"button\" id=\"closeBtn\" value=\"편집\"/>";
+		delNotice.remove(editbtn);
+		
+	}*/
 	
 	function NoticeClick(nocode){
 		let cpcodes = document.getElementsByName("cpcode")[0];
@@ -62,8 +70,10 @@ function afterNotice(data) {
 		let Notice = document.getElementById("Notice");
 		let table_notice = document.getElementById("table_notice");
 		let Writebtn = document.getElementById("Writebtn");
+		let editbtn = document.getElementById("editbtn");
 		let html = "";
 		
+		editbtn.remove();
 		Writebtn.remove();
 		table_notice.remove();
 		
@@ -87,12 +97,12 @@ function afterNotice(data) {
 		let html = "";
 		
 		
-		html += "<form action = \"insNotice\" method = \"post\" enctype = \"multipart/form-data\">";
+		html += "<form action = \"insNotice\" method = \"post\" enctype = \"multipart/form-data\" autocomplete=\"off\">";
 		html += "<input type = \"hidden\" name =\"cpcode\" value = \""+cpcode.value +"\">";
 		html += "<input type = \"hidden\" name =\"prcode\" value = \""+prcode.value +"\">";
 		html += "<input type = \"hidden\" name =\"writer\" value = \""+userid.value +"\">";
 		html += "<div id =\"popup1\">";
-		html += "<input type=\"button\" id=\"closebtn\" value=\"닫기\" onClick=\"windowClose()\"/>";
+		html += "<input type=\"button\" id=\"closebtn\" value=\"X\" onClick=\"windowClose()\"/>";
 		html += "<input type =\"text\" id =  \"title\" name = \"title\" placeholder= \"제목\"/>";
 		html += "<input type =\"text\"  id = \"contents\" name = \"contents\" placeholder= \"내용\"/>";
 		html += "<input type =\"file\" name = \"file\">";
@@ -117,31 +127,5 @@ function afterNotice(data) {
 		let f = document.getElementById("testDiv");
 		
 			f.submit();
-			/*for(i=0; i<CheckBox.length; i++){
-				if(CheckBox[i].checked){
-					if(CheckBox[i].value != ""){
-					select[i] = CheckBox[i].value;					
-				}
-				}
-			}
-			f.action = "test";
-			f.method = "get";
-			for(i=CheckBox.length-1; i>=0;i--){
-				if(CheckBox[i].checked){
-					f.appendChild(CheckBox[i].value);
-				}
-			}
-			
-			document.body.appendChild(f);
-			f.submit();
-		
-		
-		if(select){
-			form.action = "noticeForm";
-			form.submit();
-				}else{
-					alert("삭제할 항목을 선택하세요.");
-				}
-			}*/
 		
 		}

@@ -29,8 +29,8 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
-                              <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myScheduleForm">내 업무</a>          
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                		<input type="button" onClick="logout()" value="로그아웃">
                 </div>
@@ -62,7 +62,18 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-
+					 <div id = "selectBack">
+                     <div id = "selHeight">ProMan'S</div>
+                    <div id="selectStep"></div></div>
+                     <div id="ShceduleEdit" ></div>
+                     
+                     <div id = "mbox">
+                    	<input type = "text" id = "mtitle">
+                     	<input type = "text" id = "mail">
+                     	<input type = "password" id = "acode">
+                     	<input type = "text" id = "mcontents">
+                     	<input type = "button" value = "전송">
+                     </div>
                 </div>
             </div>
         </div>
