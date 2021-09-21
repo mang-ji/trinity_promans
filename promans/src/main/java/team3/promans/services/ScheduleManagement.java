@@ -30,7 +30,6 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	public String writeSchedule(ScheduleDetailBean sdb) {
 		System.out.println(sdb);
 		String msg = "";
-		System.out.println("작성 여긴오냐?");
 		if(this.convertBoolean(sql.insert("writeSchedule", sdb))) {
 			msg = "성공";
 		}else {
@@ -42,7 +41,6 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	
 
 	public String writeDiary(ScheduleDetailBean sdb) {
-		System.out.println("일지작성?");
 		sql.insert("writeDiary", sdb);
 		return "";
 	}
@@ -63,7 +61,7 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	}
 
 	public void scheFeedback(List<ScheduleDetailBean> sdb) {
-	     sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
+	    sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
 	    System.out.println(sdb.get(0));
 		sql.insert("scheFeedback", sdb.get(0));
 		this.updateScheFeedback(sdb);

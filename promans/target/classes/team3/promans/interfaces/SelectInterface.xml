@@ -144,7 +144,7 @@
 		parameterType="team3.promans.beans.ProjectStepBean"
 		resultType="team3.promans.beans.ScheduleBean">
 		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE,
-		NVL((SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid}),'G') AS UTYPE 
+		NVL((SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid} AND PRCODE = #{prcode} AND PSCODE = #{pscode}),'G') AS UTYPE 
 		FROM SCHEDULEVIEW 
 		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
 	</select>
