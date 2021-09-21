@@ -81,6 +81,7 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
+		System.out.println("왜또그러냐");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
@@ -94,8 +95,8 @@ public class Restcontroller {
 	
 	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public String writeDiary(@RequestBody ScheduleDetailBean sdb) {
-		return sm.writeDiary(sdb);
+	public ModelAndView writeDiary(@ModelAttribute WorkDiaryBean wdb) {
+		return sm.writeDiary(wdb);
 	}
 	
 	
@@ -104,11 +105,12 @@ public class Restcontroller {
 		return si.getDiary(wdb.get(0));
 	}
 	
-	/*업무 완료요청(일반멤버)
+	//업무 완료요청(일반멤버)
 	@PostMapping("/ReqSchedule")
-	public int reqSchedule(@ModelAttribute ScheduleDetailBean sdb) {
+	public boolean reqSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+		System.out.println("요청 귀귀");
 		return sm.reqSchedule(sdb);
-	}*/
+	}
 		
 	@PostMapping("getCalendar")
 	public List<Notice_CalendarBean> getCalendars(@RequestBody List<Notice_CalendarBean> ncb) {

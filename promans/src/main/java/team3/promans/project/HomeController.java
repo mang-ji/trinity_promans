@@ -121,7 +121,7 @@ public class HomeController {
 	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
-		System.out.println("업무11아");
+		System.out.println("업무 잘뜨는구나");
 
 		return "mySchedule";
 	}
@@ -133,9 +133,14 @@ public class HomeController {
 
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm(WorkDiaryBean wdb) {
-	
 		System.out.println("일지 그만좀해라");
 		return "myDiary";
+	}
+	@PostMapping("writeDiary")
+	public ModelAndView writeDiary(WorkDiaryBean wdb) {
+		System.out.println("일지좀써라");
+		mav = sm.writeDiary(wdb);
+		return mav;
 	}
 
 	@PostMapping("goAdminProjectForm")

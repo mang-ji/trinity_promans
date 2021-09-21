@@ -15,23 +15,26 @@
 		WHERE CM.CM_USERID =
 		#{writer}
 	</select>
-
+	
+	<!-- 내업무조회 -->
 	<select id="getMySchedule"
 		parameterType="team3.promans.beans.ScheduleDetailBean"
 		resultType="team3.promans.beans.ScheduleDetailBean">
 		SELECT
+		SD_CPCODE as cpcode,
 		SD_USERID as userid,
+		SD_SCCODE as sccode,
 		SD_CODE as sdcode,
-		SD_NAME as sdname,
 		SD_TITLE as sdcontent,
 		SD_DATE as sddate,
 		SD_PRCODE as prcode,
-		SD_PSCODE as pscode
+		SD_PSCODE as pscode 
 		FROM SD
 		WHERE SD_CPCODE= #{cpcode} and
 		SD_PRCODE= #{prcode} and
 		SD_PSCODE= #{pscode} and
-		SD_USERID= #{userid}
+		SD_USERID= #{userid} and
+		SD_STATE != 'W'
 	</select>
 
 	<!-- 공지사항 리스트 조회 -->
@@ -87,7 +90,8 @@
 		FROM PNT 
 		WHERE NO_CPCODE =#{cpcode} and NO_CODE = #{nocode}
 	</delete>
-
+	
+	<!-- 일지조회 -->
 	<select id="getDiary" 
 		parameterType="team3.promans.beans.WorkDiaryBean"
 		resultType="team3.promans.beans.WorkDiaryBean">
