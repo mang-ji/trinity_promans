@@ -53,7 +53,7 @@
 			<nav>
 				<div class ="navbar navbar-expand-lg navbar-light bg-lightborder-bottom">
 				<div class="container-fluid">
-					<div>::: TEAM LIST :::</div>
+					<div> ::  팀원 추가 :: </div>
 					<!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
 					<!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

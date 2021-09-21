@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleBean;
@@ -111,7 +112,6 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	public int insScheduleMember(ScheduleBean sb) {
 		return sql.insert("insScheduleMember", sb);
 	}
-
 	@Override
 	public boolean getPsUtype(ProjectStepBean psb) {
 		String result = sql.selectOne("getPsUtype", psb);

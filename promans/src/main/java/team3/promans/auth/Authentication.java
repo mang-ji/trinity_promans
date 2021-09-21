@@ -189,6 +189,38 @@ public class Authentication implements AuthInterface {
 	public int logOutAh(AccessHistory ah) {
 		return sql.insert("logOutAh", ah);
 	}
+	
+	public ModelAndView registerCompany(CpMemberBean cmb) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("insCompany");
+		/* cpcode 생성 & 총관리자 정보 암호화 */
+		try {
+			cmb.setCpcode(this.getCpMax(cmb));
+			cmb.setAcode(enc.encode(cmb.getAcode()));
+			cmb.setUname(enc.aesEncode(cmb.getUname(), cmb.getUserid()));
+			cmb.setUphone(enc.aesEncode(cmb.getUphone(), cmb.getUserid()));
+			cmb.setMail(enc.aesEncode(cmb.getMail(), cmb.getUserid()));
+		} catch (Exception e) {e.printStackTrace();}
+
+		if(this.convertBoolean(sql.insert("registerCompany",cmb))) {
+			if(this.convertBoolean(sql.insert("insertCpMember",cmb))) {
+				mav.addObject("msg","회사 등록이 완료되었습니다.");
+				mav.setViewName("logInPage");
+			}
+		}
+		return mav;
+	}
+	
+	public String getCpMax(CpMemberBean cmb) {
+		int max = sql.selectOne("getCpMax", cmb);
+		String cpMax="";
+			if(max<10) {
+				cpMax = "CP0" + (max+1); 
+			}else {
+				cpMax = "CP" + (max+1);
+			}
+		return cpMax;
+	}
 
 
 
