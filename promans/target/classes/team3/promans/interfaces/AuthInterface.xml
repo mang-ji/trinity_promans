@@ -36,6 +36,18 @@
 		INSERT INTO AH VALUES(#{cpcode},#{userid},#{publicip},#{privateip},#{method})
 	</insert>
 	
+	<insert id="registerCompany" parameterType="team3.promans.beans.CpMemberBean" >
+		insert into cp values(#{cpcode},#{cpname},#{ceo},#{cplocate})
+	</insert>
+	
+	<select id="getCpMax" parameterType="team3.promans.beans.CpMemberBean" resultType="int">
+		select nvl(max(substr(cp_code,3,4)),0) from cp 
+	</select>
+	
+	<insert id="insertCpMember" parameterType="team3.promans.beans.CpMemberBean" >
+		insert into cm values(#{cpcode},#{userid},#{acode},#{uname},#{uphone},#{tecode},#{mail},#{wcode},#{utype})
+	</insert>
+	
 	
 	
 </mapper>

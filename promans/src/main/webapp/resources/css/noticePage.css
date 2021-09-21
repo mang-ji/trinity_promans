@@ -65,9 +65,6 @@
 	margin-left: 730px;
 }
 
-#Writebtn {
-	margin-left: 1300px;
-}
 
 #popup {
 	position: fixed;
@@ -179,6 +176,7 @@
 	border-color: #237fbc;
 	-webkit-box-shadow: 0 3px 0 #1a5c87;
 	box-shadow: 0 3px 0 #1a5c87;
+	margin-left: 67%;
 }
 
 #Writebtn:hover {

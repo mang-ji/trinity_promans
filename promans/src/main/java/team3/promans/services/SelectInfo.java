@@ -144,6 +144,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	public List<ScheduleBean> selectSchedule(ProjectStepBean psb) {
 		List<ScheduleBean> list = sql.selectList("selectSchedule", psb);
+		
+		/*if(list.size()==0) {
+			list.get(0).setUtype("G");
+		}
+		System.out.println(list.get(0).getUtype());*/
 		try {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 			pu.setAttribute("utype", list.get(0).getUtype());
@@ -248,8 +253,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return value > 0?true:false;
 	}
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 95cf973639ff13ebf5315b4ece99ff55febc8162
 
 	public GraphDataBean getDataGraph(List<ProjectBean> pb) {
 		GraphDataBean gdb= new GraphDataBean();
@@ -276,7 +284,10 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return gdb;
 		
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 95cf973639ff13ebf5315b4ece99ff55febc8162
 	
 }
 

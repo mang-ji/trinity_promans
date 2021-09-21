@@ -40,12 +40,11 @@ function selectProject(jsonData){
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
 
-	
+	list += "<span id='span1'>No.</span><span id='span1'>Project Step</span><span id='span1'>Progress</span>";
 	for(i=0; i<jsonData.length; i++){
-		
-	list += "<div class='steplists' onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"+jsonData[i].pscode+"\' />"
-	+ jsonData[i].psname + jsonData[i].stname + "</div><br>";	
-	
+		 list += "<div class='steplists' onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"
+				+jsonData[i].pscode+"\' /><div id='numbers'>"+ (i+1) + "</div><div id='psnames'>"
+				+ jsonData[i].psname +"</div><div id='stnames'>"+ jsonData[i].stname + "</div></div>";
 	}
 		//list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
 	selectStep.innerHTML = list;
@@ -473,11 +472,11 @@ function selectSchedule(jsonData){
 
 	list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
 
-	if(jsonData[0].utype == "L"){
+	//if(jsonData[0].utype != "G"){
 		edit += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
 			+"<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>"
 			+"<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" onClick=\"addJobMember()\">";
-		}
+	//	}
 	selectStep.innerHTML = list;
 	ShceduleEdit.innerHTML = edit;
 	
@@ -880,7 +879,7 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
    		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
   		 box.innerHTML += "<div class='modal-footer'>";
   		 box.innerHTML += "<button type='button' class='btn btn-primary' id='make' >Make Step</button>";
-  		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
+  		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
   		 box.innerHTML += "</div></div></div></div>";
 
 		makeBtnClick(prcode);
@@ -980,7 +979,7 @@ function makeProjectMember(jsonData){
 	}
 	 
 	box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendSelectedMember(\'"+prcode.value+"\')\" >select</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
+	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
 	box.style.display = "block";
 	modal_background.style.display ="block";
 	
@@ -994,10 +993,11 @@ function close1(){
 	//let close = document.getElementById("modal_close");
 	
 	/*
-	modal_box.style.display= "none";
-	modal_background.style.display= "none";*/
 	modal_box.remove();
 	modal_background.remove();
+	;*/
+	modal_box.style.display= "none";
+	modal_background.style.display= "none"
 	//close.style.display ="none";
 }
 
@@ -1055,7 +1055,7 @@ function getStep(jsonData){
 	}
 	
 	box.innerHTML += "<button type='button' class='btn btn-primary' id='selectStep1' >Select</button>";
-  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
+  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
 
 	box.style.display = "block";
 	modal_background.style.display = "block";
