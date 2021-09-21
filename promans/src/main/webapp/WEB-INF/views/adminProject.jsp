@@ -118,8 +118,8 @@
                      <div id = "selHeight">ProMan'S</div>
                     <div id="selectStep"></div>
                     	
-                 
-                    </div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
+                    </div> 
+                    <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
                      <div id="ShceduleEdit" ></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
                      <div id='buttons'>
                      	<input type='button' class='buttonStyle' value='승인' onClick="selectStepList('${prcode}')" />

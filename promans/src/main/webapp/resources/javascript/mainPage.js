@@ -2,9 +2,10 @@
 
 function am5core(jsonData){
 
+for(i=0; i<jsonData.length ;i++){
 
 am4core.ready(function() {
-alert("여기" + jsonData.stepW + " : " + jsonData.scheW +" : "+ jsonData.sdW );
+
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
@@ -15,21 +16,21 @@ chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 chart.data = [
   {
     category: "스텝",
-    value1: jsonData.stepW,
-    value2: jsonData.stepI,
-    value3: jsonData.stepC
+    value1: jsonData[i].stepW,
+    value2: jsonData[i].stepI,
+    value3: jsonData[i].stepC
   },
   {
     category: "업무",
-    value1: jsonData.scheW,
-    value2: jsonData.scheI,
-    value3: jsonData.scheC
+    value1: jsonData[i].scheW,
+    value2: jsonData[i].scheI,
+    value3: jsonData[i].scheC
   },
   {
     category: "업무 디테일",
-    value1: jsonData.sdW,
-    value2: jsonData.sdI,
-    value3: jsonData.sdC
+    value1: jsonData[i].sdW,
+    value2: jsonData[i].sdI,
+    value3: jsonData[i].sdC
   }
 ];
 
@@ -105,7 +106,9 @@ bullet3.label.fill = am4core.color("#ffffff");
 
 chart.scrollbarX = new am4core.Scrollbar();
 
-});}
+});
+}}
+
 //프로젝트 스텝 - 스텝의 전체 개수 , 스텝 완료 구하고, 진행 구하고, 대기 구하고. 
 // 업무 - ''
 //업무 디테일 - ''
@@ -114,12 +117,31 @@ function getProject1 (jsonData){
 		let prcode1=[];
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
     let cpcode = document.getElementsByName("cpcode")[0];
- 
+	
+	list +="<div id='parent'>";
 	for(i=0; i<jsonData.length; i++){
-
 			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
-			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
+			if(jsonData[i].propen =="O"){
+				if(jsonData[i].prldate == null){
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+				}else{
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+				}
+				
+			}else{
+				if(jsonData[i].prldate == null){
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+				}else{
+					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+				}
+			}
 	}
+	list+= "<div class='projectBox' ><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
+	list+="</div>";
 
 	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 	getProject.innerHTML = list;

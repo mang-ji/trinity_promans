@@ -19,11 +19,11 @@
 	</insert>
 	
 	<insert id="insProjectMember" parameterType="team3.promans.beans.ProjectMemberBean">
-	 	insert into pm values('A123456','PR01',#{userid},'G','1')
+	 	insert into pm values(#{cpcode},#{prcode},#{userid},'G','1')
 	</insert>
 	
 	<select id="checkUserid" parameterType="team3.promans.beans.ProjectMemberBean" resultType="int" >
-		select count(*) from pm where pm_userid = #{userid}
+		select count(*) from pm where pm_userid = #{userid} and pm_prcode=#{prcode}
 
    </select>
 

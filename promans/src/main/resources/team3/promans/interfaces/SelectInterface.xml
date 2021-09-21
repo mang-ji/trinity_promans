@@ -120,7 +120,9 @@
 
 		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
 		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
-		PRDATE FROM PROJECTVIEW WHERE USERID =
+		PRDATE , TO_CHAR(SDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(LDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE USERID =
 		#{userid} AND CPCODE = #{cpcode}
 	</select>
 
@@ -210,7 +212,7 @@
 	<select id="selectManager"
 		parameterType="team3.promans.beans.ProjectStepBean"
 		resultType="team3.promans.beans.ProjectStepBean">
-		select distinct username as username, userid from
+		select username as username, userid from
 		projectmemberview where utcode='G' and wcode='1'and prcode =#{prcode}
 		and cpcode=#{cpcode}
 	</select>

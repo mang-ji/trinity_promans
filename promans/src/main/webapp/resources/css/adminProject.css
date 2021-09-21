@@ -182,8 +182,18 @@
 	border-radius: 5px;
 	z-index : 2;
 }
-
-#buttons { margin-left: 160px; margin-top:5px; }
+.steplists{
+	overflow:hidden;
+	color: #929192;
+}
+.steplists:hover{
+	overflow:hidden;
+	color: black;
+}
+#stnames{text-align:center; float:left; margin-left:0px;  width:300px; }
+#psnames{text-align:left; float:left; margin-left:250px;  width:250px; }
+#numbers{text-align:left; float:left; margin-left:290px;  width:50px; }
+#buttons { margin-left: 280px; margin-top:20px; }
 #dates { margin-left: 130px; }
 #steptitle { font-size: 30px; font-weight: bold; margin-left:10px;}
 #circle { border-radius: 50%; width:50px; height:50px;} 
@@ -196,6 +206,4 @@
 	background-color:#4f5f86;
 	color:#c0c5cd; 
 	border-radius:10px; margin-right:3px; margin-top:3px;}
-.steplists {
-	
-}
+
