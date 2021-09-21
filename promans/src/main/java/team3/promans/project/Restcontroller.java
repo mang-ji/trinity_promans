@@ -271,30 +271,21 @@ public class Restcontroller {
 		return pm.reqProjectAccept(pb.get(0));
 		
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 95cf973639ff13ebf5315b4ece99ff55febc8162
 	
 	@PostMapping("/GetDataGraph")
-	public GraphDataBean getDataGraph(@RequestBody List<ProjectBean> pb) {
+	public List<GraphDataBean> getDataGraph(@RequestBody List<ProjectBean> pb) {
 	System.out.println(pb);
 		
 		return si.getDataGraph(pb);
-<<<<<<< HEAD
-		
-	}
-	@PostMapping("DeleteProjectMember")
-	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
-		return pm.deleteProjectMember(pmb.get(0));
 
-=======
 	}
+
 	
 	@PostMapping("DeleteProjectMember")
 	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
 		return pm.deleteProjectMember(pmb.get(0));
->>>>>>> 95cf973639ff13ebf5315b4ece99ff55febc8162
+
 	}
 
 }

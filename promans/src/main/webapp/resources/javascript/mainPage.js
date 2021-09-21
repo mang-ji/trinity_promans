@@ -2,20 +2,24 @@
 
 function am5core(jsonData){
 
-for(i=0; i<jsonData.length ;i++){
+for(i=0; i<jsonData.length;i++){
+let test1 = document.getElementById("test1");
 
-am4core.ready(function() {
+test1.innerHTML += "<div id='chartdiv"+i+"' style='width:100%; height:400px;'></div>";
 
+}
+for(i=0; i<jsonData.length;i++){
+		
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
 
-var chart = am4core.create("chartdiv", am4charts.XYChart);
+var chart = am4core.create("chartdiv"+i , am4charts.XYChart);
 chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
 
 
-chart[i].data = [
+chart.data = [
   {
     category: "스텝",
     value1: jsonData[i].stepW,
@@ -108,8 +112,11 @@ bullet3.label.fill = am4core.color("#ffffff");
 
 chart.scrollbarX = new am4core.Scrollbar();
 
-});
-}}
+
+
+}
+}
+
 
 //프로젝트 스텝 - 스텝의 전체 개수 , 스텝 완료 구하고, 진행 구하고, 대기 구하고. 
 // 업무 - ''
@@ -119,10 +126,11 @@ function getProject1 (jsonData){
 		let prcode1=[];
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
     let cpcode = document.getElementsByName("cpcode")[0];
+    let userid = document.getElementsByName("userid")[0];
 	
 	list +="<div id='parent'>";
 	for(i=0; i<jsonData.length; i++){
-			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
+			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value, userid:userid.value});
 			if(jsonData[i].propen =="O"){
 				if(jsonData[i].prldate == null){
 					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 

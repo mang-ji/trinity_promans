@@ -54,18 +54,21 @@ function getProject(){
       
       
 <!-- HTML -->
-<div id="chartdiv">
+
+
+<!-- 
+<div id="chartdiv" style="width:100%; height:500px;">
+
+</div>
+ -->
+ 
+<div id="test1">
 
 </div>
 
 
 
 
-
-<!-- Chart code -->
-<script>
- // end am4core.ready()
-</script>
 
 
 </body>

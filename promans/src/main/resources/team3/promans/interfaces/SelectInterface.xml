@@ -117,11 +117,11 @@
 	<select id="getProject"
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectBean">
-
-		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+        
+        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
 		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
-		PRDATE , TO_CHAR(SDATE,'YYYY-MM-dd') as prsdate,
-        TO_CHAR(LDATE,'YYYY-MM-dd') as prldate 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
         FROM PROJECTVIEW WHERE USERID =
 		#{userid} AND CPCODE = #{cpcode}
 	</select>
@@ -260,18 +260,18 @@
      WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'W'
 	</select>
 	
-	<select id ="getDataGraphPsI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
+	<select id ="getDataGraphPsI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
 	 SELECT COUNT(*) AS stepI FROM  PS
      WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I'
 	</select>
 	
-	<select id ="getDataGraphScI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
-	 SELECT COUNT(*) AS ScheI FROM  SC
+	<select id ="getDataGraphScI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS scheI FROM  SC
      WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'I'
 	</select>
 	
-	<select id ="getDataGraphSdI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
-	 SELECT COUNT(*) AS SdI FROM  SD
+	<select id ="getDataGraphSdI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS sdI FROM  SD
      WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'I'
 	</select>
 	
@@ -291,14 +291,14 @@
 	
 	<select id ="getDataGraphSdC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
 	 
-     SELECT COUNT(*) AS SdC FROM  SD
+     SELECT COUNT(*) AS sdC FROM  SD
      WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'S'
 	
 	</select>
-	<select id ="selectPrcode" parameterType = "team3.promans.beans.ProjectBean" resultType= "team3.promans.beans.ProjectBean">
+
+	<select id ="getGraphInfo" parameterType = "team3.promans.beans.ProjectBean" resultType = "team3.promans.beans.GraphDataBean">
 	
-	SELECT PS_PRCODE AS PRCODE FROM PS WHERE PS_CPCODE = #{cpcode} AND PS_USERID = #{userid}
+	SELECT PM_PRCODE AS PRCODE FROM PM WHERE PM_CPCODE = #{cpcode} AND PM_USERID = #{userid}
 	
 	</select>
-	
 </mapper>

@@ -1,5 +1,7 @@
 package team3.promans.beans;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -14,5 +16,6 @@ public class GraphDataBean {
 	private int sdW;
 	private int sdI;
 	private int sdC;
+	private String prcode;
 
 }

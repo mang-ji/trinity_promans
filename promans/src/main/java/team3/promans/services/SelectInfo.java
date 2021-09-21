@@ -27,6 +27,7 @@ import java.util.List;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.print.attribute.standard.PDLOverrideSupported;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -253,41 +254,39 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return value > 0?true:false;
 	}
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 95cf973639ff13ebf5315b4ece99ff55febc8162
-
-	public GraphDataBean getDataGraph(List<ProjectBean> pb) {
-		GraphDataBean gdb= new GraphDataBean();
+	public List<GraphDataBean> getDataGraph(List<ProjectBean> pb) {
+		List<GraphDataBean> gdb = new ArrayList<GraphDataBean>(pb.size());
+		
+		gdb = sql.selectList("getGraphInfo",pb.get(0));
 		
 		for(int i=0; i<pb.size(); i++) {
 			
-			gdb.setStepW(sql.selectOne("getDataGraphPsW", pb.get(i)));
-			gdb.setScheW(sql.selectOne("getDataGraphScW", pb.get(i)));
-			gdb.setSdW(sql.selectOne("getDataGraphSdW", pb.get(i)));
-			gdb.setStepI(sql.selectOne("getDataGraphPsI", pb.get(i)));
-			gdb.setScheI(sql.selectOne("getDataGraphScI", pb.get(i)));
-			gdb.setSdI(sql.selectOne("getDataGraphSdI", pb.get(i)));
-			gdb.setStepC(sql.selectOne("getDataGraphPsC", pb.get(i)));
-			gdb.setScheC(sql.selectOne("getDataGraphScC", pb.get(i)));
-			gdb.setSdC(sql.selectOne("getDataGraphSdC", pb.get(i)));
+			gdb.get(i).setStepW(sql.selectOne("getDataGraphPsW", pb.get(i)));
+			gdb.get(i).setScheW(sql.selectOne("getDataGraphScW", pb.get(i)));
+			gdb.get(i).setSdW(sql.selectOne("getDataGraphSdW", pb.get(i)));
+			gdb.get(i).setStepI(sql.selectOne("getDataGraphPsI", pb.get(i)));
+			gdb.get(i).setScheI(sql.selectOne("getDataGraphScI", pb.get(i)));
+			gdb.get(i).setSdI(sql.selectOne("getDataGraphSdI", pb.get(i)));
+			gdb.get(i).setStepC(sql.selectOne("getDataGraphPsC", pb.get(i)));
+			gdb.get(i).setScheC(sql.selectOne("getDataGraphScC", pb.get(i)));
+			gdb.get(i).setSdC(sql.selectOne("getDataGraphSdC", pb.get(i)));
 			
+			//gdb.get(i).setPrcode(pb.get(i).getPrcode());
 		}
+		
 //		
 		//gdb.setStepW((int)sql.selectOne("getDataGraphPsW", pb.get(0)));
 //		gdb.setScheW(sql.selectOne("getDataGraphScW", pb.get(0)));
 //		gdb.setSdW(sql.selectOne("getDataGraphSdW", pb.get(0)));
-		 System.out.println((int)sql.selectOne("getDataGraphSdW", pb.get(0)));
+		
+		System.out.println(gdb);
 		  
 		return gdb;
 		
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 95cf973639ff13ebf5315b4ece99ff55febc8162
 	
 }
 
