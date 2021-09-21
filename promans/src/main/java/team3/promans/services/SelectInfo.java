@@ -145,13 +145,12 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleBean> selectSchedule(ProjectStepBean psb) {
 		List<ScheduleBean> list = sql.selectList("selectSchedule", psb);
 		
-		/*if(list.size()==0) {
-			list.get(0).setUtype("G");
-		}
-		System.out.println(list.get(0).getUtype());*/
 		try {
+			if(list.size() != 0) {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 			pu.setAttribute("utype", list.get(0).getUtype());
+			
+			}
 		} catch (Exception e) {e.printStackTrace();}
 		return list;
 	}

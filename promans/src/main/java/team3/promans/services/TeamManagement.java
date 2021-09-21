@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.BadPaddingException;
@@ -53,6 +54,24 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 		return list;
 	}
 	
+	public List<ScheduleDetailBean> firstInsSchedule(ProjectStepBean pmb) {
+		
+		boolean result = this.getPsUtype(pmb);
+		System.out.println(pmb);
+		System.out.println(result);
+		List<ScheduleDetailBean> list = new ArrayList<ScheduleDetailBean>(); 
+		if(result == true) {
+			list = sql.selectList("addJob", pmb);
+			for(int i=0; i<list.size(); i++) {
+				try {
+					list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
+				} catch (Exception e) {e.printStackTrace();}
+			}
+			list.get(0).setPscode(pmb.getPscode());
+		}
+		return list;
+	}
+	
 	public boolean insSchedule(ScheduleBean sb) {
 		int maxSc = this.getMaxSc(sb)+1;
 		boolean result = false;
@@ -91,5 +110,11 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	@Override
 	public int insScheduleMember(ScheduleBean sb) {
 		return sql.insert("insScheduleMember", sb);
+	}
+
+	@Override
+	public boolean getPsUtype(ProjectStepBean psb) {
+		String result = sql.selectOne("getPsUtype", psb);
+		return (result!=null)?true:false;
 	}
 }

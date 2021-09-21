@@ -5,6 +5,12 @@
 
 <mapper namespace="team3.promans.interfaces.TeamInterface">
 	
+	<select id="getPsUtype" parameterType="team3.promans.beans.ProjectStepBean" resultType="String">
+	SELECT UTYPE FROM PROJECTSTEPVIEW WHERE CPCODE=#{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode} AND USERID = #{userid}
+	
+	</select>
+	
+	
 	<select id="addJob" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ScheduleDetailBean">
 		SELECT 
 		PM_CPCODE AS CPCODE,

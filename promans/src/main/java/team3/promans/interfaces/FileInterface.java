@@ -12,4 +12,5 @@ public interface FileInterface {
 	public ModelAndView insFile(CloudBean cb);
 	public int getMaxFcode(CloudBean cb);
 	public List<CloudBean> getFileList(CloudBean cb);
+	public boolean insBookMark(CloudBean cb);
 }

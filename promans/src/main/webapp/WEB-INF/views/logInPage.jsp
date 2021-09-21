@@ -9,7 +9,14 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="resources/css/logInPage.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="resources/javascript/logInPage.js"></script>
+<script>
+	const message = "${param.message}";
+	
+	if(message != ""){
+		alert(message);
+	}
 
+</script>
 
 <title>로그인</title>
 </head>
