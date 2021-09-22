@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+#chartdiv{
+
+   width:300px;
+   height:300px;
+   position:fixed;
+   top:520px;
+   right:1360px;
+   
+
+}
 
 #modal1{
 	
