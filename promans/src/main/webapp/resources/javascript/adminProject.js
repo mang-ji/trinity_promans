@@ -1,6 +1,9 @@
 let sdname;
 let sccode;
 
+
+
+
 function goAdminProject(prcode){
      let f = document.createElement("form");
      let prcodes = makeInput("hidden","prcode",prcode);
