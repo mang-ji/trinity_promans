@@ -1,11 +1,10 @@
 @charset "UTF-8";
 
 body {
-	background-color:#f2f1f2;
+	background-color:#efeaf0;
 	margin-top: 30px;
 	margin-left:30px;
 }
-
 #modal_background {
 	display: none;
 	position : absolute;
@@ -90,13 +89,14 @@ body {
 	box-shadow : 5px 5px 8px 2px gray;
 	width:350px; height:300px;
 	margin: 60px;
-	cursor:pointer;
 	background-color: #fcfaff;
 	/* display: inline-block; */
 	float:left;
+	cursor:pointer;
 }
 #parent {
 	overflow:hidden;
+
 }
 
 #buttons { margin-left: 160px; margin-top:5px; }
@@ -127,7 +127,12 @@ img{
 	height:70px;
 	position:relative;
 	right:20px;
-	
-	
-	
 }
+#logoutBtn {
+	border-radius: 3px; background-color:#525f83; color:white; margin-left:60px;
+}
+
+#titleParent {overflow:hidden; margin-left:40%;}
+#logo {float:left; }
+#logoutBtn {float:left; margin-left:500px; margin-top:50px;}
+

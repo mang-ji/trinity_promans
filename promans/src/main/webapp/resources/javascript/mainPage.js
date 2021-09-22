@@ -2,8 +2,6 @@
 
 function am5core(jsonData){
 
-for(i=0; i<jsonData.length ;i++){
-
 am4core.ready(function() {
 
 // Themes begin
@@ -16,21 +14,21 @@ chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 chart.data = [
   {
     category: "스텝",
-    value1: jsonData[i].stepW,
-    value2: jsonData[i].stepI,
-    value3: jsonData[i].stepC
+    value1: jsonData[0].stepW,
+    value2: jsonData[0].stepI,
+    value3: jsonData[0].stepC
   },
   {
     category: "업무",
-    value1: jsonData[i].scheW,
-    value2: jsonData[i].scheI,
-    value3: jsonData[i].scheC
+    value1: jsonData[0].scheW,
+    value2: jsonData[0].scheI,
+    value3: jsonData[0].scheC
   },
   {
     category: "업무 디테일",
-    value1: jsonData[i].sdW,
-    value2: jsonData[i].sdI,
-    value3: jsonData[i].sdC
+    value1: jsonData[0].sdW,
+    value2: jsonData[0].sdI,
+    value3: jsonData[0].sdC
   }
 ];
 
@@ -107,7 +105,7 @@ bullet3.label.fill = am4core.color("#ffffff");
 chart.scrollbarX = new am4core.Scrollbar();
 
 });
-}}
+}
 
 //프로젝트 스텝 - 스텝의 전체 개수 , 스텝 완료 구하고, 진행 구하고, 대기 구하고. 
 // 업무 - ''
@@ -139,12 +137,21 @@ function getProject1 (jsonData){
 					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
 				}
 			}
+			
+			postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 	}
-	list+= "<div class='projectBox' ><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
+	list+= "<div class='projectBox' onClick=\"makeProjects()\"><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
 	list+="</div>";
 
-	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
+	
 	getProject.innerHTML = list;
+}
+
+function makeProjects(){
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	
+	box.innerHTML += "<>";
 }
 
 

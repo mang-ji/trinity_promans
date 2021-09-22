@@ -22,6 +22,7 @@ import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
+import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.FileManagement;
 import team3.promans.beans.WorkDiaryBean;
@@ -142,14 +143,13 @@ public class HomeController {
 	}
 
 	@PostMapping("goAdminProjectForm")
-	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
-
+	public ModelAndView goAdminProjectForm(@RequestParam("prcode") String prcode ) {
+		ProjectMemberBean pmb = new ProjectMemberBean();
 		try {
 			pu.setAttribute("prcode", prcode);
-
 		} catch (Exception e) {e.printStackTrace();}
-
-		return "adminProject";
+		
+		return si.goAdminProject(pmb);
 	}
 
 

@@ -46,7 +46,14 @@ function selectProject(jsonData){
 				+jsonData[i].pscode+"\' /><div id='numbers'>"+ (i+1) + "</div><div id='psnames'>"
 				+ jsonData[i].psname +"</div><div id='stnames'>"+ jsonData[i].stname + "</div></div>";
 	}
-		//list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
+	
+	if(utype == "L" || utype == "A"){
+		list+= "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+jsonData[0].prcode+"\')\" />";
+	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+jsonData[0].prcode+"\')\" />";
+		list+= "<input type='button' class='buttonStyle' value='팀원 추가' onClick=\"getCompanyMember(\'"+jsonData[0].prcode+"\')\"/>";
+		list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+jsonData[0].prcode+"\')\"/>";
+	}
+	
 	selectStep.innerHTML = list;
 	
 	/*if(utype == "L" || utype == "A"){
@@ -56,6 +63,7 @@ function selectProject(jsonData){
 		list += "<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" name=\"clickAdd\">";
 		
 	}
+		list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
 	selectStep.innerHTML = list;
 	let clickAdd = document.getElementsByName("clickAdd")[0];
 	clickAdd.addEventListener('click',function(){
@@ -1088,7 +1096,7 @@ function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, c
 		box.innerHTML += "<input type='radio' name='feedback' value='feed' onClick=\"getFeedState(event)\" >피드백</>";
 		box.innerHTML += "<input type='radio' name='feedback' value='accept' onClick=\"getFeedState(event)\">승인</><br>";
 		box.innerHTML += "<input type='text' id='feedcontents' placeholder='피드백을 입력하세요' style='width:400px; height:200px;' /><br>";
-		box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendFeedback(\'"+prcode+","+pscode+","+userid+","+cpcode+"\')\">Complete</button>";
+		box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendFeedback(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\">Complete</button>";
 	  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close2()'>Close</button></div>";
 		
 		modal_background.style.display = "block";
@@ -1108,6 +1116,7 @@ function getFeedState(event) {
 }
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
+alert(data + "확인졈~~~");
 	let modal = document.getElementById("modal_edge");
 	let array = data.split(",");
 	let feedbox = document.getElementById("feedcontents");

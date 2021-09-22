@@ -120,8 +120,8 @@
 
 		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
 		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
-		PRDATE , TO_CHAR(SDATE,'YYYY-MM-dd') as prsdate,
-        TO_CHAR(LDATE,'YYYY-MM-dd') as prldate 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
         FROM PROJECTVIEW WHERE USERID =
 		#{userid} AND CPCODE = #{cpcode}
 	</select>
@@ -132,11 +132,16 @@
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectStepBean">
 
-		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME
+		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
 		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
-		PRCODE = #{prcode}
+		PRCODE = #{prcode} 
 
+	</select>
+	
+	<select id="selectUtype" parameterType="team3.promans.beans.ProjectMemberBean"
+		resultType="string">
+		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
 	</select>
 
 
@@ -294,6 +299,20 @@
      SELECT COUNT(*) AS SdC FROM  SD
      WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'S'
 	
+	</select>
+	
+	<select id="getCpMembers" parameterType="team3.promans.beans.CpMemberBean" resultType="team3.promans.beans.CpMemberBean"> 
+		select  cm_userid as userid,
+        cm_uname as uname,
+        cm_uphone as uphone,
+        cm_tecode as tecode,
+        cm_mail as mail,
+        cm_utype as utype
+		from cm where cm_cpcode=#{cpcode} and cm_utype != 'A'
+	</select>
+	
+	<select id="goAdminProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
+		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
 	</select>
 	
 </mapper>

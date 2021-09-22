@@ -43,7 +43,11 @@ function getProject(){
 	 	</div>
 	 </div>
 	
-	 <div style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S <img src="resources/images/logo.png"/></div>
+	 <div id="titleParent">
+		 <div  id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S <img src="resources/images/logo.png"/>
+		 </div>
+	 	 <div> <input type="button" id="logoutBtn" onClick="logout()" value="로그아웃"> </div>
+	 </div>
 	
 	
       <input type="hidden" name="utype" value="${utype}"> 
@@ -52,11 +56,13 @@ function getProject(){
       <input type="hidden" name="prcode" value=" "> <!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
       <div id="getProject"></div>
       
+     
+      
       
 <!-- HTML -->
-<div id="chartdiv">
+<!-- <div id="chartdiv">
 
-</div>
+</div> -->
 
 
 

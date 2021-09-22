@@ -24,6 +24,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
+import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
@@ -138,7 +139,6 @@ public class Restcontroller {
 
 	@PostMapping("/GetProject")
 	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
-		
 		return si.getProject(pmb.get(0));
 	}
 	
@@ -262,26 +262,29 @@ public class Restcontroller {
 		return pm.insProjectFeedback(sdb.get(0));
 	}
 	
-	@PostMapping("getFileList")
+	@PostMapping("/getFileList")
 	public List<CloudBean> getFileList(@RequestBody List<CloudBean> cb){
 		return fm.getFileList(cb.get(0));
 	}
-	@PostMapping("ReqProjectAccept")
+	@PostMapping("/ReqProjectAccept")
 	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));
 		
 	}
 	
 	@PostMapping("/GetDataGraph")
-	public GraphDataBean getDataGraph(@RequestBody List<ProjectBean> pb) {
-	System.out.println(pb);
-		
+	public List<GraphDataBean> getDataGraph(@RequestBody List<ProjectBean> pb) {
 		return si.getDataGraph(pb);
 	}
 	
-	@PostMapping("DeleteProjectMember")
+	@PostMapping("/DeleteProjectMember")
 	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
 		return pm.deleteProjectMember(pmb.get(0));
 	}
 
+	@PostMapping("/GetCpMembers")
+	public List<CpMemberBean> getCpMembers(@RequestBody List<CpMemberBean> cmb) {
+		return si.getCpMembers(cmb.get(0));
+	}
+	
 }
