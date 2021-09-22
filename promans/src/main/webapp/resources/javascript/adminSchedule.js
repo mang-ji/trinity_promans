@@ -10,17 +10,22 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 
 	let list = "";
 	let selectSD = document.getElementById("selectScheduleDetail");
+	let feed = document.getElementsByClassName("feed")[0];
 	
 	for(i=0; i<jsonData.length; i++){
 		
-	list += "<div>"+ jsonData[i].sdcontent + jsonData[i].sddstate + jsonData[i].sddate + jsonData[i].username+"</div><br>";	
+	feed.innerHTML += "<div class='Detail'>" 
+					+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"
+					+ "<div id=\"boxes\"> <img src=\"resources/css/images/personn.png\"> <div id=\"username\"> 담당자 : " + jsonData[i].username+"</div>"
+					+ "<div id=\"state\">" + jsonData[i].sddstate  + "</div></div>"
+					+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
+					+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
 	
 	}
-	list +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
-	list +="추가</div>";
-	list += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
+	feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
+	feed.innerHTML +="추가</div>";
+	feed.innerHTML += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
 	
-	selectSD.innerHTML = list;
 	
 }
 
@@ -313,3 +318,35 @@ postAjax("rest/InsSD", clientData, 'upPass', 2);
 
 
 }
+
+/*
+window.addEventListener('load',function(){
+	let feed = document.getElementsByClassName("feed")[0];
+	let plus = "";
+	
+	for(i=0; i<5; i++){
+		plus += "<div class=\"Detail\">야호_"+(i+1)+"</div>";
+	}
+	
+	feed.innerHTML = plus;
+		
+});*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

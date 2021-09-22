@@ -1,1 +1,27 @@
 @charset "UTF-8";
+
+
+.feed{
+	width:1000px;
+	display:flex;
+	flex-direction:column-reverse;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items:center;
+
+}
+
+.Detail{
+	border:1px solid #525f83;
+	width:900px; height:200px;
+	margin-bottom:20px; 
+}
+
+#schename {
+	text-align:center; border-bottom:2px solid #525f83; background-color:#525f83; color:white; border: #525f83;
+}
+#date {color:#919191; text-align:right; margin-right:50px;}
+#state {text-align:right; margin-left:480px; float:left; margin-top:20px;}
+#username {float:left; margin-left:250px; margin-top:20px;}
+#content {text-align:center;}
+#boxes{overflow:hidden;}

@@ -36,12 +36,13 @@ function getProject(){
       <div id="modal_box"></div>
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
-
+	<form action='CreateProject' method='post'>
 	 <div id="modal_background">
 	 	<div id="modal_box">
 	 	<div id="requestList"></div>
 	 	</div>
 	 </div>
+	</form>
 	
 	 <div id="titleParent">
 		 <div  id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S <img src="resources/images/logo.png"/>
@@ -57,24 +58,7 @@ function getProject(){
       <div id="getProject"></div>
       
      
-      
-      
-<!-- HTML -->
-<<<<<<< HEAD
-<!-- <div id="chartdiv">
-=======
-
-
-<!-- 
-<div id="chartdiv" style="width:100%; height:500px;">
-
-</div>
- -->
- 
-<div id="chart">
->>>>>>> branch 'main' of https://github.com/mang-ji/trinity_promans.git
-
-</div> -->
+     
 
 <div id="backPop"></div>
 

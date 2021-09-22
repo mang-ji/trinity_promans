@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleDetailBean;
@@ -20,4 +21,6 @@ public interface ProjectInterface {
 	public Map<String,String> insProjectMember(ProjectMemberBean pmb);
 	public Map<String, String> insProjectFeedback(ScheduleDetailBean sdb);
 	public Map<String,String> deleteProjectMember(ProjectMemberBean pmb);
+	public ModelAndView createProject(ProjectBean pb);
+	public int getProMax(ProjectBean pb);
 }

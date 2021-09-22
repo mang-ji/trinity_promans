@@ -162,7 +162,7 @@
 	<select id="getScheDetail"
 		parameterType="team3.promans.beans.ScheduleDetailBean"
 		resultType="team3.promans.beans.ScheduleDetailBean">
-		SELECT
+		SELECT  sc.sc_name as scname,
 		SD.SD_CODE AS SDCODE,
 		SD.SD_TITLE AS SDCONTENT,
 		TO_CHAR(SD.SD_DATE, 'YYYY-MM-dd') AS SDDATE,
@@ -173,6 +173,8 @@
 		FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
 		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND
 		SD.SD_USERID = CM.CM_USERID
+        inner join sc on sd.sd_cpcode=sc.sc_cpcode and sd.sd_prcode=sc.sc_prcode and 
+        sd.sd_pscode=sc.sc_pscode and sd.sd_sccode=sc.sc_code
 		WHERE SD.SD_CPCODE = #{cpcode} AND
 		SD.SD_PRCODE = #{prcode} AND
 		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode}

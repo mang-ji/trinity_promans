@@ -9,10 +9,10 @@ public class ProjectBean {
 	private String prcode;
 	private String prname;
 	private String propen;
+	private String prstate;	
 	private String prdate;
 	private String prsdate;
 	private String prldate;
-	private int psperson;
-	
+	private String prcontent;
 
 }

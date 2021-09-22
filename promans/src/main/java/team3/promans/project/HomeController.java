@@ -22,6 +22,7 @@ import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
+import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.FileManagement;
@@ -207,6 +208,11 @@ public class HomeController {
 	@GetMapping("TestYuna")
 	public String testYuna() {
 		return "testyuna";
+	}
+	
+	@PostMapping("CreateProject")
+	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
+		return pm.createProject(pb);
 	}
 }
 

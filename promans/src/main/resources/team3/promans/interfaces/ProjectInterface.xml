@@ -42,6 +42,17 @@
      select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode}
 
 	</select>
+	
+	<insert id="createProject" parameterType="team3.promans.beans.ProjectBean" >
+		insert into pr values(#{cpcode}, #{prcode}, #{prname}, #{propen}, sysdate, #{prsdate},#{prldate}, #{prstate}, #{prcontent})
+	</insert>
+	
+	<select id="selectProMax" parameterType="team3.promans.beans.ProjectBean" resultType="int">
 
+     select nvl(max(substr(pr_code,3,4)),0) from pr where pr_cpcode=#{cpcode} 
+
+	</select>
+	
+	
 
 </mapper>

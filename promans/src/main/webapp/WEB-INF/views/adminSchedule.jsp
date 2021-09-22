@@ -90,8 +90,8 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                     <div id="selectScheduleDetail"></div> <!-- 업무 디테일 조회시 이 div에 생성됩니다. -->
-	 <!-- 완료요청을 누르면 팝업이 뜨고 거기에 요청온 목록 조회 > 조회된 목록에서 원하는 거 체크박스 체크 (하나씩만 체크되게함) > 피드백 or 승인 누르기  -->
+                	<div class="feed"></div>
+                    <div id="selectScheduleDetail"></div>
                     
                 </div>
             </div>
