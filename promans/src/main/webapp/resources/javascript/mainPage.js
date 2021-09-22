@@ -2,12 +2,17 @@
 
 function am5core(jsonData){
 
+let ang = document.getElementsByClassName("ang");
+let backPop = document.getElementById("backPop");
+let html = "";
+
 for(i=0; i<jsonData.length;i++){
-let test1 = document.getElementById("test1");
-
-test1.innerHTML += "<div id='chartdiv"+i+"' style='width:100%; height:400px;'></div>";
-
+//let chart = document.getElementById("chart");
+html+="<div name='popup' class='popup' style='display:none;'><input type=\"hidden\" name=\"check\" value=\""+i+"\"><div id='chartdiv"+i+"' style='width:100%; height:400px;'></div><div style='color:#bbbbbb; font-size:15px; margin-bottom:10px;' onClick='popClose()'>뒤로 가기</div></div>";
+//ang[i].innerHTML +="<div id='chartdiv"+i+"' style='width:50%; height:400px;'></div>";
 }
+backPop.innerHTML = html;
+
 for(i=0; i<jsonData.length;i++){
 		
 // Themes begin
@@ -114,7 +119,7 @@ chart.scrollbarX = new am4core.Scrollbar();
 
 
 
-}
+	}
 }
 
 
@@ -127,39 +132,80 @@ function getProject1 (jsonData){
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
     let cpcode = document.getElementsByName("cpcode")[0];
     let userid = document.getElementsByName("userid")[0];
+	let style = document.createElement("style");
+	let css = "";
 	
 	list +="<div id='parent'>";
+	
 	for(i=0; i<jsonData.length; i++){
 			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value, userid:userid.value});
 			if(jsonData[i].propen =="O"){
 				if(jsonData[i].prldate == null){
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+					
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\" ><label for=\"boxRadio"+i+"\">차트</label></div>";
+					
 				}else{
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
 				}
 				
 			}else{
 				if(jsonData[i].prldate == null){
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\" ><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+				
 				}else{
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+				
 				}
 			}
+			css += "input[id=\"boxRadio"+i+"\"] \+ label{border:1px solid #fcfaff; width:50px; cursor:pointer; text-align:center; margin-left:5%;}";				
+			css += "input[id=\"boxRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb; color:white; border:1px solid #bbbbbb;}";			
+			css += "input[id=\"boxRadio"+i+"\"]{display:none}";
 	}
-
-
 	
-	list+= "<div class='projectBox' ><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
+	style.innerHTML = css;
+	document.head.append(style);
+	
+	list+= "<div class='projectBox'><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
 	list+="</div>";
 
 	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 	getProject.innerHTML = list;
 }
 
+
+function test1(value){
+	let backPop = document.getElementById("backPop");
+	let popup = document.getElementsByName("popup");
+	let boxRadio = document.getElementsByName("boxRadio");
+	let check = document.getElementsByName("check");
+	let result = "";
+	
+	for(i=0; i<check.length; i++){
+		if(boxRadio[i].checked){
+			result = boxRadio[i].value;
+		}
+		if(result == check[i].value){
+			check[i].parentNode.style.display = "block";
+		
+		}else{
+			check[i].parentNode.style.display = "none";
+			
+		}
+	}
+	backPop.style.display = "block";
+	
+}
+
+function popClose(){
+	let backPop = document.getElementById("backPop");
+	
+	backPop.style.display = "none";
+	
+}
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
 	let modal = document.getElementById("modal_edge");
@@ -424,11 +470,11 @@ function close2(){
 }
 
 
-function test(){
+/*function test(){
 	//.addEventListener('click',function(){
 		//써봐야지 
 //	} )	
-}
+}*/
 
 
 
