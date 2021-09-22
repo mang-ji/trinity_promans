@@ -9,9 +9,13 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="resources/css/logInPage.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="resources/javascript/logInPage.js"></script>
-
 <script>
-		window.addEventListener('load',function(){
+	/*const message = "${param.message}";
+	
+	if(message != ""){
+		alert(message);
+	}*/
+	window.addEventListener('load',function(){
 			if(${msg} != ""){
 				alert(" ${msg} ");
 			}

@@ -54,16 +54,16 @@
         <input type="hidden" name="pscode" value="${pscode}">
         <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
-      <!-- 
-        <div id="modalDiv"></div>
+  
+       <!--  <div id="modalDiv"></div>
         <div id = "modal1" style="display:none;" ></div>
         <div id = "modal2"  style="display:none;"></div>
-	         -->
-		<div id="modal_background">
+	         --> 
+		 <div id="modal_background">
 			<div id="modal_box">
 				<div id="requestList"></div>
 			</div>
-		</div>
+		</div> 
 	
 		<div class="d-flex" id="wrapper">
             <!-- Sidebar-->

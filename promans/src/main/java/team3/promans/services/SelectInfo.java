@@ -28,6 +28,7 @@ import java.util.List;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.print.attribute.standard.PDLOverrideSupported;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,14 +65,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
+		List<ScheduleDetailBean> myScheduleList = sql.selectList("getMySchedule", sdb); 
 		System.out.println("업무조회다");
-		List<ScheduleDetailBean> myScheduleList;
-		myScheduleList = sql.selectList("getMySchedule", sdb);
 		return myScheduleList;
 	}
 
 	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
 		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
+		System.out.println("일지 잘뜨네이제");
 		System.out.println(getDiaryList);
 		return getDiaryList;
 	}
@@ -151,13 +152,12 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleBean> selectSchedule(ProjectStepBean psb) {
 		List<ScheduleBean> list = sql.selectList("selectSchedule", psb);
 		
-		/*if(list.size()==0) {
-			list.get(0).setUtype("G");
-		}
-		System.out.println(list.get(0).getUtype());*/
 		try {
+			if(list.size() != 0) {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 			pu.setAttribute("utype", list.get(0).getUtype());
+			
+			}
 		} catch (Exception e) {e.printStackTrace();}
 		return list;
 	}
@@ -261,38 +261,25 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<GraphDataBean> getDataGraph(List<ProjectBean> pb) {
-		List<GraphDataBean> gdb= new ArrayList<GraphDataBean>();
-		int PsW, ScheW, SdW , PsI, ScheI, SdI, PsC, ScheC, SdC;
+		List<GraphDataBean> gdb = new ArrayList<GraphDataBean>(pb.size());
 		
+		gdb = sql.selectList("getGraphInfo",pb.get(0));
 		for(int i=0; i<pb.size(); i++) {
-			PsW = sql.selectOne("getDataGraphPsW", pb.get(i));
-			gdb.get(i).setStepW(PsW);
-			ScheW = sql.selectOne("getDataGraphScW", pb.get(i));
-			gdb.get(i).setScheW(ScheW);
-			SdW = sql.selectOne("getDataGraphSdW", pb.get(i));
-			gdb.get(i).setSdW(SdW);
-			PsI = sql.selectOne("getDataGraphPsI", pb.get(i));
-			gdb.get(i).setStepI(PsI);
-			ScheI = sql.selectOne("getDataGraphScI", pb.get(i));
-			gdb.get(i).setScheI(ScheI);
-			SdI = sql.selectOne("getDataGraphSdI", pb.get(i));
-			gdb.get(i).setSdI(SdI);
-			PsC = sql.selectOne("getDataGraphPsC", pb.get(i));
-			gdb.get(i).setStepC(PsC);
-			ScheC = sql.selectOne("getDataGraphScC", pb.get(i));
-			gdb.get(i).setScheC(ScheC);
-			SdC = sql.selectOne("getDataGraphSdC", pb.get(i));
-			gdb.get(i).setSdC(SdC);	
+			gdb.get(i).setStepW(sql.selectOne("getDataGraphPsW", pb.get(i)));
+			gdb.get(i).setScheW(sql.selectOne("getDataGraphScW", pb.get(i)));
+			gdb.get(i).setSdW(sql.selectOne("getDataGraphSdW", pb.get(i)));
+			gdb.get(i).setStepI(sql.selectOne("getDataGraphPsI", pb.get(i)));
+			gdb.get(i).setScheI(sql.selectOne("getDataGraphScI", pb.get(i)));
+			gdb.get(i).setSdI(sql.selectOne("getDataGraphSdI", pb.get(i)));
+			gdb.get(i).setStepC(sql.selectOne("getDataGraphPsC", pb.get(i)));
+			gdb.get(i).setScheC(sql.selectOne("getDataGraphScC", pb.get(i)));
+			gdb.get(i).setSdC(sql.selectOne("getDataGraphSdC", pb.get(i)));	
 		}
-//		
-	
-		//gdb.setStepW((int)sql.selectOne("getDataGraphPsW", pb.get(0)));
-//		gdb.setScheW(sql.selectOne("getDataGraphScW", pb.get(0)));
-//		gdb.setSdW(sql.selectOne("getDataGraphSdW", pb.get(0)));
 		  
 		return gdb;
 		
 	}
+
 
 
 

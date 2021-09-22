@@ -37,6 +37,7 @@ public interface SelectInterface {
 	  public int getMaxNocode(Notice_CalendarBean nc);
 	  public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc);
 	  public List<GraphDataBean> getDataGraph(List<ProjectBean> pb);
+
 	  public List<CpMemberBean> getCpMembers(CpMemberBean cmb);
 	  public ModelAndView goAdminProject(ProjectMemberBean pmb);
 

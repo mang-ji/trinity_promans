@@ -60,16 +60,27 @@ function getProject(){
       
       
 <!-- HTML -->
+<<<<<<< HEAD
 <!-- <div id="chartdiv">
+=======
+
+
+<!-- 
+<div id="chartdiv" style="width:100%; height:500px;">
+
+</div>
+ -->
+ 
+<div id="chart">
+>>>>>>> branch 'main' of https://github.com/mang-ji/trinity_promans.git
 
 </div> -->
 
+<div id="backPop"></div>
 
 
-<!-- Chart code -->
-<script>
- // end am4core.ready()
-</script>
+
+
 
 
 </body>
