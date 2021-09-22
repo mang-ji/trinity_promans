@@ -12,19 +12,20 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 	let selectSD = document.getElementById("selectScheduleDetail");
 	let feed = document.getElementsByClassName("feed")[0];
 	
+	feed.innerHTML +="추가</div>";
+	feed.innerHTML += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
 	for(i=0; i<jsonData.length; i++){
 		
 	feed.innerHTML += "<div class='Detail'>" 
-					+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"
-					+ "<div id=\"boxes\"><div id=\"username\"><img src=\"/resources/images/person.jpg\"> 담당자 : " + jsonData[i].username+"</div>"
-					+ "<div id=\"state\">" + jsonData[i].sddstate  + "</div></div>"
+					/*+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"*/
+					+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username + "</div><span id=\"state\">"
+					+ jsonData[i].sddstate  + "</span></div>"
 					+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
 					+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
 	
 	}
 	feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
-	feed.innerHTML +="추가</div>";
-	feed.innerHTML += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
+	
 	
 	
 }

@@ -5,7 +5,6 @@
 <head>
 	<meta charset="utf-8" />
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
 	<link href="resources/css/adminSchedule.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/adminSchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
@@ -46,10 +45,11 @@
         <div id = "modal1" style="display:none;" ></div>
         <div id = "modal2"  style="display:none;"></div>
         	
-        <div class="d-flex" id="wrapper">
+        <div  class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+            <div style="position:fixed;" >
+            <div  class="border-end " id="sidebar-wrapper">
+                <div class="sidebar-heading bg-light">ProMan'S</div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
@@ -60,14 +60,19 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
-               		<input type="button" onClick="logout()" value="로그아웃">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
+                    
+               		<!-- <input type="button" onClick="logout()" value="로그아웃"> -->
                 </div>
             </div>
+            </div>
+            
+            
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
+            		
                 <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <div class="container-fluid">
+                    <div id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S</div>
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
                       <!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -86,15 +91,21 @@
                                 </li>
                             </ul>
                         </div>-->
-                    </div>
-                </nav>
+             
                 <!-- Page content-->
-                <div class="container-fluid">
-                	<div class="feed"></div>
+                <div  class="container-fluid">
+                	<div class="feed" style="padding-left:450px;" ></div>
                     <div id="selectScheduleDetail"></div>
                     
                 </div>
             </div>
+            
+             <div id="notices">
+             	<div id="child1"></div>
+             	<div id="child2"></div>
+             </div>
+            
+         
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
