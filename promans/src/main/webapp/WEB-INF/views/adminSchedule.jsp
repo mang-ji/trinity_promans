@@ -49,7 +49,7 @@
             <!-- Sidebar-->
             <div style="position:fixed;" >
             <div  class="border-end " id="sidebar-wrapper">
-                <div class="sidebar-heading bg-light">ProMan'S</div>
+                <div class="sidebar-heading "></div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>

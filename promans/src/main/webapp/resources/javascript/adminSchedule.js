@@ -18,8 +18,8 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 		
 	feed.innerHTML += "<div class='Detail'>" 
 					/*+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"*/
-					+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username + "</div><span id=\"state\">"
-					+ jsonData[i].sddstate  + "</span></div>"
+					+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username 
+					+ "</div><div id=\"state\">"+ jsonData[i].sddstate  + "</div></div>"
 					+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
 					+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
 	

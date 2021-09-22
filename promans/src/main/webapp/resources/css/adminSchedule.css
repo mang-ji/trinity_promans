@@ -23,11 +23,11 @@
 	height:50px; font-size:20px; padding-top:10px;
 }
 #date {color:#919191; text-align:right; margin-right:50px; margin-bottom:10px;}
-#state {margin-left:650px;}
+#state { float:left; margin-top:30px; margin-left:520px;}
 #username {float:left; margin-left:20px; margin-top:15px; font-weight:bold; font-size:20px;}
-#content {text-align:left; margin-top:10px; margin-bottom:50px; margin-left:80px;
+#content {text-align:left; margin-top:10px; margin-bottom:50px; margin-left:80px; margin-right:80px;
 		font-size:20px;}
-#boxes{overflow:hidden;}
+#boxes{overflow:hidden; }
 #img {width:70px;height:auto;}
 
 
