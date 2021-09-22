@@ -85,10 +85,10 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
                     <input type="button" onClick="logout()" value="로그아웃">
                 </div>
-                
+                <div id="chartdiv" ></div>
              
             </div>
-             <div id="chartdiv" ></div>
+             
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
           
