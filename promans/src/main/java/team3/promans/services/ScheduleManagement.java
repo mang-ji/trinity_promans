@@ -2,6 +2,7 @@ package team3.promans.services;
 
 import java.util.List;
 
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,34 +28,57 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	ModelAndView mav;
 
 
-	public String writeSchedule(ScheduleDetailBean sdb) {
-		System.out.println(sdb);
-		String msg = "";
-		System.out.println("작성 여긴오냐?");
-		if(this.convertBoolean(sql.insert("writeSchedule", sdb))) {
-			msg = "성공";
-		}else {
-			msg = "실패";
-		}
-
-		return msg;
+/*public String writeSchedule(ScheduleDetailBean sdb) {
+	System.out.println(sdb);
+	String msg = "";
+	try {
+		sdb.setCpcode((String) pu.getAttribute("cpcode"));
+		sdb.setPrcode((String) pu.getAttribute("prcode"));
+		sdb.setPscode((String) pu.getAttribute("pscode"));
+		sdb.setSccode((String) pu.getAttribute("sccode"));
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+	if(this.convertBoolean(sql.insert("writeSchedule", sdb))) {
+		msg = "성공";
+	}else {
+		msg = "실패";
+	}
+	return msg;
+}*/
+
+//업무일지작성
+public ModelAndView writeDiary(WorkDiaryBean wdb) {
+	mav = new ModelAndView();
+	int max = this.maxdiary(wdb) + 1;
+	wdb.setWdcode(max < 10 ? "WD0" +max:"WD"+max);
 	
-
-	public String writeDiary(ScheduleDetailBean sdb) {
-		System.out.println("일지작성?");
-		sql.insert("writeDiary", sdb);
-		return "";
-	}
-
-
-/*업무 디테일 완료요청(일반멤버)
-	public int reqSchedule(ScheduleDetailBean sdb) {
+	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
 		
-		return sql.update("reqSchedule", sdb);
-	}*/
+		mav.addObject("message","일지 등록이 완료되었읍니다.");
+	}else {
+		mav.addObject("message","일지 등록에 실패하였읍니다.");
+	}
+	mav.setViewName("myDiary");
+	return mav;
+}
 
+//업무 디테일 완료요청(일반멤버)
+public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
+	boolean result = false;
+	for(int i = 0; i<sdb.size(); i++) {
+		try {
+			sdb.get(i).setUserid((String) pu.getAttribute("userid"));
+		} catch (Exception e) {e.printStackTrace();}
 
+		if(this.convertBoolean(sql.update("reqSchedule", sdb.get(i)))) {
+			result=true;
+		}else {
+			result=false;
+		}
+	}
+	return result;
+}
 
 	public int reqPass(ScheduleDetailBean sdb) {
 	
@@ -63,7 +87,7 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	}
 
 	public void scheFeedback(List<ScheduleDetailBean> sdb) {
-	     sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
+	    sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
 	    System.out.println(sdb.get(0));
 		sql.insert("scheFeedback", sdb.get(0));
 		this.updateScheFeedback(sdb);
@@ -98,5 +122,24 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	public int maxScCode(ScheduleDetailBean sdb) {
 		return sql.selectOne("maxScCode", sdb);
 	}
+
+	@Override
+	public ModelAndView writeDiary(ScheduleDetailBean sdb) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String writeSchedule(ScheduleDetailBean sdb) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int maxdiary(WorkDiaryBean wdb) {
+		
+		return sql.selectOne("maxdiary", wdb);
+	}
+
 
 }

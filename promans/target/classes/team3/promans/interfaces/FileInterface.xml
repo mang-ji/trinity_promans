@@ -19,11 +19,33 @@
 		CL_FILEPATH AS FILEPATH,
 		CL_FTITLE AS FTITLE,
 		CL_FDATE AS FDATE,
-		CL_USERID AS USERID,
+		CL_FCODE AS FCODE,
+		CL_USERID AS FWRITER,
 		CL_OPEN AS FOPEN 
 		FROM CLOUD 
 		WHERE CL_CPCODE = #{cpcode} AND CL_PRCODE = #{prcode} AND
 		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode}
 	</select>
+	
+	<select id="getMarkList" parameterType="team3.promans.beans.CloudBean" resultType="team3.promans.beans.CloudBean">
+		SELECT CB.CB_CPCODE AS CPCODE,
+		CB.CB_PRCODE AS PRCODE,
+		CB.CB_PSCODE AS PSCODE,
+		CB.CB_SCCODE AS SCCODE,
+		CB.CB_FCODE AS FCODE,
+		CLOUD.CL_FNAME AS FNAME,
+		CLOUD.CL_FILEPATH AS FILEPATH,
+		CLOUD.CL_FTITLE AS FTITLE,
+		CLOUD.CL_FDATE AS FDATE,
+		CB.CB_USERID AS USERID,
+		CB.CB_FWRITER AS FWRITER
+		FROM CB INNER JOIN CLOUD ON CB.CB_FCODE = CLOUD.CL_FCODE
+		WHERE CB.CB_CPCODE = #{cpcode} AND CB.CB_PRCODE = #{prcode} AND
+		CB.CB_PSCODE = #{pscode} AND CB.CB_SCCODE = #{sccode} AND CB.CB_USERID = #{userid}
+	</select>
+	
+	<insert id="insBookMark" parameterType="team3.promans.beans.CloudBean">
+		INSERT INTO CB VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{fcode},#{userid},#{fwriter})
+	</insert>
 	
 </mapper>

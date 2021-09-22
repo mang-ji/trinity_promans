@@ -82,6 +82,7 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
+		System.out.println("왜또그러냐");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
@@ -95,8 +96,8 @@ public class Restcontroller {
 	
 	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public String writeDiary(@RequestBody ScheduleDetailBean sdb) {
-		return sm.writeDiary(sdb);
+	public ModelAndView writeDiary(@ModelAttribute WorkDiaryBean wdb) {
+		return sm.writeDiary(wdb);
 	}
 	
 	
@@ -105,11 +106,12 @@ public class Restcontroller {
 		return si.getDiary(wdb.get(0));
 	}
 	
-	/*업무 완료요청(일반멤버)
+	//업무 완료요청(일반멤버)
 	@PostMapping("/ReqSchedule")
-	public int reqSchedule(@ModelAttribute ScheduleDetailBean sdb) {
+	public boolean reqSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+		System.out.println("요청 귀귀");
 		return sm.reqSchedule(sdb);
-	}*/
+	}
 		
 	@PostMapping("getCalendar")
 	public List<Notice_CalendarBean> getCalendars(@RequestBody List<Notice_CalendarBean> ncb) {
@@ -210,6 +212,12 @@ public class Restcontroller {
 
 	}
 	
+	@PostMapping("firstInsSchedule")
+	public List<ScheduleDetailBean> firstInsSchedule(@RequestBody List<ProjectStepBean> psb) {
+		return tm.firstInsSchedule(psb.get(0));
+
+	}
+	
 	@PostMapping("insSchedule")
 	public boolean insSchedule(@RequestBody List<ScheduleBean> sb) {
 		return tm.insSchedule(sb.get(0));
@@ -266,6 +274,18 @@ public class Restcontroller {
 	public List<CloudBean> getFileList(@RequestBody List<CloudBean> cb){
 		return fm.getFileList(cb.get(0));
 	}
+	
+	@PostMapping("getMarkList")
+	public List<CloudBean> getMarkList(@RequestBody List<CloudBean> cb){
+		return fm.getMarkList(cb.get(0));
+	}
+	
+	@PostMapping("insBookMark")
+	public boolean insBookMark(@RequestBody List<CloudBean> cb) {
+		return fm.insBookMark(cb.get(0));
+	}
+	
+	
 	@PostMapping("ReqProjectAccept")
 	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));

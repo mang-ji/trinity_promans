@@ -64,5 +64,14 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 		System.out.println(list);
 		return list;
 	}
+
+	public List<CloudBean> getMarkList(CloudBean cb) {
+		List<CloudBean> list = sql.selectList("getMarkList", cb);
+		return list;
+	}
+
+	public boolean insBookMark(CloudBean cb) {
+		return this.convert(sql.insert("insBookMark", cb));
+	}
 	
 }
