@@ -142,7 +142,6 @@ public class HomeController {
 	}
 	@PostMapping("writeDiary")
 	public ModelAndView writeDiary(WorkDiaryBean wdb) {
-		System.out.println("일지좀써라");
 		mav = sm.writeDiary(wdb);
 		return mav;
 	}

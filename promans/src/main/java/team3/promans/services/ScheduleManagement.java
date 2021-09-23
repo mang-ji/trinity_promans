@@ -55,7 +55,7 @@ public ModelAndView writeDiary(WorkDiaryBean wdb) {
 	
 	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
 		
-		mav.addObject("message","일지 등록이 완료되었읍니다.");
+		mav.addObject("message","일지 등록이 완료되었습니다.");
 	}else {
 		mav.addObject("message","일지 등록에 실패하였읍니다.");
 	}
