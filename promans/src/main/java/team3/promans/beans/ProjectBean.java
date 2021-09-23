@@ -11,7 +11,7 @@ public class ProjectBean {
 	private String prdate;
 	private String prsdate;
 	private String prldate;
-	
+	private String prcontents;
 	
 
 }

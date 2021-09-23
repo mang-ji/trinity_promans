@@ -109,7 +109,6 @@ function afterNotice(data) {
 		html += "<input type =\"submit\" id =\"pbtn\" value =\"작성\">";
 		html += "</div>";
 		html += "</form>";
-		
 
 		popup1.innerHTML = html;
 		popup.style.display = "block";

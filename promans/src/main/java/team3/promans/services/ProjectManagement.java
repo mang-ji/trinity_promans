@@ -147,4 +147,20 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		return map;
 	}
 
+	
+	/* 프로젝트 생성 요청 */
+	public boolean createProject(ProjectBean pb) {
+		int Max = this.Maxprcode()+1;
+		pb.setPrcode((Max<10)? "PR0"+Max:"PR"+Max);
+		System.out.println(pb.getPropen());
+		return this.convertData(sqlSession.insert("createProject", pb));
+		
+		 
+	}
+
+	@Override
+	public int Maxprcode() {
+		
+		return sqlSession.selectOne("Maxprcode");
+	}
 }
