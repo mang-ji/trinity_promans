@@ -125,7 +125,7 @@ chart.scrollbarX = new am4core.Scrollbar();
 //업무 디테일 - ''
 function getProject1 (jsonData){
 	let list = "";
-		let prcode1=[];
+	let prcode1=[];
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
     let cpcode = document.getElementsByName("cpcode")[0];
     let userid = document.getElementsByName("userid")[0];
@@ -416,9 +416,6 @@ function getWaitingProStep(jsonData){
 		modal_background.style.display = "block";
 		modal_box.style.display = "block";
 		requestList.innerHTML = list;
-		
-		
-
 	*/
 		
 	let box = document.getElementById("modal_box");
@@ -494,5 +491,59 @@ function close2(){
 //	} )	
 }*/
 
+/*프로젝트 생성 요청 */
+function proReq(){
+	let modal_background = document.getElementById("modal_background");
+	let modal_box = document.getElementById("modal_box");
+	let proReq = document.getElementById("proReq");
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let html = "";
+	
 
+	/*html += "<input type = \"hidden\" name =\"cpcode\" value = \""+cpcode +"\">";
+	html += "<input type = \"hidden\" name =\"prcode\" value = \""+prcode +"\">";
+	html += "<input type = \"hidden\" name =\"userid\" value = \""+userid +"\">";*/
+	html += "<input type=\"button\" id=\"closebtn\" value=\"X\" onClick=\"windowClose()\"/>";
+	html += "<div id =\"pronametitle\">"+"프로젝트명"+"<br>"+"</div>";
+	html += "<input type = \"text\" id =\"prname\" >";
+	html += "<div id =\"procontentstitle\">"+"프로젝트 설명"+"<br>"+"</div>";
+	html += "<input type = \"text\" id =\"prcontents\">"+"<br>";
+	html += "<select name = \"propen\">";
+	html += "<option value = \"select\">"+"--선택--"+"</option>";
+	html += "<option value = \"O\">"+"공개"+"</option>";
+	html += "<option value = \"X\" >"+"비공개"+"</option>";
+	html += "</select>";
+	html += "<input type = \"submit\" id = \"reqbtn\" value = \"요청\" onClick=\"proReq1()\">";
+	
+	
+	proReq.innerHTML = html;
+	modal_box.style.display = "block";
+	modal_background.style.display = "block";
+}
 
+/*프로젝트 생성 요청 창 닫기*/
+function windowClose(){
+		let modal_box = document.getElementById("modal_box");
+		let modal_background = document.getElementById("modal_background");
+		
+		modal_background.style.display = "none";
+		modal_box.style.display = "none";
+	}
+
+function proReq1(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prname = document.getElementById("prname");
+	let prcontents = document.getElementById("prcontents");
+	let open = document.getElementsByName("propen")[0];
+	
+	let jsonData =[{cpcode:cpcode.value, prname:prname.value,prcontents:prcontents.value, propen:open.value}];
+	alert(JSON.stringify(jsonData));
+	alert(cpcode);
+	postAjax("rest/CreateProject", JSON.stringify(jsonData), "insProReq", 2);
+}
+
+function insProReq(jsondata){
+	alert();
+}

@@ -52,7 +52,4 @@
      select nvl(max(substr(pr_code,3,4)),0) from pr where pr_cpcode=#{cpcode} 
 
 	</select>
-	
-	
-
 </mapper>

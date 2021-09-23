@@ -148,8 +148,6 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	}
 
 
-
-
 	public ModelAndView createProject(ProjectBean pb) {
 		ModelAndView mav = new ModelAndView();
 		String userid = "";

@@ -36,6 +36,7 @@ function getProject(){
       <div id="modal_box"></div>
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
+
 	<form action='CreateProject' method='post'>
 	 <div id="modal_background">
 	 	<div id="modal_box">
@@ -50,7 +51,6 @@ function getProject(){
 	 	 <div> <input type="button" id="logoutBtn" onClick="logout()" value="로그아웃"> </div>
 	 </div>
 	
-	
       <input type="hidden" name="utype" value="${utype}"> 
       <input type="hidden" name="cpcode" value="${cpcode}"> 
       <input type="hidden" name="userid" value="${userid}">
@@ -63,8 +63,8 @@ function getProject(){
 <div id="backPop"></div>
 
 
-
-
+	<!-- HTML -->
+	<div id="chartdiv"></div>
 
 
 </body>
