@@ -53,6 +53,7 @@
 		FROM PNT
 		WHERE NO_CPCODE =
 		#{cpcode}
+		ORDER BY NO_CODE DESC
 	</select>
 	
 	<!-- 공지사항 nocode -->

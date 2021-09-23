@@ -312,4 +312,9 @@ public class Restcontroller {
 		return si.getCpMembers(cmb.get(0));
 	}
 	
+	@PostMapping("/GetNot")
+	public List<Notice_CalendarBean> getNot(@RequestBody List<Notice_CalendarBean> nc) {
+		return si.getNoticeList(nc.get(0));
+	}
+	
 }
