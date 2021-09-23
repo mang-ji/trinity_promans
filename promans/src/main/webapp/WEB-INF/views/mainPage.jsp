@@ -51,8 +51,6 @@ function getProject(){
 	 	 <div> <input type="button" id="logoutBtn" onClick="logout()" value="로그아웃"> </div>
 	 </div>
 	
-	<input type="button" id="proReqbtn" value="생성" onClick="proReq()">
-
       <input type="hidden" name="utype" value="${utype}"> 
       <input type="hidden" name="cpcode" value="${cpcode}"> 
       <input type="hidden" name="userid" value="${userid}">
