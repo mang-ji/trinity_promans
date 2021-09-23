@@ -4,23 +4,45 @@ function getSchedule(){
 	postAjax('', clientData, getSchedule)
 }
 
+function getNot(jsonData){
+	
+	
+	let child1 = document.getElementById("child1");
+	let count = 1;
+	for(i=0; i<jsonData.length; i++ ){
+    
+	child1.innerHTML += "<div id ='noBack'><div id = 'noticee'><input type = 'hidden' name = 'nocode' value = "+jsonData[i].nocode+"/>"+count+".&ensp;"+jsonData[i].title
+	                   +"<div id ='noSdate'>"+jsonData[i].sdate+"</div></div>"
+	                   + "</div>";	
+
+		count++;
+	}
+	
+
+}
 
 
 function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑션.
 
 	let list = "";
 	let selectSD = document.getElementById("selectScheduleDetail");
+	let feed = document.getElementsByClassName("feed")[0];
 	
+	feed.innerHTML +="추가</div>";
+	feed.innerHTML += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
 	for(i=0; i<jsonData.length; i++){
 		
-	list += "<div>"+ jsonData[i].sdcontent + jsonData[i].sddstate + jsonData[i].sddate + jsonData[i].username+"</div><br>";	
+	feed.innerHTML += "<div class='Detail'>" 
+					/*+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"*/
+					+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username 
+					+ "</div><div id=\"state\">"+ jsonData[i].sddstate  + "</div></div>"
+					+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
+					+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
 	
 	}
-	list +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
-	list +="추가</div>";
-	list += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
+	feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
 	
-	selectSD.innerHTML = list;
+	
 	
 }
 
@@ -313,3 +335,35 @@ postAjax("rest/InsSD", clientData, 'upPass', 2);
 
 
 }
+
+/*
+window.addEventListener('load',function(){
+	let feed = document.getElementsByClassName("feed")[0];
+	let plus = "";
+	
+	for(i=0; i<5; i++){
+		plus += "<div class=\"Detail\">야호_"+(i+1)+"</div>";
+	}
+	
+	feed.innerHTML = plus;
+		
+});*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,16 +2,27 @@
 
 function am5core(jsonData){
 
-for(i=0; i<jsonData.length ;i++){
+let ang = document.getElementsByClassName("ang");
+let backPop = document.getElementById("backPop");
+let html = "";
 
-am4core.ready(function() {
+for(i=0; i<jsonData.length;i++){
+//let chart = document.getElementById("chart");
+html+="<div name='popup' class='popup' style='display:none;'><input type=\"hidden\" name=\"check\" value=\""+i+"\"><div id='chartdiv"+i+"' style='width:100%; height:400px;'></div><div style='color:#bbbbbb; font-size:15px; margin-bottom:10px;' onClick='popClose()'>뒤로 가기</div></div>";
+//ang[i].innerHTML +="<div id='chartdiv"+i+"' style='width:50%; height:400px;'></div>";
+}
+backPop.innerHTML = html;
 
+for(i=0; i<jsonData.length;i++){
+		
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
 
-var chart = am4core.create("chartdiv", am4charts.XYChart);
+var chart = am4core.create("chartdiv"+i , am4charts.XYChart);
 chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+
 
 chart.data = [
   {
@@ -106,47 +117,113 @@ bullet3.label.fill = am4core.color("#ffffff");
 
 chart.scrollbarX = new am4core.Scrollbar();
 
-});
 }}
+
 
 //프로젝트 스텝 - 스텝의 전체 개수 , 스텝 완료 구하고, 진행 구하고, 대기 구하고. 
 // 업무 - ''
 //업무 디테일 - ''
 function getProject1 (jsonData){
 	let list = "";
-		let prcode1=[];
+	let prcode1=[];
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
     let cpcode = document.getElementsByName("cpcode")[0];
+    let userid = document.getElementsByName("userid")[0];
+	let style = document.createElement("style");
+	let css = "";
 	
 	list +="<div id='parent'>";
+	
 	for(i=0; i<jsonData.length; i++){
-			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
+			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value, userid:userid.value});
 			if(jsonData[i].propen =="O"){
 				if(jsonData[i].prldate == null){
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+					
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\" ><label for=\"boxRadio"+i+"\">차트</label></div>";
+					
 				}else{
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
 				}
 				
 			}else{
 				if(jsonData[i].prldate == null){
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div>";
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\" ><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+				
 				}else{
-					list += "<div class='projectBox' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div>";
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+				
 				}
 			}
-	}
-	list+= "<div class='projectBox' ><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
-	list+="</div>";
 
-	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
+			
+			postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
+
+			css += "input[id=\"boxRadio"+i+"\"] \+ label{border:1px solid #fcfaff; width:50px; cursor:pointer; text-align:center; margin-left:5%;}";				
+			css += "input[id=\"boxRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb; color:white; border:1px solid #bbbbbb;}";			
+			css += "input[id=\"boxRadio"+i+"\"]{display:none}";
+	}
+
+	list+= "<div class='projectBox' onClick=\"makeProjects()\"><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
+
+	
+	style.innerHTML = css;
+	document.head.append(style);
+	
 	getProject.innerHTML = list;
 }
 
+function makeProjects(){
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	
+	
+	box.innerHTML += "<div> 프로젝트명 : <input type='text' name='prname' placeholder='project name'></div>";
+	box.innerHTML += "<div> 프로젝트 설명 : <input type='text' name='prcontent' placeholder='project content'></div>";
+	box.innerHTML += "<div> 공개 여부 <select name='propen'><option value='O'>공개</option><option value='C'>비공개</option></select></div>";
+	box.innerHTML += "<div> 시작날짜 : <input type='date' name='prsdate' placeholder='start date'></div>";
+	box.innerHTML += "<div> 끝날짜 : <input type='date' name='prldate' placeholder='end date'></div>";
+	box.innerHTML += "<input type='submit' value='생성하기' >";
+
+	
+	box.style.display = "block";
+	modal_background.style.display = "block";
+	
+}
+
+
+function test1(value){
+	let backPop = document.getElementById("backPop");
+	let popup = document.getElementsByName("popup");
+	let boxRadio = document.getElementsByName("boxRadio");
+	let check = document.getElementsByName("check");
+	let result = "";
+	
+	for(i=0; i<check.length; i++){
+		if(boxRadio[i].checked){
+			result = boxRadio[i].value;
+		}
+		if(result == check[i].value){
+			check[i].parentNode.style.display = "block";
+		
+		}else{
+			check[i].parentNode.style.display = "none";
+			
+		}
+	}
+	backPop.style.display = "block";
+	
+}
+
+function popClose(){
+	let backPop = document.getElementById("backPop");
+	
+	backPop.style.display = "none";
+	
+}
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
 	let modal = document.getElementById("modal_edge");
@@ -339,9 +416,6 @@ function getWaitingProStep(jsonData){
 		modal_background.style.display = "block";
 		modal_box.style.display = "block";
 		requestList.innerHTML = list;
-		
-		
-
 	*/
 		
 	let box = document.getElementById("modal_box");
@@ -411,11 +485,65 @@ function close2(){
 }
 
 
-function test(){
+/*function test(){
 	//.addEventListener('click',function(){
 		//써봐야지 
 //	} )	
+}*/
+
+/*프로젝트 생성 요청 */
+function proReq(){
+	let modal_background = document.getElementById("modal_background");
+	let modal_box = document.getElementById("modal_box");
+	let proReq = document.getElementById("proReq");
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let html = "";
+	
+
+	/*html += "<input type = \"hidden\" name =\"cpcode\" value = \""+cpcode +"\">";
+	html += "<input type = \"hidden\" name =\"prcode\" value = \""+prcode +"\">";
+	html += "<input type = \"hidden\" name =\"userid\" value = \""+userid +"\">";*/
+	html += "<input type=\"button\" id=\"closebtn\" value=\"X\" onClick=\"windowClose()\"/>";
+	html += "<div id =\"pronametitle\">"+"프로젝트명"+"<br>"+"</div>";
+	html += "<input type = \"text\" id =\"prname\" >";
+	html += "<div id =\"procontentstitle\">"+"프로젝트 설명"+"<br>"+"</div>";
+	html += "<input type = \"text\" id =\"prcontents\">"+"<br>";
+	html += "<select name = \"propen\">";
+	html += "<option value = \"select\">"+"--선택--"+"</option>";
+	html += "<option value = \"O\">"+"공개"+"</option>";
+	html += "<option value = \"X\" >"+"비공개"+"</option>";
+	html += "</select>";
+	html += "<input type = \"submit\" id = \"reqbtn\" value = \"요청\" onClick=\"proReq1()\">";
+	
+	
+	proReq.innerHTML = html;
+	modal_box.style.display = "block";
+	modal_background.style.display = "block";
 }
 
+/*프로젝트 생성 요청 창 닫기*/
+function windowClose(){
+		let modal_box = document.getElementById("modal_box");
+		let modal_background = document.getElementById("modal_background");
+		
+		modal_background.style.display = "none";
+		modal_box.style.display = "none";
+	}
 
+function proReq1(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prname = document.getElementById("prname");
+	let prcontents = document.getElementById("prcontents");
+	let open = document.getElementsByName("propen")[0];
+	
+	let jsonData =[{cpcode:cpcode.value, prname:prname.value,prcontents:prcontents.value, propen:open.value}];
+	alert(JSON.stringify(jsonData));
+	alert(cpcode);
+	postAjax("rest/CreateProject", JSON.stringify(jsonData), "insProReq", 2);
+}
 
+function insProReq(jsondata){
+	alert();
+}

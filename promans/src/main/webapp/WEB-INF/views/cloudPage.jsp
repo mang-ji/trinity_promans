@@ -16,23 +16,33 @@
         <title>로그인</title>
         <script>
 	    window.addEventListener('load',function(){
-			        let fwriter = document.getElementsByName("fwriter")[0].value;
-			        let cpcode = document.getElementsByName("cpcode")[0].value;
-			        let prcode = document.getElementsByName("prcode")[0].value;
-			        let pscode = document.getElementsByName("pscode")[0].value;
-			        let sccode = document.getElementsByName("sccode")[0].value;
-        			let data = [{fwriter:fwriter,cpcode:cpcode,prcode:prcode,pscode:pscode,sccode:sccode}];
-        			postAjax("rest/getFileList",JSON.stringify(data),"getFileList",2);
+			let fwriter = document.getElementsByName("fwriter")[0].value;
+			let cpcode = document.getElementsByName("cpcode")[0].value;
+			let prcode = document.getElementsByName("prcode")[0].value;
+			let pscode = document.getElementsByName("pscode")[0].value;
+			let sccode = document.getElementsByName("sccode")[0].value;
+        	let data = [{fwriter:fwriter,cpcode:cpcode,prcode:prcode,pscode:pscode,sccode:sccode}];
+        	postAjax("rest/getFileList",JSON.stringify(data),"getFileList",2);
 	     });
+	    
+	    window.addEventListener('load',function(){
+	        let userid = document.getElementsByName("userid")[0].value;
+	        let cpcode = document.getElementsByName("cpcode")[0].value;
+	        let prcode = document.getElementsByName("prcode")[0].value;
+	        let pscode = document.getElementsByName("pscode")[0].value;
+	        let sccode = document.getElementsByName("sccode")[0].value;	    	
+	        let data = [{userid:userid,cpcode:cpcode,prcode:prcode,pscode:pscode,sccode:sccode}];
+	        postAjax("rest/getMarkList",JSON.stringify(data),"getMarkList",2);
+	    });
 	        
         </script>
     </head>
     <body onLoad="projectOnLoad()">
-        	
+        	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+                <a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
@@ -74,7 +84,7 @@
                 <div class="container-fluid">
                 <div id="markList"></div>
                 <div id="fileList"></div>
-                
+                <button type="button" class="btn btn-primary">Primary</button>
                 
                 <form action="insFile" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="utype" value="${utype}">
