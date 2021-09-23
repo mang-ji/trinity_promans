@@ -70,8 +70,9 @@
                     
                		<!-- <input type="button" onClick="logout()" value="로그아웃"> -->
                 </div>
+                 <div id ="chartdiv"></div>
             </div>
-              <div id ="chartdiv"></div>
+             
             </div>
               
             

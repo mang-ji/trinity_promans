@@ -1,5 +1,5 @@
 @charset "UTF-8";
-#notices { width:40rem; position:fixed; left:1300px; margin-top:124px;}
+#notices { width:20rem; position:fixed; left:1150px; margin-top:124px;}
 #child1 { width:20rem; height:auto; background-color:white;
 				 margin-bottom: 30px;  }
 #redirect1{
@@ -24,15 +24,7 @@
 	padding-bottom:10px;
 
 }
-#noSdate{
 
-
-}
-
-#noticee{
-	
-	
-}
 
 #noBack{
 		overflow:hidden;
@@ -68,7 +60,7 @@
 
 .Detail{
 	border:0px solid #525f83;
-	width:750px; 
+	width:600px; 
 	margin-bottom:20px;  background-color:white;
 }
 
@@ -87,9 +79,8 @@
 
    width:300px;
    height:300px;
-   position:fixed;
-   top:520px;
-   right:1360px;
+   position:absolute;
+   transform:translate(10%, 10%);
    
 
 }
