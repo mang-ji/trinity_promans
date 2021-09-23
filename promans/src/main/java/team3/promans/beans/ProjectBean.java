@@ -5,13 +5,14 @@ import lombok.Data;
 @Data
 public class ProjectBean {
 	private String cpcode;
+	private String userid;
 	private String prcode;
 	private String prname;
 	private String propen;
+	private String prstate;	
 	private String prdate;
 	private String prsdate;
 	private String prldate;
-	private String prcontents;
-	
+	private String prcontent;
 
 }

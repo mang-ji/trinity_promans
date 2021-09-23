@@ -2,34 +2,46 @@
 
 function am5core(jsonData){
 
+let ang = document.getElementsByClassName("ang");
+let backPop = document.getElementById("backPop");
+let html = "";
 
-am4core.ready(function() {
-alert("여기" + jsonData.stepW + " : " + jsonData.scheW +" : "+ jsonData.sdW );
+for(i=0; i<jsonData.length;i++){
+//let chart = document.getElementById("chart");
+html+="<div name='popup' class='popup' style='display:none;'><input type=\"hidden\" name=\"check\" value=\""+i+"\"><div id='chartdiv"+i+"' style='width:100%; height:400px;'></div><div style='color:#bbbbbb; font-size:15px; margin-bottom:10px;' onClick='popClose()'>뒤로 가기</div></div>";
+//ang[i].innerHTML +="<div id='chartdiv"+i+"' style='width:50%; height:400px;'></div>";
+}
+backPop.innerHTML = html;
+
+for(i=0; i<jsonData.length;i++){
+		
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
 
-var chart = am4core.create("chartdiv", am4charts.XYChart);
+var chart = am4core.create("chartdiv"+i , am4charts.XYChart);
 chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+
 
 chart.data = [
   {
     category: "스텝",
-    value1: jsonData.stepW,
-    value2: jsonData.stepI,
-    value3: jsonData.stepC
+    value1: jsonData[i].stepW,
+    value2: jsonData[i].stepI,
+    value3: jsonData[i].stepC
   },
   {
     category: "업무",
-    value1: jsonData.scheW,
-    value2: jsonData.scheI,
-    value3: jsonData.scheC
+    value1: jsonData[i].scheW,
+    value2: jsonData[i].scheI,
+    value3: jsonData[i].scheC
   },
   {
     category: "업무 디테일",
-    value1: jsonData.sdW,
-    value2: jsonData.sdI,
-    value3: jsonData.sdC
+    value1: jsonData[i].sdW,
+    value2: jsonData[i].sdI,
+    value3: jsonData[i].sdC
   }
 ];
 
@@ -105,7 +117,9 @@ bullet3.label.fill = am4core.color("#ffffff");
 
 chart.scrollbarX = new am4core.Scrollbar();
 
-});}
+}}
+
+
 //프로젝트 스텝 - 스텝의 전체 개수 , 스텝 완료 구하고, 진행 구하고, 대기 구하고. 
 // 업무 - ''
 //업무 디테일 - ''
@@ -114,17 +128,102 @@ function getProject1 (jsonData){
 	let prcode1=[];
 	let getProject = document.getElementById("getProject"); // &emsp; 띄워쓰기 
     let cpcode = document.getElementsByName("cpcode")[0];
- 
+    let userid = document.getElementsByName("userid")[0];
+	let style = document.createElement("style");
+	let css = "";
+	
+	list +="<div id='parent'>";
+	
 	for(i=0; i<jsonData.length; i++){
+			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value, userid:userid.value});
+			if(jsonData[i].propen =="O"){
+				if(jsonData[i].prldate == null){
+					
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\" ><label for=\"boxRadio"+i+"\">차트</label></div>";
+					
+				}else{
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+				}
+				
+			}else{
+				if(jsonData[i].prldate == null){
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\" ><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+				
+				}else{
+					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+				
+				}
+			}
 
-			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value});
-			list += "<div id='projectBox'><div class='lists' onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'><div id='circle'>"+ (i+1) +"</div>&emsp;&emsp;&emsp;" +jsonData[i].prname +"</div><div id='dates'>"+ jsonData[i].prdate +"&emsp;비공개</div></div>";	
+			
+			postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
+
+			css += "input[id=\"boxRadio"+i+"\"] \+ label{border:1px solid #fcfaff; width:50px; cursor:pointer; text-align:center; margin-left:5%;}";				
+			css += "input[id=\"boxRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb; color:white; border:1px solid #bbbbbb;}";			
+			css += "input[id=\"boxRadio"+i+"\"]{display:none}";
 	}
 
-	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
+	list+= "<div class='projectBox' onClick=\"makeProjects()\"><div id='steptitle'>프로젝트 생성</div><div style='font-size:80px; font-weight:bold; text-align:center'>+</div></div>";
+
+	
+	style.innerHTML = css;
+	document.head.append(style);
+	
 	getProject.innerHTML = list;
 }
 
+function makeProjects(){
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	
+	
+	box.innerHTML += "<div> 프로젝트명 : <input type='text' name='prname' placeholder='project name'></div>";
+	box.innerHTML += "<div> 프로젝트 설명 : <input type='text' name='prcontent' placeholder='project content'></div>";
+	box.innerHTML += "<div> 공개 여부 <select name='propen'><option value='O'>공개</option><option value='C'>비공개</option></select></div>";
+	box.innerHTML += "<div> 시작날짜 : <input type='date' name='prsdate' placeholder='start date'></div>";
+	box.innerHTML += "<div> 끝날짜 : <input type='date' name='prldate' placeholder='end date'></div>";
+	box.innerHTML += "<input type='submit' value='생성하기' >";
+
+	
+	box.style.display = "block";
+	modal_background.style.display = "block";
+	
+}
+
+
+function test1(value){
+	let backPop = document.getElementById("backPop");
+	let popup = document.getElementsByName("popup");
+	let boxRadio = document.getElementsByName("boxRadio");
+	let check = document.getElementsByName("check");
+	let result = "";
+	
+	for(i=0; i<check.length; i++){
+		if(boxRadio[i].checked){
+			result = boxRadio[i].value;
+		}
+		if(result == check[i].value){
+			check[i].parentNode.style.display = "block";
+		
+		}else{
+			check[i].parentNode.style.display = "none";
+			
+		}
+	}
+	backPop.style.display = "block";
+	
+}
+
+function popClose(){
+	let backPop = document.getElementById("backPop");
+	
+	backPop.style.display = "none";
+	
+}
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
 	let modal = document.getElementById("modal_edge");
@@ -386,11 +485,11 @@ function close2(){
 }
 
 
-function test(){
+/*function test(){
 	//.addEventListener('click',function(){
 		//써봐야지 
 //	} )	
-}
+}*/
 
 /*프로젝트 생성 요청 */
 function proReq(){

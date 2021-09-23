@@ -37,41 +37,36 @@ function getProject(){
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
 
-	<div id="modal_background">
-		<div id="modal_box">
-			<div id="requestList"></div>
-			<div id="proReq"></div>
-		</div>
-	</div>
-
-	<div
-		style="color: #4f5f86; margin-bottom: 50px; font-size: 50px; text-align: center; font-family: 'Nanum Gothic'; sans-serif; font-weight: bold;">
-		ProMan'S <img src="resources/images/logo.png" />
-	</div>
-
-
-	<input type="hidden" name="utype" value="${utype}">
-	<input type="hidden" name="cpcode" value="${cpcode}">
-	<input type="hidden" name="userid" value="${userid}">
-	<input type="hidden" name="prcode" value=" ">
-	<!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
-	<div id="getProject"></div>
-
+	<form action='CreateProject' method='post'>
+	 <div id="modal_background">
+	 	<div id="modal_box">
+	 	<div id="requestList"></div>
+	 	</div>
+	 </div>
+	</form>
 	
+	 <div id="titleParent">
+		 <div  id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S <img src="resources/images/logo.png"/>
+		 </div>
+	 	 <div> <input type="button" id="logoutBtn" onClick="logout()" value="로그아웃"> </div>
+	 </div>
 	
 	<input type="button" id="proReqbtn" value="생성" onClick="proReq()">
-	
+
+      <input type="hidden" name="utype" value="${utype}"> 
+      <input type="hidden" name="cpcode" value="${cpcode}"> 
+      <input type="hidden" name="userid" value="${userid}">
+      <input type="hidden" name="prcode" value=" "> <!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
+      <div id="getProject"></div>
+      
+     
+     
+
+<div id="backPop"></div>
 
 
 	<!-- HTML -->
 	<div id="chartdiv"></div>
-
-
-
-	<!-- Chart code -->
-	<script>
- // end am4core.ready()
-</script>
 
 
 </body>

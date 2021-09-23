@@ -3,48 +3,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="utf-8" />
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<link href="resources/css/styles.css" rel="stylesheet" type="text/css">
-<link href="resources/css/memberManage.css" rel="stylesheet"
-	type="text/css">
-<script type="text/javascript"
-	src="resources/javascript/memberManage.js"></script>
-<script type="text/javascript"
-	src="resources/javascript/mainTemplate.js"></script>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<title>멤버 관리</title>
+	<meta charset="utf-8" />
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<link href="resources/css/styles.css" rel="stylesheet" type="text/css">
+	<link href="resources/css/memberManage.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="resources/javascript/memberManage.js"></script>
+	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<title>멤버 관리</title>
+	<script>
+		window.addEventListener('load',function(){
+			let cpcode = document.getElementsByName("cpcode")[0];
+			let jsonData = [{cpcode:cpcode.value}];
+			postAjax("rest/GetCpMembers",JSON.stringify(jsonData), "getCpMembers", 2);
+		});
+	</script>
 </head>
 
 
 <body onLoad="projectOnLoad()">
 	<input type="hidden" name="utype" value="${utype}">
+	<input type="hidden" name="utype" value="${cpcode}">
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
 			<a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
 			<div class="list-group list-group-flush">
-				<a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="noticeForm">공지사항</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="projectForm" id="adminProject">프로젝트 관리</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="projectForm" id="project">프로젝트</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="calendarForm">캘린더</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="mailForm">메일 발송</a>
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
-					 <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="memberForm" id="adminMember">멤버 관리</a>
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
+					<input type="button" onClick="logout()" value="로그아웃">
 			</div>
 		</div>
 		<!-- Page content wrapper-->
@@ -53,7 +49,7 @@
 			<nav>
 				<div class ="navbar navbar-expand-lg navbar-light bg-lightborder-bottom">
 				<div class="container-fluid">
-					<div>::: TEAM LIST :::</div>
+					<div style="font-size:15px;">사원 추가</div>
 					<!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
 					<!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -96,9 +92,15 @@
 					<input type="submit" value="등록">
 					</form>	
                 </div>
+                
+               <div>
+               		<div>사원 처리</div>
+               		<div id="cpMemberList"></div>
+               		<input type="button" value="사원 삭제" />
+               </div>
             </div>
         </div>
-
+ㄴ
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

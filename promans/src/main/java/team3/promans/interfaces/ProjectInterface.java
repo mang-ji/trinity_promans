@@ -21,6 +21,7 @@ public interface ProjectInterface {
 	public Map<String,String> insProjectMember(ProjectMemberBean pmb);
 	public Map<String, String> insProjectFeedback(ScheduleDetailBean sdb);
 	public Map<String,String> deleteProjectMember(ProjectMemberBean pmb);
-	public boolean createProject(ProjectBean pb);
-	public int Maxprcode();
+	public ModelAndView createProject(ProjectBean pb);
+	public int getProMax(ProjectBean pb);
+
 }

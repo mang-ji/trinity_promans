@@ -10,10 +10,10 @@ public class ScheduleDetailBean {
 	private String prcode;
 	private String pscode;
 	private String sccode;
+	private String scname;
 	private String wcode;
 	private String utype;
 	private String sdcode;
-	private String sdname;
 	private String sdcontent;
 	private String sddate;
 	private String sddstate;

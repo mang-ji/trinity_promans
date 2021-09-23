@@ -147,20 +147,36 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		return map;
 	}
 
-	
-	/* 프로젝트 생성 요청 */
-	public boolean createProject(ProjectBean pb) {
-		int Max = this.Maxprcode()+1;
-		pb.setPrcode((Max<10)? "PR0"+Max:"PR"+Max);
-		System.out.println(pb.getPropen());
-		return this.convertData(sqlSession.insert("createProject", pb));
+
+	public ModelAndView createProject(ProjectBean pb) {
+		ModelAndView mav = new ModelAndView();
+		String userid = "";
+		String cpcode = "";
+		try {
+			userid = (String)pu.getAttribute("userid");
+			cpcode = (String)pu.getAttribute("cpcode");
+		} catch (Exception e) {e.printStackTrace();}
+		pb.setCpcode(cpcode);
+		pb.setUserid(userid);
+		pb.setPrstate("Y");
 		
-		 
+		int max = this.getProMax(pb) + 1;
+		
+		pb.setPrcode(max<10? "PR0"+max:"PR"+max);
+		
+		if(this.convertData(sqlSession.insert("createProject", pb))){
+			mav.setViewName("redirect:/");
+		}else {
+			mav.setViewName("redirect:/");
+			mav.addObject("message","프로젝트 생성에 실패했습니다.");
+		}
+		
+		return mav;
 	}
 
 	@Override
-	public int Maxprcode() {
-		
-		return sqlSession.selectOne("Maxprcode");
+	public int getProMax(ProjectBean pb) {
+		return sqlSession.selectOne("selectProMax",pb);
 	}
+	
 }

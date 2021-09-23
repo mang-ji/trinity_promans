@@ -24,7 +24,6 @@ function projectOnLoad(){
        let adminMember = document.getElementById("adminMember");
        let utype = document.getElementsByName("utype")[0];
 
-
        if(utype.value == "G"){
               adminProject.style.display = "none";
               project.style.display = "block";

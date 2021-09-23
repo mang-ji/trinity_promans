@@ -22,12 +22,15 @@ import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.Notice_CalendarBean;
+import team3.promans.beans.ProjectBean;
+import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.FileManagement;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.services.ProjectManagement;
 import team3.promans.services.ScheduleManagement;
 import team3.promans.services.SelectInfo;
+import team3.promans.services.TeamManagement;
 
 
 @Controller
@@ -53,6 +56,9 @@ public class HomeController {
 	
 	@Autowired
 	ScheduleManagement sm;
+	
+	@Autowired
+	TeamManagement tm;
 
 
 	private ModelAndView mav;
@@ -78,10 +84,12 @@ public class HomeController {
 
 	@PostMapping("SignUp")
 	public String SignUp(@ModelAttribute CpMemberBean cm) {
-		System.out.println(cm);
 		return auth.SignUp(cm);
 	}
-	
+	@GetMapping("InsCompany")
+	public String insCompany() {
+		return "insCompany";
+	}
 	@GetMapping("noticeForm")
 	public String noticeForm() {
 		return "noticePage";
@@ -134,16 +142,21 @@ public class HomeController {
 
 		return "myDiary";
 	}
+	@PostMapping("writeDiary")
+	public ModelAndView writeDiary(WorkDiaryBean wdb) {
+		System.out.println("일지좀써라");
+		mav = sm.writeDiary(wdb);
+		return mav;
+	}
 
 	@PostMapping("goAdminProjectForm")
-	public String goAdminProjectForm(@RequestParam("prcode") String prcode ) {
-
+	public ModelAndView goAdminProjectForm(@RequestParam("prcode") String prcode ) {
+		ProjectMemberBean pmb = new ProjectMemberBean();
 		try {
 			pu.setAttribute("prcode", prcode);
-
 		} catch (Exception e) {e.printStackTrace();}
-
-		return "adminProject";
+		
+		return si.goAdminProject(pmb);
 	}
 
 
@@ -184,6 +197,22 @@ public class HomeController {
 	public ModelAndView insFile(@ModelAttribute CloudBean cb) {
 		mav =  fm.insFile(cb);
 		return mav;
+	}
+	
+	@PostMapping("RegisterCompany")
+	public ModelAndView registerCompany(@ModelAttribute CpMemberBean cmb) {
+		mav = auth.registerCompany(cmb);
+		return mav;
+	}
+	
+	@GetMapping("TestYuna")
+	public String testYuna() {
+		return "testyuna";
+	}
+	
+	@PostMapping("CreateProject")
+	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
+		return pm.createProject(pb);
 	}
 }
 

@@ -15,6 +15,7 @@ import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.Notice_CalendarBean;
 
@@ -27,6 +28,7 @@ import java.util.List;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.print.attribute.standard.PDLOverrideSupported;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,14 +65,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
+		List<ScheduleDetailBean> myScheduleList = sql.selectList("getMySchedule", sdb); 
 		System.out.println("업무조회다");
-		List<ScheduleDetailBean> myScheduleList;
-		myScheduleList = sql.selectList("getMySchedule", sdb);
 		return myScheduleList;
 	}
 
 	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
 		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
+		System.out.println("일지 잘뜨네이제");
 		System.out.println(getDiaryList);
 		return getDiaryList;
 	}
@@ -139,19 +141,23 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		} catch (Exception e) {e.printStackTrace();}
 		
 		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
+		String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
+		try {
+			pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
+		} catch (Exception e) {e.printStackTrace();} 
+		
 		return list;
 	}
 
 	public List<ScheduleBean> selectSchedule(ProjectStepBean psb) {
 		List<ScheduleBean> list = sql.selectList("selectSchedule", psb);
 		
-		/*if(list.size()==0) {
-			list.get(0).setUtype("G");
-		}
-		System.out.println(list.get(0).getUtype());*/
 		try {
+			if(list.size() != 0) {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 			pu.setAttribute("utype", list.get(0).getUtype());
+			
+			}
 		} catch (Exception e) {e.printStackTrace();}
 		return list;
 	}
@@ -254,40 +260,57 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 
-	public GraphDataBean getDataGraph(List<ProjectBean> pb) {
-		GraphDataBean gdb= new GraphDataBean();
-		int PsW, ScheW, SdW , PsI, ScheI, SdI, PsC, ScheC, SdC;
+	public List<GraphDataBean> getDataGraph(List<ProjectBean> pb) {
+		List<GraphDataBean> gdb = new ArrayList<GraphDataBean>(pb.size());
 		
+		gdb = sql.selectList("getGraphInfo",pb.get(0));
 		for(int i=0; i<pb.size(); i++) {
-			 PsW = sql.selectOne("getDataGraphPsW", pb.get(i));
-			gdb.setStepW(PsW);
-			ScheW = sql.selectOne("getDataGraphScW", pb.get(i));
-			gdb.setScheW(ScheW);
-			SdW = sql.selectOne("getDataGraphSdW", pb.get(i));
-			gdb.setSdW(SdW);
-			PsI = sql.selectOne("getDataGraphPsI", pb.get(i));
-			gdb.setStepI(PsI);
-			ScheI = sql.selectOne("getDataGraphScI", pb.get(i));
-			gdb.setScheI(ScheI);
-			SdI = sql.selectOne("getDataGraphSdI", pb.get(i));
-			gdb.setSdI(SdI);
-			PsC = sql.selectOne("getDataGraphPsC", pb.get(i));
-			gdb.setStepC(PsC);
-			ScheC = sql.selectOne("getDataGraphScC", pb.get(i));
-			gdb.setScheC(ScheC);
-			SdC = sql.selectOne("getDataGraphSdC", pb.get(i));
-			gdb.setSdC(SdC);
-			
+			gdb.get(i).setStepW(sql.selectOne("getDataGraphPsW", pb.get(i)));
+			gdb.get(i).setScheW(sql.selectOne("getDataGraphScW", pb.get(i)));
+			gdb.get(i).setSdW(sql.selectOne("getDataGraphSdW", pb.get(i)));
+			gdb.get(i).setStepI(sql.selectOne("getDataGraphPsI", pb.get(i)));
+			gdb.get(i).setScheI(sql.selectOne("getDataGraphScI", pb.get(i)));
+			gdb.get(i).setSdI(sql.selectOne("getDataGraphSdI", pb.get(i)));
+			gdb.get(i).setStepC(sql.selectOne("getDataGraphPsC", pb.get(i)));
+			gdb.get(i).setScheC(sql.selectOne("getDataGraphScC", pb.get(i)));
+			gdb.get(i).setSdC(sql.selectOne("getDataGraphSdC", pb.get(i)));	
 		}
-//		
-		//gdb.setStepW((int)sql.selectOne("getDataGraphPsW", pb.get(0)));
-//		gdb.setScheW(sql.selectOne("getDataGraphScW", pb.get(0)));
-//		gdb.setSdW(sql.selectOne("getDataGraphSdW", pb.get(0)));
-		 System.out.println((int)sql.selectOne("getDataGraphSdW", pb.get(0)));
 		  
 		return gdb;
 		
 	}
+
+
+
+
+	public List<CpMemberBean> getCpMembers(CpMemberBean cmb) {
+		List<CpMemberBean> list = sql.selectList("getCpMembers", cmb);
+		for(int i=0; i< list.size(); i++) { 
+			try { /* 암호화된 cpmember 의 정보를 복호화해서 가져오기 */
+				list.get(i).setUname(enc.aesDecode(list.get(i).getUname(), list.get(i).getUserid()));
+				list.get(i).setUphone(enc.aesDecode(list.get(i).getUphone(),list.get(i).getUserid()));
+				list.get(i).setMail(enc.aesDecode(list.get(i).getMail(), list.get(i).getUserid()));
+			} catch (Exception e) {e.printStackTrace();}
+		}
+		return list;
+	}
+
+
+
+	public ModelAndView goAdminProject(ProjectMemberBean pmb) {
+		ModelAndView mav = new ModelAndView();
+		
+		try {
+			pmb.setCpcode((String)pu.getAttribute("cpcode"));
+			pmb.setPrcode((String)pu.getAttribute("prcode"));
+			pmb.setUserid((String)pu.getAttribute("userid"));
+			pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
+			
+		} catch (Exception e) {e.printStackTrace();}
+		mav.setViewName("adminProject");
+		return mav;
+	}
+	
 	
 }
 

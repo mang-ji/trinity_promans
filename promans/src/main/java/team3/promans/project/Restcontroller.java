@@ -24,6 +24,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
+import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
@@ -82,6 +83,7 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
+		System.out.println("왜또그러냐");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
@@ -95,8 +97,8 @@ public class Restcontroller {
 	
 	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public String writeDiary(@RequestBody ScheduleDetailBean sdb) {
-		return sm.writeDiary(sdb);
+	public ModelAndView writeDiary(@ModelAttribute WorkDiaryBean wdb) {
+		return sm.writeDiary(wdb);
 	}
 	
 	
@@ -105,11 +107,12 @@ public class Restcontroller {
 		return si.getDiary(wdb.get(0));
 	}
 	
-	/*업무 완료요청(일반멤버)
+	//업무 완료요청(일반멤버)
 	@PostMapping("/ReqSchedule")
-	public int reqSchedule(@ModelAttribute ScheduleDetailBean sdb) {
+	public boolean reqSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+		System.out.println("요청 귀귀");
 		return sm.reqSchedule(sdb);
-	}*/
+	}
 		
 	@PostMapping("getCalendar")
 	public List<Notice_CalendarBean> getCalendars(@RequestBody List<Notice_CalendarBean> ncb) {
@@ -138,7 +141,6 @@ public class Restcontroller {
 
 	@PostMapping("/GetProject")
 	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
-		
 		return si.getProject(pmb.get(0));
 	}
 	
@@ -210,6 +212,12 @@ public class Restcontroller {
 
 	}
 	
+	@PostMapping("firstInsSchedule")
+	public List<ScheduleDetailBean> firstInsSchedule(@RequestBody List<ProjectStepBean> psb) {
+		return tm.firstInsSchedule(psb.get(0));
+
+	}
+	
 	@PostMapping("insSchedule")
 	public boolean insSchedule(@RequestBody List<ScheduleBean> sb) {
 		return tm.insSchedule(sb.get(0));
@@ -262,32 +270,57 @@ public class Restcontroller {
 		return pm.insProjectFeedback(sdb.get(0));
 	}
 	
-	@PostMapping("getFileList")
+	@PostMapping("/getFileList")
 	public List<CloudBean> getFileList(@RequestBody List<CloudBean> cb){
 		return fm.getFileList(cb.get(0));
 	}
+
+	@PostMapping("getMarkList")
+	public List<CloudBean> getMarkList(@RequestBody List<CloudBean> cb){
+		return fm.getMarkList(cb.get(0));
+	}
+	
+	@PostMapping("insBookMark")
+	public boolean insBookMark(@RequestBody List<CloudBean> cb) {
+		return fm.insBookMark(cb.get(0));
+	}
+	
+	
 	@PostMapping("ReqProjectAccept")
 	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));
 		
 	}
+
 	
 	@PostMapping("/GetDataGraph")
-	public GraphDataBean getDataGraph(@RequestBody List<ProjectBean> pb) {
-	System.out.println(pb);
-		
+	public List<GraphDataBean> getDataGraph(@RequestBody List<ProjectBean> pb) {
+		System.out.println(pb);
 		return si.getDataGraph(pb);
+
 	}
+
 	
-	@PostMapping("DeleteProjectMember")
+	@PostMapping("/DeleteProjectMember")
 	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
 		return pm.deleteProjectMember(pmb.get(0));
+
 	}
 	
 	/* 프로젝트 생성 요청 */
 	@PostMapping("/CreateProject")
-	public boolean createProject(@RequestBody List<ProjectBean> pb) {
+	public ModelAndView createProject(@RequestBody List<ProjectBean> pb) {
 		return pm.createProject(pb.get(0));
 	}
 
+	@PostMapping("/GetCpMembers")
+	public List<CpMemberBean> getCpMembers(@RequestBody List<CpMemberBean> cmb) {
+		return si.getCpMembers(cmb.get(0));
+	}
+	
+	@PostMapping("/GetNot")
+	public List<Notice_CalendarBean> getNot(@RequestBody List<Notice_CalendarBean> nc) {
+		return si.getNoticeList(nc.get(0));
+	}
+	
 }
