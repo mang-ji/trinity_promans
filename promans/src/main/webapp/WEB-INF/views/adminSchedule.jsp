@@ -33,7 +33,10 @@
     		
     		postAjax("rest/GetScheDetail", clientData, "selectScheDetail", 2);
     		
+    		postAjax("rest/GetNot", clientData, "getNot",2);
+    		
      });
+     
      </script>
     </head>
     <body onLoad="projectOnLoad()"> 
@@ -67,8 +70,9 @@
                     
                		<!-- <input type="button" onClick="logout()" value="로그아웃"> -->
                 </div>
+                 <div id ="chartdiv"></div>
             </div>
-              <div id ="chartdiv"></div>
+             
             </div>
               
             
@@ -105,7 +109,8 @@
             </div>
             
              <div id="notices">
-             	<div id="child1"></div>
+                <div id = "redirect1">이전 화면으로</div>
+             	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
              	<div id="child2"></div>
              </div>
             

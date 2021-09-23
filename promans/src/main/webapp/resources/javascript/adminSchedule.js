@@ -4,6 +4,22 @@ function getSchedule(){
 	postAjax('', clientData, getSchedule)
 }
 
+function getNot(jsonData){
+	
+	
+	let child1 = document.getElementById("child1");
+	let count = 1;
+	for(i=0; i<jsonData.length; i++ ){
+    
+	child1.innerHTML += "<div id ='noBack'><div id = 'noticee'><input type = 'hidden' name = 'nocode' value = "+jsonData[i].nocode+"/>"+count+".&ensp;"+jsonData[i].title
+	                   +"<div id ='noSdate'>"+jsonData[i].sdate+"</div></div>"
+	                   + "</div>";	
+
+		count++;
+	}
+	
+
+}
 
 
 function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑션.

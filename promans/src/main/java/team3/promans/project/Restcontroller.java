@@ -306,10 +306,21 @@ public class Restcontroller {
 		return pm.deleteProjectMember(pmb.get(0));
 
 	}
+	
+	/* 프로젝트 생성 요청 */
+	@PostMapping("/CreateProject")
+	public ModelAndView createProject(@RequestBody List<ProjectBean> pb) {
+		return pm.createProject(pb.get(0));
+	}
 
 	@PostMapping("/GetCpMembers")
 	public List<CpMemberBean> getCpMembers(@RequestBody List<CpMemberBean> cmb) {
 		return si.getCpMembers(cmb.get(0));
+	}
+	
+	@PostMapping("/GetNot")
+	public List<Notice_CalendarBean> getNot(@RequestBody List<Notice_CalendarBean> nc) {
+		return si.getNoticeList(nc.get(0));
 	}
 	
 }

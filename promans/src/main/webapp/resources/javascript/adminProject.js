@@ -43,7 +43,7 @@ function selectProject(jsonData){
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
 
-	list += "<span id='span1'>No.</span><span id='span1'>Project Step</span><span id='span1'>Progress</span>";
+	list += "<span id='span1'>No.</span><span id='span2'>Project Step</span><span id='span3'>Progress</span>";
 	for(i=0; i<jsonData.length; i++){
 		 list += "<div class='steplists' onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"
 				+jsonData[i].pscode+"\' /><div id='numbers'>"+ (i+1) + "</div><div id='psnames'>"
@@ -398,7 +398,7 @@ function selectSchedule(jsonData){
 		let selectStep = document.getElementById("selectStep");
 		let utype = document.getElementsByName("utype")[0].value;
 		
-		list += "<span id='span1'>No.</span><span  id='span1' >Schedule</span><span  id='span1'>Progress</span>";
+		list += "<span id='span1'>No.</span><span  id='span2' >Schedule</span><span  id='span2'>Progress</span>";
 		
 		for(i=0; i<jsonData.length; i++){
 		
