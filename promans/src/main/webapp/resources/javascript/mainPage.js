@@ -177,20 +177,48 @@ function getProject1 (jsonData){
 }
 
 function makeProjects(){
+	
+
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	 
+	box.innerHTML += "<div id ='backMakePro'>";
+	box.innerHTML += "<div id='forMargin'>프로젝트 생성하기</div><div id= 'makeProo' >Project Name : <input type='text' name='prname' placeholder='프로젝트 명을 입력해주세요.' style='width:270px;'></div>";
+	box.innerHTML += "<div id= 'makeProo'> <textarea onkeyup:'resize(this)' name='prcontent'  placeholder='간단한 설명을 입력해주세요.' style='width:270px;'>";
+	box.innerHTML += "</div><div id= 'makeProo'>";
+	box.innerHTML += "</div><div id= 'makeProo'>START : <input type='date' name='prsdate' placeholder='start date'/>&emsp;&emsp;END : <input type='date' name='prldate' placeholder='end date'/></div>";
+	box.innerHTML += "<div id ='imgToggle'><img src='resources/images/lock.jpg' id = 'lock' style = 'width:35px; height:35px; '/>OPEN / CLOSE : <label class='switch'><input type='checkbox' name = 'propen'onClick='toggle(this)' value ='O'><span class='slider round'></span></label></div><br>";
+	box.innerHTML += "<input type='submit' value='생성하기'  style='color:#FFFFFF; font-size:15px; margin-top:-20px; border:0px; background-color:#bbbbbb; width:100px; height:40px;' >";
+	box.innerHTML += "<div style= 'font-size:15px; ' onClick='popClose()' id ='backback' >뒤로 가기</div>";
+	box.innerHTML += "</div>";
 	
 	
-	box.innerHTML += "<div> 프로젝트명 : <input type='text' name='prname' placeholder='project name'></div>";
-	box.innerHTML += "<div> 프로젝트 설명 : <input type='text' name='prcontent' placeholder='project content'></div>";
-	box.innerHTML += "<div> 공개 여부 <select name='propen'><option value='O'>공개</option><option value='C'>비공개</option></select></div>";
-	box.innerHTML += "<div> 시작날짜 : <input type='date' name='prsdate' placeholder='start date'></div>";
-	box.innerHTML += "<div> 끝날짜 : <input type='date' name='prldate' placeholder='end date'></div>";
-	box.innerHTML += "<input type='submit' value='생성하기' >";
 
 	
 	box.style.display = "block";
 	modal_background.style.display = "block";
+	
+}
+
+function resize(size){
+	
+	
+	size.style.height = "1px";
+  size.style.height = (12 + obj.scrollHeight) + "px";
+	
+}
+function toggle(data){// 안 누르면 = O 누르면 O,true = C 
+	
+	
+
+	alert("실행 가능?");
+	
+	if(!data.checked){
+		data.value = "O";
+	}else{
+		
+		data.value ="C";
+	}
 	
 }
 
@@ -220,8 +248,20 @@ function test1(value){
 
 function popClose(){
 	let backPop = document.getElementById("backPop");
+	let modalForm = document.getElementById("Form");
+	let backModal = document.getElementById("modal_background");
+
 	
 	backPop.style.display = "none";
+	
+	backModal.remove()
+		
+		
+	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div></div>";
+
+	
+		
+	
 	
 }
 
@@ -313,6 +353,8 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
   		 box.innerHTML += "<button type='button' class='btn btn-primary' id='make' >Make Step</button>";
   		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
   		 box.innerHTML += "</div></div></div></div>";
+
+
 
 		makeBtnClick(prcode);
 		

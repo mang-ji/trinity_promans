@@ -12,8 +12,11 @@
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+
 <script type="text/javascript"
 	src="resources/javascript/mainTemplate.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 
 <title>Insert title here</title>
 
@@ -27,9 +30,19 @@ function getProject(){
 
     postAjax('rest/GetProject', clientData, 'getProject1', 2);
          
+}
 
- }
      </script>
+     
+     
+      
+        <script>
+        var check = $("input[type='checkbox']");
+        check.click(function(){
+        	$("p").toggle();
+        });
+
+        </script>
 </head>
 <body onLoad="getProject()">
 	<!-- <div id="modal_background">
@@ -37,11 +50,13 @@ function getProject(){
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
 
-	<form action='CreateProject' method='post'>
+	<form action='CreateProject' method='post' >
+	<div id ='Form'>
 	 <div id="modal_background">
 	 	<div id="modal_box">
 	 	<div id="requestList"></div>
 	 	</div>
+	 </div>
 	 </div>
 	</form>
 	
@@ -62,9 +77,12 @@ function getProject(){
 
 <div id="backPop"></div>
 
-
 	<!-- HTML -->
 	<div id="chartdiv"></div>
+	
+
+    
+           
 
 
 </body>
