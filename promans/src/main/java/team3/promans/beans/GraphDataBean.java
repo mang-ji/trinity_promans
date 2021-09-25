@@ -17,5 +17,6 @@ public class GraphDataBean {
 	private int sdI;
 	private int sdC;
 	private String prcode;
+	private String pscode;
 
 }

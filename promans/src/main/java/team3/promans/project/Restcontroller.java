@@ -295,11 +295,28 @@ public class Restcontroller {
 	
 	@PostMapping("/GetDataGraph")
 	public List<GraphDataBean> getDataGraph(@RequestBody List<ProjectBean> pb) {
-		System.out.println(pb);
+	
 		return si.getDataGraph(pb);
 
 	}
-
+	
+	@PostMapping("/GetSDGraph")
+	public GraphDataBean getSDGraph(@RequestBody List<ScheduleBean>sb) {
+		
+		
+		return si.getSDGraph(sb.get(0));
+		
+	}
+	
+	@PostMapping("/GetStepGraph")
+	public GraphDataBean getStepGraph(@RequestBody List<ScheduleBean>sb) {
+		System.out.println(sb);
+		System.out.println("요긴 step");
+		
+		return si.getStepGraph(sb.get(0));
+		
+	}
+	
 	
 	@PostMapping("/DeleteProjectMember")
 	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {

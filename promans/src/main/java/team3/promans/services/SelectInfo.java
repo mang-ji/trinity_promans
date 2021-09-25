@@ -310,6 +310,54 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		mav.setViewName("adminProject");
 		return mav;
 	}
+
+
+
+	public GraphDataBean getSDGraph(ScheduleBean sb) {
+	
+    GraphDataBean gdb = new GraphDataBean();
+		
+
+		gdb.setSdW(sql.selectOne("getSdW", sb));
+		gdb.setSdI(sql.selectOne("getSdI", sb));
+		gdb.setSdC(sql.selectOne("getSdC", sb));	
+		
+		  
+		return gdb;
+		
+		
+	}
+
+
+
+	public GraphDataBean getStepGraph(ScheduleBean sb) {
+		
+      GraphDataBean gdb = new GraphDataBean();
+	
+        if(sb.getPscode() ==null) {
+        	System.out.println("요긴 step");
+        	
+        	gdb.setStepW(sql.selectOne("getStepW", sb));
+    		gdb.setStepI(sql.selectOne("getStepI", sb));
+    		gdb.setStepC(sql.selectOne("getStepC", sb));
+    		
+    		
+        }else {
+        	System.out.println("요긴 schedule");
+    		gdb.setPscode(sb.getPscode());
+    		gdb.setScheW(sql.selectOne("getScheW", sb));
+    		gdb.setScheI(sql.selectOne("getScheI",sb));
+    		gdb.setScheC(sql.selectOne("getScheC",sb));
+        }
+			
+			
+		return gdb;
+	}
+
+
+
+
+
 	
 	
 }
