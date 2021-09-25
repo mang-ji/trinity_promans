@@ -38,5 +38,7 @@ public interface SelectInterface {
 	  public List<GraphDataBean> getDataGraph(List<ProjectBean> pb);
 	  public List<CpMemberBean> getCpMembers(CpMemberBean cmb);
 	  public ModelAndView goAdminProject(ProjectMemberBean pmb);
+	  public List<ProjectBean> selectProjectReq(ProjectBean pb);
+	  public List<ProjectBean> selectProjectMakeReq(ProjectBean pb);
 
 }

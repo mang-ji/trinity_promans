@@ -151,7 +151,7 @@ public class Authentication implements AuthInterface {
 
 		} catch (Exception e) {e.printStackTrace();}
 
-		return "adminProject";
+		return "memberManage";
 	}
 
 	private boolean convertBoolean(int value) {

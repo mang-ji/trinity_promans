@@ -142,6 +142,12 @@ public class HomeController {
 
 		return "myDiary";
 	}
+	
+	@GetMapping("allAdminManage")
+	public String allAdminManage() {
+		return "allAdminManage";
+	}
+	
 	@PostMapping("writeDiary")
 	public ModelAndView writeDiary(WorkDiaryBean wdb) {
 		System.out.println("일지좀써라");

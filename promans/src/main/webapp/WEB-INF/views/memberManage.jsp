@@ -26,7 +26,7 @@
 
 <body onLoad="projectOnLoad()">
 	<input type="hidden" name="utype" value="${utype}">
-	<input type="hidden" name="utype" value="${cpcode}">
+	<input type="hidden" name="cpcode" value="${cpcode}">
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
@@ -74,16 +74,17 @@
                       
                 <!-- Page content-->
                 <div class="divbox">
-	                <div style="font-size:15px;">사원 추가</div>
+	                <div style="margin-left:70px; margin-bottom:10px; font-size:20px; border-bottom:solid 4px; width:700px; " >사원 추가</div>
 	                <div class="container-fluid">
 	               		<form action="SignUp" method="post">
+	               			<div id="insmemberbox">
 		               		<input type="text" name="userid" placeholder="아이디" />
 		               		<input type="text" name="uname" placeholder="이름" />
-							<input type="password" name="acode"  placeholder="비밀번호"/>
+							<input type="password" name="acode" id="accesscode" placeholder="비밀번호"/>
 							<input type="hidden" name="cpcode" value="${cpcode }" />
 							<input type="text" name="uphone" placeholder="핸드폰" />
-							<input type="text" name="mail" placeholder="메일" />
-							<select name="tecode">
+							<input type="text" name="mail" id="mailforrm" placeholder="메일" />
+							<select id="selectBox" name="tecode">
 							<option value="I">인사팀</option>
 							<option value="G">개발팀</option>
 							<option value="D">디자인팀</option>
@@ -92,17 +93,18 @@
 							</select>
 							<input type="hidden" name="wcode" value="1" />
 							<input type="hidden" name="utype" value="G" />
-							<input type="submit" value="등록">
+							<input type="submit" id="memberregister" value="등록">
+							</div>
 						</form>	
 	                </div>
                 </div>
                 
                <div id="divbox">
-               		<div>사원 처리</div>
+               		<div style="margin-left:70px; margin-bottom:10px; font-size:20px; border-bottom:solid 4px; width:700px;" >사원 처리</div>
                		<div id="cpMemberList">
            
                		</div>
-               		<input type="button" value="사원 삭제" />
+               		<input type="button" id="memberdelete" onClick="deleteCpMember()" value="사원 삭제" />
                </div>
                
             </div>

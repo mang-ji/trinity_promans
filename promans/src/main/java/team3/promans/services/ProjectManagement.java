@@ -131,9 +131,12 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 
 
 	/* 프로젝트가 총괄한테 프로젝트 완료요청하는 부분 (필요는 없지만 일단 써놓는거임용) */
-	public Map<String, String> reqProjectAccept(ProjectBean projectBean) {
-		//sqlSession.insert();
-		return null;
+	public Map<String, String> reqProjectAccept(ProjectBean pb) {
+		Map<String,String> map = new HashMap<>();
+		if(this.convertData(sqlSession.update("reqProjectAccept", pb))) {
+			map.put("message", "완료 요청이 완료되었습니다.");
+		} 
+		return map;
 	}
 
 
@@ -155,28 +158,83 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		try {
 			userid = (String)pu.getAttribute("userid");
 			cpcode = (String)pu.getAttribute("cpcode");
+
+			pb.setCpcode(cpcode);
+			pb.setUserid(userid);
+			
+
+			int max = this.getProMax(pb) + 1;
+
+			pb.setPrcode(max<10? "PR0"+max:"PR"+max);
+
+			if(pu.getAttribute("utype").equals("A"))	{
+				pb.setPrstate("I");
+				pb.setPrutype("L");
+				if(this.convertData(sqlSession.insert("createProject", pb))){
+					if(this.convertData(sqlSession.insert("insertPmTable",pb))) {
+						mav.setViewName("redirect:/");
+					}
+				}else {
+					mav.setViewName("redirect:/");
+					mav.addObject("message","프로젝트 생성에 실패했습니다.");
+				}
+			}else {
+				pb.setPrstate("Y");
+				pb.setPrutype("Y");
+				if(this.convertData(sqlSession.insert("createProject", pb))){
+					if(this.convertData(sqlSession.insert("insertPmTable",pb))) {
+						mav.setViewName("redirect:/");
+					}
+				}else {
+					mav.setViewName("redirect:/");
+					mav.addObject("message","프로젝트 생성에 실패했습니다.");
+				}
+			}
 		} catch (Exception e) {e.printStackTrace();}
-		pb.setCpcode(cpcode);
-		pb.setUserid(userid);
-		pb.setPrstate("Y");
-		
-		int max = this.getProMax(pb) + 1;
-		
-		pb.setPrcode(max<10? "PR0"+max:"PR"+max);
-		
-		if(this.convertData(sqlSession.insert("createProject", pb))){
-			mav.setViewName("redirect:/");
-		}else {
-			mav.setViewName("redirect:/");
-			mav.addObject("message","프로젝트 생성에 실패했습니다.");
-		}
-		
+
 		return mav;
 	}
 
 	@Override
 	public int getProMax(ProjectBean pb) {
 		return sqlSession.selectOne("selectProMax",pb);
+	}
+
+	public Map<String,String> updateProjectAccept(ProjectBean pb) {
+		Map<String,String> map = new HashMap<>();
+		map.put("message", "승인에 실패하셨습니다.");
+		if(this.convertData(sqlSession.update("updateProjectAccept", pb))) {
+			map.put("message", " 승인이 완료되었습니다. ");
+		}
+		return map;
+	}
+
+
+
+
+	public Map<String, String> rejectProject(ProjectBean pb) {
+		Map<String,String> map = new HashMap<>();
+		map.put("message", "피드백에 실패하였습니다.");
+		if(this.convertData(sqlSession.insert("rejectProject",pb))) {
+			map.put("message", "피드백을 완료하였습니다.");
+		}
+		return map;
+	}
+
+
+
+
+	public Map<String, String> acceptMakeProject(ProjectBean pb) {
+		Map<String,String> map = new HashMap<>();
+		map.put("message", " 승인 실패하였습니다.");
+		/* 프로젝트 보류 > 진행으로 업데이트 */
+		if(this.convertData(sqlSession.update("acceptMakeProject", pb))) {
+			/* 프로젝트 멤버 테이블에서 보류상태인 관리자를 리더로 업데이트 */
+			if(this.convertData(sqlSession.update("updateLeader",pb))) {
+				map.put("message", "승인을 완료하였습니다.");
+			}
+		}
+		return map;
 	}
 	
 }

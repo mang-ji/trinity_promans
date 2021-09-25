@@ -287,7 +287,7 @@ public class Restcontroller {
 	
 	
 	@PostMapping("ReqProjectAccept")
-	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
+	public Map<String,String> reqProjectAccept(@RequestBody List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));
 		
 	}
@@ -323,4 +323,29 @@ public class Restcontroller {
 		return si.getNoticeList(nc.get(0));
 	}
 	
+	@PostMapping("/DeleteCpMember")
+	public Map<String, String> deleteCpMember(@RequestBody List<CpMemberBean> cmb) {
+		return tm.deleteCpMember(cmb);
+	}
+	@PostMapping("/SelectProjectReq")
+	public List<ProjectBean> selectProjectReq(@RequestBody List<ProjectBean> pb) {
+		return si.selectProjectReq(pb.get(0));
+	}
+	@PostMapping("/UpdateProjectAccept")
+	public Map<String,String> updateProjectAccept(@RequestBody List<ProjectBean> pb) {
+		return pm.updateProjectAccept(pb.get(0));
+	}
+	@PostMapping("/RejectProjects")
+	public Map<String,String> rejectProject(@RequestBody List<ProjectBean> pb){
+		System.out.println(pb );
+		return pm.rejectProject(pb.get(0));
+	}
+	@PostMapping("/SelectProjectMakeReq")
+	public List<ProjectBean> selectProjectMakeReq(@RequestBody List<ProjectBean> pb) {
+		return si.selectProjectMakeReq(pb.get(0));
+	}
+	@PostMapping("/AcceptMakeProject")
+	public Map<String, String> acceptMakeProject(@RequestBody List<ProjectBean> pb){
+		return pm.acceptMakeProject(pb.get(0));
+	}
 }

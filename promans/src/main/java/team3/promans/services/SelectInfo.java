@@ -310,6 +310,18 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		mav.setViewName("adminProject");
 		return mav;
 	}
+
+
+
+	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
+		return sql.selectList("selectReqProject", pb);
+	}
+
+
+
+	public List<ProjectBean> selectProjectMakeReq(ProjectBean pb) {
+		return sql.selectList("selectProjectMakeReq", pb);
+	}
 	
 	
 }

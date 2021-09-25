@@ -858,14 +858,13 @@ function deleteProjectMember(jsonData){
 
 /* 프로젝트 스텝들의 완료 요청 리스트 불러오는 함수 */
 function reqProjectAccept(prcode){
-	let cpcode = document.getElementById("cpcode");
+	let cpcode = document.getElementsByName("cpcode")[0];
 	let clientData = [{cpcode:cpcode.value, prcode:prcode}];
 	
-	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectAccept",2);
-	//postAjax("rest/SelectWaitingStep", JSON.stringify(clientData),"getWaitingProStep",2);
+	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectResult",2);
 }
-function reqProjectAccept(jsonData){
-	alert(jsonData);
+function reqProjectResult(jsonData){
+	alert(jsonData.message);
 }
 
 

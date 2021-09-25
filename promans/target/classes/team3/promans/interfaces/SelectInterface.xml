@@ -129,7 +129,7 @@
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
         FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode}
+		#{userid} AND CPCODE = #{cpcode} and prstate !='Y'
 	</select>
 
 
@@ -319,10 +319,23 @@
         cm_tecode as tecode,
         cm_mail as mail,
         cm_utype as utype
-		from cm where cm_cpcode=#{cpcode} and cm_utype != 'A'
+		from cm where cm_cpcode=#{cpcode} and cm_wcode='1' and cm_utype != 'A'
 	</select>
 	
 	<select id="goAdminProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
 		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
+	</select>
+	
+	<select id="selectReqProject" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ProjectBean">
+		select pr.pr_name as prname,  pr.pr_code as prcode,  pm.pm_userid as userid , pr.pr_state as prstate 
+		from pr inner join pm on pr.pr_cpcode=pm.pm_cpcode and pr.pr_code=pm.pm_prcode 
+		where pr.pr_state='W' and pr.pr_cpcode=#{cpcode} and pm.pm_utype='L'
+	</select>
+	
+	<select id="selectProjectMakeReq" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ProjectBean">
+		select pr.pr_name as prname, pr.pr_code as prcode, pm.pm_userid as userid, pr.pr_state as prstate,
+		 pr.pr_contents as prcontent 
+		from pr inner join pm on pr.pr_cpcode=pm.pm_cpcode and pr.pr_code=pm.pm_prcode  
+		where pr.pr_cpcode=#{cpcode} and pr.pr_state='Y'
 	</select>
 </mapper>
