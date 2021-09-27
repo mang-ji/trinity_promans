@@ -75,6 +75,7 @@ public class Authentication implements AuthInterface {
 					pu.setAttribute("tecode", this.getUserInfo(ah).getTecode());
 					pu.setAttribute("wcode", this.getUserInfo(ah).getWcode());
 					pu.setAttribute("utype", this.getUserInfo(ah).getUtype());
+					pu.setAttribute("mail", enc.aesDecode(this.getUserInfo(ah).getMail(), ah.getUserid()));
 
 					mav.setViewName("mainPage");
 

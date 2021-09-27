@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +26,7 @@ import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.GraphDataBean;
+import team3.promans.beans.MailBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
@@ -73,8 +74,11 @@ public class Restcontroller {
 	@Autowired
 	FileManagement fm;
 	
+	@Autowired
+	JavaMailSender mailSender;
+	
 	ModelAndView mav;
-
+	
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
 		return auth.idCheck(ah);
@@ -91,7 +95,6 @@ public class Restcontroller {
 	@PostMapping("/WriteSchedule")
 	public String writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
 		//sm.writeSchedule(sdb.get(0))
-		System.out.println("글작성 첫번째에러다");
 		return sm.writeSchedule(sdb.get(0));
 	}
 	
@@ -323,4 +326,7 @@ public class Restcontroller {
 		return si.getNoticeList(nc.get(0));
 	}
 	
+
+	
+
 }

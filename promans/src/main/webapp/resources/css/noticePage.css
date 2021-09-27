@@ -131,6 +131,9 @@
 
 #closebtn {
 	margin-left: 773px;
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px;
 }
 
 #selectBack {
@@ -153,25 +156,34 @@
 	border-top: 4px solid black;
 }
 
-#editbtn {
+/* #editbtn {
 	background-color: #237fbc;
 	border-color: #237fbc;
 	-webkit-box-shadow: 0 3px 0 #1a5c87;
 	box-shadow: 0 3px 0 #1a5c87;
 }
+ 
 
-#editbtn:hover {
+ #editbtn:hover {
 	background-color: #166ea8;
-}
+} 
 
-#editbtn:active {
+ #editbtn:active {
 	top: 3px;
 	outline: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+ */
 
-#Writebtn {
+#editbtn{
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px;
+}
+
+
+/* #Writebtn {
 	background-color: #237fbc;
 	border-color: #237fbc;
 	-webkit-box-shadow: 0 3px 0 #1a5c87;
@@ -188,9 +200,21 @@
 	outline: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
+} */
+
+#Writebtn{
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px;
 }
 
-#deletebtn {
+#deletebtn{
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px;
+}
+
+/* #deletebtn {
 	background-color: #c0392b;
 	border-color: #c0392b;
 	-webkit-box-shadow: 0 3px 0 #8f2a1f;
@@ -206,9 +230,16 @@
 	outline: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
+} */
+
+#btn{
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px;
 }
 
-#btn {
+
+/* #btn {
 	background-color: #7e8c8d;
 	border-color: #7e8c8d;
 	-webkit-box-shadow: 0 3px 0 #4e5b5c;
@@ -224,4 +255,4 @@
 	outline: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
-}
+} */

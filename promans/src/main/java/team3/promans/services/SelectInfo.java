@@ -96,7 +96,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			nc.setFilepath("");
 		}else {
 			nc.setFname(nc.getFile().getOriginalFilename());
-			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
+			nc.setFilepath("resources/images/"+pu.savingFile(nc.getFile()));
 		}
 
 		sql.insert("insNotice", nc);

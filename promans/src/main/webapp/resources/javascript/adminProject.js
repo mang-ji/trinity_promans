@@ -1,4 +1,3 @@
-let sdname;
 let sccode;
 
 
