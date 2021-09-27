@@ -250,7 +250,7 @@ function ajaxComList(jsonData){
 			getCss += "input[id=\"comRadio"+i+"\"]{display:none}";
 			
 			}
-		get += "<input type=\"button\" onClick=\"getComs()\" id=\"checkDisabled\" value=\"요청리스트\"></div>";
+		get += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getComs()\" id=\"checkDisabled\" value=\"요청리스트\"></div>";
 
 		headCss.innerHTML=getCss;
 		document.head.append(headCss);
@@ -370,7 +370,7 @@ function setButton(){
 	setBtn2.style.display = "block";
 	setBtn3.style.display = "block";
 	changeBtn.innerHTML = 
-	"<input type=\"button\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
+	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
 }
 function setButton2(){
 	let closeButton = document.getElementsByName("closeButton")[0];
@@ -499,12 +499,12 @@ function selectSchedule(jsonData){
 		+"추가</div>";	
 		   count++;}
 	
-		list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
+		list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px;\">";
 	
 		//if(jsonData[0].utype != "G"){
-			edit += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
-				+"<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>"
-				+"<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" onClick=\"addJobMember()\">";
+			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left;\" onClick=\"addJobMember()\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
 		//	}
 		selectStep.innerHTML = list;
 		ShceduleEdit.innerHTML = edit;

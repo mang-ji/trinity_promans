@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="resources/css/styles.css" rel="stylesheet" type="text/css">
@@ -21,8 +22,11 @@
 </head>
 <body onLoad="projectOnLoad()">
 	<input type="hidden" name="utype" value="${utype}">
-	<input type="hidden" name="userid" value="${userid}">
-	<input type="hidden" name="cpcode" value="${cpcode}">
+        <input type="hidden" name="cpcode" value="${cpcode}">
+        <input type="hidden" name="prcode" value="${prcode}">
+        <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="sccode" value="${sccode}">
+        <input type="hidden" name="userid" value="${userid}">
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">

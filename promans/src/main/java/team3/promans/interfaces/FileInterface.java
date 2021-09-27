@@ -13,4 +13,7 @@ public interface FileInterface {
 	public int getMaxFcode(CloudBean cb);
 	public List<CloudBean> getFileList(CloudBean cb);
 	public boolean insBookMark(CloudBean cb);
+	public List<CloudBean> noneMarkList(CloudBean cb);
+	public boolean deleteMark(CloudBean cb);
+	public boolean deleteFiles(List<CloudBean> cb);
 }

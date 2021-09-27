@@ -207,16 +207,20 @@
 #dates { margin-left: 130px; }
 #steptitle { font-size: 30px; font-weight: bold; margin-left:10px;}
 #circle { border-radius: 50%; width:50px; height:50px;} 
-.buttonStyle{
-	background-color:#4f5f86;
-	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+.buttonStyle {
+    background-color: #4f5f86;
+    color: #c0c5cd;
+    border-radius: 2px;
+    margin-right: 3px;
 }
 .stepbuttonStyle {
 	background-color:#4f5f86;
 	color:#c0c5cd; 
 	border-radius:10px; margin-right:3px; margin-top:3px;}
 
+div#ShceduleEdit {
+    margin-top: 10px;
+}
 #teamlistt{ text-align:center; font-weight:bold; font-size:20px; margin:30px; border-bottom: solid 3px; }
 #btns {background-color:#fff; color:#929292; text-align:center; 
 width:100px;  margin-left:450px; height:30px; padding-top:3px;

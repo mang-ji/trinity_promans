@@ -341,16 +341,29 @@ public class Restcontroller {
 	public List<Notice_CalendarBean> getNot(@RequestBody List<Notice_CalendarBean> nc) {
 		return si.getNoticeList(nc.get(0));
 	}
+
+	@PostMapping("noneMarkList")
+	public List<CloudBean> noneMarkList(@RequestBody List<CloudBean> cb){
+		return fm.noneMarkList(cb.get(0));
+	}
 	
-<<<<<<< HEAD
+	@PostMapping("deleteMark")
+	public boolean deleteMark(@RequestBody List<CloudBean> cb) {
+		return fm.deleteMark(cb.get(0));
+	}
+	
+	@PostMapping("deleteFiles")
+	public boolean deleteFiles(@RequestBody List<CloudBean> cb) {
+		return fm.deleteFiles(cb);
+		
+	}
+	
 	@PostMapping("/GetWork")
 	public List<ScheduleDetailBean> getWork(@RequestBody List<ScheduleDetailBean> sdb) {
 		
 		return si.getWork(sdb.get(0));
 	}
 	
-=======
-
 	@PostMapping("/DeleteCpMember")
 	public Map<String, String> deleteCpMember(@RequestBody List<CpMemberBean> cmb) {
 		return tm.deleteCpMember(cmb);
@@ -376,5 +389,4 @@ public class Restcontroller {
 		return pm.acceptMakeProject(pb.get(0));
 	}
 
->>>>>>> 11d11c1500e91c8c4156e72a407e58d5b4540298
 }

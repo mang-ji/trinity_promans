@@ -88,6 +88,29 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 		return this.convert(sql.insert("insBookMark", cb));
 	}
 
+	public List<CloudBean> noneMarkList(CloudBean cb) {
+		List<CloudBean> list = sql.selectList("noneMarkList", cb);
+		return list;
+	}
+
+	public boolean deleteMark(CloudBean cb) {	
+		return this.convert(sql.delete("deleteMark", cb));
+	}
+
+	public boolean deleteFiles(List<CloudBean> cb) {
+		boolean result = false;
+
+		for(int i=0; i<cb.size(); i++) {
+			if(this.deleteMark(cb.get(i))) {
+				sql.delete("deleteFiles", cb.get(i));
+				result=true;
+			}else {
+				sql.delete("deleteFiles", cb.get(i));
+				result=true;
+			}
+		}
+		return result;
+	}
 	public ModelAndView submitMail(MailBean mb) {
 		mav = new ModelAndView();
 		MimeMessage mail = javaMail.createMimeMessage();
@@ -123,7 +146,5 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 		
 		return mav;
 	}
-
-
 
 }
