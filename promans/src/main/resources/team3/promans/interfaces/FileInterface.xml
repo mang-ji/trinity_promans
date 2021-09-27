@@ -18,13 +18,13 @@
 		CL_FNAME AS FNAME,
 		CL_FILEPATH AS FILEPATH,
 		CL_FTITLE AS FTITLE,
-		CL_FDATE AS FDATE,
+		TO_CHAR(CL_FDATE,'YYYY-MM-DD') AS FDATE,
 		CL_FCODE AS FCODE,
 		CL_USERID AS FWRITER,
 		CL_OPEN AS FOPEN 
 		FROM CLOUD 
 		WHERE CL_CPCODE = #{cpcode} AND CL_PRCODE = #{prcode} AND
-		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode}
+		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode} ORDER BY CL_FDATE DESC
 	</select>
 	
 	<select id="getMarkList" parameterType="team3.promans.beans.CloudBean" resultType="team3.promans.beans.CloudBean">
@@ -36,16 +36,52 @@
 		CLOUD.CL_FNAME AS FNAME,
 		CLOUD.CL_FILEPATH AS FILEPATH,
 		CLOUD.CL_FTITLE AS FTITLE,
-		CLOUD.CL_FDATE AS FDATE,
+		TO_CHAR(CL_FDATE,'YYYY-MM-DD') AS FDATE,
 		CB.CB_USERID AS USERID,
 		CB.CB_FWRITER AS FWRITER
 		FROM CB INNER JOIN CLOUD ON CB.CB_FCODE = CLOUD.CL_FCODE
 		WHERE CB.CB_CPCODE = #{cpcode} AND CB.CB_PRCODE = #{prcode} AND
-		CB.CB_PSCODE = #{pscode} AND CB.CB_SCCODE = #{sccode} AND CB.CB_USERID = #{userid}
+		CB.CB_PSCODE = #{pscode} AND CB.CB_SCCODE = #{sccode} AND CB.CB_USERID = #{userid} ORDER BY CL_FDATE DESC
 	</select>
 	
 	<insert id="insBookMark" parameterType="team3.promans.beans.CloudBean">
 		INSERT INTO CB VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{fcode},#{userid},#{fwriter})
 	</insert>
+	
+	<select id="noneMarkList" parameterType="team3.promans.beans.CloudBean" resultType="team3.promans.beans.CloudBean">
+	SELECT CL_FCODE AS FCODE,
+		CL_FNAME AS FNAME,
+		CL_FILEPATH AS FILEPATH,
+		CL_FTITLE AS FTITLE,
+		TO_CHAR(CL_FDATE,'YYYY-MM-DD') AS FDATE,
+		CL_FCODE AS FCODE,
+		CL_USERID AS FWRITER,
+		CL_OPEN AS FOPEN 
+		FROM CLOUD 
+		WHERE CL_CPCODE = #{cpcode} AND CL_PRCODE = #{prcode} AND
+		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode}
+ 	MINUS 
+	SELECT CL_FCODE AS FCODE,
+		CL_FNAME AS FNAME,
+		CL_FILEPATH AS FILEPATH,
+		CL_FTITLE AS FTITLE,
+		TO_CHAR(CL_FDATE,'YYYY-MM-DD') AS FDATE,
+		CL_FCODE AS FCODE,
+		CL_USERID AS FWRITER,
+		CL_OPEN AS FOPEN  
+		FROM CLOUD INNER JOIN CB ON CLOUD.CL_FCODE= CB.CB_FCODE
+		WHERE CL_CPCODE = #{cpcode} AND CL_PRCODE = #{prcode} AND
+		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode} AND CB.CB_USERID = #{userid} 
+	</select>
+	
+	
+	<delete id="deleteMark" parameterType="team3.promans.beans.CloudBean">
+	DELETE FROM CB WHERE CB_CPCODE=#{cpcode} AND CB_PRCODE=#{prcode} AND CB_PSCODE=#{pscode} AND CB_SCCODE=#{sccode} AND CB_FCODE=#{fcode}
+	
+	</delete>
+	
+	<delete id="deleteFiles" parameterType="team3.promans.beans.CloudBean">
+	DELETE FROM CLOUD WHERE CL_CPCODE=#{cpcode} AND CL_PRCODE=#{prcode} AND CL_PSCODE=#{pscode} AND CL_SCCODE=#{sccode} AND CL_FCODE=#{fcode}
+	</delete>
 	
 </mapper>

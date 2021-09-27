@@ -42,10 +42,8 @@ public interface SelectInterface {
 	  public GraphDataBean getSDGraph(ScheduleBean sb);
 	  public  GraphDataBean getStepGraph(ScheduleBean sb);
 	  public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb);
-	  
 
 	  public List<ProjectBean> selectProjectReq(ProjectBean pb);
 	  public List<ProjectBean> selectProjectMakeReq(ProjectBean pb);
-
 
 }

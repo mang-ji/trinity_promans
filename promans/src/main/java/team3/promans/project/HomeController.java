@@ -151,7 +151,6 @@ public class HomeController {
 	
 	@PostMapping("writeDiary")
 	public ModelAndView writeDiary(WorkDiaryBean wdb) {
-		System.out.println("일지좀써라");
 		mav = sm.writeDiary(wdb);
 		return mav;
 	}
@@ -178,12 +177,9 @@ public class HomeController {
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
 		try {
 			pu.setAttribute("sccode", sdb.getSccode());
-			System.out.println(sdb.getSccode() + " : " + pu.getAttribute("sccode"));
 		} catch (Exception e) {e.printStackTrace();}
 
 		return "adminSchedule";
-
-
 	}
 	
 	/* 공지사항 삭제 */
@@ -210,11 +206,6 @@ public class HomeController {
 	public ModelAndView registerCompany(@ModelAttribute CpMemberBean cmb) {
 		mav = auth.registerCompany(cmb);
 		return mav;
-	}
-	
-	@GetMapping("TestYuna")
-	public String testYuna() {
-		return "testyuna";
 	}
 	
 	@PostMapping("CreateProject")
