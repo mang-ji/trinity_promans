@@ -53,6 +53,7 @@
 		FROM PNT
 		WHERE NO_CPCODE =
 		#{cpcode}
+		ORDER BY NO_CODE DESC
 	</select>
 	
 	<!-- 공지사항 nocode -->
@@ -122,8 +123,8 @@
 	<select id="getProject"
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectBean">
-
-		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+        
+        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
 		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
@@ -137,11 +138,16 @@
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectStepBean">
 
-		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME
+		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
 		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
-		PRCODE = #{prcode}
+		PRCODE = #{prcode} 
 
+	</select>
+	
+	<select id="selectUtype" parameterType="team3.promans.beans.ProjectMemberBean"
+		resultType="string">
+		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
 	</select>
 
 
@@ -157,7 +163,7 @@
 	<select id="getScheDetail"
 		parameterType="team3.promans.beans.ScheduleDetailBean"
 		resultType="team3.promans.beans.ScheduleDetailBean">
-		SELECT
+		SELECT  sc.sc_name as scname,
 		SD.SD_CODE AS SDCODE,
 		SD.SD_TITLE AS SDCONTENT,
 		TO_CHAR(SD.SD_DATE, 'YYYY-MM-dd') AS SDDATE,
@@ -168,6 +174,8 @@
 		FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
 		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND
 		SD.SD_USERID = CM.CM_USERID
+        inner join sc on sd.sd_cpcode=sc.sc_cpcode and sd.sd_prcode=sc.sc_prcode and 
+        sd.sd_pscode=sc.sc_pscode and sd.sd_sccode=sc.sc_code
 		WHERE SD.SD_CPCODE = #{cpcode} AND
 		SD.SD_PRCODE = #{prcode} AND
 		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode}
@@ -265,18 +273,18 @@
      WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'W'
 	</select>
 	
-	<select id ="getDataGraphPsI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
+	<select id ="getDataGraphPsI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
 	 SELECT COUNT(*) AS stepI FROM  PS
      WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I'
 	</select>
 	
-	<select id ="getDataGraphScI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
-	 SELECT COUNT(*) AS ScheI FROM  SC
+	<select id ="getDataGraphScI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS scheI FROM  SC
      WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'I'
 	</select>
 	
-	<select id ="getDataGraphSdI" parameterType = "team3.promans.beans.ProjectBean" resultType ="int">
-	 SELECT COUNT(*) AS SdI FROM  SD
+	<select id ="getDataGraphSdI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS sdI FROM  SD
      WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'I'
 	</select>
 	
@@ -296,9 +304,25 @@
 	
 	<select id ="getDataGraphSdC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
 	 
-     SELECT COUNT(*) AS SdC FROM  SD
+     SELECT COUNT(*) AS sdC FROM  SD
      WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'S'
 	
 	</select>
+
+	<select id ="getGraphInfo" parameterType = "team3.promans.beans.ProjectBean" resultType = "team3.promans.beans.GraphDataBean">
+		SELECT PM_PRCODE AS PRCODE FROM PM WHERE PM_CPCODE = #{cpcode} AND PM_USERID = #{userid}
+	</select>
+	<select id="getCpMembers" parameterType="team3.promans.beans.CpMemberBean" resultType="team3.promans.beans.CpMemberBean"> 
+		select  cm_userid as userid,
+        cm_uname as uname,
+        cm_uphone as uphone,
+        cm_tecode as tecode,
+        cm_mail as mail,
+        cm_utype as utype
+		from cm where cm_cpcode=#{cpcode} and cm_utype != 'A'
+	</select>
 	
+	<select id="goAdminProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
+		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
+	</select>
 </mapper>

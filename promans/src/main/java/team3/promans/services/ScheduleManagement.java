@@ -59,7 +59,7 @@ public ModelAndView writeDiary(WorkDiaryBean wdb) {
 	}else {
 		mav.addObject("message","일지 등록에 실패하였읍니다.");
 	}
-	mav.setViewName("myDiary");
+	mav.setViewName("redirect:/myDiaryForm");
 	return mav;
 }
 

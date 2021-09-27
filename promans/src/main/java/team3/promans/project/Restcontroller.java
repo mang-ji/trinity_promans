@@ -24,6 +24,7 @@ import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
+import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
@@ -136,7 +137,6 @@ public class Restcontroller {
 
 	@PostMapping("/GetProject")
 	public List<ProjectBean> getProject(@RequestBody List<ProjectMemberBean> pmb) {
-		
 		return si.getProject(pmb.get(0));
 	}
 	
@@ -266,11 +266,11 @@ public class Restcontroller {
 		return pm.insProjectFeedback(sdb.get(0));
 	}
 	
-	@PostMapping("getFileList")
+	@PostMapping("/getFileList")
 	public List<CloudBean> getFileList(@RequestBody List<CloudBean> cb){
 		return fm.getFileList(cb.get(0));
 	}
-	
+
 	@PostMapping("getMarkList")
 	public List<CloudBean> getMarkList(@RequestBody List<CloudBean> cb){
 		return fm.getMarkList(cb.get(0));
@@ -287,17 +287,36 @@ public class Restcontroller {
 		return pm.reqProjectAccept(pb.get(0));
 		
 	}
+
 	
 	@PostMapping("/GetDataGraph")
-	public GraphDataBean getDataGraph(@RequestBody List<ProjectBean> pb) {
-	System.out.println(pb);
-		
+	public List<GraphDataBean> getDataGraph(@RequestBody List<ProjectBean> pb) {
+		System.out.println(pb);
 		return si.getDataGraph(pb);
-	}
-	
-	@PostMapping("DeleteProjectMember")
-	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
-		return pm.deleteProjectMember(pmb.get(0));
+
 	}
 
+	
+	@PostMapping("/DeleteProjectMember")
+	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
+		return pm.deleteProjectMember(pmb.get(0));
+
+	}
+	
+	/* 프로젝트 생성 요청 */
+	@PostMapping("/CreateProject")
+	public ModelAndView createProject(@RequestBody List<ProjectBean> pb) {
+		return pm.createProject(pb.get(0));
+	}
+
+	@PostMapping("/GetCpMembers")
+	public List<CpMemberBean> getCpMembers(@RequestBody List<CpMemberBean> cmb) {
+		return si.getCpMembers(cmb.get(0));
+	}
+	
+	@PostMapping("/GetNot")
+	public List<Notice_CalendarBean> getNot(@RequestBody List<Notice_CalendarBean> nc) {
+		return si.getNoticeList(nc.get(0));
+	}
+	
 }

@@ -31,7 +31,7 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+                <a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
@@ -71,8 +71,11 @@
                 </nav>
                 <!-- Page content-->
 			<div class="container-fluid">
+				 <div id = "selectBack">    
+                     <div id = "selHeight">ProMan'S</div>
+                    <div id="selectStep"></div>
 				<form action="myScheduleForm" method="get">
-					<table id="tschedule">
+					<table class="tschedule">
 						<tr id="shead">
 							<th></th>
 							<th>제목</th>
@@ -82,13 +85,15 @@
 					</table>
 				</form>
 				<div>
-					<input type="button" onClick="reqbtn()" value="완료 요청">
+					<!-- <input type="button" id="reqbtn" onClick="reqbtn()" value="완료 요청"> -->
+					 <input type="button" id="reqbtn" onClick="OpenPopup()" value="완료 요청">
 				</div>
 				<div id="sia"></div>
 			</div>
 		</div>
 		</div>
-		<div id="popup"><div id="popup1"></div></div>
+		<div id="popup"></div>
+		</div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

@@ -1,1 +1,5 @@
 @charset "UTF-8";
+
+#cpMemberList {
+	border: solid grey 1px; width:500px; height:400px;
+}

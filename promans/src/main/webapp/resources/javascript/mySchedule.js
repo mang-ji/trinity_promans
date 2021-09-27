@@ -21,27 +21,12 @@ function getSchedule(data) {
 		
 	for (i=0; i<data.length; i++) {
 		list1 +=`<tr>`;
-		list1 +=`<td><input type="checkbox" name="reqs" value=${data[i].sdcode}></td>`;
-		list1 +=`<td><input type="hidden" name="sdcode" id =sss+data[i] value=${data[i].sdcode}><label for = sss+data[i]></td>`;
-		//list1 +=`<td>${[i]}</td>`;
+		list1 +="<input type=\"hidden\" name=\"sdcontent\" value=\""+data[i].sdcontent+"\">";
+		list1 +=`<td><input type="hidden" name="sdcode" value=${data[i].sdcode}></td>`;
 		list1 +=`<td>${data[i].sdcontent}</td>`;
 		list1 +=`<td>${data[i].sddate}</td></tr>`;
 	}	
 	slist1.innerHTML = list1;
-
-	
-	
-	
-	
-	/*for (i=0; i<data.length; i++) {
-		list +=`<tr onClick = sview(${data[i].sdcode})>`;
-		list +=`<td>${[i]+1}</td>`;
-		list +=`<td>${data[i].sdcontent}</td>`;
-		list +=`<td>${data[i].sddate}</td></tr>`;
-	}
-	
-	
-	slist1.innerHTML = list;*/
 	
 	window.addEventListener('load',function(){//addEventListener undefined 수술
 		let dels1 = document.getElementsByName("dbtn1")[0];
@@ -51,14 +36,12 @@ function getSchedule(data) {
 		shead1.innerHTML = `<th></th><th></th>
 							<th>제목</th>
 							<th>작성날짜</th>`;
-		
-		
 		if(list1 != ""){
 			slist1.innerHTML = list1;
 		}else{
-			alert("업무가 없읍니다!");
-		
-	}
+			alert("내 업무가 없습니다.");
+			
+		}
 		});
 	});
 	console.log(slist1);
@@ -76,9 +59,7 @@ function sview(sdcode){
 function getSchedulelist(data){
 	let sia1 = document.getElementById("sia");
 	let tschedule1 = document.getElementById("tschedule");
-	let Wbtn = document.getElementById("Writebtn");
 	let html = "";
-	Wbtn.remove();
 	tschedule1.remove();
 
 	html +=`<div id ="box">`;
@@ -89,60 +70,45 @@ function getSchedulelist(data){
 		
 	sia1.innerHTML = html;
 }
-/*
-function OpenPopup1(){
-	let popup = document.getElementById("popup");
-	let popup1 = document.getElementById("popup1");
-	let cpcode = document.getElementsByName("cpcode")[0];
-	let prcode = document.getElementsByName("prcode")[0];
-	let pscode = document.getElementsByName("pscode")[0];
-	let sccode = document.getElementsByName("sccode")[0];
-	let userid = document.getElementsByName("userid")[0];
+
+function OpenPopup(data){
+	let popup = document.getElementById("popup");		
+	let prcode = document.getElementsByName("prcode")[0].value;
+	let pscode = document.getElementsByName("pscode")[0].value;
+	let cpcode = document.getElementsByName("cpcode")[0].value;
+	let userid = document.getElementsByName("userid")[0].value;
+	let sdcode = document.getElementsByName("sdcode").value;
+	let sccode = document.getElementsByName("sccode")[0].value;
+	let sdcontent = document.getElementsByName("sdcontent");
 	let html = "";
-		
-	html +=`<form action="writeSchedule" method="post">`;
+	console.log(sdcontent[0].value);
+	console.log(sdcontent[1].value);
+	console.log(sdcontent[2].value);
 	html +=`<input type ="hidden" name ="cpcode" value =${cpcode.value}>`;
 	html +=`<input type ="hidden" name ="prcode" value =${prcode.value}>`;
 	html +=`<input type ="hidden" name ="pscode" value =${pscode.value}>`;
-	html +=`<input type ="hidden" name ="sccode" value =${sccode.value}>`;
 	html +=`<input type ="hidden" name ="userid" value =${userid.value}>`;
-	html +=`<div id ="popup1">`;
-	html +=`<input type="button" id="closebtn" value="닫기" onClick="windowClose()">`;
-	html +=`<input type ="text" id ="title" name ="sdcontent" placeholder="제목">`;
-	html +=`<input type ="submit" id ="pbtn" value ="작성" onClick="sendSchedule()">`;
+	html +=`<input type ="hidden" name= "sccode" value =${sccode.value}>`;
+	html +=`<div class ="rspopup">`;
+	html +=`<h6>완료 요청</h6>`;
+	html +=`<style>h6{text-align: center;}</style>`;
+	for(i=0; i<sdcontent.length; i++){
+		html +=`<input type ="checkbox" name ="reqs" value=${sdcode}>`;
+		html +="<div id =\"sdcontenta\" name =\"sdcontents\">"+sdcontent[i].value+"</div>";
+	}
+	html +=`<input type ="submit" class ="rbtn" value ="요청" onClick="reqbtn()">`;
+	html +=`<input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
 	html +=`</div>`;
-	html +=`</form>`;
-
-	popup1.innerHTML = html;
+	
+	popup.innerHTML = html;
 	popup.style.display = "block";
-}
-
-function sendSchedule(){
-	let cpcode = document.getElementsByName("cpcode")[0];
-	let prcode = document.getElementsByName("prcode")[0];
-	let pscode = document.getElementsByName("pscode")[0];
-	let sccode = document.getElementsByName("sccode")[0];
-	let sdtitle1 = document.getElementsByName("sdcontent")[0];
 	
-	let f= document.createElement("form");
-	
-	f.appendChild(cpcode);
-	f.appendChild(prcode);
-	f.appendChild(pscode);
-	f.appendChild(sccode);
-	f.appendChild(sdtitle1);
-	
-	
-	document.body.appendChild(f);
-	
-	f.submit();
 }
 	
 function windowClose(){
 	let popup = document.getElementById("popup");
 	popup.style.display = "none";
-}*/
-
+}
 //완료요청
 function reqbtn(){
 	let reqs1 = document.getElementsByName("reqs");
@@ -151,7 +117,6 @@ function reqbtn(){
 	let pscode = document.getElementsByName("pscode")[0].value;
 	let sccode = document.getElementsByName("sccode")[0].value;
 	let result1 = "";
-	
 	let data = [];
 	
 	for(i=0; i<reqs1.length; i++){
@@ -160,15 +125,14 @@ function reqbtn(){
 	}
 	
 	postAjax('rest/ReqSchedule', JSON.stringify(data), 'reqSchedule', 2);
-	
 }
 //요청 버튼 클릭 후
 function reqSchedule(data){
-	if(data == true){
-		alert("완료~");
-		location.href("myScheduleForm");
+	if(data.push!=""){
+		alert("요청이 완료되었습니다.");
+		location.replace("myScheduleForm");
 	}else{
-		location.href("myScheduleForm");
-		alert("서버와의 연결이 끊겼읍니다");
+		location.replace("myScheduleForm");
+		alert("다시 시도해 주세요.");
 	}
 }
