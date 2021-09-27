@@ -23,5 +23,8 @@ public interface ProjectInterface {
 	public Map<String,String> deleteProjectMember(ProjectMemberBean pmb);
 	public ModelAndView createProject(ProjectBean pb);
 	public int getProMax(ProjectBean pb);
+	public Map<String,String> updateProjectAccept(ProjectBean pb);
+	public Map<String, String> rejectProject(ProjectBean pb);
+	public Map<String, String> reqProjectAccept(ProjectBean pb);
 
 }

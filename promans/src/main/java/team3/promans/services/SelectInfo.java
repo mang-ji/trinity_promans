@@ -96,7 +96,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			nc.setFilepath("");
 		}else {
 			nc.setFname(nc.getFile().getOriginalFilename());
-			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
+			nc.setFilepath("resources/images/"+pu.savingFile(nc.getFile()));
 		}
 
 		sql.insert("insNotice", nc);
@@ -139,12 +139,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		try {
 			pmb.setUserid((String)pu.getAttribute("userid"));
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
-		String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
-		try {
-			pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
-		} catch (Exception e) {e.printStackTrace();} 
+		if(list.size() !=0) {
+			String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
+			try {
+				pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
+			} catch (Exception e) {e.printStackTrace();} 
+		}
+
 		
 		return list;
 	}
@@ -309,6 +312,63 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		} catch (Exception e) {e.printStackTrace();}
 		mav.setViewName("adminProject");
 		return mav;
+	}
+
+	public GraphDataBean getSDGraph(ScheduleBean sb) {
+	
+    GraphDataBean gdb = new GraphDataBean();
+		
+
+		gdb.setSdW(sql.selectOne("getSdW", sb));
+		gdb.setSdI(sql.selectOne("getSdI", sb));
+		gdb.setSdC(sql.selectOne("getSdC", sb));	
+		
+		  
+		return gdb;
+		
+		
+	}
+
+
+
+	public GraphDataBean getStepGraph(ScheduleBean sb) {
+		
+      GraphDataBean gdb = new GraphDataBean();
+	
+        if(sb.getPscode() ==null) {
+        	System.out.println("요긴 step");
+        	
+        	gdb.setStepW(sql.selectOne("getStepW", sb));
+    		gdb.setStepI(sql.selectOne("getStepI", sb));
+    		gdb.setStepC(sql.selectOne("getStepC", sb));
+    		
+    		
+        }else {
+        	System.out.println("요긴 schedule");
+    		gdb.setPscode(sb.getPscode());
+    		gdb.setScheW(sql.selectOne("getScheW", sb));
+    		gdb.setScheI(sql.selectOne("getScheI",sb));
+    		gdb.setScheC(sql.selectOne("getScheC",sb));
+        }
+			
+			
+		return gdb;
+	}
+	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
+		return sql.selectList("selectReqProject", pb);
+	}
+
+
+	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
+		
+		List<ScheduleDetailBean> SDList1;
+		SDList1 = sql.selectList("SDList1", sdb);
+		return SDList1;
+	}
+
+
+	public List<ProjectBean> selectProjectMakeReq(ProjectBean pb) {
+		return sql.selectList("selectProjectMakeReq", pb);
 	}
 	
 	

@@ -2,14 +2,25 @@ package team3.promans.services;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.CloudBean;
+import team3.promans.beans.MailBean;
+
 
 @Service
 public class FileManagement implements team3.promans.interfaces.FileInterface{
@@ -21,6 +32,9 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 
 	@Autowired
 	SqlSessionTemplate sql;
+
+	@Autowired
+	JavaMailSenderImpl javaMail;
 
 	ModelAndView mav;
 
@@ -96,6 +110,41 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 			}
 		}
 		return result;
+	}
+	public ModelAndView submitMail(MailBean mb) {
+		mav = new ModelAndView();
+		MimeMessage mail = javaMail.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mail,"UTF-8");
+		
+		try {
+			StringBuffer sb = new StringBuffer();
+			sb.append("----------------------------------------------<br>");
+			sb.append("보내는 사람 : " + (String) pu.getAttribute("mail"));
+			sb.append("<br>----------------------------------------------<br>");
+			sb.append(mb.getMcontents());
+			
+			String contents = sb.toString();
+			
+			String filename = "resources/images/"+pu.savingFile(mb.getFile());
+			
+			if(mb!=null) {
+				helper.setFrom("siriwitcher@naver.com");
+				helper.setTo(mb.getTo());
+				helper.setSubject(mb.getTitle());
+				helper.setText(contents,true);
+				
+				
+				FileSystemResource fsr = new FileSystemResource(filename);
+			    helper.addAttachment(mb.getFile().getOriginalFilename(), fsr);
+				
+				javaMail.send(mail);
+				mav.setViewName("sendMailPage");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}					
+		
+		return mav;
 	}
 
 }

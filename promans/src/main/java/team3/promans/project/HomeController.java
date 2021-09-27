@@ -21,6 +21,7 @@ import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.beans.MailBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
@@ -142,9 +143,14 @@ public class HomeController {
 
 		return "myDiary";
 	}
+	
+	@GetMapping("allAdminManage")
+	public String allAdminManage() {
+		return "allAdminManage";
+	}
+	
 	@PostMapping("writeDiary")
 	public ModelAndView writeDiary(WorkDiaryBean wdb) {
-		System.out.println("일지좀써라");
 		mav = sm.writeDiary(wdb);
 		return mav;
 	}
@@ -171,12 +177,9 @@ public class HomeController {
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
 		try {
 			pu.setAttribute("sccode", sdb.getSccode());
-			System.out.println(sdb.getSccode() + " : " + pu.getAttribute("sccode"));
 		} catch (Exception e) {e.printStackTrace();}
 
 		return "adminSchedule";
-
-
 	}
 	
 	/* 공지사항 삭제 */
@@ -205,14 +208,15 @@ public class HomeController {
 		return mav;
 	}
 	
-	@GetMapping("TestYuna")
-	public String testYuna() {
-		return "testyuna";
-	}
-	
 	@PostMapping("CreateProject")
 	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
 		return pm.createProject(pb);
+	}
+	
+	@PostMapping("/submitMail")
+	public ModelAndView submitMail(@ModelAttribute MailBean mb) {
+		mav = fm.submitMail(mb);
+		return mav;
 	}
 }
 

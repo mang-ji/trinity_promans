@@ -5,7 +5,9 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -117,4 +119,27 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 		String result = sql.selectOne("getPsUtype", psb);
 		return (result!=null)?true:false;
 	}
+
+	public Map<String, String> deleteCpMember(List<CpMemberBean> cmb) {
+		Map<String,String> map = new HashMap<String,String>();
+		
+		for(int i=0;i<cmb.size();i++) {
+			/* 회사 멤버테이블에서 비사원 업데이트 */
+			if(this.convertBoolean(sql.update("deleteCpMember",cmb.get(i)))){
+				/*  프로젝트 멤버에 포함 되어 있는지 확인하고 */
+				if(this.convertBoolean(sql.selectOne("selecttProjectMember", cmb.get(i)))) {
+					/* 프로젝트멤버 테이블에서 삭제 ! */
+					if(this.convertBoolean(sql.update("deleteProjectMember",cmb.get(i)))) {
+						map.put("message",  cmb.get(i).getUserid()+ "님 비사원처리가 완료되었습니다.");
+					}
+				}else {map.put("message",  cmb.get(i).getUserid()+ "님 비사원처리가 완료되었습니다."); }
+			}
+		}
+		return map;
+	}
+	
+	
+	
+
+	
 }

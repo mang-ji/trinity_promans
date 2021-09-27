@@ -1,11 +1,80 @@
 /* 업무 조회 */
+
+
 function getSchedule(){
 	
 	postAjax('', clientData, getSchedule)
 }
 
+
+function getSDGraph(jsonData){
+	alert("요기 못온다는 거쥐");
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "litres";
+pieSeries.dataFields.category = "country";
+
+// Let's cut a hole in our Pie chart the size of 30% the radius
+chart.innerRadius = am4core.percent(30);
+
+// Put a thick white border around each Slice
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+pieSeries.slices.template
+  // change the cursor on hover to make it apparent the object can be interacted with
+  .cursorOverStyle = [
+    {
+      "property": "cursor",
+      "value": "pointer"
+    }
+  ];
+
+pieSeries.alignLabels = false;
+pieSeries.labels.template.bent = true;
+pieSeries.labels.template.radius = 3;
+pieSeries.labels.template.padding(0,0,0,0);
+
+pieSeries.ticks.template.disabled = true;
+
+// Create a base filter effect (as if it's not there) for the hover to return to
+var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+shadow.opacity = 0;
+
+// Create hover state
+var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+// Slightly shift the shadow and make it more prominent on hover
+var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+hoverShadow.opacity = 0.7;
+hoverShadow.blur = 5;
+
+// Add a legend
+chart.legend = new am4charts.Legend();
+
+chart.data = [{
+
+  "country": "대기",
+  "litres": jsonData.sdW
+},{
+  "country": "진행",
+  "litres": jsonData.sdI
+}, {
+  "country": "완료",
+  "litres": jsonData.sdC
+}];
+
+}
+
 function getNot(jsonData){
-	
 	
 	let child1 = document.getElementById("child1");
 	let count = 1;
@@ -18,15 +87,74 @@ function getNot(jsonData){
 		count++;
 	}
 	
+	
 
 }
 
+
+function getWork(jsonData){
+	
+	let notices = document.getElementById("notices");
+	let child2 = document.getElementById("child2");
+	let count =1;
+	
+	for(i=0; i<jsonData.length; i++ ){
+  
+	
+	child2.innerHTML += "<div><div><input type='checkbox' name='workCheck' value = value=\'"+jsonData[i].sdcode+"\' onClick = 'clickCheck(this)'/>"+"&ensp;"+count+".&ensp;"+jsonData[i].sdcontent +"</div></div>";
+	
+      
+		count++;
+
+	
+   
+	}
+	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
+	
+}
+
+function clickCheck(target) {
+   const checkboxes 
+      = document.getElementsByName("workCheck");
+  
+  checkboxes.forEach((cb) => {
+    cb.checked = false;
+  })
+  
+  target.checked = true;
+}
+
+
+function reqWork(){
+	
+}
+
+function popClose(){
+	let backPop = document.getElementById("backPop");
+	let modalForm = document.getElementById("Form");
+	let backModal = document.getElementById("modal_background");
+
+	
+	backPop.style.display = "none";
+	
+	backModal.remove()
+		
+		
+	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div></div>";
+
+	
+		
+	
+	
+}
 
 function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑션.
 
 	let list = "";
 	let selectSD = document.getElementById("selectScheduleDetail");
 	let feed = document.getElementsByClassName("feed")[0];
+	
+	
 	
 	feed.innerHTML +="추가</div>";
 	feed.innerHTML += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
@@ -42,6 +170,10 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 	}
 	feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
 	
+	
+	alert(JSON.stringify(jsonData));
+	
+	postAjax("rest/GetWork", JSON.stringify(jsonData), 'getWork',2);
 	
 	
 }
