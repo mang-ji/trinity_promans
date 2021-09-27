@@ -40,6 +40,7 @@ public interface SelectInterface {
 	  public ModelAndView goAdminProject(ProjectMemberBean pmb);
 	  public GraphDataBean getSDGraph(ScheduleBean sb);
 	  public  GraphDataBean getStepGraph(ScheduleBean sb);
+	  public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb);
 	  
 
 }

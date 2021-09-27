@@ -340,4 +340,10 @@ public class Restcontroller {
 		return si.getNoticeList(nc.get(0));
 	}
 	
+	@PostMapping("/GetWork")
+	public List<ScheduleDetailBean> getWork(@RequestBody List<ScheduleDetailBean> sdb) {
+		
+		return si.getWork(sdb.get(0));
+	}
+	
 }

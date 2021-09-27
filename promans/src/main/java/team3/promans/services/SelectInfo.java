@@ -356,6 +356,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
+	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
+		
+		List<ScheduleDetailBean> SDList1;
+		SDList1 = sql.selectList("SDList1", sdb);
+		return SDList1;
+	}
+
+
+
 
 
 	

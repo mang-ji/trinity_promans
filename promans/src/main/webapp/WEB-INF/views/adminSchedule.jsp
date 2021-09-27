@@ -55,6 +55,16 @@
        	<div id="modalDiv"></div>
         <div id = "modal1" style="display:none;" ></div>
         <div id = "modal2"  style="display:none;"></div>
+        
+        <form action='CreateProject' method='post' >
+	<div id ='Form'>
+	 <div id="modal_background">
+	 	<div id="modal_box">
+	 	<div id="requestList"></div>
+	 	</div>
+	 </div>
+	 </div>
+	</form>
         	
         <div  class="d-flex" id="wrapper">
             <!-- Sidebar-->
@@ -116,11 +126,13 @@
              <div id="notices">
                 <div id = "redirect1">이전 화면으로</div>
              	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
-             	<div id="child2"></div>
+             	<div id="child2" ><div id = 'SCList'>WORK LIST</div></div>
              </div>
             
          
         </div>
+        
+        <div id="backPop"></div>
         
        
 

@@ -170,7 +170,10 @@
 		ST.ST_CODE AS SDDCODE,
 		ST.ST_NAME AS SDDSTATE,
 		CM.CM_UNAME AS USERNAME,
-		SD.SD_USERID AS USERID 
+		SD.SD_USERID AS USERID,
+		SD.SD_SCCODE AS SCCODE,
+		SD.SD_CPCODE AS CPCODE,
+		SD.SD_PRCODE AS PRCODE
 		FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
 		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND
 		SD.SD_USERID = CM.CM_USERID
@@ -377,4 +380,16 @@
 	<select id="goAdminProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
 		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
 	</select>
+	
+	<select id = "SDList1" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType = "team3.promans.beans.ScheduleDetailBean">
+	
+	 SELECT SD_CPCODE AS CPCODE, SD_PRCODE AS PRCODE, SD_PSCODE AS PSCODE , SD_SCCODE AS SCCODE, SD_TITLE AS SDCONTENT, ST.ST_NAME AS SDDSTATE
+     FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
+     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_USERID = #{userid} AND SD_STATE = 'I'
+	
+	</select>
+	
+	
+	
+	
 </mapper>
