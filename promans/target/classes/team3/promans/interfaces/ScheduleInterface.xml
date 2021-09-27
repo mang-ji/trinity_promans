@@ -7,7 +7,7 @@
 <!-- 업무 디테일 작성(글 작성) -->
 	<insert id="writeSchedule" parameterType="team3.promans.beans.ScheduleDetailBean">
 		INSERT INTO SD(SD_CPCODE,SD_PRCODE,SD_PSCODE,SD_SCCODE,SD_USERID,SD_CODE,SD_TITLE,SD_DATE,SD_STATE)
-		VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{userid},#{sdcode},#{sdcontent},TO_CHAR(SYSDATE,'YYYYMMDD'),'W')
+		VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},#{userid},#{sdcode},#{sdcontent},SYSDATE,'W')
 	</insert>
 
 <!-- 업무 일지 작성 -->

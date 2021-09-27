@@ -87,14 +87,13 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
-		System.out.println("왜또그러냐");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
 	//업무디테일작성
 	@PostMapping("/WriteSchedule")
 	public String writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
-		//sm.writeSchedule(sdb.get(0))
+
 		return sm.writeSchedule(sdb.get(0));
 	}
 	
@@ -113,7 +112,6 @@ public class Restcontroller {
 	//업무 완료요청(일반멤버)
 	@PostMapping("/ReqSchedule")
 	public boolean reqSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
-		System.out.println("요청 귀귀");
 		return sm.reqSchedule(sdb);
 	}
 		
