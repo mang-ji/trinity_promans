@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
 <meta charset="utf-8" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="resources/css/styles.css" rel="stylesheet" type="text/css">
