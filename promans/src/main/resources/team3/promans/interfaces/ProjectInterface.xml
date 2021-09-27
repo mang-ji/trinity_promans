@@ -21,11 +21,11 @@
    </insert>
    
    <insert id="insProjectMember" parameterType="team3.promans.beans.ProjectMemberBean">
-       insert into pm values('A123456','PR01',#{userid},'G','1')
+       insert into pm values(#{cpcode},#{prcode},#{userid},'G','1')
    </insert>
    
    <select id="checkUserid" parameterType="team3.promans.beans.ProjectMemberBean" resultType="int" >
-      select count(*) from pm where pm_userid = #{userid}
+      select count(*) from pm where pm_userid = #{userid} and pm_prcode=#{prcode} and pm_cpcode=#{cpcode}
    </select>
    
 
@@ -52,4 +52,26 @@
      select nvl(max(substr(pr_code,3,4)),0) from pr where pr_cpcode=#{cpcode} 
 
 	</select>
+	
+	<update id="updateProjectAccept" parameterType="team3.promans.beans.ProjectBean" >
+		update pr set pr_state='S' where pr_cpcode=#{cpcode}  and pr_code=#{prcode} 
+	</update>
+	<insert id="rejectProject" parameterType="team3.promans.beans.ProjectBean">
+		insert into prft values(#{cpcode},#{prcode},#{userid},#{prcontent},'W',sysdate)
+	</insert>
+	<update id="updateFeedBack" parameterType="team3.promans.beans.ProjectBean">
+		update pr set pr_state='I' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
+	</update>
+	<insert id="insertPmTable" parameterType="team3.promans.beans.ProjectBean">
+		insert into pm values(#{cpcode},#{prcode},#{userid},#{prutype},'1')
+	</insert>
+	<update id="acceptMakeProject" parameterType="team3.promans.beans.ProjectBean">
+		update pr set pr_state='I' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
+	</update>
+	<update id="updateLeader" parameterType="team3.promans.beans.ProjectBean">
+		update pm set pm_utype='L' where pm_cpcode=#{cpcode} and pm_prcode=#{prcode}
+	</update>
+	<update id="reqProjectAccept" parameterType="team3.promans.beans.ProjectBean"> 
+		update pr set pr_state='W' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
+	</update>
 </mapper>

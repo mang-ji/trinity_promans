@@ -41,8 +41,9 @@ function selectProject(jsonData){
 	let headCss = document.createElement("style");
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
+	let prcode = document.getElementsByName("prcode")[0];
 
-	list += "<span id='span1'>No.</span><span id='span1'>Project Step</span><span id='span1'>Progress</span>";
+	list += "<span id='span1'>No.</span><span id='span2'>Project Step</span><span id='span3'>Progress</span>";
 	for(i=0; i<jsonData.length; i++){
 		 list += "<div class='steplists' onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"
 				+jsonData[i].pscode+"\' /><div id='numbers'>"+ (i+1) + "</div><div id='psnames'>"
@@ -50,10 +51,10 @@ function selectProject(jsonData){
 	}
 	
 	if(utype == "L" || utype == "A"){
-		list+= "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+jsonData[0].prcode+"\')\" />";
-	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+jsonData[0].prcode+"\')\" />";
-		list+= "<input type='button' class='buttonStyle' value='팀원 추가' onClick=\"getCompanyMember(\'"+jsonData[0].prcode+"\')\"/>";
-		list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+jsonData[0].prcode+"\')\"/>";
+		list+= "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+prcode.value+"\')\" />";
+	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+prcode.value+"\')\" />";
+		list+= "<input type='button' class='buttonStyle' value='팀원 추가' onClick=\"getCompanyMember(\'"+prcode.value+"\')\"/>";
+		list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+prcode.value+"\')\"/>";
 	}
 	
 	selectStep.innerHTML = list;
@@ -397,7 +398,7 @@ function selectSchedule(jsonData){
 		let selectStep = document.getElementById("selectStep");
 		let utype = document.getElementsByName("utype")[0].value;
 		
-		list += "<span id='span1'>No.</span><span  id='span1' >Schedule</span><span  id='span1'>Progress</span>";
+		list += "<span id='span1'>No.</span><span  id='span2' >Schedule</span><span  id='span2'>Progress</span>";
 		
 		for(i=0; i<jsonData.length; i++){
 		
@@ -857,14 +858,13 @@ function deleteProjectMember(jsonData){
 
 /* 프로젝트 스텝들의 완료 요청 리스트 불러오는 함수 */
 function reqProjectAccept(prcode){
-	let cpcode = document.getElementById("cpcode");
+	let cpcode = document.getElementsByName("cpcode")[0];
 	let clientData = [{cpcode:cpcode.value, prcode:prcode}];
 	
-	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectAccept",2);
-	//postAjax("rest/SelectWaitingStep", JSON.stringify(clientData),"getWaitingProStep",2);
+	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectResult",2);
 }
-function reqProjectAccept(jsonData){
-	alert(jsonData);
+function reqProjectResult(jsonData){
+	alert(jsonData.message);
 }
 
 
@@ -873,16 +873,16 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	
-  		 box.innerHTML += "<div id='modal_background2'>";
+		
+  		 box.innerHTML = "<div id='modal_background2'>";
   		 box.innerHTML += "<div id='modal_box2'></div></div>";
-  		 box.innerHTML += "<div class='modal' tabindex='-1' role='dialog' style='border:1px solid black;'>";
-  		 box.innerHTML += "프로젝트 스텝명 : <input type='text' name='stepName'/><br>";
-  		 box.innerHTML += "<div id='manager'>관리자 : <input type='text' id='selectedManager'/><input type='button' value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
-
-   		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
-  		 box.innerHTML += "<div class='modal-footer'>";
-  		 box.innerHTML += "<button type='button' class='btn btn-primary' id='make' >Make Step</button>";
-  		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
+		 box.innerHTML = "<div id=\"teamlistt\"> 프로젝트 생성 </div>"
+						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">프로젝트 스텝명 : </div>"
+						+"<input type='text' id='stepnamee' name='stepName'/></div>"
+						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">관리자 : </div>"
+						+"<input type='text' id='teamonelistinput'/><input type='button' value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
+  		 box.innerHTML += "<div id=\"btnss\" >생성하기</div>";
+  		 box.innerHTML += "<div id=\"btns\" onClick='close1()'>뒤로가기</div>";
   		 box.innerHTML += "</div></div></div></div>";
 
 		makeBtnClick(prcode);
@@ -895,7 +895,7 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 
 
 function makeBtnClick(prcode){
-	let make = document.getElementById("make");
+	let make = document.getElementById("btns");
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	make.addEventListener('click', function(){
@@ -977,12 +977,13 @@ function makeProjectMember(jsonData){
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	
+	box.innerHTML = "<div id=\"teamlistt\"> 프로젝트 팀원 리스트 </div>";
 	for(i=0; i<jsonData.length ;i++){
-		box.innerHTML += "<input type='radio' name='useridRadio' value=\'"+jsonData[i].userid+"\'>" + jsonData[i].userid +" : "+ jsonData[i].uname+ "</><br>";
+		box.innerHTML += "<div id=\"teamonelist\"><input type='radio' id=\"teamonelistinput\" name='useridRadio' value=\'"+jsonData[i].userid+"\'>" + jsonData[i].userid +" : "+ jsonData[i].uname+ "</></div>";
 	}
 	 
-	box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendSelectedMember(\'"+prcode.value+"\')\" >select</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
+	box.innerHTML += "<div id=\"btns\" onClick=\"sendSelectedMember(\'"+prcode.value+"\')\" >선택하기</div>";
+	box.innerHTML += "<div id=\"btns\" onClick=\"close1()\">뒤로가기</div>";
 	box.style.display = "block";
 	modal_background.style.display ="block";
 	
@@ -1027,7 +1028,6 @@ function sendSelectedMember(prcode){
       userid = node.value;
     	}
 	})
-
 	let jsonData = JSON.stringify([{cpcode:cpcode.value, prcode:prcode, userid:userid}]);
 	
 	postAjax("rest/InsProjectMember", jsonData,"insProjectMember",2);
@@ -1112,7 +1112,7 @@ function getFeedState(event) {
 }
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
-alert(data + "확인졈~~~");
+
 	let modal = document.getElementById("modal_edge");
 	let array = data.split(",");
 	let feedbox = document.getElementById("feedcontents");

@@ -139,12 +139,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		try {
 			pmb.setUserid((String)pu.getAttribute("userid"));
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
-		String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
-		try {
-			pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
-		} catch (Exception e) {e.printStackTrace();} 
+		if(list.size() !=0) {
+			String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
+			try {
+				pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
+			} catch (Exception e) {e.printStackTrace();} 
+		}
+
 		
 		return list;
 	}
@@ -309,6 +312,18 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		} catch (Exception e) {e.printStackTrace();}
 		mav.setViewName("adminProject");
 		return mav;
+	}
+
+
+
+	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
+		return sql.selectList("selectReqProject", pb);
+	}
+
+
+
+	public List<ProjectBean> selectProjectMakeReq(ProjectBean pb) {
+		return sql.selectList("selectProjectMakeReq", pb);
 	}
 	
 	
