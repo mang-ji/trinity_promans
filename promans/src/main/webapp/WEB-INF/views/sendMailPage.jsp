@@ -17,8 +17,11 @@
     </head>
     <body onLoad="projectOnLoad()">
         	<input type="hidden" name="utype" value="${utype}">
-        	<input type="hidden" name="userid" value="${userid}">
-        	<input type="hidden" name="cpcode" value="${cpcode}">
+        <input type="hidden" name="cpcode" value="${cpcode}">
+        <input type="hidden" name="prcode" value="${prcode}">
+        <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="sccode" value="${sccode}">
+        <input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
@@ -32,7 +35,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
-               		<input type="button" onClick="logout()" value="로그아웃">
+               	    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
                 </div>
             </div>
             <!-- Page content wrapper-->

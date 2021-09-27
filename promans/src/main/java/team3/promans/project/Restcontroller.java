@@ -323,4 +323,22 @@ public class Restcontroller {
 		return si.getNoticeList(nc.get(0));
 	}
 	
+
+
+	@PostMapping("noneMarkList")
+	public List<CloudBean> noneMarkList(@RequestBody List<CloudBean> cb){
+		return fm.noneMarkList(cb.get(0));
+	}
+	
+	@PostMapping("deleteMark")
+	public boolean deleteMark(@RequestBody List<CloudBean> cb) {
+		return fm.deleteMark(cb.get(0));
+	}
+	
+	@PostMapping("deleteFiles")
+	public boolean deleteFiles(@RequestBody List<CloudBean> cb) {
+		return fm.deleteFiles(cb);
+		
+	}
+	
 }

@@ -15,46 +15,46 @@ import team3.promans.beans.CloudBean;
 public class FileManagement implements team3.promans.interfaces.FileInterface{
 	@Autowired
 	Encryption enc;
-	
+
 	@Autowired
 	ProjectUtils pu;
-	
+
 	@Autowired
 	SqlSessionTemplate sql;
-	
+
 	ModelAndView mav;
 
 	public ModelAndView insFile(CloudBean cb) {
 		mav = new ModelAndView();
 		int maxFcode;
-		
+
 		for(int i=0; i<cb.getFile().size(); i++) {
-			
+
 			maxFcode = this.getMaxFcode(cb);
-			
+
 			cb.setFname(cb.getFile().get(i).getOriginalFilename());
 			cb.setFilepath("resouces/images/"+cb.getFname());
 			cb.setFcode("FC"+ (maxFcode+1));
-			
+
 			if(this.convert(sql.insert("insFile", cb))) {
 				mav.setViewName("redirect:/cloudForm");
 				mav.addObject("message", "업로드를 완료하였습니다.");
-				
+
 			}else {
 				mav.setViewName("redirect:/projectForm");
 				mav.addObject("message", "업로드를 실패했습니다.다시 시도해주세요.");
 			}
 		}
-		
-		
+
+
 		return mav;
 	}
-	
+
 	private boolean convert(int v) {
 		return (v>0)?true:false;
 	}
 
-	
+
 	public int getMaxFcode(CloudBean cb) {
 		return sql.selectOne("getMaxFcode", cb);
 	}
@@ -73,5 +73,29 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 	public boolean insBookMark(CloudBean cb) {
 		return this.convert(sql.insert("insBookMark", cb));
 	}
-	
+
+	public List<CloudBean> noneMarkList(CloudBean cb) {
+		List<CloudBean> list = sql.selectList("noneMarkList", cb);
+		return list;
+	}
+
+	public boolean deleteMark(CloudBean cb) {	
+		return this.convert(sql.delete("deleteMark", cb));
+	}
+
+	public boolean deleteFiles(List<CloudBean> cb) {
+		boolean result = false;
+
+		for(int i=0; i<cb.size(); i++) {
+			if(this.deleteMark(cb.get(i))) {
+				sql.delete("deleteFiles", cb.get(i));
+				result=true;
+			}else {
+				sql.delete("deleteFiles", cb.get(i));
+				result=true;
+			}
+		}
+		return result;
+	}
+
 }
