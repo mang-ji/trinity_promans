@@ -102,11 +102,13 @@ function getWork(jsonData){
   
 	
 	child2.innerHTML += "<div><div><input type='checkbox' name='workCheck' value = value=\'"+jsonData[i].sdcode+"\' onClick = 'clickCheck(this)'/>"+"&ensp;"+count+".&ensp;"+jsonData[i].sdcontent +"</div></div>";
-	
+    alert(jsonData[i].sdcode);
+ child2.innerHTML += "<input type = 'hidden' name 'sdcode' value = \'"+jsonData[i].sdcode+"\'/>";
       
 		count++;
    
 	}
+   
 	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
 	
 }
@@ -124,6 +126,9 @@ function clickCheck(target) {
 
 
 function reqWork(){
+	let sdcode = document.getElementsByName("sdcode")[0];
+	
+	alert(sdcode.value);
 	
 }
 
