@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +26,7 @@ import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.GraphDataBean;
+import team3.promans.beans.MailBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
@@ -73,8 +74,11 @@ public class Restcontroller {
 	@Autowired
 	FileManagement fm;
 	
+	@Autowired
+	JavaMailSender mailSender;
+	
 	ModelAndView mav;
-
+	
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
 		return auth.idCheck(ah);
@@ -89,6 +93,7 @@ public class Restcontroller {
 	//업무디테일작성
 	@PostMapping("/WriteSchedule")
 	public String writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
+
 		return sm.writeSchedule(sdb.get(0));
 	}
 	
@@ -142,7 +147,6 @@ public class Restcontroller {
 	
 	@PostMapping("/GetProjectStep")
 	public List<ProjectStepBean> getProjectStep(@RequestBody List<ProjectMemberBean> pmb){
-		
 		return si.getProjectStep(pmb.get(0)); 
 	}
 	
@@ -283,7 +287,7 @@ public class Restcontroller {
 	
 	
 	@PostMapping("ReqProjectAccept")
-	public Map<String,String> reqProjectAccept(List<ProjectBean> pb) {
+	public Map<String,String> reqProjectAccept(@RequestBody List<ProjectBean> pb) {
 		return pm.reqProjectAccept(pb.get(0));
 		
 	}
@@ -291,11 +295,28 @@ public class Restcontroller {
 	
 	@PostMapping("/GetDataGraph")
 	public List<GraphDataBean> getDataGraph(@RequestBody List<ProjectBean> pb) {
-		System.out.println(pb);
+	
 		return si.getDataGraph(pb);
 
 	}
-
+	
+	@PostMapping("/GetSDGraph")
+	public GraphDataBean getSDGraph(@RequestBody List<ScheduleBean>sb) {
+		
+		
+		return si.getSDGraph(sb.get(0));
+		
+	}
+	
+	@PostMapping("/GetStepGraph")
+	public GraphDataBean getStepGraph(@RequestBody List<ScheduleBean>sb) {
+		System.out.println(sb);
+		System.out.println("요긴 step");
+		
+		return si.getStepGraph(sb.get(0));
+		
+	}
+	
 	
 	@PostMapping("/DeleteProjectMember")
 	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
@@ -318,5 +339,52 @@ public class Restcontroller {
 	public List<Notice_CalendarBean> getNot(@RequestBody List<Notice_CalendarBean> nc) {
 		return si.getNoticeList(nc.get(0));
 	}
+
+	@PostMapping("noneMarkList")
+	public List<CloudBean> noneMarkList(@RequestBody List<CloudBean> cb){
+		return fm.noneMarkList(cb.get(0));
+	}
 	
+	@PostMapping("deleteMark")
+	public boolean deleteMark(@RequestBody List<CloudBean> cb) {
+		return fm.deleteMark(cb.get(0));
+	}
+	
+	@PostMapping("deleteFiles")
+	public boolean deleteFiles(@RequestBody List<CloudBean> cb) {
+		return fm.deleteFiles(cb);
+		
+	}
+	
+	@PostMapping("/GetWork")
+	public List<ScheduleDetailBean> getWork(@RequestBody List<ScheduleDetailBean> sdb) {
+		
+		return si.getWork(sdb.get(0));
+	}
+	
+	@PostMapping("/DeleteCpMember")
+	public Map<String, String> deleteCpMember(@RequestBody List<CpMemberBean> cmb) {
+		return tm.deleteCpMember(cmb);
+	}
+	@PostMapping("/SelectProjectReq")
+	public List<ProjectBean> selectProjectReq(@RequestBody List<ProjectBean> pb) {
+		return si.selectProjectReq(pb.get(0));
+	}
+	@PostMapping("/UpdateProjectAccept")
+	public Map<String,String> updateProjectAccept(@RequestBody List<ProjectBean> pb) {
+		return pm.updateProjectAccept(pb.get(0));
+	}
+	@PostMapping("/RejectProjects")
+	public Map<String,String> rejectProject(@RequestBody List<ProjectBean> pb){
+		return pm.rejectProject(pb.get(0));
+	}
+	@PostMapping("/SelectProjectMakeReq")
+	public List<ProjectBean> selectProjectMakeReq(@RequestBody List<ProjectBean> pb) {
+		return si.selectProjectMakeReq(pb.get(0));
+	}
+	@PostMapping("/AcceptMakeProject")
+	public Map<String, String> acceptMakeProject(@RequestBody List<ProjectBean> pb){
+		return pm.acceptMakeProject(pb.get(0));
+	}
+
 }

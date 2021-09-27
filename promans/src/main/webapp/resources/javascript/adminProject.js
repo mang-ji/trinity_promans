@@ -1,6 +1,89 @@
-let sdname;
 let sccode;
 
+
+function getStepGraph(jsonData){
+
+alert("여기 오긴해?");
+alert(jsonData.pscode);
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "litres";
+pieSeries.dataFields.category = "country";
+
+// Let's cut a hole in our Pie chart the size of 30% the radius
+chart.innerRadius = am4core.percent(30);
+
+// Put a thick white border around each Slice
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+pieSeries.slices.template
+  // change the cursor on hover to make it apparent the object can be interacted with
+  .cursorOverStyle = [
+    {
+      "property": "cursor",
+      "value": "pointer"
+    }
+  ];
+
+pieSeries.alignLabels = false;
+pieSeries.labels.template.bent = true;
+pieSeries.labels.template.radius = 3;
+pieSeries.labels.template.padding(0,0,0,0);
+
+pieSeries.ticks.template.disabled = true;
+
+// Create a base filter effect (as if it's not there) for the hover to return to
+var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+shadow.opacity = 0;
+
+// Create hover state
+var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+// Slightly shift the shadow and make it more prominent on hover
+var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+hoverShadow.opacity = 0.7;
+hoverShadow.blur = 5;
+
+// Add a legend
+chart.legend = new am4charts.Legend();
+
+
+if(jsonData.pscode ==null){
+	chart.data = [{
+  "country": "대기",
+  "litres": jsonData.stepW
+},{
+  "country": "진행",
+  "litres": jsonData.stepI
+}, {
+  "country": "완료",
+  "litres": jsonData.stepC
+}];
+
+}else{
+	
+	
+	chart.data = [{
+  "country": "대기",
+  "litres": jsonData.scheW
+},{
+  "country": "진행",
+  "litres": jsonData.scheI
+}, {
+  "country": "완료",
+  "litres": jsonData.scheC
+}];
+
+}	
+}
 
 
 
@@ -42,8 +125,9 @@ function selectProject(jsonData){
 	let headCss = document.createElement("style");
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
+	let prcode = document.getElementsByName("prcode")[0];
 
-	list += "<span id='span1'>No.</span><span id='span1'>Project Step</span><span id='span1'>Progress</span>";
+	list += "<span id='span1'>No.</span><span id='span2'>Project Step</span><span id='span3'>Progress</span>";
 	for(i=0; i<jsonData.length; i++){
 		 list += "<div class='steplists' onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"
 				+jsonData[i].pscode+"\' /><div id='numbers'>"+ (i+1) + "</div><div id='psnames'>"
@@ -51,10 +135,10 @@ function selectProject(jsonData){
 	}
 	
 	if(utype == "L" || utype == "A"){
-		list+= "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+jsonData[0].prcode+"\')\" />";
-	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+jsonData[0].prcode+"\')\" />";
-		list+= "<input type='button' class='buttonStyle' value='팀원 추가' onClick=\"getCompanyMember(\'"+jsonData[0].prcode+"\')\"/>";
-		list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+jsonData[0].prcode+"\')\"/>";
+		list+= "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+prcode.value+"\')\" />";
+	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+prcode.value+"\')\" />";
+		list+= "<input type='button' class='buttonStyle' value='팀원 추가' onClick=\"getCompanyMember(\'"+prcode.value+"\')\"/>";
+		list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+prcode.value+"\')\"/>";
 	}
 	
 	selectStep.innerHTML = list;
@@ -166,7 +250,7 @@ function ajaxComList(jsonData){
 			getCss += "input[id=\"comRadio"+i+"\"]{display:none}";
 			
 			}
-		get += "<input type=\"button\" onClick=\"getComs()\" id=\"checkDisabled\" value=\"요청리스트\"></div>";
+		get += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getComs()\" id=\"checkDisabled\" value=\"요청리스트\"></div>";
 
 		headCss.innerHTML=getCss;
 		document.head.append(headCss);
@@ -286,7 +370,7 @@ function setButton(){
 	setBtn2.style.display = "block";
 	setBtn3.style.display = "block";
 	changeBtn.innerHTML = 
-	"<input type=\"button\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
+	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
 }
 function setButton2(){
 	let closeButton = document.getElementsByName("closeButton")[0];
@@ -382,6 +466,7 @@ function getSchedule(pscode){
 	let clientData = JSON.stringify(jsonData);
 	
 	postAjax("rest/GetSchedule", clientData, "selectSchedule",2);
+	postAjax("rest/GetStepGraph", clientData, "getStepGraph",2);
 	
 }
 
@@ -398,7 +483,7 @@ function selectSchedule(jsonData){
 		let selectStep = document.getElementById("selectStep");
 		let utype = document.getElementsByName("utype")[0].value;
 		
-		list += "<span id='span1'>No.</span><span  id='span1' >Schedule</span><span  id='span1'>Progress</span>";
+		list += "<span id='span1'>No.</span><span  id='span2' >Schedule</span><span  id='span2'>Progress</span>";
 		
 		for(i=0; i<jsonData.length; i++){
 		
@@ -414,12 +499,12 @@ function selectSchedule(jsonData){
 		+"추가</div>";	
 		   count++;}
 	
-		list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
+		list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px;\">";
 	
 		//if(jsonData[0].utype != "G"){
-			edit += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
-				+"<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>"
-				+"<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" onClick=\"addJobMember()\">";
+			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left;\" onClick=\"addJobMember()\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
 		//	}
 		selectStep.innerHTML = list;
 		ShceduleEdit.innerHTML = edit;
@@ -858,14 +943,13 @@ function deleteProjectMember(jsonData){
 
 /* 프로젝트 스텝들의 완료 요청 리스트 불러오는 함수 */
 function reqProjectAccept(prcode){
-	let cpcode = document.getElementById("cpcode");
+	let cpcode = document.getElementsByName("cpcode")[0];
 	let clientData = [{cpcode:cpcode.value, prcode:prcode}];
 	
-	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectAccept",2);
-	//postAjax("rest/SelectWaitingStep", JSON.stringify(clientData),"getWaitingProStep",2);
+	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectResult",2);
 }
-function reqProjectAccept(jsonData){
-	alert(jsonData);
+function reqProjectResult(jsonData){
+	alert(jsonData.message);
 }
 
 
@@ -874,16 +958,16 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	
-  		 box.innerHTML += "<div id='modal_background2'>";
+		
+  		 box.innerHTML = "<div id='modal_background2'>";
   		 box.innerHTML += "<div id='modal_box2'></div></div>";
-  		 box.innerHTML += "<div class='modal' tabindex='-1' role='dialog' style='border:1px solid black;'>";
-  		 box.innerHTML += "프로젝트 스텝명 : <input type='text' name='stepName'/><br>";
-  		 box.innerHTML += "<div id='manager'>관리자 : <input type='text' id='selectedManager'/><input type='button' value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
-
-   		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
-  		 box.innerHTML += "<div class='modal-footer'>";
-  		 box.innerHTML += "<button type='button' class='btn btn-primary' id='make' >Make Step</button>";
-  		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
+		 box.innerHTML = "<div id=\"teamlistt\"> 프로젝트 생성 </div>"
+						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">프로젝트 스텝명 : </div>"
+						+"<input type='text' id='stepnamee' name='stepName'/></div>"
+						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">관리자 : </div>"
+						+"<input type='text' id='teamonelistinput'/><input type='button' value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
+  		 box.innerHTML += "<div id=\"btnss\" >생성하기</div>";
+  		 box.innerHTML += "<div id=\"btns\" onClick='close1()'>뒤로가기</div>";
   		 box.innerHTML += "</div></div></div></div>";
 
 		makeBtnClick(prcode);
@@ -896,7 +980,7 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 
 
 function makeBtnClick(prcode){
-	let make = document.getElementById("make");
+	let make = document.getElementById("btns");
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	make.addEventListener('click', function(){
@@ -978,12 +1062,13 @@ function makeProjectMember(jsonData){
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	
+	box.innerHTML = "<div id=\"teamlistt\"> 프로젝트 팀원 리스트 </div>";
 	for(i=0; i<jsonData.length ;i++){
-		box.innerHTML += "<input type='radio' name='useridRadio' value=\'"+jsonData[i].userid+"\'>" + jsonData[i].userid +" : "+ jsonData[i].uname+ "</><br>";
+		box.innerHTML += "<div id=\"teamonelist\"><input type='radio' id=\"teamonelistinput\" name='useridRadio' value=\'"+jsonData[i].userid+"\'>" + jsonData[i].userid +" : "+ jsonData[i].uname+ "</></div>";
 	}
 	 
-	box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendSelectedMember(\'"+prcode.value+"\')\" >select</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
+	box.innerHTML += "<div id=\"btns\" onClick=\"sendSelectedMember(\'"+prcode.value+"\')\" >선택하기</div>";
+	box.innerHTML += "<div id=\"btns\" onClick=\"close1()\">뒤로가기</div>";
 	box.style.display = "block";
 	modal_background.style.display ="block";
 	
@@ -1028,7 +1113,6 @@ function sendSelectedMember(prcode){
       userid = node.value;
     	}
 	})
-
 	let jsonData = JSON.stringify([{cpcode:cpcode.value, prcode:prcode, userid:userid}]);
 	
 	postAjax("rest/InsProjectMember", jsonData,"insProjectMember",2);
@@ -1113,7 +1197,7 @@ function getFeedState(event) {
 }
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
-alert(data + "확인졈~~~");
+
 	let modal = document.getElementById("modal_edge");
 	let array = data.split(",");
 	let feedbox = document.getElementById("feedcontents");

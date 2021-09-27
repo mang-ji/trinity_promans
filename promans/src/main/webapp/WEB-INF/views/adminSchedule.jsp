@@ -11,6 +11,8 @@
 	<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="resources/javascript/scripts.js"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -27,6 +29,7 @@
  		   let cpcode = document.getElementsByName("cpcode")[0];
  		   let userid = document.getElementsByName("userid")[0];
  		
+ 		    alert(sccode.value);
     		let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, sccode:sccode.value, userid:userid.value}];
     		
     		let clientData = JSON.stringify(jsonData);
@@ -34,6 +37,8 @@
     		postAjax("rest/GetScheDetail", clientData, "selectScheDetail", 2);
     		
     		postAjax("rest/GetNot", clientData, "getNot",2);
+
+    		postAjax("rest/GetSDGraph", clientData, "getSDGraph",2);
     		
      });
      
@@ -50,6 +55,16 @@
        	<div id="modalDiv"></div>
         <div id = "modal1" style="display:none;" ></div>
         <div id = "modal2"  style="display:none;"></div>
+        
+        <form action='CreateProject' method='post' >
+	<div id ='Form'>
+	 <div id="modal_background">
+	 	<div id="modal_box">
+	 	<div id="requestList"></div>
+	 	</div>
+	 </div>
+	 </div>
+	</form>
         	
         <div  class="d-flex" id="wrapper">
             <!-- Sidebar-->
@@ -111,85 +126,15 @@
              <div id="notices">
                 <div id = "redirect1">이전 화면으로</div>
              	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
-             	<div id="child2"></div>
+             	<div id="child2" ><div id = 'SCList'>WORK LIST</div></div>
              </div>
             
          
         </div>
         
-       
-<!-- Chart code -->
-<script>
-am4core.ready(function() {
-
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
-
-// Create chart instance
-var chart = am4core.create("chartdiv", am4charts.PieChart);
-
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "litres";
-pieSeries.dataFields.category = "country";
-
-// Let's cut a hole in our Pie chart the size of 30% the radius
-chart.innerRadius = am4core.percent(30);
-
-// Put a thick white border around each Slice
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
-pieSeries.slices.template
-  // change the cursor on hover to make it apparent the object can be interacted with
-  .cursorOverStyle = [
-    {
-      "property": "cursor",
-      "value": "pointer"
-    }
-  ];
-
-pieSeries.alignLabels = false;
-pieSeries.labels.template.bent = true;
-pieSeries.labels.template.radius = 3;
-pieSeries.labels.template.padding(0,0,0,0);
-
-pieSeries.ticks.template.disabled = true;
-
-// Create a base filter effect (as if it's not there) for the hover to return to
-var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
-shadow.opacity = 0;
-
-// Create hover state
-var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
-
-// Slightly shift the shadow and make it more prominent on hover
-var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
-hoverShadow.opacity = 0.7;
-hoverShadow.blur = 5;
-
-// Add a legend
-chart.legend = new am4charts.Legend();
-
-chart.data = [{
-  "country": "대기",
-  "litres": 501.9
-},{
-  "country": "진행",
-  "litres": 165.8
-}, {
-  "country": "완료",
-  "litres": 139.9
-}];
-
-}); // end am4core.ready()
-</script>
-
+        <div id="backPop"></div>
         
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="resources/javascript/scripts.js"></script>
+       
+
    </body>
 </html>

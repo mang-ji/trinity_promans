@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 <meta charset="utf-8" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="resources/css/styles.css" rel="stylesheet" type="text/css">
@@ -24,6 +25,28 @@
 	<input type="hidden" name="prcode" value="${prcode}">
 	<input type="hidden" name="wdcode" value="${wdcode}">
 	<input type="hidden" name="userid" value="${userid}">
+=======
+	<meta charset="utf-8" />
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
+	<link href="resources/css/mySchedule.css"rel="stylesheet"type="text/css">
+	<script type="text/javascript" src="resources/javascript/myDiary.js"></script>
+	<script type="text/javascript" src="resources/javascript/mySchedule.js"></script>
+	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+       	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <title>업무 일지</title>
+    </head>
+    <body onLoad="projectOnLoad()">
+        	<input type="hidden" name="utype" value="${utype}">
+        <input type="hidden" name="cpcode" value="${cpcode}">
+        <input type="hidden" name="prcode" value="${prcode}">
+        <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="sccode" value="${sccode}">
+        <input type="hidden" name="userid" value="${userid}">
+>>>>>>> c12257b81fc134524bf3296af39b6d13ec236fc3
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
@@ -48,6 +71,7 @@
 					href="myDiaryForm" id="myDiary">업무 일지</a> <input type="button"
 					onClick="logout()" value="로그아웃">
 			</div>
+
 		</div>
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">

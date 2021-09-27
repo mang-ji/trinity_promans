@@ -14,5 +14,6 @@ public class ProjectBean {
 	private String prsdate;
 	private String prldate;
 	private String prcontent;
+	private String prutype;
 
 }

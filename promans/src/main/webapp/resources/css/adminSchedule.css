@@ -1,5 +1,14 @@
 @charset "UTF-8";
 #notices { width:20rem; position:fixed; left:1150px; margin-top:124px;}
+#SCList { 	background-color:#4f5f86;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	height:10%;
+	padding-top:10px;
+	padding-bottom:10px;
+	
+}
 #child1 { width:20rem; height:auto; background-color:white;
 				 margin-bottom: 30px;  }
 #redirect1{
@@ -10,7 +19,53 @@
 }
 
 #child2 {
-	width:20rem; background-color:white; height:50px;
+	overFlow : auto; width:20rem; background-color:white; height:auto;
+	
+}
+
+#modal_background {
+	
+	position: fixed;
+	z-index: 1;
+	overflow: auto;
+	width:100%;
+	height:100%;
+	backdrop-filter:blur(15px);
+	display:none;
+}
+
+#modal_box {
+	display: none;
+	width: 43%; height: 70%;
+	position:absolute;
+	top:49%;
+	left:49%;
+	transform: translate(-50%, -50%);
+	background-color:#FFFFFF;
+	text-align:center;
+	border:2px solid #4f5f86;
+
+}
+
+
+#forMargin{
+
+	width:100%;
+	background-color:#4f5f86;
+	color:white;
+	font-size:25px;
+	height:10%;
+	padding-top:5px;
+	
+}
+
+#backback{
+	
+	 width:100px; height:40px;
+	 color:#bbbbbb;
+	 padding-top:10px;
+	 margin-left:248px;
+	
 	
 }
 
@@ -42,7 +97,6 @@
 
 
 #noBack:hover{
-	
 	background-color:#5e5d5e;
 	color:white;
 	
@@ -76,12 +130,10 @@
 #boxes{overflow:hidden; }
 #img {width:70px;height:auto;}
 #chartdiv{
-
    width:300px;
    height:300px;
    position:absolute;
    transform:translate(10%, 10%);
-   
 
 }
 

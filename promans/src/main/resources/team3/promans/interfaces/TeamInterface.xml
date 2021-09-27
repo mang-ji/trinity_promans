@@ -47,6 +47,14 @@
 	
 	</update>
 	
-	
+	<update id="deleteCpMember" parameterType="team3.promans.beans.CpMemberBean">
+		update cm set cm_wcode='0' where cm_userid=#{userid}
+	</update>
+	<update id="deleteProjectMember" parameterType="team3.promans.beans.CpMemberBean">
+		update pm set pm_wcode='0' where pm_userid=#{userid}
+	</update>
+	<select id="selecttProjectMember" parameterType="team3.promans.beans.CpMemberBean" resultType="int">
+		select count(*) from pm where pm_userid=#{userid}
+	</select>
 	
 </mapper>

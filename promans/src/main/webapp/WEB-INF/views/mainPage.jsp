@@ -12,24 +12,44 @@
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+
 <script type="text/javascript"
 	src="resources/javascript/mainTemplate.js"></script>
-
-<title>Insert title here</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 
 <script>
  
 function getProject(){
     let cpcode1 = document.getElementsByName("cpcode")[0];
     let userid1 = document.getElementsByName("userid")[0];
+    let ReqBtn = document.getElementById("acceptProjectReq");
+    let ReqBtn2 = document.getElementById("acceptProjectMakeReq");
+    let utype = document.getElementsByName("utype")[0];
     let jsonData =[{cpcode:cpcode1.value, userid:userid1.value}];
     let clientData = JSON.stringify(jsonData);
-
+	
+    alert(utype.value + " 이게 왜 바뀌냐?");
+    if(utype.value == 'A'){
+    	ReqBtn.style.display = "block";
+    	ReqBtn2.style.display = "block";
+    } 
+    
     postAjax('rest/GetProject', clientData, 'getProject1', 2);
          
+}
 
- }
      </script>
+     
+     
+      
+        <script>
+        var check = $("input[type='checkbox']");
+        check.click(function(){
+        	$("p").toggle();
+        });
+
+        </script>
 </head>
 <body onLoad="getProject()">
 	<!-- <div id="modal_background">
@@ -37,12 +57,16 @@ function getProject(){
       <div id="modal_close"><a href="#">close</a>></div>
       <div id="modal_content"></div> -->
 
-	<form action='CreateProject' method='post'>
+	<form action='CreateProject' method='post' >
+	<div id ='Form'>
 	 <div id="modal_background">
 	 	<div id="modal_box">
 	 	<div id="requestList"></div>
 	 	</div>
 	 </div>
+
+	 </div>	 <input type="hidden" name="utype" value="${utype}"> 
+
 	</form>
 	
 	 <div id="titleParent">
@@ -50,8 +74,12 @@ function getProject(){
 		 </div>
 	 	 <div> <input type="button" id="logoutBtn" onClick="logout()" value="로그아웃"> </div>
 	 </div>
+	 <div id="ReqBtn">
+	 	<input type="button" id="acceptProjectReq" onClick="acceptProjectReq()" style="display:none;" value="프로젝트 완료요청"/>
+	 	<input type="button" id="acceptProjectMakeReq" onClick="acceptProjectMakeReq()" style="display:none; " value="프로젝트 생성요청"/>
+	 </div>
 	
-      <input type="hidden" name="utype" value="${utype}"> 
+      
       <input type="hidden" name="cpcode" value="${cpcode}"> 
       <input type="hidden" name="userid" value="${userid}">
       <input type="hidden" name="prcode" value=" "> <!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
@@ -62,9 +90,12 @@ function getProject(){
 
 <div id="backPop"></div>
 
-
 	<!-- HTML -->
 	<div id="chartdiv"></div>
+	
+
+    
+           
 
 
 </body>
