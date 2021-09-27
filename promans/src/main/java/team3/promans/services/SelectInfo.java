@@ -316,7 +316,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
-<<<<<<< HEAD
+
 	public GraphDataBean getSDGraph(ScheduleBean sb) {
 	
     GraphDataBean gdb = new GraphDataBean();
@@ -356,15 +356,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			
 			
 		return gdb;
-=======
+	}
 	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
 		return sql.selectList("selectReqProject", pb);
->>>>>>> 11d11c1500e91c8c4156e72a407e58d5b4540298
+
 	}
 
 
 
-<<<<<<< HEAD
+
 	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> SDList1;
@@ -375,12 +375,10 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
-
-=======
 	public List<ProjectBean> selectProjectMakeReq(ProjectBean pb) {
 		return sql.selectList("selectProjectMakeReq", pb);
 	}
->>>>>>> 11d11c1500e91c8c4156e72a407e58d5b4540298
+
 	
 	
 }

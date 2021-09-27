@@ -105,8 +105,6 @@ function getWork(jsonData){
 	
       
 		count++;
-
-	
    
 	}
 	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";

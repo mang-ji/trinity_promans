@@ -342,14 +342,14 @@ public class Restcontroller {
 		return si.getNoticeList(nc.get(0));
 	}
 	
-<<<<<<< HEAD
+
 	@PostMapping("/GetWork")
 	public List<ScheduleDetailBean> getWork(@RequestBody List<ScheduleDetailBean> sdb) {
 		
 		return si.getWork(sdb.get(0));
 	}
 	
-=======
+
 
 	@PostMapping("/DeleteCpMember")
 	public Map<String, String> deleteCpMember(@RequestBody List<CpMemberBean> cmb) {
@@ -376,5 +376,5 @@ public class Restcontroller {
 		return pm.acceptMakeProject(pb.get(0));
 	}
 
->>>>>>> 11d11c1500e91c8c4156e72a407e58d5b4540298
+
 }
