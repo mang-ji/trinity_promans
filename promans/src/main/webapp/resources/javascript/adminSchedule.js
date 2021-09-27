@@ -102,8 +102,7 @@ function getWork(jsonData){
   
 	
 	child2.innerHTML += "<div><div><input type='checkbox' name='workCheck' value = value=\'"+jsonData[i].sdcode+"\' onClick = 'clickCheck(this)'/>"+"&ensp;"+count+".&ensp;"+jsonData[i].sdcontent +"</div></div>";
-    alert(jsonData[i].sdcode);
- child2.innerHTML += "<input type = 'hidden' name 'sdcode' value = \'"+jsonData[i].sdcode+"\'/>";
+    child2.innerHTML += "<input type = 'hidden' name 'sdcode' value = \'"+jsonData[i].sdcode+"\'/>";
       
 		count++;
    
