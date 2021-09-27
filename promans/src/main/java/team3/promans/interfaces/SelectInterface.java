@@ -38,9 +38,14 @@ public interface SelectInterface {
 	  public List<GraphDataBean> getDataGraph(List<ProjectBean> pb);
 	  public List<CpMemberBean> getCpMembers(CpMemberBean cmb);
 	  public ModelAndView goAdminProject(ProjectMemberBean pmb);
+<<<<<<< HEAD
 	  public GraphDataBean getSDGraph(ScheduleBean sb);
 	  public  GraphDataBean getStepGraph(ScheduleBean sb);
 	  public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb);
 	  
+=======
+	  public List<ProjectBean> selectProjectReq(ProjectBean pb);
+	  public List<ProjectBean> selectProjectMakeReq(ProjectBean pb);
+>>>>>>> 11d11c1500e91c8c4156e72a407e58d5b4540298
 
 }

@@ -96,7 +96,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			nc.setFilepath("");
 		}else {
 			nc.setFname(nc.getFile().getOriginalFilename());
-			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
+			nc.setFilepath("resources/images/"+pu.savingFile(nc.getFile()));
 		}
 
 		sql.insert("insNotice", nc);
@@ -139,12 +139,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		try {
 			pmb.setUserid((String)pu.getAttribute("userid"));
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
-		String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
-		try {
-			pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
-		} catch (Exception e) {e.printStackTrace();} 
+		if(list.size() !=0) {
+			String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
+			try {
+				pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
+			} catch (Exception e) {e.printStackTrace();} 
+		}
+
 		
 		return list;
 	}
@@ -313,6 +316,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
+<<<<<<< HEAD
 	public GraphDataBean getSDGraph(ScheduleBean sb) {
 	
     GraphDataBean gdb = new GraphDataBean();
@@ -352,10 +356,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			
 			
 		return gdb;
+=======
+	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
+		return sql.selectList("selectReqProject", pb);
+>>>>>>> 11d11c1500e91c8c4156e72a407e58d5b4540298
 	}
 
 
 
+<<<<<<< HEAD
 	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> SDList1;
@@ -367,6 +376,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
+=======
+	public List<ProjectBean> selectProjectMakeReq(ProjectBean pb) {
+		return sql.selectList("selectProjectMakeReq", pb);
+	}
+>>>>>>> 11d11c1500e91c8c4156e72a407e58d5b4540298
 	
 	
 }

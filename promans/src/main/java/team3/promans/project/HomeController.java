@@ -21,6 +21,7 @@ import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.beans.MailBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
@@ -142,6 +143,12 @@ public class HomeController {
 
 		return "myDiary";
 	}
+	
+	@GetMapping("allAdminManage")
+	public String allAdminManage() {
+		return "allAdminManage";
+	}
+	
 	@PostMapping("writeDiary")
 	public ModelAndView writeDiary(WorkDiaryBean wdb) {
 		System.out.println("일지좀써라");
@@ -213,6 +220,12 @@ public class HomeController {
 	@PostMapping("CreateProject")
 	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
 		return pm.createProject(pb);
+	}
+	
+	@PostMapping("/submitMail")
+	public ModelAndView submitMail(@ModelAttribute MailBean mb) {
+		mav = fm.submitMail(mb);
+		return mav;
 	}
 }
 
