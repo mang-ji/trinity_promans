@@ -17,60 +17,6 @@
 <meta name="author" content="" />
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
-<script>
-	window.addEventListener('load', function() {
-		let cpcodes = document.getElementsByName("cpcode")[0];
-		let userids = document.getElementsByName("writer")[0];
-		let data = [ {cpcode : cpcodes.value, writer : userids.value} ];
-		let clientData = JSON.stringify(data);
-		postAjax("rest/getNotice", clientData, 'afterNotice', 2);
-		
-		
-	});
-
-	function afterNotice(jsonData) {
-		let tablebody = document.getElementById("table_body");
-		let html = "";
-		
-		alert(JSON.stringify(jsonData));
-		
-		for (i = 0; i < jsonData.length; i++) {
-			html += "<tr onClick = \"NoticeClick(\'"+jsonData[i].title+"\', \'"+jsonData[i].sdate+"\', \'" +jsonData[i].contents+ "\')\">";
-			html += "<td>1</td>";
-			html += "<td>" + jsonData[i].title + "</td>";
-			html += "<td>" + jsonData[i].sdate + "</td></tr>";
-			
-		}
-		
-
-		tablebody.innerHTML = html;
-	}
-	
-	function NoticeClick(title, sdate, contents){
-		let Notice = document.getElementById("Notice");
-		let table_notice = document.getElementById("table_notice");
-		let html = "";
-		
-		table_notice.remove();
-		//"<input type='text' name='NoticeDetail' onClick='NoticeDetail()'/>
-		html += "<div id =\"box\">";
-		html += "<div id = \"title\">"+"제목 : "+title+"</div>";
-		html += "<div id = \"date\">"+"작성날짜 : "+sdate+"</div>";
-		html += "<div id = \"contents\">"+contents+"</div>";
-		html += "<a href=\"noticeForm\"><input type =\"button\" id = \"btn\" value =\"목록\" ></a>";
-		html += "</div>";
-		
-		Notice.innerHTML = html;
-	}
-	
-	
-	
-	
-	
-	
-</script>
-
-
 <title>공지사항</title>
 
 <style>
@@ -83,13 +29,16 @@ table {
 </head>
 <body onLoad="projectOnLoad()">
 	<input type="hidden" name="utype" value="${utype}">
-	<input type="hidden" name="cpcode" value="${cpcode}">
-	<input type="hidden" name="writer" value="${userid}">
+        <input type="hidden" name="cpcode" value="${cpcode}">
+        <input type="hidden" name="prcode" value="${prcode}">
+        <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="sccode" value="${sccode}">
+        <input type="hidden" name="userid" value="${userid}">
 
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
-			<div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+			<a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
 			<div class="list-group list-group-flush">
 				<a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
@@ -99,14 +48,14 @@ table {
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="projectForm" id="project">프로젝트</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="calendarForm">캘린더</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="mailForm">메일 발송</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="cloudForm">파일함</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="calendarForm">캘린더</a> <a class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="mailForm">메일 발송</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
+					<a class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="memberForm" id="adminMember">멤버 관리</a>
-			</div>
+			<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
+                </div>
 		</div>
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
@@ -136,26 +85,43 @@ table {
 			</nav>
 			<!-- Page content-->
 			<div class="container-fluid">
-				<table id = "table_notice">
-						<tr >
+				<div id="selectBack">
+					<div id="selHeight">ProMan'S</div>
+					<div id="selectStep"></div>
+				</div>
+
+				<form action="noticeDelete" method="post" id="testDiv">
+					<input type="hidden" name="cpcode" value="${cpcode}">
+					<table id="table_notice">
+						<tr id="trNotice">
 							<th></th>
-							<th>제목</th>
-							<th>작성날짜</th>
+							<th style="padding-left: 250px">제목</th>
+							<th style="padding-left: 250px">작성날짜</th>
 						</tr>
-					<tbody id = "table_body">
-						
-					</tbody>
-					
-				</table>
-			<div id = "Notice">
-				
-			</div>
-			
+						<tbody id="table_body">
+
+						</tbody>
+
+					</table>
+				</form>
+				<div>
+					<input type="button" id="editbtn" value="편집" name="editBtn" />
+					<!-- <div id="change"></div> -->
+					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display: none;" onClick="deleteNotice()" /> 
+					<input type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup()" />
+				</div>
+
+				<div id="Notice"></div>
+
+
 			</div>
 		</div>
 	</div>
 
-	<!-- 공지사항 틀 -->
+	<div id="popup">
+		<div id="popup1"></div>
+	</div>
+
 
 
 

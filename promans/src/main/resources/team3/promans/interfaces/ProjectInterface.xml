@@ -4,9 +4,74 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="team3.promans.interfaces.ProjectInterface">
-
-	<update id="updateStep" parameterType="team3.promans.beans.ProjectStepBean">
 	
-	</update>
 
+	
+
+   <insert id="reqComplete" parameterType="team3.promans.beans.ScheduleDetailBean">
+      INSERT INTO SCFT VALUES(#{cpcode},#{prcode},#{pscode},#{sccode},(SELECT SM_USERID FROM SM WHERE SM_CPCODE=#{cpcode} AND SM_PRCODE=#{prcode} AND SM_PSCODE=#{pscode} AND SM_SCCODE=#{sccode} AND SM_UTYPE=#{utype}),#{sddstate},#{sdcontent},SYSDATE)
+   </insert>
+   
+   <update id="updateComplete" parameterType="team3.promans.beans.ScheduleDetailBean">
+      UPDATE SC SET SC_STATE = #{sddstate} WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE = #{pscode} AND SC_CODE = #{sccode}
+   </update>
+   
+   <insert id="insStep" parameterType="team3.promans.beans.ProjectStepBean">
+      insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L')
+   </insert>
+   
+   <insert id="insProjectMember" parameterType="team3.promans.beans.ProjectMemberBean">
+       insert into pm values(#{cpcode},#{prcode},#{userid},'G','1')
+   </insert>
+   
+   <select id="checkUserid" parameterType="team3.promans.beans.ProjectMemberBean" resultType="int" >
+      select count(*) from pm where pm_userid = #{userid} and pm_prcode=#{prcode} and pm_cpcode=#{cpcode}
+   </select>
+   
+
+   <insert id="insProjectFeedback" parameterType="team3.promans.beans.ScheduleDetailBean">
+      insert into psft values(#{cpcode},#{prcode},#{pscode},#{userid},#{sdcontent},'1',sysdate)
+   </insert>
+   
+   <update id="updateProjectStep" parameterType="team3.promans.beans.ScheduleDetailBean">
+      update ps set ps_state='I' where ps_userid = #{userid}
+   </update>
+
+	<select id="selectStepMax" parameterType="team3.promans.beans.ProjectStepBean" resultType="int">
+
+     select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode}
+
+	</select>
+	
+	<insert id="createProject" parameterType="team3.promans.beans.ProjectBean" >
+		insert into pr values(#{cpcode}, #{prcode}, #{prname}, #{propen}, sysdate, #{prsdate},#{prldate}, #{prstate}, #{prcontent})
+	</insert>
+	
+	<select id="selectProMax" parameterType="team3.promans.beans.ProjectBean" resultType="int">
+
+     select nvl(max(substr(pr_code,3,4)),0) from pr where pr_cpcode=#{cpcode} 
+
+	</select>
+	
+	<update id="updateProjectAccept" parameterType="team3.promans.beans.ProjectBean" >
+		update pr set pr_state='S' where pr_cpcode=#{cpcode}  and pr_code=#{prcode} 
+	</update>
+	<insert id="rejectProject" parameterType="team3.promans.beans.ProjectBean">
+		insert into prft values(#{cpcode},#{prcode},#{userid},#{prcontent},'W',sysdate)
+	</insert>
+	<update id="updateFeedBack" parameterType="team3.promans.beans.ProjectBean">
+		update pr set pr_state='I' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
+	</update>
+	<insert id="insertPmTable" parameterType="team3.promans.beans.ProjectBean">
+		insert into pm values(#{cpcode},#{prcode},#{userid},#{prutype},'1')
+	</insert>
+	<update id="acceptMakeProject" parameterType="team3.promans.beans.ProjectBean">
+		update pr set pr_state='I' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
+	</update>
+	<update id="updateLeader" parameterType="team3.promans.beans.ProjectBean">
+		update pm set pm_utype='L' where pm_cpcode=#{cpcode} and pm_prcode=#{prcode}
+	</update>
+	<update id="reqProjectAccept" parameterType="team3.promans.beans.ProjectBean"> 
+		update pr set pr_state='W' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
+	</update>
 </mapper>

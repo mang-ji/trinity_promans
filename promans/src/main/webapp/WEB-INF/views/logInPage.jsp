@@ -9,9 +9,21 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="resources/css/logInPage.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="resources/javascript/logInPage.js"></script>
-
-
+<script>
+	/*const message = "${param.message}";
+	
+	if(message != ""){
+		alert(message);
+	}*/
+	window.addEventListener('load',function(){
+			if(${msg} != ""){
+				alert(" ${msg} ");
+			}
+		});
+</script>
 <title>로그인</title>
+
+
 </head>
 
 <body onLoad="getAjax('https://api.ipify.org','format=json','setPublicIP')">
@@ -44,7 +56,7 @@
 
 			<div>
 				<div id="signUp">
-					<a href="SignUp" style="text-decoration: none; color: #5191ce;">회사등록</a>
+					<a href="InsCompany" style="text-decoration: none; color: #5191ce;">회사등록</a>
 					<input type="button" class="button" name="next" value="다음" onClick="sendUserId()"> 
 						
 						<input type="button" id="button2" class="button" name="subMit" value="로그인" onClick="sendUserInfo()"

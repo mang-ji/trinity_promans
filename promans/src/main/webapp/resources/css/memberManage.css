@@ -1,1 +1,34 @@
 @charset "UTF-8";
+body {
+	/* background-color:#eee9f0; */
+	
+	background-color: white;
+}
+#cpMemberList {
+	border: solid grey 0px; width:680px;  background-color:white;
+	margin-left:70px;
+}
+#title{margin-bottom:8px; height:30px;}
+#box {overflow:hidden; margin-bottom:3px;}
+#userid {float:left; margin-left:30px;}
+#uname {float:left;margin-left:40px; width:100px; text-align:left;}
+#uphone {float:left;  width:150px;}
+#mail {float:left; width:200px;}
+.spans {margin-left:80px; font-weight:bold; }
+.mailspan {margin-left:95px;  font-weight:bold;}
+.idspan {margin-left:160px;  font-weight:bold;}
+.phonespan {margin-left:60px;  font-weight:bold;}
+#memberdelete {
+	background-color:#525f83;  color:white; margin-left: 700px; margin-top:10px; border-radius:3px;
+}
+#memberregister {
+	background-color:#525f83;  color:white; margin-left: 650px; margin-top:10px; border-radius:3px;
+}
+#insmemberbox {
+	margin-left:70px; width: 680px; margin-bottom:50px;
+}
+input[type=text] {
+	width: 100px; height: 25px;
+}
+#mailforrm {width:160px;}
+#accesscode {width:120px; height:25px;}

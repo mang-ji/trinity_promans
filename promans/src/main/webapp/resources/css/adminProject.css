@@ -1,13 +1,239 @@
 @charset "UTF-8";
 
+#chartdiv{
 
-#modal{
+   width:300px;
+   height:300px;
+   position:absolute;
+   transform:translate(10%, 10%);
+   
+  
+}
+
+#modal1{
 	
-	width:100%;
-	height:100%;
-	position: relative;
-	z-index:999;
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	width:800px;
+	height:300px;
+	z-index: 700;
+	border: 2px solid #f6f8f8;
+	background-color:#FFFFFF;
 	
 	
 }
 
+
+
+#mainPop{
+	position:fixed; z-index:1;
+	left:0px; top:0px; width:100%; height:100%;
+	overflow:auto;
+	background-color:rgba(051,051,153,0.5);
+	display:none;
+}
+#popUp{
+	background-color :#fefefe;
+	margin:15% auto; padding:2px;
+	width:40%;
+	text-align:center;
+}
+#modal2{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	width:800px;
+	height:300px;
+	z-index: 700;
+	border: 2px solid #f6f8f8;
+	background-color:#FFFFFF;
+	
+}
+
+#btnSearch{
+	
+	text-align:center;
+	margin-left: 350px;
+}
+
+#selectBack{
+	
+	width:100%;
+	height:100%;
+
+}
+
+#SSC{
+
+	border-top:2px solid #f6f8f8;
+	font-family:Sans-Serif;
+	color:#c0c5cd;
+
+	
+
+	
+}
+
+#SSC:hover{ color:black; }
+
+#selectStep{
+       
+	   border:2px solid #f6f8f8;
+	   border-top: 4px solid black;
+	  
+	
+}
+
+#selHeight{
+         
+         height:100px;
+         padding-top:20px;
+         text-align: center;
+         font-family:Sans-Serif;
+         font-size:40px;
+         font-weight:bold;
+         color:#4f5f86;
+         
+}
+
+#span1{
+    margin-left:100px;
+	font-weight:bold;
+}
+#span2{
+	 margin-left:220px;
+	font-weight:bold;
+}
+#span3{
+	margin-left:230px;
+	font-weight:bold;
+}
+
+
+#scstate{
+	
+   position:relative;
+  width:200px;
+   left:248px;
+  
+}
+
+#scname{
+
+	  position:relative;
+	  	width:400px;
+	  left:240px;
+}
+
+#sccount{
+	
+	  position:relative;
+	  width:200px; left:105px;
+}
+
+#modal_background {
+	display: none;
+	position : absolute;
+	width: 100%;
+	height:100%;
+	background-color :rgba(0,0,0,0.7);
+	top:0; left:0; z-index:1;
+}
+
+#modal_background2 {
+	display: none;
+	position : absolute;
+	width: 100%;
+	height:100%;
+	background-color :rgba(0,0,0,0.7);
+	top:0; left:0; z-index:1;
+}
+#modal_background3 {
+	display: none;
+	position : absolute;
+	width: 100%;
+	height:100%;
+	background-color :rgba(0,0,0,0.7);
+	top:0; left:0; z-index:1;
+}
+
+
+#modal_box {
+	display: none;
+	position : absolute;
+	top : 50%; left : 50%;
+	width: 600px; height: 600px;
+	margin : -250px 0 0 -250px;
+	background-color :rgb(255,255,255);
+	border-radius: 5px;
+	z-index : 2;
+}
+
+#modal_box2 {
+	display: none;
+	position : absolute;
+	top : 50%; left : 50%;
+	width: 400px; height: 400px;
+	margin : -250px 0 0 -250px;
+	background-color :rgb(255,255,255);
+	border-radius: 5px;
+	z-index : 2;
+}
+#modal_box3 {
+	display: none;
+	position : absolute;
+	top : 50%; left : 50%;
+	width: 600px; height: 600px;
+	margin : -250px 0 0 -250px;
+	background-color :rgb(255,255,255);
+	border-radius: 5px;
+	z-index : 2;
+}
+.steplists{
+	overflow:hidden;
+	color: #929192;
+}
+.steplists:hover{
+	overflow:hidden;
+	color: black;
+}
+#stnames{text-align:center; float:left;  width:300px; }
+#psnames{text-align:left; float:left; margin-left:200px;  width:200px; }
+#numbers{text-align:left; float:left; margin-left:105px;  width:50px; }
+#buttons { margin-left: 280px; margin-top:20px; }
+#dates { margin-left: 130px; }
+#steptitle { font-size: 30px; font-weight: bold; margin-left:10px;}
+#circle { border-radius: 50%; width:50px; height:50px;} 
+.buttonStyle {
+    background-color: #4f5f86;
+    color: #c0c5cd;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+.stepbuttonStyle {
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px; margin-top:3px;}
+
+div#ShceduleEdit {
+    margin-top: 10px;
+}
+#teamlistt{ text-align:center; font-weight:bold; font-size:20px; margin:30px; border-bottom: solid 3px; }
+#btns {background-color:#fff; color:#929292; text-align:center; 
+width:100px;  margin-left:450px; height:30px; padding-top:3px;
+}
+#btns:hover { background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:100px; margin-left:450px; height:30px;}
+#btnss {background-color:#fff; color:#929292; text-align:center; 
+width:100px;  margin-left:450px; height:30px; padding-top:3px;
+}
+#btnss:hover { background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:100px; margin-left:450px; height:30px;}
+#teamonelist {  margin-left:30px; height:30px;}
+#teamonelistinput {margin-right:10px;}
+#projetstepbox {margin-left: 30px; overflow:hidden;}
+#enterstepname {margin-bottom: 20px; width:120px;}
+#stepnamee {float:left;}

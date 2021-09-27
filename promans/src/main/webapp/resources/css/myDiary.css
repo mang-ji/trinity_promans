@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+#selectBack{
+	width:100%;
+	height:100%;
+}
+
+#selectStep{
+	border:2px solid #f6f8f8;
+	border-top: 4px solid black;
+}
+
+#selHeight{  
+	height:100px;
+	padding-top:20px;
+	text-align: center;
+	font-family:Sans-Serif;
+	font-size:40px;
+	font-weight:bold;
+	color:#4f5f86;
+}
+
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: #212529;
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: #212529;
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+  --bs-table-hover-color: #212529;
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  vertical-align: top;
+  border-color: #dee2e6;
+}
+.table > :not(caption) > * > * {
+  padding: 0.5rem 0.5rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+.table > tbody {
+  vertical-align: inherit;
+}
+.table > thead {
+  vertical-align: bottom;
+}
+
+th {
+  text-align: inherit;
+  text-align: -webkit-match-parent;
+}
+
+thead,
+tbody,
+tr,
+td,
+th {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1055;
+	display: none;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	outline: 0;
+	border-radius: 10px;
+	background: #00002E;
+	color:#6098FF;
+	font-family:sans-serif;
+	font-size:16px;
+}
+
+#dhead{
+	position: absolute;
+	top: 16%; left :30%;
+	display: table-cell;
+
+}
+
+#dlist{
+	position: absolute;
+	top: 20%; left: 30%;
+	border-collapse: separate;
+	border-spacing: 100px 0;
+}
+
+.wdpopup{
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 20%; left :40%;
+	background: #6c757d;
+	color: #f9fafb;
+	font-family:sans-serif;
+	font-size:16px;
+}
+
+
+#wdtitle{/*제목*/
+	margin-bottom: 16px;
+	width: 400px;
+	height: 50px;
+	border: 0;
+	outline: 0;
+	border-radius: 10px;
+}
+
+#wdcontents{/*내용*/
+	width: 400px;
+	height: 265px;
+	padding: 0px;
+	border: 0;
+	outline: 0;
+	border-radius: 10px;
+}
+
+#Writebtn{/*글쓰기버튼*/
+	box-shadow: inset 000px 0px 0px 0px #6098FF;
+	-webkit-transition: all 0.6s cubic-bezier(.9, .24, .40, 1);
+	transition: all 0.6s cubic-bezier(.9, .24, .40, 1);
+}
+
+#Writebtn::before{
+	background: #6098FF;
+	display: block;
+	-webkit-transform-origin: right top;
+	-ms-transform-origin: right top;
+	transform-origin: right top;
+	-webkit-transform: scale(0, 1);
+	-ms-transform: scale(0, 1);
+	transform: scale(0, 1);
+	-webkit-transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+	transition: transform 0.4s cubic-bezier(1, 0, 0, 1);
+}
+
+#Writebtn:hover::before {
+	-webkit-transform-origin: left top;
+	-ms-transform-origin: left top;
+	transform-origin: left top;
+	-webkit-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	transform: scale(1, 1)
+}
+
+.pbtn{/*작성*/
+	margin-left: 170px;
+    margin-top: 3px;
+    box-shadow: inset 000px 0px 0px 0px #6098FF;
+	-webkit-transition: all 0.6s cubic-bezier(.9, .24, .40, 1);
+	transition: all 0.6s cubic-bezier(.9, .24, .40, 1);
+}
+
+.pbtn::before{
+	display: block;
+	display: block;
+    background: #80ffd3;
+    position: absolute;
+    left: 0%;
+    opacity: 0;
+    top: 0;
+    z-index: -1;
+    -webkit-transition: height .4s cubic-bezier(0.9, 1, 0.32, 1), opacity .1s ease;
+    transition: height .4s cubic-bezier(0.9, 1, 0.32, 1), opacity .1s ease;
+}
+
+.pbtn:hover::before{
+	opacity: 1;
+    height: 100%;
+}
+
+.pbtn:hover {
+    box-shadow: inset 00px 100px 0px 0px #6098FF;
+    color: #ffffff;
+}
+
+.cbtn{/*닫기*/
+	margin-left: 155px;
+	margin-top: -356.7px;
+	background: #6c757d;
+	position: fixed;
+	border :0;
+	outline :0;
+	text-align: middle;
+	width: 25px;
+	height: 24px;
+}

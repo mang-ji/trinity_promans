@@ -8,10 +8,12 @@ public class ProjectStepBean {
 	private String userid;
 	private String username;
 	private String prcode;
+	private String utcode;
 	private String utype;
 	private String wcode;
 	private String pscode;
 	private String psname;
 	private String stcode;
 	private String stname;
+	
 }

@@ -5,10 +5,14 @@
 <head>
 	<meta charset="utf-8" />
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
 	<link href="resources/css/adminSchedule.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/adminSchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
+	<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="resources/javascript/scripts.js"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -18,7 +22,6 @@
         
          <script>
      window.addEventListener('load',function(){
-    	 
     	    
     	   let pscode = document.getElementsByName("pscode")[0];
  		   let sccode = document.getElementsByName("sccode")[0];
@@ -26,13 +29,19 @@
  		   let cpcode = document.getElementsByName("cpcode")[0];
  		   let userid = document.getElementsByName("userid")[0];
  		
+ 		    alert(sccode.value);
     		let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, sccode:sccode.value, userid:userid.value}];
     		
     		let clientData = JSON.stringify(jsonData);
     		
     		postAjax("rest/GetScheDetail", clientData, "selectScheDetail", 2);
     		
+    		postAjax("rest/GetNot", clientData, "getNot",2);
+
+    		postAjax("rest/GetSDGraph", clientData, "getSDGraph",2);
+    		
      });
+     
      </script>
     </head>
     <body onLoad="projectOnLoad()"> 
@@ -42,10 +51,26 @@
         	<input type="hidden" name="pscode" value="${pscode}">
         	<input type="hidden" name="sccode" value="${sccode}">
         	<input type="hidden" name="userid" value="${userid}">
-        <div class="d-flex" id="wrapper">
+        	
+       	<div id="modalDiv"></div>
+        <div id = "modal1" style="display:none;" ></div>
+        <div id = "modal2"  style="display:none;"></div>
+        
+        <form action='CreateProject' method='post' >
+	<div id ='Form'>
+	 <div id="modal_background">
+	 	<div id="modal_box">
+	 	<div id="requestList"></div>
+	 	</div>
+	 </div>
+	 </div>
+	</form>
+        	
+        <div  class="d-flex" id="wrapper">
             <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+            <div style="position:fixed;" >
+            <div  class="border-end " id="sidebar-wrapper">
+                <div class="sidebar-heading "></div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
@@ -53,15 +78,24 @@
                     
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
+                    
+               		<!-- <input type="button" onClick="logout()" value="로그아웃"> -->
                 </div>
+                 <div id ="chartdiv"></div>
             </div>
+             
+            </div>
+              
+            
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
+            		
                 <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <div class="container-fluid">
+                    <div id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S</div>
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
                       <!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -80,19 +114,27 @@
                                 </li>
                             </ul>
                         </div>-->
-                    </div>
-                </nav>
+             
                 <!-- Page content-->
-                <div class="container-fluid">
-                     <div id="selectScheduleDetail"></div> <!-- 업무 디테일 조회시 이 div에 생성됩니다. -->
-	 <!-- 완료요청을 누르면 팝업이 뜨고 거기에 요청온 목록 조회 > 조회된 목록에서 원하는 거 체크박스 체크 (하나씩만 체크되게함) > 피드백 or 승인 누르기  -->
+                <div  class="container-fluid">
+                	<div class="feed" style="padding-left:450px;" ></div>
+                    <div id="selectScheduleDetail"></div>
                     
                 </div>
             </div>
+            
+             <div id="notices">
+                <div id = "redirect1">이전 화면으로</div>
+             	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
+             	<div id="child2" ><div id = 'SCList'>WORK LIST</div></div>
+             </div>
+            
+         
         </div>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="resources/javascript/scripts.js"></script>
+        
+        <div id="backPop"></div>
+        
+       
+
    </body>
 </html>

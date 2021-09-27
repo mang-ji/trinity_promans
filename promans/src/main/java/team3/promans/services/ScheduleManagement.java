@@ -1,8 +1,12 @@
 package team3.promans.services;
 
+import java.util.List;
+
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
@@ -20,54 +24,122 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 
 	@Autowired
 	SqlSessionTemplate sql;
+	
+	ModelAndView mav;
 
 
-	public int writeSchedule(ScheduleDetailBean sdb) {
-		//세션
-		try {
-			sdb.setCpcode((String)pu.getAttribute("cpcode"));
-			sdb.setUserid((String)pu.getAttribute("userid"));
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		sdb.setPrcode("PR04");
-		sdb.setPscode("PS01");
-		sdb.setSccode("SC03");
-		sdb.setSdcode("SD01");
-		//유저작성 
-		System.out.println(sdb.getSdname());
-		System.out.println(sdb.getSdcontent());
-		String result = "0";
-		try {
-			pu.setAttribute("sdcontent", sdb.getSdcontent());
-			pu.setAttribute("sdname", sdb.getSdname());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
+/*public String writeSchedule(ScheduleDetailBean sdb) {
+	System.out.println(sdb);
+	String msg = "";
+	try {
+		sdb.setCpcode((String) pu.getAttribute("cpcode"));
+		sdb.setPrcode((String) pu.getAttribute("prcode"));
+		sdb.setPscode((String) pu.getAttribute("pscode"));
+		sdb.setSccode((String) pu.getAttribute("sccode"));
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	if(this.convertBoolean(sql.insert("writeSchedule", sdb))) {
+		msg = "성공";
+	}else {
+		msg = "실패";
+	}
+	return msg;
+}*/
+
+//업무일지작성
+public ModelAndView writeDiary(WorkDiaryBean wdb) {
+	mav = new ModelAndView();
+	int max = this.maxdiary(wdb) + 1;
+	wdb.setWdcode(max < 10 ? "WD0" +max:"WD"+max);
+	
+	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
 		
-		if(sql.insert("writeSchedule", sdb)==1) {
-			result = "1";
+		mav.addObject("message","일지 등록이 완료되었습니다.");
+	}else {
+		mav.addObject("message","일지 등록에 실패하였읍니다.");
+	}
+	mav.setViewName("redirect:/myDiaryForm");
+	return mav;
+}
+
+//업무 디테일 완료요청(일반멤버)
+public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
+	boolean result = false;
+	for(int i = 0; i<sdb.size(); i++) {
+		try {
+			sdb.get(i).setUserid((String) pu.getAttribute("userid"));
+		} catch (Exception e) {e.printStackTrace();}
+
+		if(this.convertBoolean(sql.update("reqSchedule", sdb.get(i)))) {
+			result=true;
+		}else {
+			result=false;
 		}
+	}
+	return result;
+}
+
+	public int reqPass(ScheduleDetailBean sdb) {
+	
+		return sql.update("reqPass", sdb);
 		
-		return Integer.parseInt(result);
+	}
+
+	public void scheFeedback(List<ScheduleDetailBean> sdb) {
+	    sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
+	    System.out.println(sdb.get(0));
+		sql.insert("scheFeedback", sdb.get(0));
+		this.updateScheFeedback(sdb);
+		
+		
 	}
 	
-
-	public int writeDiary(WorkDiaryBean wdb) {
-	
-		return sql.insert("writeDiary", wdb);
+	public void updateScheFeedback (List<ScheduleDetailBean> sdb) {
+		System.out.println("피드백 여기 업뎃");
+		sql.update("updateScheFeedback",sdb.get(0));
 	}
 
 
-/*업무 디테일 완료요청(일반멤버)
-	public int reqSchedule(ScheduleDetailBean sdb) {
+	public void insSD(ScheduleDetailBean sdb) {
+		int max = this.maxScCode(sdb)+1;
 		
-		return sql.update("reqSchedule", sdb);
-	}*/
+		sdb.setSdcode((max<10)?"SD0"+max:"SD"+max);
+		sql.insert("insSD", sdb);
+		this.insSM(sdb);	
+	}
+	
+	public void insSM(ScheduleDetailBean sdb) {
+		sql.insert("insSM", sdb);
+	}
+	
+	
+	
+	private boolean convertBoolean(int value) {
+		return (value>0)?true:false;
+	}
+	
+	public int maxScCode(ScheduleDetailBean sdb) {
+		return sql.selectOne("maxScCode", sdb);
+	}
 
 	@Override
-	public int writeDiary(ScheduleDetailBean sdb) {
-		return 0;
+	public ModelAndView writeDiary(ScheduleDetailBean sdb) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public String writeSchedule(ScheduleDetailBean sdb) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int maxdiary(WorkDiaryBean wdb) {
+		
+		return sql.selectOne("maxdiary", wdb);
+	}
+
 
 }

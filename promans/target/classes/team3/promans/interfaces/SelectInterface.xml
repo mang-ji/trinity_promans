@@ -4,33 +4,98 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="team3.promans.interfaces.SelectInterface">
-	<select id="getCalendar" resultType="team3.promans.beans.Notice_CalendarBean" parameterType="team3.promans.beans.Notice_CalendarBean">
+	<select id="getCalendar"
+		resultType="team3.promans.beans.Notice_CalendarBean"
+		parameterType="team3.promans.beans.Notice_CalendarBean">
 		SELECT TO_CHAR(PR_SDATE,'YYYYMMDD') AS SDATE,
 		TO_CHAR(PR_LDATE,'YYYYMMDD') AS LDATE,
-		CM.CM_USERID AS USERID 
-		FROM PR INNER JOIN CM ON PR.PR_CPCODE = CM.CM_CPCODE 
-		WHERE CM.CM_USERID = #{writer}
-		</select>
-		
-	<select id="getMySchedule" parameterType="team3.promans.beans.ScheduleDetailBean"
-	resultType="team3.promans.beans.ScheduleDetailBean">
+		CM.CM_USERID AS USERID
+		FROM PR
+		INNER JOIN CM ON PR.PR_CPCODE = CM.CM_CPCODE
+		WHERE CM.CM_USERID =
+		#{writer}
+	</select>
+	
+	<!-- 내업무조회 -->
+	<select id="getMySchedule"
+		parameterType="team3.promans.beans.ScheduleDetailBean"
+		resultType="team3.promans.beans.ScheduleDetailBean">
 		SELECT
+		SD_CPCODE as cpcode,
 		SD_USERID as userid,
+		SD_SCCODE as sccode,
 		SD_CODE as sdcode,
-		SD_NAME as sdname,
 		SD_TITLE as sdcontent,
 		SD_DATE as sddate,
 		SD_PRCODE as prcode,
-		SD_PSCODE as pscode  
+		SD_PSCODE as pscode 
 		FROM SD
 		WHERE SD_CPCODE= #{cpcode} and
 		SD_PRCODE= #{prcode} and
 		SD_PSCODE= #{pscode} and
-		SD_USERID= #{userid}
+		SD_USERID= #{userid} and
+		SD_STATE != 'W'
 	</select>
 
-	<select id="getDiary" parameterType="team3.promans.beans.WorkDiaryBean" 
-	resultType="team3.promans.beans.WorkDiaryBean">
+	<!-- 공지사항 리스트 조회 -->
+	<select id="getNoticeList"
+		parameterType="team3.promans.beans.Notice_CalendarBean"
+		resultType="team3.promans.beans.Notice_CalendarBean">
+		SELECT NO_USERID as writer,
+		NO_TITLE as title,
+		NO_CODE as nocode,
+		NO_CONTENTS as
+		contents,
+		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
+		NO_FILEPATH as
+		filepath,
+		NO_FNAME as fname
+		FROM PNT
+		WHERE NO_CPCODE =
+		#{cpcode}
+		ORDER BY NO_CODE DESC
+	</select>
+	
+	<!-- 공지사항 nocode -->
+	<select id="getMaxNocode"
+		parameterType="team3.promans.beans.Notice_CalendarBean"
+		resultType="int">
+		SELECT NVL(MAX(NO_CODE),0)
+		FROM PNT
+		WHERE NO_CPCODE = #{cpcode}
+	</select>
+	
+
+	<!-- 공지사항디테일 -->
+	<select id="getNoticeDetail"
+		parameterType="team3.promans.beans.Notice_CalendarBean"
+		resultType="team3.promans.beans.Notice_CalendarBean">
+		SELECT NO_USERID as writer,
+		NO_TITLE as title,
+		NO_CODE as
+		nocode,
+		NO_CONTENTS as
+		contents,
+		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
+		NO_FILEPATH as
+		filepath,
+		NO_FNAME as fname
+		FROM PNT
+		WHERE NO_CPCODE =
+		#{cpcode} and NO_CODE = #{nocode}
+	</select>
+
+	<!-- 공지사항 삭제 -->
+	<delete id="noticeDelete" parameterType="team3.promans.beans.Notice_CalendarBean">
+		DELETE 
+		FROM PNT 
+		WHERE NO_CPCODE =#{cpcode} and NO_CODE = #{nocode}
+	</delete>
+	
+	<!-- 일지조회 -->
+	<select id="getDiary" 
+		parameterType="team3.promans.beans.WorkDiaryBean"
+		resultType="team3.promans.beans.WorkDiaryBean">
 		SELECT WD_CPCODE as cpcode,
 		WD_PRCODE as prcode,
 		WD_USERID as userid,
@@ -42,96 +107,300 @@
 		WHERE WD_CPCODE = #{cpcode}
 		and WD_PRCODE = #{prcode}
 		and WD_USERID = #{userid} 
-		
 	</select>
+
+	<!-- 공지사항 글쓰기 -->
+	<insert id="insNotice"
+		parameterType="team3.promans.beans.Notice_CalendarBean">
+		INSERT INTO PNT
+		VALUES(#{cpcode}, #{prcode}, #{nocode},
+		#{writer}, #{title}, #{contents},
+		to_char(sysdate,'YYMMDD'),
+		#{filepath}, #{fname})
+	</insert>
+
 
 	<select id="getProject"
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectBean">
-
-		SELECT CPCODE, PRCODE, PRNAME, PROPEN, TO_CHAR(PRDATE,'YYYY-MM-dd') AS
-		PRDATE FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE =
-		#{cpcode}
-       </select>
-       
-	<select id = "getNoticeList" parameterType = "team3.promans.beans.Notice_CalendarBean" resultType = "team3.promans.beans.Notice_CalendarBean">
-	SELECT  NO_USERID as writer,
-			NO_TITLE as title,
-			NO_CONTENTS as contents,
-			TO_CHAR(NO_DATE, 'YYYY-MM-dd') as sdate, 
-			NO_FILEPATH as filepath,
-			NO_FNAME as fname 
-	FROM PNT 
-	WHERE NO_CPCODE = #{cpcode} 
-
+        
+        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE USERID =
+		#{userid} AND CPCODE = #{cpcode} and prstate !='Y'
 	</select>
+
+
 
 	<select id="getProjectStep"
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectStepBean">
 
-		SELECT PSNAME,STNAME,PSCODE FROM PROJECTVIEW WHERE CPCODE = #{cpcode} AND
-		PRCODE = #{prcode}
+		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
+		FROM PROJECTSTEPVIEW 
+		WHERE CPCODE = #{cpcode} AND
+		PRCODE = #{prcode} 
 
 	</select>
+	
+	<select id="selectUtype" parameterType="team3.promans.beans.ProjectMemberBean"
+		resultType="string">
+		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
+	</select>
+
 
 	<select id="selectSchedule"
 		parameterType="team3.promans.beans.ProjectStepBean"
 		resultType="team3.promans.beans.ScheduleBean">
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE FROM SCHEDULEVIEW WHERE
-		CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
-
+		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE,
+		NVL((SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid} AND PRCODE = #{prcode} AND PSCODE = #{pscode}),'G') AS UTYPE 
+		FROM SCHEDULEVIEW 
+		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
 	</select>
 
 	<select id="getScheDetail"
 		parameterType="team3.promans.beans.ScheduleDetailBean"
 		resultType="team3.promans.beans.ScheduleDetailBean">
-		SELECT
+		SELECT  sc.sc_name as scname,
 		SD.SD_CODE AS SDCODE,
-		SD.SD_NAME AS SDNAME,
 		SD.SD_TITLE AS SDCONTENT,
 		TO_CHAR(SD.SD_DATE, 'YYYY-MM-dd') AS SDDATE,
 		ST.ST_CODE AS SDDCODE,
 		ST.ST_NAME AS SDDSTATE,
 		CM.CM_UNAME AS USERNAME,
-		SD.SD_USERID AS USERID
+		SD.SD_USERID AS USERID,
+		SD.SD_SCCODE AS SCCODE,
+		SD.SD_CPCODE AS CPCODE,
+		SD.SD_PRCODE AS PRCODE
 		FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
-		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND SD.SD_USERID =
-		CM.CM_USERID
-		WHERE SD.SD_CPCODE = #{cpcode} AND SD.SD_PRCODE = #{prcode} AND
-		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode} AND SD.SD_USERID
-		= #{userid}
+		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND
+		SD.SD_USERID = CM.CM_USERID
+        inner join sc on sd.sd_cpcode=sc.sc_cpcode and sd.sd_prcode=sc.sc_prcode and 
+        sd.sd_pscode=sc.sc_pscode and sd.sd_sccode=sc.sc_code
+		WHERE SD.SD_CPCODE = #{cpcode} AND
+		SD.SD_PRCODE = #{prcode} AND
+		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode}
+
 	</select>
-	
-	<select id="getSDInfo" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType =  "team3.promans.beans.ScheduleDetailBean" >
-	
-	      select sd_sccode as sccode, sd_pscode as pscode, sd_code as sdcode from sd where sd_prcode = #{prcode} and sd_cpcode = #{cpcode}
-	
+
+	<select id="getSDInfo"
+		parameterType="team3.promans.beans.ScheduleDetailBean"
+		resultType="team3.promans.beans.ScheduleDetailBean">
+
+		select sd_sccode as sccode, sd_pscode as pscode, sd_code as
+		sdcode from sd
+		where sd_prcode = #{prcode} and sd_cpcode = #{cpcode}
+
 	</select>
-	
-		<select id="reqForCompletion"
+
+	<select id="reqForCompletion"
 		parameterType="team3.promans.beans.ScheduleDetailBean"
 		resultType="team3.promans.beans.ScheduleDetailBean">
 		SELECT
 		SD.SD_CODE AS SDCODE,
-		SD.SD_NAME AS SDNAME,
+		SD.SD_SCCODE AS SCCODE,
 		SD.SD_TITLE AS SDCONTENT,
-		TO_CHAR(SD.SD_DATE, 'YYYY-MM-dd') AS SDDATE,
+		TO_CHAR(SD.SD_DATE,
+		'YYYY-MM-dd') AS SDDATE,
 		ST.ST_CODE AS SDDCODE,
 		ST.ST_NAME AS SDDSTATE,
 		CM.CM_UNAME AS USERNAME,
 		SD.SD_USERID AS USERID
-		FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
-		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE AND SD.SD_USERID =
+		FROM SD INNER JOIN ST ON
+		SD.SD_STATE = ST.ST_CODE
+		INNER JOIN CM ON SD.SD_CPCODE = CM.CM_CPCODE
+		AND SD.SD_USERID =
 		CM.CM_USERID
-		WHERE SD.SD_CPCODE = #{cpcode} AND SD.SD_PRCODE = #{prcode} AND
-		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE = #{sccode}
+		WHERE SD.SD_CPCODE = #{cpcode} AND
+		SD.SD_PRCODE = #{prcode} AND
+		SD.SD_PSCODE = #{pscode} AND SD.SD_SCCODE
+		= #{sccode} AND ST.ST_CODE = 'W'
+	</select>
+
+	
+	
+	<select id="selectStepReq" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
+		select cpcode, prcode, pscode, psname, username, stcode ,stname, userid,utype from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode}
+	</select>
+
+	<select id="selectManager"
+		parameterType="team3.promans.beans.ProjectStepBean"
+		resultType="team3.promans.beans.ProjectStepBean">
+		select username as username, userid from
+		projectmemberview where utcode='G' and wcode='1'and prcode =#{prcode}
+		and cpcode=#{cpcode}
+	</select>
+    
+ 
+
+	<select id="getCompleteList"
+		parameterType="team3.promans.beans.ProjectStepBean"
+		resultType="team3.promans.beans.ProjectStepBean">
+		SELECT
+		PS_CPCODE AS CPCODE,
+		PS_PRCODE AS PRCODE,
+		PS_CODE AS
+		PSCODE,
+		PS_NAME AS PSNAME,
+		PS_USERID AS USERID,
+		PS_UTYPE AS UTYPE,
+		PS_STATE AS STCODE,
+		ST.ST_NAME AS
+		STNAME
+		FROM PS INNER JOIN ST ON
+		PS.PS_STATE = ST.ST_CODE
+		WHERE PS_CPCODE=#{cpcode} AND
+		PS_PRCODE=#{prcode} AND PS_UTYPE=#{utype} AND
+		PS_USERID=#{userid}
+
+	</select>
+
+	<select id="selectProjectMember" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectMemberBean">
+		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} 
+	</select>
+	
+	<select id ="getDataGraphPsW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS stepW FROM PS 
+     WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'W'
+	</select>
+	
+	<select id ="getDataGraphScW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS scheW FROM SC 
+     WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'W'
+	</select>
+	
+	<select id ="getDataGraphSdW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS sdW FROM SD 
+     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'W'
+	</select>
+	
+	<select id ="getDataGraphPsI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS stepI FROM  PS
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I'
+	</select>
+	
+	<select id ="getDataGraphScI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS scheI FROM  SC
+     WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'I'
+	</select>
+	
+	<select id ="getDataGraphSdI" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 SELECT COUNT(*) AS sdI FROM  SD
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'I'
+	</select>
+	
+	<select id ="getDataGraphPsC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS stepC FROM  PS
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'S'
+	
+	</select>
+	
+	<select id ="getDataGraphScC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS scheC FROM  SC
+     WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'S'
+	
+	</select>
+	
+	<select id ="getDataGraphSdC" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS sdC FROM  SD
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'S'
+	
 	</select>
 	
 	
+	<select id ="getSdC" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS sdC FROM  SD
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'S'
 	
-	<select id="selectStep" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
-		select psname, username, stname,userid from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode}
 	</select>
 	
+	<select id ="getSdI" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 SELECT COUNT(*) AS sdI FROM  SD
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'I'
+	</select>
+	
+	<select id ="getSdW" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 SELECT COUNT(*) AS sdW FROM SD 
+     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'W'
+	</select>
+	
+	<select id ="getStepC" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS stepC FROM  PS
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode}  AND PS_STATE = 'S'
+	
+	</select>
+	
+	<select id ="getStepI" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 SELECT COUNT(*) AS stepI FROM  PS
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I'
+	</select>
+	
+	<select id ="getStepW" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 SELECT COUNT(*) AS stepW FROM PS
+     WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'W'
+	</select>
+	
+		<select id ="getScheC" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 
+     SELECT COUNT(*) AS scheC FROM  SC
+     WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE = #{pscode}  AND SC_STATE = 'S'
+	
+	</select>
+	
+	<select id ="getScheI" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 SELECT COUNT(*) AS scheI FROM  SC
+     WHERE  SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE = #{pscode} AND SC_STATE = 'I'
+	</select>
+	
+	<select id ="getScheW" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
+	 SELECT COUNT(*) AS scheW FROM SC
+     WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE = #{pscode} AND SC_STATE = 'W'
+	</select>
+
+	<select id ="getGraphInfo" parameterType = "team3.promans.beans.ScheduleBean" resultType = "team3.promans.beans.GraphDataBean">
+		SELECT PM_PRCODE AS PRCODE FROM PM WHERE PM_CPCODE = #{cpcode} AND PM_USERID = #{userid}
+	</select>
+	<select id="getCpMembers" parameterType="team3.promans.beans.CpMemberBean" resultType="team3.promans.beans.CpMemberBean"> 
+		select  cm_userid as userid,
+        cm_uname as uname,
+        cm_uphone as uphone,
+        cm_tecode as tecode,
+        cm_mail as mail,
+        cm_utype as utype
+		from cm where cm_cpcode=#{cpcode} and cm_wcode='1' and cm_utype != 'A'
+	</select>
+	
+	<select id="goAdminProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
+		select pm_utype from pm where pm_cpcode=#{cpcode} and pm_prcode=#{prcode} and pm_userid=#{userid}
+	</select>
+	
+	<select id = "SDList1" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType = "team3.promans.beans.ScheduleDetailBean">
+	
+	 SELECT SD_CPCODE AS CPCODE, SD_PRCODE AS PRCODE, SD_PSCODE AS PSCODE , SD_SCCODE AS SCCODE, SD_TITLE AS SDCONTENT, ST.ST_NAME AS SDDSTATE
+     FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
+     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_USERID = #{userid} AND SD_STATE = 'I'
+	
+	</select>
+	
+	
+	<select id="selectReqProject" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ProjectBean">
+		select pr.pr_name as prname,  pr.pr_code as prcode,  pm.pm_userid as userid , pr.pr_state as prstate 
+		from pr inner join pm on pr.pr_cpcode=pm.pm_cpcode and pr.pr_code=pm.pm_prcode 
+		where pr.pr_state='W' and pr.pr_cpcode=#{cpcode} and pm.pm_utype='L'
+	</select>
+	
+	<select id="selectProjectMakeReq" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ProjectBean">
+		select pr.pr_name as prname, pr.pr_code as prcode, pm.pm_userid as userid, pr.pr_state as prstate,
+		 pr.pr_contents as prcontent 
+		from pr inner join pm on pr.pr_cpcode=pm.pm_cpcode and pr.pr_code=pm.pm_prcode  
+		where pr.pr_cpcode=#{cpcode} and pr.pr_state='Y'
+	</select>
+
 </mapper>

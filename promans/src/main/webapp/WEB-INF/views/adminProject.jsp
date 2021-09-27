@@ -9,6 +9,9 @@
 	<link href="resources/css/adminProject.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/adminProject.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
+	<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 	
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -16,11 +19,13 @@
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <title>관리자 프로젝트</title>
      <script>
+ 	 //let publicIP;
+ 	 
      window.addEventListener('load',function(){
-    	    
     		let userid1 = document.getElementsByName("userid")[0];
     		let cpcode1 = document.getElementsByName("cpcode")[0];
     		let prcode1 = document.getElementsByName("prcode")[0];
+    		
     		
     		let jsonData = [{cpcode:cpcode1.value, prcode:prcode1.value, userid:userid1.value}];
     		
@@ -28,7 +33,19 @@
     		
     		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
     		
+    		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
+    		
+    		
+    		
      });
+     
+     /*window.addEventListener('load',function(){
+    	 getAjax('https://api.ipify.org','format=json','setPublicIP');
+     });
+     function setPublicIP(data){
+    	 publicIP = data.ip;
+     }*/
+     
      </script>
 
      </head>
@@ -43,24 +60,44 @@
         <input type="hidden" name="cpcode" value="${cpcode}">
         <input type="hidden" name="prcode" value="${prcode}">
         <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
-        <div class="d-flex" id="wrapper">
+  
+       <!--  <div id="modalDiv"></div>
+        <div id = "modal1" style="display:none;" ></div>
+        <div id = "modal2"  style="display:none;"></div>
+	         --> 
+		 <div id="modal_background">
+			<div id="modal_box">
+				<div id="requestList"></div>
+			</div>
+		</div> 
+
+		<div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+               <div>
+                	<a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
+                </div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myScheduleForm">내 업무</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
                 </div>
+                <div id="chartdiv" ></div>
+         
+             
             </div>
+             
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
+          
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
@@ -86,23 +123,47 @@
                 </nav>
                 <!-- Page content-->
                 
-                <div class="container-fluid">
-
-             
-                    <div id="selectStep"></div> <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
-                     <div id="ShceduleEdit"></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
-                  <div class="modal" tabindex="-1" role="dialog" name="modal"></div>
+                <div class="container-fluid" >
+                     <div id = "selectBack">
+                     
+                     <div id = "selHeight">ProMan'S</div>
+                    <div id="selectStep"></div>
+                    	
+                    </div> 
+                    <!-- ajax로 ProjectStep, Schedule 조회 되는 곳 -->
+                     <div id="ShceduleEdit" ></div> <!-- 업무 조회시 관리자일 경우에 편집버튼 생성됨 -->
+                     <div id='buttons'>
+                     	<%-- <input type='button' class='buttonStyle' value='승인' onClick="selectStepList('${prcode}')" />
+                     	<input type='button' class='buttonStyle'  value='편집' onClick="sendProjectInfo('${prcode}')" />
+						<input type='button' class='buttonStyle' value='팀원 추가' onClick="getCompanyMember('${prcode}')"/>
+						<input type='button' class='buttonStyle' value='팀원 삭제' onClick="deleteProjectMember('${prcode}')"/> --%>
+					 	<div id='createBtn'></div>
+					 </div>
               </div>
                
+               <div id="mainPop"><div id="popUp"></div></div>
             </div>
-           
+           	   
         </div>
+            
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="resources/javascript/scripts.js"></script>
 
-   </body>
+
+
+
+
+<!-- Chart code -->
+<!-- Chart code -->
+<script>
+ // end am4core.ready()
+</script>
+
+<!-- HTML -->
+
 
     
     </body>

@@ -1,9 +1,29 @@
+ 	 let publicIP;
+
+     window.addEventListener('load',function(){
+    	 getAjax('https://api.ipify.org','format=json','setPublicIP');
+     });
+     function setPublicIP(data){
+    	 publicIP = data.ip;
+     }
+
+function cloudCate(){
+	let sc = document.getElementsByName("sccode")[0];
+	if(sc.value == ""){
+		alert("업무를 선택하거나 다시 시도해주세요.");
+		location.href = "projectForm";
+	}else{
+		location.href = "cloudForm";
+	}
+}
+
+
 function projectOnLoad(){
        let adminProject = document.getElementById("adminProject");
        let project = document.getElementById("project");
        let adminMember = document.getElementById("adminMember");
        let utype = document.getElementsByName("utype")[0];
-           
+
        if(utype.value == "G"){
               adminProject.style.display = "none";
               project.style.display = "block";
@@ -13,8 +33,40 @@ function projectOnLoad(){
               project.style.display = "none";
               adminMember.style.display = "block";
            }
-           
+
     }
+
+function myScheduleCate(){
+	let pscode = document.getElementsByName("pscode")[0];
+	if(pscode.value == ""){
+		location.href = 'projectForm';
+		alert("스텝을 선택해주세요.");
+	}else{
+		location.href = 'myScheduleForm';		
+	}
+}
+
+     function logout(){
+ 		 let userid1 = document.getElementsByName("userid")[0];
+		 let cpcode1 = document.getElementsByName("cpcode")[0];
+    	 let form = document.createElement("form");
+    	 let puIp = makeInput('hidden','publicip',publicIP);
+    	 let prIp = makeInput('hidden','privateip',location.host);
+    	 let method = makeInput('hidden','method',-1);
+    	 form.action = "logOut";
+    	 form.method = "post";
+    	 
+    	 form.appendChild(userid1);
+    	 form.appendChild(cpcode1);
+    	 form.appendChild(puIp);
+    	 form.appendChild(prIp);
+    	 form.appendChild(method);
+    	 
+    	 document.body.appendChild(form);
+    	 
+    	 form.submit();
+     }
+     
 
 function getAjax(jobCode,clientData,fn){
 	let ajax = new XMLHttpRequest();

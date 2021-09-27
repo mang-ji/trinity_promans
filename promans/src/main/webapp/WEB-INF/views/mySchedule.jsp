@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
 	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
 	<link href="resources/css/mySchedule.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/mySchedule.js"></script>
@@ -13,19 +13,6 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
        	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-	<script>
-		window.addEventListener('load',function() {
-			let prcode5 = document.getElementsByName("prcode")[0].value;
-			let pscode5 = document.getElementsByName("pscode")[0].value;
-			//얘는 이미 세션에 들어있음 
-			let cpcode5 = document.getElementsByName("cpcode")[0].value;
-			let userid5 = document.getElementsByName("userid")[0].value;
-			let data = [{prcode:"PR04",pscode:"PS01",cpcode:cpcode5,userid:userid5}];
-			let clientData = JSON.stringify(data);
-			alert(clientData);
-			postAjax("rest/GetMySchedule", clientData, 'mySchedulelist', 2);
-		});
-	</script>
     <title>내 업무</title>
 	<style>
 	table{
@@ -39,20 +26,22 @@
         	<input type="hidden" name="cpcode" value="${cpcode}">
         	<input type="hidden" name="prcode" value="${prcode}">
         	<input type="hidden" name="pscode" value="${pscode}">
+        	<input type="hidden" name="sccode" value="${sccode}">
         	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">ProMan'S</div>
+                <a class="list-group-item list-group-item-action list-group-item-light p-4" style="font-size:20px;" href="mainPageForm">ProMan'S</a>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="cloudForm">파일함</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myDiaryForm">업무 일지</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -82,15 +71,28 @@
                 </nav>
                 <!-- Page content-->
 			<div class="container-fluid">
-				<div id = "mySchedule"></div>
-					<input class="inputBox" style=display:none type="text" name="sdcontent1" placeholder="제목" />
-					<input class="inputBox" style=display:none type="text" name="sdname1" placeholder="내용" />	
-				<div id= "writeSchedule">
-					<input type="button" id="wBtn" name="wSchedule" value="작성하기" onClick="writeSchedule()">
-					<input type="button" id="sBtn" style=display:none name="sSchedule" value="작성" onClick="sendSchedule()">
+				 <div id = "selectBack">    
+                     <div id = "selHeight">ProMan'S</div>
+                    <div id="selectStep"></div>
+				<form action="myScheduleForm" method="get">
+					<table class="tschedule">
+						<tr id="shead">
+							<th></th>
+							<th>제목</th>
+							<th>작성날짜</th>
+						</tr>
+						<tbody id="slist"></tbody>
+					</table>
+				</form>
+				<div>
+					<!-- <input type="button" id="reqbtn" onClick="reqbtn()" value="완료 요청"> -->
+					 <input type="button" id="reqbtn" onClick="OpenPopup()" value="완료 요청">
 				</div>
+				<div id="sia"></div>
 			</div>
-			</div>
+		</div>
+		</div>
+		<div id="popup"></div>
 		</div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
