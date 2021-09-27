@@ -204,6 +204,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		Map<String,String> map = new HashMap<>();
 		map.put("message", "승인에 실패하셨습니다.");
 		if(this.convertData(sqlSession.update("updateProjectAccept", pb))) {
+			/* 만약에 피드백이 있었던 놈이면 피드백테이블의 상태도 업데이트 해줘야함 그치 ?*/
 			map.put("message", " 승인이 완료되었습니다. ");
 		}
 		return map;
@@ -215,8 +216,10 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public Map<String, String> rejectProject(ProjectBean pb) {
 		Map<String,String> map = new HashMap<>();
 		map.put("message", "피드백에 실패하였습니다.");
-		if(this.convertData(sqlSession.insert("rejectProject",pb))) {
-			map.put("message", "피드백을 완료하였습니다.");
+		if(this.convertData(sqlSession.insert("rejectProject",pb))) { /*피드백테이블에 인서트 */
+			if(this.convertData(sqlSession.update("updateFeedBack",pb))) {
+				map.put("message", "피드백을 완료하였습니다.");
+			}
 		}
 		return map;
 	}
@@ -225,6 +228,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 
 
 	public Map<String, String> acceptMakeProject(ProjectBean pb) {
+		
 		Map<String,String> map = new HashMap<>();
 		map.put("message", " 승인 실패하였습니다.");
 		/* 프로젝트 보류 > 진행으로 업데이트 */

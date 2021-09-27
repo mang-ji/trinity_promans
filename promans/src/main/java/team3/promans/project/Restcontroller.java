@@ -146,7 +146,6 @@ public class Restcontroller {
 	
 	@PostMapping("/GetProjectStep")
 	public List<ProjectStepBean> getProjectStep(@RequestBody List<ProjectMemberBean> pmb){
-		
 		return si.getProjectStep(pmb.get(0)); 
 	}
 	
@@ -337,7 +336,6 @@ public class Restcontroller {
 	}
 	@PostMapping("/RejectProjects")
 	public Map<String,String> rejectProject(@RequestBody List<ProjectBean> pb){
-		System.out.println(pb );
 		return pm.rejectProject(pb.get(0));
 	}
 	@PostMapping("/SelectProjectMakeReq")

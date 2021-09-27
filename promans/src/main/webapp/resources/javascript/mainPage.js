@@ -162,8 +162,8 @@ function getProject1 (jsonData){
 			
 			postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 
-			css += "input[id=\"boxRadio"+i+"\"] \+ label{border:1px solid #fcfaff; width:50px; cursor:pointer; text-align:center; margin-left:5%;}";				
-			css += "input[id=\"boxRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb; color:white; border:1px solid #bbbbbb;}";			
+			css += "input[id=\"boxRadio"+i+"\"] \+ label{border:0px solid #fcfaff; width:50px; cursor:pointer; text-align:center; margin-left:5%;}";				
+			css += "input[id=\"boxRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb; color:white; border:0px solid #bbbbbb;}";			
 			css += "input[id=\"boxRadio"+i+"\"]{display:none}";
 	}
 
@@ -180,7 +180,7 @@ function makeProjects(){
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	
-	box.innerHTML += "<div> 프로젝트명 : <input type='text' name='prname' placeholder='project name'></div>";
+	box.innerHTML = "<div> 프로젝트명 : <input type='text' name='prname' placeholder='project name'></div>";
 	box.innerHTML += "<div> 프로젝트 설명 : <input type='text' name='prcontent' placeholder='project content'></div>";
 	box.innerHTML += "<div> 공개 여부 <select name='propen'><option value='O'>공개</option><option value='C'>비공개</option></select></div>";
 	box.innerHTML += "<div> 시작날짜 : <input type='date' name='prsdate' placeholder='start date'></div>";
@@ -572,12 +572,13 @@ function getReqProjectList(jsonData){
 
 function makeFeedback(){
 	let feedback = document.getElementById("feedbackspace");
+	feedback.style.display ="none";
 	
-	feedback.innerHTML +="<input type=\"radio\" id=\"feedbackbtn\" name=\"selectFeed\" value=\"feed\" onClick=\"makeFeedSpace(event)\" >피드백</>";
+	feedback.innerHTML ="<input type=\"radio\" id=\"feedbackbtn\" name=\"selectFeed\" value=\"feed\" onClick=\"makeFeedSpace(event)\" >피드백</>";
 	feedback.innerHTML +="<input type=\"radio\" id=\"acceptbtn\" name=\"selectFeed\" value=\"accept\" onClick=\"makeFeedSpace(event)\" >승인</>";
+	
 	feedback.innerHTML +="<div id=\"feedspacee\"></div>";
-	
-	
+	feedback.style.display = "block";
 }
 
 
@@ -585,7 +586,7 @@ function makeFeedSpace(event){
 	let feedspace = document.getElementById("feedspacee");
 	let accept = document.getElementsByName("accepttt")[0];
 	let feedback = document.getElementsByName("feedbackkk")[0];
-	feedspace.innerHTML ="<input type= \"textbox\" id=\"textboxx\" />";
+	feedspace.innerHTML ="<input type= \"textbox\" id=\"textboxx\" placeholder=\"피드백을 입력하세요.\"/>";
 	
 	if(event.target.value == "feed"){
 		feedspace.style.display = "block";
@@ -615,9 +616,16 @@ function acceptProjects(cpcode){
 }
 
 function rejectProjects(cpcode){
-	let data = document.getElementsByName("projectReq")[0];
-	let array = data.value.split(",");
+	let radio = document.getElementsByName("projectReq");
 	let contents = document.getElementById("textboxx");
+	let array;
+	
+	radio.forEach((node) => {
+    if(node.checked)  { 
+		array = node.value.split(",");
+    	}
+	});
+	
 	let jsonData = [{cpcode:cpcode, prcode:array[0], userid:array[1], prcontent:contents.value }];
 	
 	postAjax("rest/RejectProjects", JSON.stringify(jsonData), "rejectProjectState", 2);
@@ -647,7 +655,7 @@ function getReqMakeProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 생성 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;프로젝트 설명 : "+jsonData[i].prcontent+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 보류</></div><br>";
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReqq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;프로젝트 설명 : "+jsonData[i].prcontent+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 보류</></div><br>";
 			}
 			box.innerHTML += "<div id='btnbox' ><div id='btns'  name='accepttt' onClick=\"acceptMakeProjects(\'"+cpcode.value+"\')\">승인하기</div>";
 		}else{ box.innerHTML ="<div id=\"message\">생성 요청중인 프로젝트가 없습니다.</div>";}
@@ -658,8 +666,15 @@ function getReqMakeProjectList(jsonData){
 }
 
 function acceptMakeProjects(cpcode){
-	let data = document.getElementsByName("projectReq")[0];
-	let array = data.value.split(",");
+	let array;
+	let radio = document.getElementsByName("projectReqq");
+	
+	radio.forEach((node) => {
+    if(node.checked)  { 
+		array = node.value.split(",");
+    	}
+	});
+
 	let jsonData = [{cpcode:cpcode, prcode:array[0]}];
 	
 	postAjax("rest/AcceptMakeProject", JSON.stringify(jsonData), "acceptMakeProjectResult",2);
