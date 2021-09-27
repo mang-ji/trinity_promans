@@ -210,11 +210,7 @@ public class HomeController {
 		mav = auth.registerCompany(cmb);
 		return mav;
 	}
-	
-	@GetMapping("TestYuna")
-	public String testYuna() {
-		return "testyuna";
-	}
+
 	
 	@PostMapping("CreateProject")
 	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
