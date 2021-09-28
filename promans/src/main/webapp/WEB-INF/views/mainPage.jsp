@@ -19,8 +19,8 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 
 <script>
- 
-function getProject(){
+
+window.addEventListener('load',function(){
     let cpcode1 = document.getElementsByName("cpcode")[0];
     let userid1 = document.getElementsByName("userid")[0];
     let ReqBtn = document.getElementById("acceptProjectReq");
@@ -29,7 +29,6 @@ function getProject(){
     let jsonData =[{cpcode:cpcode1.value, userid:userid1.value}];
     let clientData = JSON.stringify(jsonData);
 	
-    alert(utype.value + " 이게 왜 바뀌냐?");
     if(utype.value == 'A'){
     	ReqBtn.style.display = "block";
     	ReqBtn2.style.display = "block";
@@ -37,13 +36,8 @@ function getProject(){
     
     postAjax('rest/GetProject', clientData, 'getProject1', 2);
          
-}
+});
 
-     </script>
-     
-     
-      
-        <script>
         var check = $("input[type='checkbox']");
         check.click(function(){
         	$("p").toggle();
@@ -51,7 +45,10 @@ function getProject(){
 
         </script>
 </head>
-<body onLoad="getProject()">
+<body>
+      <input type="hidden" name="cpcode" value="${cpcode}"> 
+      <input type="hidden" name="userid" value="${userid}">
+<!--  <div class="loader"></div>-->
 	<!-- <div id="modal_background">
       <div id="modal_box"></div>
       <div id="modal_close"><a href="#">close</a>></div>
@@ -78,25 +75,12 @@ function getProject(){
 	 	<input type="button" id="acceptProjectReq" onClick="acceptProjectReq()" style="display:none;" value="프로젝트 완료요청"/>
 	 	<input type="button" id="acceptProjectMakeReq" onClick="acceptProjectMakeReq()" style="display:none; " value="프로젝트 생성요청"/>
 	 </div>
-	
-      
-      <input type="hidden" name="cpcode" value="${cpcode}"> 
-      <input type="hidden" name="userid" value="${userid}">
       <input type="hidden" name="prcode" value=" "> <!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
       <div id="getProject"></div>
-      
-     
-     
 
 <div id="backPop"></div>
 
 	<!-- HTML -->
 	<div id="chartdiv"></div>
-	
-
-    
-           
-
-
 </body>
 </html>

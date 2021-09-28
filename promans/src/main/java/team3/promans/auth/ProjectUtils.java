@@ -56,15 +56,18 @@ public class ProjectUtils {
     /* Upload된 파일을 Local Repository에 저장 : savingFile(MultipartFile) */
     public String savingFile(MultipartFile file) {
     	String fileInfo = null;
-    	/*C:\repo\trinity_promans\promans\src\main\webapp\resources\images*/
+    	/*C:\Users\back\Desktop\Repo\trinity_promans\promans\src\main\webapp\resources\images*/
     	String locate = "C:" + File.separator 
-				+ "repo" + File.separator 
+				+ "Users" + File.separator 
+				+ "back" + File.separator 
+				+ "Desktop" + File.separator 
+				+ "Repo" + File.separator 
 				+ "trinity_promans" + File.separator 
-				+ "promans" + File.separator 
-				+ "src" + File.separator 
-				+ "main" + File.separator 
-				+"webapp" + File.separator 
-				+"resources" + File.separator 
+				+"promans" + File.separator 
+				+"src" + File.separator 
+				+ "main" + File.separator
+				+ "webapp" + File.separator
+				+ "resources" + File.separator
 				+ "images" + File.separator;
     	
     	
@@ -89,15 +92,6 @@ public class ProjectUtils {
     	return fileInfo;
     }
     
-    
-    
-    
-    
-    public void downloadFile(String fname) {
-    	
-    	
-    	
-    }
 
 
 

@@ -7,6 +7,19 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="resources/javascript/findPass.js"></script>
 	<link href="resources/css/findPass.css"rel="stylesheet"type="text/css">
+	
+	<script>
+	
+	let message="${message}";
+	
+	if(message!=""){
+		alert(message);
+	
+	}
+	
+	</script>
+	
+	
 <title>비밀번호 찾기</title>
 </head>
 <body>
