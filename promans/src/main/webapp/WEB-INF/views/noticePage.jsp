@@ -34,6 +34,7 @@ table {
         <input type="hidden" name="pscode" value="${pscode}">
         <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
+        <input type="hidden" name="writer" value="${userid}">
 
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
@@ -109,6 +110,8 @@ table {
 					<!-- <div id="change"></div> -->
 					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display: none;" onClick="deleteNotice()" /> 
 					<input type="button" id="Writebtn" value="글쓰기" name="writer" onClick="OpenPopup()" />
+
+
 				</div>
 
 				<div id="Notice"></div>

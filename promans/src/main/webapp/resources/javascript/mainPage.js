@@ -1,4 +1,3 @@
-
 function am5core(jsonData){
 
 let ang = document.getElementsByClassName("ang");
@@ -220,6 +219,7 @@ function toggle(data){// 안 누르면 = O 누르면 O,true = C
 }
 
 
+
 /*
 function test1(value){
 	let backPop = document.getElementById("backPop");
@@ -242,12 +242,12 @@ function test1(value){
 		}
 	}*/
 	
-function test1(prcode){
-	let cpcode2 = document.getElementsByName("cpcode")[0];
-	let userid2 = document.getElementsByName("userid")[0];
-	let prcode1 = [{prcode:prcode,cpcode:cpcode2.value,userid:userid2.value}];
 
-	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
+function test1(prcode){
+    let cpcode2 = document.getElementsByName("cpcode")[0];
+    let userid2 = document.getElementsByName("userid")[0];
+    let prcode1 = [{prcode:prcode,cpcode:cpcode2.value,userid:userid2.value}];
+    postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
 
 }
 
