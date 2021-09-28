@@ -1,4 +1,3 @@
-
 function am5core(jsonData){
 
 let ang = document.getElementsByClassName("ang");
@@ -220,14 +219,27 @@ function toggle(data){// 안 누르면 = O 누르면 O,true = C
 }
 
 
-function test1(prcode){
-	let cpcode2 = document.getElementsByName("cpcode")[0];
-	let userid2 = document.getElementsByName("userid")[0];
-	let prcode1 = [{prcode:prcode,cpcode:cpcode2.value,userid:userid2.value}];
 
-	postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
-
+function test1(value){
+	let backPop = document.getElementById("backPop");
+	let popup = document.getElementsByName("popup");
+	let boxRadio = document.getElementsByName("boxRadio");
+	let check = document.getElementsByName("check");
+	let result = "";
 	
+	backPop.style.display = "block";
+	for(i=0; i<check.length; i++){
+		if(boxRadio[i].checked){
+			result = boxRadio[i].value;
+		}
+		if(result == check[i].value){
+			check[i].parentNode.style.display = "block";
+		
+		}else{
+			check[i].parentNode.style.display = "none";
+			
+		}
+	}
 }
 
 function popClose(){
@@ -377,10 +389,9 @@ function getManagerList(jsonData){
 	let modal_background = document.getElementById("modal_background2");
   		 box.innerHTML += "<div class='modal' tabindex='-1' role='dialog' style='border:1px solid black;'>";
   		 box.innerHTML += "프로젝트 멤버 리스트";
-		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
 	
 		 for(i=0; i<jsonData.length;i++){
-			 box.innerHTML +=  "<input type='radio' name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'>"+jsonData[i].username +"</><br>" ;
+			 box.innerHTML +=  "<input type='radio' name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'>"+jsonData[i].username +"</>"; 
 		}
 		
   		 box.innerHTML += "<div class='modal-footer'>";
@@ -452,15 +463,14 @@ function getWaitingProStep(jsonData){
    	
     for(i=0; i<jsonData.length; i++){
    		box.innerHTML += "<div class='modal-body'><p>"+jsonData[i].psname+jsonData[i].username+jsonData[i].stname+"</p></div>";  
-   }
+  		 }
   		 box.innerHTML += "<div class='modal-footer'>";
   		 box.innerHTML += "<button type='button' class='btn btn-primary'>Save changes</button>";
   		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
   		 box.innerHTML += "</div></div></div></div>";
 
-		modal_background.style.display = "block";
-		box.style.display = "block";
-		
+		 modal_background.style.display = "block";
+		 box.style.display = "block";
 } 
 
 
@@ -586,7 +596,10 @@ function getReqProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 완료 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq' onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 대기</></div><br>";
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq' onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
+				+"<div id=\"projectReqBoxx\"><div>프로젝트명 : "+jsonData[i].prname + "</div>"
+				+"<div>관리자 : " +jsonData[i].userid 
+				+"&emsp;진행상태 : 대기</></div></div>";
 			}
 		}else{ box.innerHTML ="<div id=\"message\">완료 요청중인 프로젝트가 없습니다.</div>";}
 		
@@ -683,7 +696,11 @@ function getReqMakeProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 생성 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReqq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;프로젝트 설명 : "+jsonData[i].prcontent+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 보류</></div><br>";
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReqq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
+								+"<div id=\"projectReqBoxx\"><div>프로젝트명 : "+jsonData[i].prname + "</div>"
+								+"<div>프로젝트 설명 : "+jsonData[i].prcontent + "</div>"
+								+"<div>관리자 : " +jsonData[i].userid 
+								+"&emsp;&emsp;진행상태 : 보류</></div></div></div>";
 			}
 			box.innerHTML += "<div id='btnbox' ><div id='btns'  name='accepttt' onClick=\"acceptMakeProjects(\'"+cpcode.value+"\')\">승인하기</div>";
 		}else{ box.innerHTML ="<div id=\"message\">생성 요청중인 프로젝트가 없습니다.</div>";}
@@ -714,6 +731,55 @@ function acceptMakeProjectResult(jsonData){
 }
 
 
-
-
-
+function addCpMember(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	
+	box.innerHTML = "<div id=\"completelist\"> 사원 등록 </div>";
+	box.innerHTML += "<div id=\"insmemberbox\">"
+					+ "<input type=\"text\" name=\"userid\" placeholder=\"아이디\" /><br>"
+					+ "<input type=\"text\" name=\"uname\" placeholder=\"이름\" /><br>"
+					+ "<input type=\"password\" name=\"acode\" id=\"accesscode\" placeholder=\"비밀번호\"/><br>"
+					+ "<input type=\"hidden\" name=\"cpcode\" value=\""+cpcode.value+"\" />"
+					+ "<input type=\"text\" name=\"uphone\" placeholder=\"핸드폰\" /><br>"
+					+ "<input type=\"text\" name=\"mail\" id=\"mailforrm\" placeholder=\"메일\" /><br>"
+					+ "<select id=\"selectBox\" name=\"tecode\">"
+					+ "<option value=\"I\">인사팀</option><option value=\"G\">개발팀</option><option value=\"D\">디자인팀</option><option value=\"M\">마케팅팀</option><option value=\"Y\">영업팀</option></select><br>"
+					+ "<input type=\"hidden\" name=\"wcode\" value=\"1\" />"
+					+ "<input type=\"hidden\" name=\"utype\" value=\"G\" />"
+					+ "<input type=\"hidden\" name=\"seperate\" value=\"seperate\" />"
+					+ "<input type=\"button\" id=\"memberregister\" onClick=\"registerMember()\" value=\"등록\"></div>"
+					+ "<div id='btns' onClick=\"gotoback()\" >뒤로가기</div>";
+	
+	box.style.display = "block";
+	modal_background.style.display = "block";
+}
+function registerMember(){
+	let form = document.createElement("form");
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let uname = document.getElementsByName("uname")[0];
+	let acode = document.getElementsByName("acode")[0];
+	let uphone = document.getElementsByName("uphone")[0];
+	let mail = document.getElementsByName("mail")[0];
+	let tecode = document.getElementsByName("tecode")[0];
+	let wcode = document.getElementsByName("wcode")[0];
+	let utype = document.getElementsByName("utype")[0];
+	let seperate = document.getElementsByName("seperate")[0];
+	form.action = "SignUp";
+	form.method = "post";
+	form.appendChild(cpcode);
+	form.appendChild(userid);
+	form.appendChild(uname);
+	form.appendChild(acode);
+	form.appendChild(uphone);
+	form.appendChild(mail);
+	form.appendChild(tecode);
+	form.appendChild(wcode);
+	form.appendChild(utype);
+	form.appendChild(seperate);
+	
+	document.body.appendChild(form);
+	form.submit();
+}

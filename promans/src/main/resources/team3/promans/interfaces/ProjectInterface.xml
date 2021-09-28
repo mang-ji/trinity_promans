@@ -74,4 +74,13 @@
 	<update id="reqProjectAccept" parameterType="team3.promans.beans.ProjectBean"> 
 		update pr set pr_state='W' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
 	</update>
+	<insert id="insertAllManagerToPm" parameterType="team3.promans.beans.ProjectBean">
+		insert into pm values(#{cpcode},#{prcode},#{userid},'A','1')
+	</insert>
+	<insert id="insAllManagerToPs">
+		insert into ps values(#{cpcode}, #{prcode}, #{pscode}, #{psname}, 'I',#{userid},'A')
+	</insert>
+	<select id="selectAllManagerUserid" parameterType="team3.promans.beans.ProjectBean">
+		select cm_userid as userid from cm where cm_cpcode=#{cpcode} and cm_utype='A'
+	</select>
 </mapper>

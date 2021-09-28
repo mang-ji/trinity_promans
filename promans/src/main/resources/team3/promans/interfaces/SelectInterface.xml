@@ -258,7 +258,7 @@
 	</select>
 
 	<select id="selectProjectMember" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectMemberBean">
-		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} 
+		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} and cm_utype != 'A'
 	</select>
 	
 	<select id ="getDataGraphPsW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">
@@ -415,6 +415,10 @@
 		 pr.pr_contents as prcontent 
 		from pr inner join pm on pr.pr_cpcode=pm.pm_cpcode and pr.pr_code=pm.pm_prcode  
 		where pr.pr_cpcode=#{cpcode} and pr.pr_state='Y'
+	</select>
+	
+	<select id="selectCmUtype" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
+		select cm_utype as utype from cm where cm_userid=#{userid}
 	</select>
 
 </mapper>

@@ -210,7 +210,6 @@ public class HomeController {
 	/* 공지사항 삭제 */
 	@PostMapping("noticeDelete")
 	public ModelAndView noticeDelete(@ModelAttribute Notice_CalendarBean list) {
-
 		return si.noticeDelete(list);
 	}
 
