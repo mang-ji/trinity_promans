@@ -81,23 +81,21 @@ function OpenPopup(data){
 	let sccode = document.getElementsByName("sccode")[0].value;
 	let sdcontent = document.getElementsByName("sdcontent");
 	let html = "";
-	console.log(sdcontent[0].value);
-	console.log(sdcontent[1].value);
-	console.log(sdcontent[2].value);
+
 	html +=`<input type ="hidden" name ="cpcode" value =${cpcode.value}>`;
 	html +=`<input type ="hidden" name ="prcode" value =${prcode.value}>`;
 	html +=`<input type ="hidden" name ="pscode" value =${pscode.value}>`;
 	html +=`<input type ="hidden" name ="userid" value =${userid.value}>`;
 	html +=`<input type ="hidden" name= "sccode" value =${sccode.value}>`;
 	html +=`<div class ="rspopup">`;
-	html +=`<h6>완료 요청</h6>`;
+	html +=`<h6>완료 요청</h6><input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
 	html +=`<style>h6{text-align: center;}</style>`;
 	for(i=0; i<sdcontent.length; i++){
 		html +=`<input type ="checkbox" name ="reqs" value=${sdcode}>`;
 		html +="<div id =\"sdcontenta\" name =\"sdcontents\">"+sdcontent[i].value+"</div>";
 	}
 	html +=`<input type ="submit" class ="rbtn" value ="요청" onClick="reqbtn()">`;
-	html +=`<input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
+	//html +=`<input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
 	html +=`</div>`;
 	
 	popup.innerHTML = html;
