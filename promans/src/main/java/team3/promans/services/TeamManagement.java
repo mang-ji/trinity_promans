@@ -1,5 +1,7 @@
 package team3.promans.services;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -8,13 +10,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,39 +35,42 @@ import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 
+
 @Service
 public class TeamManagement implements team3.promans.interfaces.TeamInterface{
-	
+
 	@Autowired
 	Encryption enc;
-	
+
 	@Autowired
 	ProjectUtils pu;
-	
+
 	@Autowired
 	SqlSessionTemplate sql;
-	
+
+	@Autowired
+	JavaMailSenderImpl javaMail;
 
 	public void addTeamMember(List<ProjectMemberBean> pm) {
-		
-		
+
+
 	}
 
 	public List<ScheduleDetailBean> addJob(ProjectStepBean pmb) {
 		List<ScheduleDetailBean> list = sql.selectList("addJob", pmb);
-		
+
 		for(int i=0; i<list.size(); i++) {
 			try {
 				list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
 			} catch (Exception e) {e.printStackTrace();}
 		}
-		
+
 		list.get(0).setPscode(pmb.getPscode());
 		return list;
 	}
-	
+
 	public List<ScheduleDetailBean> firstInsSchedule(ProjectStepBean pmb) {
-		
+
 		boolean result = this.getPsUtype(pmb);
 		System.out.println(pmb);
 		System.out.println(result);
@@ -74,7 +86,7 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 		}
 		return list;
 	}
-	
+
 	public boolean insSchedule(ScheduleBean sb) {
 		int maxSc = this.getMaxSc(sb)+1;
 		boolean result = false;
@@ -87,24 +99,24 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 		}
 		return result;
 	}
-	
+
 	public boolean requestComplete(ProjectStepBean psb) {
 		psb.setStcode("W");
 		return this.convertBoolean(sql.update("requestComplete", psb));
 	}
-	
+
 	public List<ScheduleBean> getComplete(ScheduleBean sb){
 		sb.setScstcode("W");
 		List<ScheduleBean> list = sql.selectList("getComplete", sb);
 		return list;
 	}
-	
-	
+
+
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;
 	}
 
-	
+
 	@Override
 	public int getMaxSc(ScheduleBean psb) {
 		return sql.selectOne("getMaxSc", psb);
@@ -122,7 +134,7 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 
 	public Map<String, String> deleteCpMember(List<CpMemberBean> cmb) {
 		Map<String,String> map = new HashMap<String,String>();
-		
+
 		for(int i=0;i<cmb.size();i++) {
 			/* 회사 멤버테이블에서 비사원 업데이트 */
 			if(this.convertBoolean(sql.update("deleteCpMember",cmb.get(i)))){
@@ -137,9 +149,100 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 		}
 		return map;
 	}
-	
-	
-	
 
-	
+
+	/*public ModelAndView findPass(CpMemberBean cmb, HttpServletRequest request, HttpServletResponse response_email) throws IOException{
+		ModelAndView mav = new ModelAndView();
+
+		Random r = new Random();
+		int dice = r.nextInt(157211)+48271;
+
+
+		String from = "siriwitcher@naver.com";
+
+		String tomail = request.getParameter("mail");
+		String title = "비밀번호 찾기 인증 이메일 입니다.";
+		String content =
+				System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
+				+System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"비밀번호 찾기 인증번호는 " +dice+ " 입니다. "
+				+System.getProperty("line.separator")+
+				System.getProperty("line.separator")+
+				"받으신 인증번호를 홈페이지에 입력해 주시면 다음으로 넘어갑니다.";
+
+		try {
+			MimeMessage mail = javaMail.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mail,"UTF-8");
+
+			helper.setFrom(from);
+			helper.setTo(tomail); 
+			helper.setSubject(title); 
+			helper.setText(content); 
+
+			javaMail.send(mail);
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+
+		mav.setViewName("finePass");
+
+
+		PrintWriter out = response_email.getWriter();
+		out.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.');</script>");
+		out.flush();
+
+
+		return mav;
+
+	}*/
+
+	public ModelAndView findPass(CpMemberBean cmb) {
+		ModelAndView mav = new ModelAndView();
+
+		String encmail = "";
+		try {
+			String originMail = sql.selectOne("getmail",cmb);
+			encmail = enc.aesDecode(originMail, cmb.getUserid());
+
+		} catch (Exception e1) {
+			mav.setViewName("redirect:/findPass");
+			mav.addObject("message", "아이디 혹은 이메일을 확인해주세요."); 
+			return mav;
+		}
+
+		if(!encmail.equals(cmb.getMail())) {
+			mav.setViewName("findPass");
+			mav.addObject("message", "아이디 혹은 이메일을 확인해주세요.");
+			System.out.println("응 아니야~");
+			return mav;
+
+		}else {
+			String subject = "비밀번호 재설정 인증 이메일 입니다.";
+			String contents = "<a href=\"http://192.168.44.31/resetPass?userid="+cmb.getUserid()+"\">"+"비밀번호를 재설정 해주세요."+"</a>";
+			String from = "siriwitcher@naver.com";
+			String to = cmb.getMail();
+
+			MimeMessage mail = javaMail.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mail,"UTF-8");
+
+			try {
+				helper.setFrom(from);
+				helper.setTo(to);
+				helper.setSubject(subject);
+				helper.setText(contents,true);
+				javaMail.send(mail);
+			} catch (MessagingException e) {
+				mav.addObject("message", "메일을 보내지 못했습니다.");
+				return mav;
+			}
+		}
+		mav.addObject("message", cmb.getMail() + "메일을 보냈습니다.");
+		mav.setViewName("logInPage");
+		return mav;
+	}
 }

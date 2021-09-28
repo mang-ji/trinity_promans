@@ -264,20 +264,9 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<GraphDataBean> getDataGraph(List<ProjectBean> pb) {
-		List<GraphDataBean> gdb = new ArrayList<GraphDataBean>(pb.size());
+		List<GraphDataBean> gdb = new ArrayList<GraphDataBean>();
 		
 		gdb = sql.selectList("getGraphInfo",pb.get(0));
-		for(int i=0; i<pb.size(); i++) {
-			gdb.get(i).setStepW(sql.selectOne("getDataGraphPsW", pb.get(i)));
-			gdb.get(i).setScheW(sql.selectOne("getDataGraphScW", pb.get(i)));
-			gdb.get(i).setSdW(sql.selectOne("getDataGraphSdW", pb.get(i)));
-			gdb.get(i).setStepI(sql.selectOne("getDataGraphPsI", pb.get(i)));
-			gdb.get(i).setScheI(sql.selectOne("getDataGraphScI", pb.get(i)));
-			gdb.get(i).setSdI(sql.selectOne("getDataGraphSdI", pb.get(i)));
-			gdb.get(i).setStepC(sql.selectOne("getDataGraphPsC", pb.get(i)));
-			gdb.get(i).setScheC(sql.selectOne("getDataGraphScC", pb.get(i)));
-			gdb.get(i).setSdC(sql.selectOne("getDataGraphSdC", pb.get(i)));	
-		}
 		  
 		return gdb;
 		

@@ -365,8 +365,22 @@
 	</select>
 
 	<select id ="getGraphInfo" parameterType = "team3.promans.beans.ScheduleBean" resultType = "team3.promans.beans.GraphDataBean">
-		SELECT PM_PRCODE AS PRCODE FROM PM WHERE PM_CPCODE = #{cpcode} AND PM_USERID = #{userid}
+		SELECT *
+		FROM
+		(SELECT COUNT(*) AS STEPW FROM PS WHERE PS_CPCODE=#{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'W'),
+		(SELECT COUNT(*) AS SCHEW FROM SC WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'W'),
+		(SELECT COUNT(*) AS SDW FROM SD WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'W'),
+		(SELECT COUNT(*) AS STEPI FROM PS WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I'),
+		(SELECT COUNT(*) AS SCHEI FROM SC WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'I'),
+		(SELECT COUNT(*) AS SDI FROM SD WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'I'),
+		(SELECT COUNT(*) AS STEPC FROM PS WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'S'),
+		(SELECT COUNT(*) AS SCHEC FROM SC WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_STATE = 'S'),
+		(SELECT COUNT(*) AS SDC FROM SD WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_STATE = 'S')
 	</select>
+	
+	
+	
+	
 	<select id="getCpMembers" parameterType="team3.promans.beans.CpMemberBean" resultType="team3.promans.beans.CpMemberBean"> 
 		select  cm_userid as userid,
         cm_uname as uname,
