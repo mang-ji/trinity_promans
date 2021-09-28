@@ -19,5 +19,4 @@ public interface AuthInterface {
 	
 	public String getCpMax(CpMemberBean cmb);
 	public ModelAndView registerCompany(CpMemberBean cmb);
-	
 }
