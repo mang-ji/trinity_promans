@@ -52,7 +52,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberForm" id="adminMember">멤버 관리</a>
-                	<input type="button" onClick="logout()" value="로그아웃">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -82,9 +82,12 @@
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
-                <div id="markList"></div>
-                <div id="fileList"></div>
-                <button type="button" class="btn btn-primary">Primary</button>
+                <div class="list" style="margin-top:5%;" id="markList"></div>
+                <div class="list" style="margin-top:5px;" id="fileList"></div>
+                <div id="change"><input type="button" id="markBtn" style="margin-left:5%; margin-top:5px; float:left;" class="buttonStyle" value="즐겨찾기 추가" onClick="noneMarkList(this)"></div>
+                <div id="delChange"><input type="button" id="deleteFile" style=" margin-top:5px; float:left;" class="buttonStyle" value="파일 삭제" onClick="delFileList()"></div>
+                
+                <!-- <button type="button" class="btn btn-primary">Primary</button> -->
                 
                 <form action="insFile" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="utype" value="${utype}">
@@ -93,17 +96,38 @@
 		        	<input type="hidden" name="prcode" value="${prcode}">
 		        	<input type="hidden" name="pscode" value="${pscode}">
 		        	<input type="hidden" name="sccode" value="${sccode}">
-                	<input type="button" value="파일추가" onClick="clickBtn()">
+                	<input type="button" style="margin-top:5px; margin-right: 5%; float:right;" class="buttonStyle" value="파일추가" onClick="clickBtn()">
                 	<div id="popup" style="display:none;"><div id="popup1">
-                	<input type="file" name="file" multiple>
-					<input type="text" name="ftitle" placeholder="파일 제목">
-					<select name="fopen">
+                	<div style="width:90%; margin:auto;">
+                	<div style="width:100%; font-size:40px; margin-top:30px; margin-bottom:30px;">UPLOAD</div>
+                	<div>
+                	<input type="text" name="ftitle" style="width:50%; height:35px; padding-left:15px; font-size:17px;" placeholder="파일 제목"></div>
+                	
+                	<ul class="uploadDiv">
+                	
+                	<li><input class="uploadName" placeholder="파일 선택" readOnly></li>
+                	<li><label for="files" class="labelBtnUpload">
+                	<input type="button" value="업로드" class="buttonStyle btnUpload" onClick="uploadBtn()">
+                	<input type="file" id="files" class="fileClass" name="file" style="display:none;" multiple>
+                	</label></li>
+					
+                	</ul>
+                	
+                	<div onClick="imgChange()" name="img"><img src="resources/images/close.jpg" style="margin-left:4%; width: 85px;"></div>
+                	<div onClick="imgChange()" name="img" style="display:none;"><img src="resources/images/open.jpg" style="width:60px;"></div>
+                	<input type="hidden" name="fopen" value="O">
+					<!-- <select name="fopen">
 					<option value="O">공개</option>
 					<option value="C">비공개</option>
-					</select>
-					<input type="submit" value="전송">
+					</select> -->
+					<input type="submit" class="buttonStyle submitBtn" value="전송">
+					<div style="font-size:17px;color:#bbbbbb;margin-top:20px;margin-bottom:20px;" onClick="backBtn()">뒤로가기</div>
+                	
+                	</div>
+                	
                 	</div></div>
 				</form>
+				
                 </div>
             </div>
         </div>

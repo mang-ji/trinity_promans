@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +26,7 @@ import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
 import team3.promans.beans.GraphDataBean;
+import team3.promans.beans.MailBean;
 import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
@@ -73,8 +74,11 @@ public class Restcontroller {
 	@Autowired
 	FileManagement fm;
 	
+	@Autowired
+	JavaMailSender mailSender;
+	
 	ModelAndView mav;
-
+	
 	@GetMapping("/idCheck")
 	public boolean idCheck(@ModelAttribute AccessHistory ah) {
 		return auth.idCheck(ah);
@@ -83,15 +87,13 @@ public class Restcontroller {
 	
 	@PostMapping("/GetMySchedule")
 	public List<ScheduleDetailBean> getMySchedule(@RequestBody List<ScheduleDetailBean> sdb){
-		System.out.println("왜또그러냐");
 		return si.getMySchedule(sdb.get(0));
 	}
 	
 	//업무디테일작성
 	@PostMapping("/WriteSchedule")
 	public String writeSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
-		//sm.writeSchedule(sdb.get(0))
-		System.out.println("글작성 첫번째에러다");
+
 		return sm.writeSchedule(sdb.get(0));
 	}
 	
@@ -110,7 +112,6 @@ public class Restcontroller {
 	//업무 완료요청(일반멤버)
 	@PostMapping("/ReqSchedule")
 	public boolean reqSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
-		System.out.println("요청 귀귀");
 		return sm.reqSchedule(sdb);
 	}
 		
@@ -294,11 +295,28 @@ public class Restcontroller {
 	
 	@PostMapping("/GetDataGraph")
 	public List<GraphDataBean> getDataGraph(@RequestBody List<ProjectBean> pb) {
-		System.out.println(pb);
+	
 		return si.getDataGraph(pb);
 
 	}
-
+	
+	@PostMapping("/GetSDGraph")
+	public GraphDataBean getSDGraph(@RequestBody List<ScheduleBean>sb) {
+		
+		
+		return si.getSDGraph(sb.get(0));
+		
+	}
+	
+	@PostMapping("/GetStepGraph")
+	public GraphDataBean getStepGraph(@RequestBody List<ScheduleBean>sb) {
+		System.out.println(sb);
+		System.out.println("요긴 step");
+		
+		return si.getStepGraph(sb.get(0));
+		
+	}
+	
 	
 	@PostMapping("/DeleteProjectMember")
 	public Map<String,String> deleteProjectMember(@RequestBody List<ProjectMemberBean> pmb) {
@@ -320,6 +338,28 @@ public class Restcontroller {
 	@PostMapping("/GetNot")
 	public List<Notice_CalendarBean> getNot(@RequestBody List<Notice_CalendarBean> nc) {
 		return si.getNoticeList(nc.get(0));
+	}
+
+	@PostMapping("noneMarkList")
+	public List<CloudBean> noneMarkList(@RequestBody List<CloudBean> cb){
+		return fm.noneMarkList(cb.get(0));
+	}
+	
+	@PostMapping("deleteMark")
+	public boolean deleteMark(@RequestBody List<CloudBean> cb) {
+		return fm.deleteMark(cb.get(0));
+	}
+	
+	@PostMapping("deleteFiles")
+	public boolean deleteFiles(@RequestBody List<CloudBean> cb) {
+		return fm.deleteFiles(cb);
+		
+	}
+	
+	@PostMapping("/GetWork")
+	public List<ScheduleDetailBean> getWork(@RequestBody List<ScheduleDetailBean> sdb) {
+		
+		return si.getWork(sdb.get(0));
 	}
 	
 	@PostMapping("/DeleteCpMember")
@@ -346,4 +386,5 @@ public class Restcontroller {
 	public Map<String, String> acceptMakeProject(@RequestBody List<ProjectBean> pb){
 		return pm.acceptMakeProject(pb.get(0));
 	}
+
 }

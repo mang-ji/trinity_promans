@@ -17,4 +17,5 @@ public class CpMemberBean {
 	private String mail;
 	private String wcode;
 	private String utype;
+	private String seperate;
 }

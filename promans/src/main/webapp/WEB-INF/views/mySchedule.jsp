@@ -41,7 +41,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="myDiaryForm">업무 일지</a>
-                	<input type="button" onClick="logout()" value="로그아웃">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -71,8 +71,11 @@
                 </nav>
                 <!-- Page content-->
 			<div class="container-fluid">
+				 <div id = "selectBack">    
+                     <div id = "selHeight">ProMan'S</div>
+                    <div id="selectStep"></div>
 				<form action="myScheduleForm" method="get">
-					<table id="tschedule">
+					<table class="tschedule">
 						<tr id="shead">
 							<th></th>
 							<th>제목</th>
@@ -82,13 +85,15 @@
 					</table>
 				</form>
 				<div>
-					<input type="button" onClick="reqbtn()" value="완료 요청">
+					<!-- <input type="button" id="reqbtn" onClick="reqbtn()" value="완료 요청"> -->
+					 <input type="button" id="reqbtn" onClick="OpenPopup()" value="완료 요청">
 				</div>
 				<div id="sia"></div>
 			</div>
 		</div>
 		</div>
-		<div id="popup"><div id="popup1"></div></div>
+		<div id="popup"></div>
+		</div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

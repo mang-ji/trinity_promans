@@ -25,6 +25,8 @@
 	
 }
 
+
+
 #mainPop{
 	position:fixed; z-index:1;
 	left:0px; top:0px; width:100%; height:100%;
@@ -113,7 +115,7 @@
 
 #scstate{
 	
-    position:relative;
+   position:relative;
   width:200px;
    left:248px;
   
@@ -168,6 +170,7 @@
 	background-color :rgb(255,255,255);
 	border-radius: 5px;
 	z-index : 2;
+	overflow:scroll;
 }
 
 #modal_box2 {
@@ -179,6 +182,7 @@
 	background-color :rgb(255,255,255);
 	border-radius: 5px;
 	z-index : 2;
+	overflow:scroll;
 }
 #modal_box3 {
 	display: none;
@@ -205,29 +209,47 @@
 #dates { margin-left: 130px; }
 #steptitle { font-size: 30px; font-weight: bold; margin-left:10px;}
 #circle { border-radius: 50%; width:50px; height:50px;} 
-.buttonStyle{
-	background-color:#4f5f86;
-	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+.buttonStyle {
+    background-color: #4f5f86;
+    color: #c0c5cd;
+    border-radius: 2px;
+    margin-right: 3px;
+    margin-top:30px;
 }
 .stepbuttonStyle {
 	background-color:#4f5f86;
 	color:#c0c5cd; 
 	border-radius:10px; margin-right:3px; margin-top:3px;}
 
+div#ShceduleEdit {
+    margin-top: 10px;
+}
 #teamlistt{ text-align:center; font-weight:bold; font-size:20px; margin:30px; border-bottom: solid 3px; }
 #btns {background-color:#fff; color:#929292; text-align:center; 
-width:100px;  margin-left:450px; height:30px; padding-top:3px;
+width:100px;  margin-left:450px;  border:0px; height:30px; padding-top:3px;
 }
 #btns:hover { background-color:#929292; color:#fff; text-align:center; padding-top:3px;
- width:100px; margin-left:450px; height:30px;}
+ width:100px; margin-left:450px;  border:0px; height:30px;}
 #btnss {background-color:#fff; color:#929292; text-align:center; 
 width:100px;  margin-left:450px; height:30px; padding-top:3px;
 }
 #btnss:hover { background-color:#929292; color:#fff; text-align:center; padding-top:3px;
  width:100px; margin-left:450px; height:30px;}
 #teamonelist {  margin-left:30px; height:30px;}
-#teamonelistinput {margin-right:10px;}
-#projetstepbox {margin-left: 30px; overflow:hidden;}
-#enterstepname {margin-bottom: 20px; width:120px;}
-#stepnamee {float:left;}
+#teamonelistinput {margin-right:10px; border:3px solid #d5d5d5; border-radius:3px;}
+#projetstepbox {margin-left: 110px; overflow:hidden; }
+#enterstepname { float:left; margin-bottom: 20px; width:120px; margin-right:10px;}
+#buttonboundary {float:right; margin-right:400px;}
+#memberselectbtn {background-color:#fff; color:#929292; text-align:center; 
+width:100px;  margin-left:280px; border:0px; height:30px; padding-top:3px;}
+#memberselectbtn:hover {background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:100px; margin-left:280px; height:30px;}
+#stepManagerList {margin-left:30px; margin-bottom:20px; margin-right:10px;}
+#stepnameinput {float:left; border:3px solid #d5d5d5; border-radius:3px;}
+#findbtn {background-color:#fff; color:#929292; text-align:center; 
+width:50px;   border:0px; height:30px; padding-top:3px;}
+#findbtn:hover {background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:50px;  height:30px;}
+ #projectReqBoxx {border: 10px solid #c0c0c0; width: 540px;border-radius:20px; padding:15px;}
+
+#projectReqq {text-align:left; margin-left:30px; margin-bottom:10px; }

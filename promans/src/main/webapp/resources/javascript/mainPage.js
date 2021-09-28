@@ -177,18 +177,46 @@ function getProject1 (jsonData){
 }
 
 function makeProjects(){
+	
+
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	 
+	box.innerHTML += "<div id ='backMakePro'>";
+	box.innerHTML += "<div id='forMargin'>프로젝트 생성하기</div><div id= 'makeProo' >Project Name : <input type='text' name='prname' placeholder='프로젝트 명을 입력해주세요.' style='width:270px;'></div>";
+	box.innerHTML += "<div id= 'makeProo'> <textarea onkeyup:'resize(this)' name='prcontent'  placeholder='간단한 설명을 입력해주세요.' style='width:270px;'>";
+	box.innerHTML += "</div><div id= 'makeProo'>";
+	box.innerHTML += "</div><div id= 'makeProo'>START : <input type='date' name='prsdate' placeholder='start date'/>&emsp;&emsp;END : <input type='date' name='prldate' placeholder='end date'/></div>";
+	box.innerHTML += "<div id ='imgToggle'><img src='resources/images/lock.jpg' id = 'lock' style = 'width:35px; height:35px; '/>OPEN / CLOSE : <label class='switch'><input type='checkbox' name = 'propen'onClick='toggle(this)' value ='O'><span class='slider round'></span></label></div><br>";
+	box.innerHTML += "<input type='submit' value='생성하기'  style='color:#FFFFFF; font-size:15px; margin-top:-20px; border:0px; background-color:#bbbbbb; width:100px; height:40px;' >";
+	box.innerHTML += "<div style= 'font-size:15px; ' onClick='popClose()' id ='backback' >뒤로 가기</div>";
+	box.innerHTML += "</div>";
 	
-	box.innerHTML = "<div> 프로젝트명 : <input type='text' name='prname' placeholder='project name'></div>";
-	box.innerHTML += "<div> 프로젝트 설명 : <input type='text' name='prcontent' placeholder='project content'></div>";
-	box.innerHTML += "<div> 공개 여부 <select name='propen'><option value='O'>공개</option><option value='C'>비공개</option></select></div>";
-	box.innerHTML += "<div> 시작날짜 : <input type='date' name='prsdate' placeholder='start date'></div>";
-	box.innerHTML += "<div> 끝날짜 : <input type='date' name='prldate' placeholder='end date'></div>";
-	box.innerHTML += "<input type='submit' value='생성하기' >";
-	
+
 	box.style.display = "block";
 	modal_background.style.display = "block";
+	
+}
+
+function resize(size){
+	
+	
+	size.style.height = "1px";
+  size.style.height = (12 + obj.scrollHeight) + "px";
+	
+}
+function toggle(data){// 안 누르면 = O 누르면 O,true = C 
+	
+	
+
+	alert("실행 가능?");
+	
+	if(!data.checked){
+		data.value = "O";
+	}else{
+		
+		data.value ="C";
+	}
 	
 }
 
@@ -200,6 +228,7 @@ function test1(value){
 	let check = document.getElementsByName("check");
 	let result = "";
 	
+	backPop.style.display = "block";
 	for(i=0; i<check.length; i++){
 		if(boxRadio[i].checked){
 			result = boxRadio[i].value;
@@ -212,14 +241,26 @@ function test1(value){
 			
 		}
 	}
-	backPop.style.display = "block";
+	
 	
 }
 
 function popClose(){
 	let backPop = document.getElementById("backPop");
+	let modalForm = document.getElementById("Form");
+	let backModal = document.getElementById("modal_background");
+
 	
 	backPop.style.display = "none";
+	
+	backModal.remove()
+		
+		
+	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div></div>";
+
+	
+		
+	
 	
 }
 
@@ -312,6 +353,8 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
   		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button>";
   		 box.innerHTML += "</div></div></div></div>";
 
+
+
 		makeBtnClick(prcode);
 		
 		modal_background.style.display = "block";
@@ -349,10 +392,9 @@ function getManagerList(jsonData){
 	let modal_background = document.getElementById("modal_background2");
   		 box.innerHTML += "<div class='modal' tabindex='-1' role='dialog' style='border:1px solid black;'>";
   		 box.innerHTML += "프로젝트 멤버 리스트";
-		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
 	
 		 for(i=0; i<jsonData.length;i++){
-			 box.innerHTML +=  "<input type='radio' name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'>"+jsonData[i].username +"</><br>" ;
+			 box.innerHTML +=  "<input type='radio' name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'>"+jsonData[i].username +"</>"; 
 		}
 		
   		 box.innerHTML += "<div class='modal-footer'>";
@@ -424,15 +466,14 @@ function getWaitingProStep(jsonData){
    	
     for(i=0; i<jsonData.length; i++){
    		box.innerHTML += "<div class='modal-body'><p>"+jsonData[i].psname+jsonData[i].username+jsonData[i].stname+"</p></div>";  
-   }
+  		 }
   		 box.innerHTML += "<div class='modal-footer'>";
   		 box.innerHTML += "<button type='button' class='btn btn-primary'>Save changes</button>";
   		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
   		 box.innerHTML += "</div></div></div></div>";
 
-		modal_background.style.display = "block";
-		box.style.display = "block";
-		
+		 modal_background.style.display = "block";
+		 box.style.display = "block";
 } 
 
 
@@ -558,7 +599,10 @@ function getReqProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 완료 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq' onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 대기</></div><br>";
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq' onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
+				+"<div id=\"projectReqBoxx\"><div>프로젝트명 : "+jsonData[i].prname + "</div>"
+				+"<div>관리자 : " +jsonData[i].userid 
+				+"&emsp;진행상태 : 대기</></div></div>";
 			}
 		}else{ box.innerHTML ="<div id=\"message\">완료 요청중인 프로젝트가 없습니다.</div>";}
 		
@@ -655,7 +699,11 @@ function getReqMakeProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 생성 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReqq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;프로젝트 설명 : "+jsonData[i].prcontent+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 보류</></div><br>";
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReqq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
+								+"<div id=\"projectReqBoxx\"><div>프로젝트명 : "+jsonData[i].prname + "</div>"
+								+"<div>프로젝트 설명 : "+jsonData[i].prcontent + "</div>"
+								+"<div>관리자 : " +jsonData[i].userid 
+								+"&emsp;&emsp;진행상태 : 보류</></div></div></div>";
 			}
 			box.innerHTML += "<div id='btnbox' ><div id='btns'  name='accepttt' onClick=\"acceptMakeProjects(\'"+cpcode.value+"\')\">승인하기</div>";
 		}else{ box.innerHTML ="<div id=\"message\">생성 요청중인 프로젝트가 없습니다.</div>";}
@@ -683,4 +731,80 @@ function acceptMakeProjects(cpcode){
 function acceptMakeProjectResult(jsonData){
 	alert(jsonData.message);
 	gotoback();
+}
+
+/*
+<form action="SignUp" method="post">
+	               			<div id="insmemberbox">
+		               		<input type="text" name="userid" placeholder="아이디" />
+		               		<input type="text" name="uname" placeholder="이름" />
+							<input type="password" name="acode" id="accesscode" placeholder="비밀번호"/>
+							<input type="hidden" name="cpcode" value="${cpcode }" />
+							<input type="text" name="uphone" placeholder="핸드폰" />
+							<input type="text" name="mail" id="mailforrm" placeholder="메일" />
+							<select id="selectBox" name="tecode">
+							<option value="I">인사팀</option>
+							<option value="G">개발팀</option>
+							<option value="D">디자인팀</option>
+							<option value="M">마케팅팀</option>
+							<option value="Y">영업팀</option>
+							</select>
+							<input type="hidden" name="wcode" value="1" />
+							<input type="hidden" name="utype" value="G" />
+							<input type="submit" id="memberregister" value="등록">
+							</div>
+						</form>	
+ */
+
+function addCpMember(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	
+	box.innerHTML = "<div id=\"completelist\"> 사원 등록 </div>";
+	box.innerHTML += "<div id=\"insmemberbox\">"
+					+ "<input type=\"text\" name=\"userid\" placeholder=\"아이디\" /><br>"
+					+ "<input type=\"text\" name=\"uname\" placeholder=\"이름\" /><br>"
+					+ "<input type=\"password\" name=\"acode\" id=\"accesscode\" placeholder=\"비밀번호\"/><br>"
+					+ "<input type=\"hidden\" name=\"cpcode\" value=\""+cpcode.value+"\" />"
+					+ "<input type=\"text\" name=\"uphone\" placeholder=\"핸드폰\" /><br>"
+					+ "<input type=\"text\" name=\"mail\" id=\"mailforrm\" placeholder=\"메일\" /><br>"
+					+ "<select id=\"selectBox\" name=\"tecode\">"
+					+ "<option value=\"I\">인사팀</option><option value=\"G\">개발팀</option><option value=\"D\">디자인팀</option><option value=\"M\">마케팅팀</option><option value=\"Y\">영업팀</option></select><br>"
+					+ "<input type=\"hidden\" name=\"wcode\" value=\"1\" />"
+					+ "<input type=\"hidden\" name=\"utype\" value=\"G\" />"
+					+ "<input type=\"hidden\" name=\"seperate\" value=\"seperate\" />"
+					+ "<input type=\"button\" id=\"memberregister\" onClick=\"registerMember()\" value=\"등록\"></div>"
+					+ "<div id='btns' onClick=\"gotoback()\" >뒤로가기</div>";
+	
+	box.style.display = "block";
+	modal_background.style.display = "block";
+}
+function registerMember(){
+	let form = document.createElement("form");
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let uname = document.getElementsByName("uname")[0];
+	let acode = document.getElementsByName("acode")[0];
+	let uphone = document.getElementsByName("uphone")[0];
+	let mail = document.getElementsByName("mail")[0];
+	let tecode = document.getElementsByName("tecode")[0];
+	let wcode = document.getElementsByName("wcode")[0];
+	let utype = document.getElementsByName("utype")[0];
+	let seperate = document.getElementsByName("seperate")[0];
+	form.action = "SignUp";
+	form.method = "post";
+	form.appendChild(cpcode);
+	form.appendChild(userid);
+	form.appendChild(uname);
+	form.appendChild(acode);
+	form.appendChild(uphone);
+	form.appendChild(mail);
+	form.appendChild(tecode);
+	form.appendChild(wcode);
+	form.appendChild(utype);
+	form.appendChild(seperate);
+	
+	document.body.appendChild(form);
+	form.submit();
 }

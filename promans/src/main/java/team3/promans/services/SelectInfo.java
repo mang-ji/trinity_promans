@@ -66,14 +66,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
 		List<ScheduleDetailBean> myScheduleList = sql.selectList("getMySchedule", sdb); 
-		System.out.println("업무조회다");
 		return myScheduleList;
 	}
 
 	public List<WorkDiaryBean> getDiary(WorkDiaryBean wdb){
 		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
-		System.out.println("일지 잘뜨네이제");
-		System.out.println(getDiaryList);
 		return getDiaryList;
 	}
 
@@ -96,7 +93,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			nc.setFilepath("");
 		}else {
 			nc.setFname(nc.getFile().getOriginalFilename());
-			nc.setFilepath("/resources/images/"+pu.savingFile(nc.getFile()));
+			nc.setFilepath("resources/images/"+pu.savingFile(nc.getFile()));
 		}
 
 		sql.insert("insNotice", nc);
@@ -130,7 +127,10 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
-
+		try {
+			pu.setAttribute("utype", sql.selectOne("selectCmUtype", pmb));
+		} catch (Exception e) {e.printStackTrace();}
+		
 		return  sql.selectList("getProject", pmb);
 	}
 
@@ -307,19 +307,72 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pmb.setCpcode((String)pu.getAttribute("cpcode"));
 			pmb.setPrcode((String)pu.getAttribute("prcode"));
 			pmb.setUserid((String)pu.getAttribute("userid"));
-			pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
+		
+			System.out.println(pu.getAttribute("utype") + " 안녕 여기 확인용 ~~~ ");
+			if(pu.getAttribute("utype") == "A") {
+				pu.setAttribute("utype", "A");
+				System.out.println("관리자 타기 !" );
+			}else {
+				pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
+				System.out.println("여기는ㄴ 리더! ");
+			}
 			
 		} catch (Exception e) {e.printStackTrace();}
 		mav.setViewName("adminProject");
 		return mav;
 	}
 
+	public GraphDataBean getSDGraph(ScheduleBean sb) {
+	
+    GraphDataBean gdb = new GraphDataBean();
+		
+
+		gdb.setSdW(sql.selectOne("getSdW", sb));
+		gdb.setSdI(sql.selectOne("getSdI", sb));
+		gdb.setSdC(sql.selectOne("getSdC", sb));	
+		
+		  
+		return gdb;
+		
+		
+	}
 
 
+
+	public GraphDataBean getStepGraph(ScheduleBean sb) {
+		
+      GraphDataBean gdb = new GraphDataBean();
+	
+        if(sb.getPscode() ==null) {
+        	System.out.println("요긴 step");
+        	
+        	gdb.setStepW(sql.selectOne("getStepW", sb));
+    		gdb.setStepI(sql.selectOne("getStepI", sb));
+    		gdb.setStepC(sql.selectOne("getStepC", sb));
+    		
+    		
+        }else {
+        	System.out.println("요긴 schedule");
+    		gdb.setPscode(sb.getPscode());
+    		gdb.setScheW(sql.selectOne("getScheW", sb));
+    		gdb.setScheI(sql.selectOne("getScheI",sb));
+    		gdb.setScheC(sql.selectOne("getScheC",sb));
+        }
+			
+			
+		return gdb;
+	}
 	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
 		return sql.selectList("selectReqProject", pb);
 	}
 
+
+	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
+		
+		List<ScheduleDetailBean> SDList1;
+		SDList1 = sql.selectList("SDList1", sdb);
+		return SDList1;
+	}
 
 
 	public List<ProjectBean> selectProjectMakeReq(ProjectBean pb) {
