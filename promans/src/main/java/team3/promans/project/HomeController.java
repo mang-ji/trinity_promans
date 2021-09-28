@@ -145,6 +145,19 @@ public class HomeController {
 
 		return "mySchedule";
 	}
+	
+	@GetMapping("/resetForm")
+	public String resetForm(@RequestParam("userid") String userid) {
+		
+		try {
+			pu.setAttribute("userid", userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "resetPass";
+	}
+	
+	
 	@PostMapping("writeSchedule")
 	public String writeSchedule(ScheduleDetailBean sdb) {
 		return sm.writeSchedule(sdb);
@@ -197,7 +210,6 @@ public class HomeController {
 	/* 공지사항 삭제 */
 	@PostMapping("noticeDelete")
 	public ModelAndView noticeDelete(@ModelAttribute Notice_CalendarBean list) {
-
 		return si.noticeDelete(list);
 	}
 
@@ -282,7 +294,13 @@ public class HomeController {
 	public ModelAndView findPass(@ModelAttribute CpMemberBean cmb) {
 		mav = tm.findPass(cmb);
 		return mav;  
-	 
+}
+	
+
+	@PostMapping("/resetPass")
+	public ModelAndView resetPass(@ModelAttribute CpMemberBean cmb) {
+		mav = tm.resetPass(cmb);
+		return mav;  
 }
 }
 

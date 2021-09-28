@@ -76,9 +76,17 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		
 		psb.setPscode(this.stepMax(psb));
 		
-		if(this.convertData(sqlSession.insert("insStep", psb))){
-			map.put("message", "스텝 생성이 완료되었습니다.");
-		}else {map.put("message","해당 스텝이 이미 존재합니다.");}
+			/* ps관리자를 Ps테이블에 넣어줌 */
+			if(this.convertData(sqlSession.insert("insStep", psb))){
+				/* + 추가작업) 총관리자 userid 를 다시 셀렉해서 */
+				psb.setUserid(sqlSession.selectOne("selectAllManagerUserid", psb));
+				/* 총관리자를 ps테이블에 먼저 넣어줌 */
+				if(this.convertData(sqlSession.insert("insAllManagerToPs",psb))) {
+					map.put("message", "스텝 생성이 완료되었습니다.");
+				}
+			}else {map.put("message","해당 스텝이 이미 존재합니다.");}
+		
+		
 		
 		return map;
 	}
@@ -228,14 +236,20 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 
 
 	public Map<String, String> acceptMakeProject(ProjectBean pb) {
-		
 		Map<String,String> map = new HashMap<>();
 		map.put("message", " 승인 실패하였습니다.");
 		/* 프로젝트 보류 > 진행으로 업데이트 */
 		if(this.convertData(sqlSession.update("acceptMakeProject", pb))) {
 			/* 프로젝트 멤버 테이블에서 보류상태인 관리자를 리더로 업데이트 */
 			if(this.convertData(sqlSession.update("updateLeader",pb))) {
-				map.put("message", "승인을 완료하였습니다.");
+				/* 총괄 프로젝트멤버테이블에 넣으려고 userid 설정하는 부분 */
+				try {
+					pb.setUserid((String)pu.getAttribute("userid"));
+				} catch (Exception e) {e.printStackTrace();}
+				/* 총관리자도 프로젝트 멤버에 넣어줌 (추가작업임) */
+				if(this.convertData(sqlSession.insert("insertAllManagerToPm", pb))) {
+					map.put("message", "승인을 완료하였습니다.");
+				}
 			}
 		}
 		return map;

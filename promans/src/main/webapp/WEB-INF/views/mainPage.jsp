@@ -25,6 +25,7 @@ window.addEventListener('load',function(){
     let userid1 = document.getElementsByName("userid")[0];
     let ReqBtn = document.getElementById("acceptProjectReq");
     let ReqBtn2 = document.getElementById("acceptProjectMakeReq");
+    let addCpMemBtn = document.getElementById("addCpMember");
     let utype = document.getElementsByName("utype")[0];
     let jsonData =[{cpcode:cpcode1.value, userid:userid1.value}];
     let clientData = JSON.stringify(jsonData);
@@ -32,6 +33,7 @@ window.addEventListener('load',function(){
     if(utype.value == 'A'){
     	ReqBtn.style.display = "block";
     	ReqBtn2.style.display = "block";
+    	addCpMemBtn.style.display = "block";
     } 
     
     postAjax('rest/GetProject', clientData, 'getProject1', 2);
@@ -56,14 +58,14 @@ window.addEventListener('load',function(){
 
 	<form action='CreateProject' method='post' >
 	<div id ='Form'>
-	 <div id="modal_background">
-	 	<div id="modal_box">
-	 	<div id="requestList"></div>
+		
+	 	<div id="modal_background">
+	 		<div id="modal_box">
+	 			<div id="requestList"></div>
+	 		</div>
 	 	</div>
-	 </div>
-
+		
 	 </div>	 <input type="hidden" name="utype" value="${utype}"> 
-
 	</form>
 	
 	 <div id="titleParent">
@@ -74,6 +76,7 @@ window.addEventListener('load',function(){
 	 <div id="ReqBtn">
 	 	<input type="button" id="acceptProjectReq" onClick="acceptProjectReq()" style="display:none;" value="프로젝트 완료요청"/>
 	 	<input type="button" id="acceptProjectMakeReq" onClick="acceptProjectMakeReq()" style="display:none; " value="프로젝트 생성요청"/>
+	 	<input type="button" id="addCpMember" onClick="addCpMember()" style="display:none; " value="사원 추가"/>
 	 </div>
       <input type="hidden" name="prcode" value=" "> <!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
       <div id="getProject"></div>

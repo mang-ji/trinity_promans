@@ -34,12 +34,12 @@ body{
 	font-size:25px;
 	letter-spacing:5px;
 	color:#000000;
-	margin-left:14%;
+	margin-left:0%;
 	margin-top:10px;
 	font-weight:100;
 }
 
-#email{
+#id{
 	font-size:10px;
 	border:1px solid #ffffff;
 	background-color:#ffffff;
@@ -51,13 +51,31 @@ body{
 	z-index:1;
 }
 
-#emailBox{
+#idBox{
 	position:relative;
 }
 
+
+#email{
+	font-size:10px;
+	border:1px solid #ffffff;
+	background-color:#ffffff;
+	width:31px;
+	padding:2px;
+	margin-left:35px;
+	margin-bottom:0px;
+	position:absolute;
+	z-index:1;
+}
+
+#emailBox{
+	position:relative;
+	
+}
+
 .box{
-	width:336px;
-	height:10px;
+	width:310px;
+	height:3px;
 	padding:20px;
 	margin-top:5px;
 	font-size:15px;
@@ -66,4 +84,21 @@ body{
 	margin-left:7.6%;
 }.box:focus{
 	outline:1px solid #bdb6e5;
+}
+
+.button{
+	width:75px;
+	height:40px;
+	background-color:#5191ce;
+	border:1px solid #f0ebf0;
+	border-radius:5px;
+	margin-top:-7.3px;
+	margin-right:160px;
+	float:right;
+	color:#f0ebf0;
+	cursor:pointer;
+	text-align:center;
+	letter-spacing:3px;
+	
+	
 }

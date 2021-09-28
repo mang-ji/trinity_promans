@@ -140,7 +140,6 @@
 					 	<div id='createBtn'></div>
 					 </div>
               </div>
-               
                <div id="mainPop"><div id="popUp"></div></div>
             </div>
            	   

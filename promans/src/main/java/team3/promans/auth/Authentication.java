@@ -2,6 +2,7 @@ package team3.promans.auth;
 
 import java.io.UnsupportedEncodingException;
 
+
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -142,6 +143,7 @@ public class Authentication implements AuthInterface {
 
 
 	public String SignUp(CpMemberBean cm) {
+		
 		try {
 			cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
 			cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
@@ -151,9 +153,14 @@ public class Authentication implements AuthInterface {
 			this.insCpMember(cm);
 
 		} catch (Exception e) {e.printStackTrace();}
-
+		
+		if(cm.getSeperate() != null) {
+			return "mainPage";
+		}
+		
 		return "memberManage";
 	}
+	
 
 	private boolean convertBoolean(int value) {
 		return (value>0)?true:false;

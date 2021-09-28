@@ -127,7 +127,10 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
-
+		try {
+			pu.setAttribute("utype", sql.selectOne("selectCmUtype", pmb));
+		} catch (Exception e) {e.printStackTrace();}
+		
 		return  sql.selectList("getProject", pmb);
 	}
 
@@ -293,7 +296,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pmb.setCpcode((String)pu.getAttribute("cpcode"));
 			pmb.setPrcode((String)pu.getAttribute("prcode"));
 			pmb.setUserid((String)pu.getAttribute("userid"));
-			pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
+		
+			System.out.println(pu.getAttribute("utype") + " 안녕 여기 확인용 ~~~ ");
+			if(pu.getAttribute("utype") == "A") {
+				pu.setAttribute("utype", "A");
+				System.out.println("관리자 타기 !" );
+			}else {
+				pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
+				System.out.println("여기는ㄴ 리더! ");
+			}
 			
 		} catch (Exception e) {e.printStackTrace();}
 		mav.setViewName("adminProject");

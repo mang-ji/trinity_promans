@@ -318,9 +318,7 @@ public class Restcontroller {
 	
 	@PostMapping("/GetStepGraph")
 	public GraphDataBean getStepGraph(@RequestBody List<ScheduleBean>sb) {
-		System.out.println(sb);
-		System.out.println("요긴 step");
-		
+
 		return si.getStepGraph(sb.get(0));
 		
 	}
@@ -394,4 +392,6 @@ public class Restcontroller {
 	public Map<String, String> acceptMakeProject(@RequestBody List<ProjectBean> pb){
 		return pm.acceptMakeProject(pb.get(0));
 	}
+	
+	
 }
