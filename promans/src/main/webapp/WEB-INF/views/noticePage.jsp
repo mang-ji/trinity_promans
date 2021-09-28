@@ -34,6 +34,7 @@ table {
         <input type="hidden" name="pscode" value="${pscode}">
         <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
+        <input type="hidden" name="writer" value="${userid}">
 
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->

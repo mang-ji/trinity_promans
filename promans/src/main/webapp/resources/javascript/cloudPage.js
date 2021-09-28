@@ -31,6 +31,9 @@ function getFileList(data){
 	let fileList = document.getElementById("fileList");
 	let userid = document.getElementsByName("userid")[0];
 	let style = document.createElement("style");
+	let lock = document.createElement("img");
+	lock.src = "/resources/images/closeLogo.png";
+	lock.className = "lock";
 	let list="";
 	let css  = "";
 	
@@ -48,7 +51,8 @@ function getFileList(data){
 		list+= "<input type=\"button\" class=\"item_list\" id=\"flRadio"+i+"\" name=\"flRadio\" onClick=\"downLoadFile(\'"+data[i].fname+"\')\"><label for=\"flRadio"+i+"\" style=\"width:100%;height:30px; margin:auto;\">";
 		list+= "<div style=\"width:10%; height:29px; float:left; padding-right:10px; text-align:right; color:#585858; border-right:1px solid #bbbbbb;\">"+(i+1)+"</div>";
 		if(data[i].fopen == "C" && data[i].fwriter == userid.value){
-			list+= "<div style=\"width:39%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle +"응~비공개야~</div>";
+			list+= "<div style=\"width:39%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"
+			+ data[i].ftitle +"<img class=\"lock\" src=\"/resources/images/closeLogo.png\"></div>";
 		}else{
 			list+= "<div style=\"width:39%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle +"</div>";
 		
@@ -66,6 +70,7 @@ function getFileList(data){
 		css+= ".fdateColor{color:#848484;}";
 		
 	}
+	
 	style.innerHTML=css;
 	document.head.append(style);
 	fileList.innerHTML=list;
@@ -127,8 +132,6 @@ function getMarkList(data){
 	let style = document.createElement("style");
 	let userid = document.getElementsByName("userid")[0];	
 	let lock = document.createElement("img");
-	lock.src = "/resources/images/closeLogo.png";
-	lock.className = "lock";
 	
 	
 	list+= "<input type=\"checkbox\" id=\"markOn\" onClick=\"markOnOff(this)\"><label for=\"markOn\" style=\"cursor:pointer;\">BookMark</label>";
@@ -145,7 +148,8 @@ function getMarkList(data){
 			list+= "<div class=\"star\" style=\"width:10%; height:29px; float:left; padding-right:10px; text-align:right; color:#585858; border-right:1px solid #bbbbbb;\"onClick=\"alreadyMark(\'"+data[i].fcode+"\')\"></div>";
 			list+= "<input type=\"button\" class=\"item_list\" id=\"markBtn"+i+"\" name=\"flRadio\" onClick=\"downLoadFile(\'"+data[i].fname+"\')\"><label for=\"markBtn"+i+"\" style=\"width:90%;height:30px; margin:auto;\">";
 			if(data[i].fopen == "C" && data[i].fwriter == userid.value){
-				list+= "<div name=\"lockImg\" style=\"width:43.3%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle+"</div>";
+				list+= "<div name=\"lockImg\" style=\"width:43.3%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"
+				+ data[i].ftitle +"<img class=\"lock\" src=\"/resources/images/closeLogo.png\"></div>";
 				
 			}else{
 				list+= "<div style=\"width:43.3%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle +"</div>";
@@ -168,11 +172,6 @@ function getMarkList(data){
 		style.innerHTML = css;
 		document.head.append(style);
 		markList.innerHTML=list;
-		let lockImg = document.getElementsByName("lockImg");
-		
-		for(i=0; i<lockImg.length; i++){
-			lockImg[i].appendChild(lock);
-		}
 		
 		$(document).ready(function(){
 			$(".star").hover(function(){
@@ -396,7 +395,7 @@ function imgChange(){
 		img[0].style.display = "block";
 		img[1].style.display = "none";
 		fopen.value = "O";
-	}else{
+	}else if(fopen.value == "O"){
 		img[1].style.display = "block";
 		img[0].style.display = "none";
 		fopen.value = "C";
