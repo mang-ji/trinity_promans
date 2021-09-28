@@ -80,7 +80,7 @@
 	<insert id="insAllManagerToPs">
 		insert into ps values(#{cpcode}, #{prcode}, #{pscode}, #{psname}, 'I',#{userid},'A')
 	</insert>
-	<select id="selectAllManagerUserid" parameterType="team3.promans.beans.ProjectBean">
+	<select id="selectAllManagerUserid" parameterType="team3.promans.beans.ProjectBean" resultType="string">
 		select cm_userid as userid from cm where cm_cpcode=#{cpcode} and cm_utype='A'
 	</select>
 </mapper>

@@ -141,7 +141,7 @@
 		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
 		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
-		PRCODE = #{prcode} 
+		PRCODE = #{prcode}  and utype !='A'
 
 	</select>
 	

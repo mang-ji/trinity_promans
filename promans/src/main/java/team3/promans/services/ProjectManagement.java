@@ -79,8 +79,10 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 			/* ps관리자를 Ps테이블에 넣어줌 */
 			if(this.convertData(sqlSession.insert("insStep", psb))){
 				/* + 추가작업) 총관리자 userid 를 다시 셀렉해서 */
+				psb.setPscode(psb.getPscode() + "-A");
 				psb.setUserid(sqlSession.selectOne("selectAllManagerUserid", psb));
 				/* 총관리자를 ps테이블에 먼저 넣어줌 */
+				System.out.println(psb.getPscode() + " : " + psb.getUserid());
 				if(this.convertData(sqlSession.insert("insAllManagerToPs",psb))) {
 					map.put("message", "스텝 생성이 완료되었습니다.");
 				}
@@ -95,7 +97,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		/* pscode 생성 어케하쥐 */
 		int psMax = sqlSession.selectOne("selectStepMax",psb);
 		String stringMax ="";
-		if(psMax<10) {
+		if((psMax+1)<10) {
 			stringMax = "PS0" + (psMax+1);
 		}else {
 			stringMax = "PS" +(psMax+1);
