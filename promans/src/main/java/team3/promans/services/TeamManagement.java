@@ -153,13 +153,13 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 
 	/*public ModelAndView findPass(CpMemberBean cmb, HttpServletRequest request, HttpServletResponse response_email) throws IOException{
 		ModelAndView mav = new ModelAndView();
-		
+
 		Random r = new Random();
 		int dice = r.nextInt(157211)+48271;
-		
-		
+
+
 		String from = "siriwitcher@naver.com";
-	
+
 		String tomail = request.getParameter("mail");
 		String title = "비밀번호 찾기 인증 이메일 입니다.";
 		String content =
@@ -176,7 +176,7 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 		try {
 			MimeMessage mail = javaMail.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mail,"UTF-8");
-			
+
 			helper.setFrom(from);
 			helper.setTo(tomail); 
 			helper.setSubject(title); 
@@ -190,8 +190,8 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 
 
 		mav.setViewName("finePass");
-		
-		
+
+
 		PrintWriter out = response_email.getWriter();
 		out.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.');</script>");
 		out.flush();
@@ -203,40 +203,46 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 
 	public ModelAndView findPass(CpMemberBean cmb) {
 		ModelAndView mav = new ModelAndView();
-	
+
 		String encmail = "";
-		
 		try {
-			encmail = enc.aesDecode(sql.selectOne("getmail",cmb), cmb.getUserid());
-			System.out.println(encmail + " : 1");
+			String originMail = sql.selectOne("getmail",cmb);
+			encmail = enc.aesDecode(originMail, cmb.getUserid());
+
 		} catch (Exception e1) {
-			mav.setViewName("findPass");
-			mav.addObject("message", "아이디 혹은 이메일을 확인해주세요.");
-			System.out.println(encmail + " : 2");
+			mav.setViewName("redirect:/findPass");
+			mav.addObject("message", "아이디 혹은 이메일을 확인해주세요."); 
 			return mav;
 		}
-			mav.addObject("message", cmb.getMail() + "메일을 보냈습니다.");
+
+		if(!encmail.equals(cmb.getMail())) {
+			mav.setViewName("findPass");
+			mav.addObject("message", "아이디 혹은 이메일을 확인해주세요.");
+			System.out.println("응 아니야~");
+			return mav;
+
+		}else {
 			String subject = "비밀번호 재설정 인증 이메일 입니다.";
 			String contents = "<a href=\"http://192.168.44.31/resetPass?userid="+cmb.getUserid()+"\">"+"비밀번호를 재설정 해주세요."+"</a>";
 			String from = "siriwitcher@naver.com";
 			String to = cmb.getMail();
-			
+
 			MimeMessage mail = javaMail.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mail,"UTF-8");
-			
-		try {
-			helper.setFrom(from);
-			helper.setTo(to);
-			helper.setSubject(subject);
-			helper.setText(contents,true);
-			javaMail.send(mail);
-		} catch (MessagingException e) {
-			mav.addObject("message", "메일을 보내지 못했습니다.");
-			e.printStackTrace();
-		
+
+			try {
+				helper.setFrom(from);
+				helper.setTo(to);
+				helper.setSubject(subject);
+				helper.setText(contents,true);
+				javaMail.send(mail);
+			} catch (MessagingException e) {
+				mav.addObject("message", "메일을 보내지 못했습니다.");
+				return mav;
+			}
 		}
+		mav.addObject("message", cmb.getMail() + "메일을 보냈습니다.");
+		mav.setViewName("logInPage");
 		return mav;
 	}
-
-
 }
