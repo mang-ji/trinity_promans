@@ -95,7 +95,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		/* pscode 생성 어케하쥐 */
 		int psMax = sqlSession.selectOne("selectStepMax",psb);
 		String stringMax ="";
-		if(psMax<10) {
+		if((psMax+1)<10) {
 			stringMax = "PS0" + (psMax+1);
 		}else {
 			stringMax = "PS" +(psMax+1);
