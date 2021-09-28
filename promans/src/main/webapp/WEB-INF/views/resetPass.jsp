@@ -10,6 +10,6 @@
 <title>새 비밀번호 설정</title>
 </head>
 <body>
-
+	<input type = "hidden" name="userid" value="${userid}">
 </body>
 </html>

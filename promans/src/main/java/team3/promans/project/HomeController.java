@@ -135,6 +135,11 @@ public class HomeController {
 		return "adminSchedule";
 	}
 	
+	@GetMapping("findPassForm")
+	public String findPassForm() {
+		return "findPass";
+	}
+	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
 
@@ -273,5 +278,11 @@ public class HomeController {
 			}
 		}
 	}
+	@PostMapping("/findPass")
+	public ModelAndView findPass(@ModelAttribute CpMemberBean cmb) {
+		mav = tm.findPass(cmb);
+		return mav;  
+	 
+}
 }
 

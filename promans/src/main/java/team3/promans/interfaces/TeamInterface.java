@@ -19,4 +19,5 @@ public interface TeamInterface {
 	public List<ScheduleBean> getComplete(ScheduleBean sb);
 	public int insScheduleMember(ScheduleBean sb);
 	public boolean getPsUtype(ProjectStepBean psb);
+	
 }

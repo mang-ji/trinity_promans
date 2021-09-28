@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URLEncoder;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -122,8 +124,12 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 	public ModelAndView submitMail(MailBean mb) {
 		mav = new ModelAndView();
 		MimeMessage mail = javaMail.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(mail,"UTF-8");
-
+		MimeMessageHelper helper = null;
+		try {
+			helper = new MimeMessageHelper(mail,true,"UTF-8");
+		} catch (MessagingException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			StringBuffer sb = new StringBuffer();
 			sb.append("----------------------------------------------<br>");
@@ -132,16 +138,13 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 			sb.append(mb.getMcontents());
 
 			String contents = sb.toString();
-
-			String filename = "resources/images/"+pu.savingFile(mb.getFile());
-
+			String filename = "C:/repo/trinity_promans/promans/src/main/webapp/resources/images/"+pu.savingFile(mb.getFile());
+			
 			if(mb!=null) {
 				helper.setFrom("siriwitcher@naver.com");
 				helper.setTo(mb.getTo());
 				helper.setSubject(mb.getTitle());
 				helper.setText(contents,true);
-
-
 				FileSystemResource fsr = new FileSystemResource(filename);
 				helper.addAttachment(mb.getFile().getOriginalFilename(), fsr);
 
