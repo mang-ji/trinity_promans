@@ -1,9 +1,16 @@
 package team3.promans.project;
 
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -128,11 +135,29 @@ public class HomeController {
 		return "adminSchedule";
 	}
 	
+	@GetMapping("findPassForm")
+	public String findPassForm() {
+		return "findPass";
+	}
+	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
 
 		return "mySchedule";
 	}
+	
+	@GetMapping("/resetForm")
+	public String resetForm(@RequestParam("userid") String userid) {
+		
+		try {
+			pu.setAttribute("userid", userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "resetPass";
+	}
+	
+	
 	@PostMapping("writeSchedule")
 	public String writeSchedule(ScheduleDetailBean sdb) {
 		return sm.writeSchedule(sdb);
@@ -185,7 +210,6 @@ public class HomeController {
 	/* 공지사항 삭제 */
 	@PostMapping("noticeDelete")
 	public ModelAndView noticeDelete(@ModelAttribute Notice_CalendarBean list) {
-
 		return si.noticeDelete(list);
 	}
 
@@ -218,5 +242,65 @@ public class HomeController {
 		mav = fm.submitMail(mb);
 		return mav;
 	}
+	
+	@PostMapping("downLoadFile")
+	public void downLoadFile(@ModelAttribute CloudBean cb, HttpServletResponse res,HttpServletRequest req) {
+		String saveDir = 
+				//req.getSession().getServletContext().getRealPath("C:/Users/back/Desktop/Repo/trinity_promans/promans/src/main/webapp/resources/images");
+				"C:/Users/back/Desktop/Repo/trinity_promans/promans/src/main/webapp/resources/images";
+		String fileName = cb.getFname();
+		
+		File file = new File(saveDir+"/"+fileName);
+		
+		FileInputStream fis = null;
+		BufferedInputStream bis = null;
+		ServletOutputStream sos = null;
+		try {
+			fis = new FileInputStream(file);
+			bis = new BufferedInputStream(fis);
+			sos = res.getOutputStream();
+
+			String reFileName = "";
+			System.out.println(fileName);
+			System.out.println(saveDir+"/"+fileName);
+			/*
+			reFileName = URLEncoder.encode(fileName,"UTF-8");
+			reFileName = reFileName.replaceAll("\\+", "%20");*/
+			
+			reFileName = new String(fileName.getBytes("utf-8"), "ISO-8859-1");
+
+			res.setContentType("application/octet-stream;charset=utf-8");
+			res.addHeader("Content-Disposition", "attachment;filename=\""+reFileName+"\"");
+			res.setContentLength((int) file.length());
+
+			int read = 0;
+			while((read=bis.read()) != -1) {
+				sos.write(read);
+			}
+			
+
+		} catch (Exception e) {e.printStackTrace();
+		}finally {
+			try {
+				sos.close();
+				bis.close();
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	@PostMapping("/findPass")
+	public ModelAndView findPass(@ModelAttribute CpMemberBean cmb) {
+		mav = tm.findPass(cmb);
+		return mav;  
+}
+	
+
+	@PostMapping("/resetPass")
+	public ModelAndView resetPass(@ModelAttribute CpMemberBean cmb) {
+		mav = tm.resetPass(cmb);
+		return mav;  
+}
 }
 

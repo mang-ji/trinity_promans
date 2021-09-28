@@ -1,8 +1,16 @@
 package team3.promans.project;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -310,9 +318,7 @@ public class Restcontroller {
 	
 	@PostMapping("/GetStepGraph")
 	public GraphDataBean getStepGraph(@RequestBody List<ScheduleBean>sb) {
-		System.out.println(sb);
-		System.out.println("요긴 step");
-		
+
 		return si.getStepGraph(sb.get(0));
 		
 	}
@@ -386,5 +392,6 @@ public class Restcontroller {
 	public Map<String, String> acceptMakeProject(@RequestBody List<ProjectBean> pb){
 		return pm.acceptMakeProject(pb.get(0));
 	}
-
+	
+	
 }

@@ -26,7 +26,6 @@ function idCheck(data){
 	let pass = document.getElementById("pass");
 	
 	let text = document.getElementById("text");
-	let idFor = document.getElementById("idForget");
 	let nonId = document.getElementById("nonId");
 	
 	if(data == true){
@@ -37,7 +36,6 @@ function idCheck(data){
 	text.style.display = "none";
 	id.style.display = "none";
 	pass.style.display = "block";
-	idFor.innerText="비밀번호를 잊으셨나요?";
 	nonId.innerText="";
 	uCode.style.border = "1px solid #51FFA6";
 	

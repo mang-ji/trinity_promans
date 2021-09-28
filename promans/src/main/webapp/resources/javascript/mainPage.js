@@ -1,29 +1,30 @@
-
-
 function am5core(jsonData){
 
 let ang = document.getElementsByClassName("ang");
 let backPop = document.getElementById("backPop");
+var loader = document.getElementsByClassName("loader")[0];
+var container = document.getElementsByClassName("container")[0];
+	let boxRadio = document.getElementsByName("boxRadio");
+	let check = document.getElementsByName("check");		
 let html = "";
 
 for(i=0; i<jsonData.length;i++){
-//let chart = document.getElementById("chart");
-html+="<div name='popup' class='popup' style='display:none;'><input type=\"hidden\" name=\"check\" value=\""+i+"\"><div id='chartdiv"+i+"' style='width:100%; height:400px;'></div><div style='color:#bbbbbb; font-size:15px; margin-bottom:10px;' onClick='popClose()'>뒤로 가기</div></div>";
-//ang[i].innerHTML +="<div id='chartdiv"+i+"' style='width:50%; height:400px;'></div>";
+	html+="<div name='popup' class='popup'>"+
+	"<div id='chartdiv' style='width:100%; height:400px;'></div>"+
+	"<div style='color:#bbbbbb; font-size:15px; margin-bottom:10px;' onClick='popClose()'>"+
+	"뒤로 가기</div></div>";
 }
+
 backPop.innerHTML = html;
+backPop.style.display = "block";
 
 for(i=0; i<jsonData.length;i++){
-		
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
 
-var chart = am4core.create("chartdiv"+i , am4charts.XYChart);
+var chart = am4core.create("chartdiv" , am4charts.XYChart);
 chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-
-
-
 chart.data = [
   {
     category: "스텝",
@@ -117,6 +118,8 @@ bullet3.label.fill = am4core.color("#ffffff");
 
 chart.scrollbarX = new am4core.Scrollbar();
 
+
+
 }}
 
 
@@ -135,33 +138,28 @@ function getProject1 (jsonData){
 	list +="<div id='parent'>";
 	
 	for(i=0; i<jsonData.length; i++){
-			prcode1.push({prcode:jsonData[i].prcode, cpcode:cpcode.value, userid:userid.value});
 			if(jsonData[i].propen =="O"){
 				if(jsonData[i].prldate == null){
 					
 					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\" ><label for=\"boxRadio"+i+"\">차트</label></div>";
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+jsonData[i].prcode+"\')\" class=\"boxRadio\" ><label for=\"boxRadio"+i+"\">차트</label></div>";
 					
 				}else{
 					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+jsonData[i].prcode+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
 				}
 				
 			}else{
 				if(jsonData[i].prldate == null){
 					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\" ><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+jsonData[i].prcode+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
 				
 				}else{
 					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
-					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+i+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
+					+"&emsp;비공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+ jsonData[i].prldate +"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+jsonData[i].prcode+"\')\" class=\"boxRadio\"><label for=\"boxRadio"+i+"\">차트</label></div>";
 				
 				}
 			}
-
-			
-			postAjax("rest/GetDataGraph" , JSON.stringify(prcode1), "am5core", 2);
-
 			css += "input[id=\"boxRadio"+i+"\"] \+ label{border:0px solid #fcfaff; width:50px; cursor:pointer; text-align:center; margin-left:5%;}";				
 			css += "input[id=\"boxRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb; color:white; border:0px solid #bbbbbb;}";			
 			css += "input[id=\"boxRadio"+i+"\"]{display:none}";
@@ -221,6 +219,7 @@ function toggle(data){// 안 누르면 = O 누르면 O,true = C
 }
 
 
+
 function test1(value){
 	let backPop = document.getElementById("backPop");
 	let popup = document.getElementsByName("popup");
@@ -228,6 +227,7 @@ function test1(value){
 	let check = document.getElementsByName("check");
 	let result = "";
 	
+	backPop.style.display = "block";
 	for(i=0; i<check.length; i++){
 		if(boxRadio[i].checked){
 			result = boxRadio[i].value;
@@ -240,8 +240,6 @@ function test1(value){
 			
 		}
 	}
-	backPop.style.display = "block";
-	
 }
 
 function popClose(){
@@ -391,10 +389,9 @@ function getManagerList(jsonData){
 	let modal_background = document.getElementById("modal_background2");
   		 box.innerHTML += "<div class='modal' tabindex='-1' role='dialog' style='border:1px solid black;'>";
   		 box.innerHTML += "프로젝트 멤버 리스트";
-		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
 	
 		 for(i=0; i<jsonData.length;i++){
-			 box.innerHTML +=  "<input type='radio' name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'>"+jsonData[i].username +"</><br>" ;
+			 box.innerHTML +=  "<input type='radio' name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'>"+jsonData[i].username +"</>"; 
 		}
 		
   		 box.innerHTML += "<div class='modal-footer'>";
@@ -466,15 +463,14 @@ function getWaitingProStep(jsonData){
    	
     for(i=0; i<jsonData.length; i++){
    		box.innerHTML += "<div class='modal-body'><p>"+jsonData[i].psname+jsonData[i].username+jsonData[i].stname+"</p></div>";  
-   }
+  		 }
   		 box.innerHTML += "<div class='modal-footer'>";
   		 box.innerHTML += "<button type='button' class='btn btn-primary'>Save changes</button>";
   		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
   		 box.innerHTML += "</div></div></div></div>";
 
-		modal_background.style.display = "block";
-		box.style.display = "block";
-		
+		 modal_background.style.display = "block";
+		 box.style.display = "block";
 } 
 
 
@@ -600,7 +596,10 @@ function getReqProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 완료 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq' onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 대기</></div><br>";
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq' onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
+				+"<div id=\"projectReqBoxx\"><div>프로젝트명 : "+jsonData[i].prname + "</div>"
+				+"<div>관리자 : " +jsonData[i].userid 
+				+"&emsp;진행상태 : 대기</></div></div>";
 			}
 		}else{ box.innerHTML ="<div id=\"message\">완료 요청중인 프로젝트가 없습니다.</div>";}
 		
@@ -697,7 +696,11 @@ function getReqMakeProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 생성 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReqq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"+ "&ensp;프로젝트명 : "+jsonData[i].prname+"&emsp;&emsp;프로젝트 설명 : "+jsonData[i].prcontent+"&emsp;&emsp;관리자 : " +jsonData[i].userid + "&emsp;&emsp;진행상태 : 보류</></div><br>";
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReqq'  value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
+								+"<div id=\"projectReqBoxx\"><div>프로젝트명 : "+jsonData[i].prname + "</div>"
+								+"<div>프로젝트 설명 : "+jsonData[i].prcontent + "</div>"
+								+"<div>관리자 : " +jsonData[i].userid 
+								+"&emsp;&emsp;진행상태 : 보류</></div></div></div>";
 			}
 			box.innerHTML += "<div id='btnbox' ><div id='btns'  name='accepttt' onClick=\"acceptMakeProjects(\'"+cpcode.value+"\')\">승인하기</div>";
 		}else{ box.innerHTML ="<div id=\"message\">생성 요청중인 프로젝트가 없습니다.</div>";}
@@ -725,4 +728,58 @@ function acceptMakeProjects(cpcode){
 function acceptMakeProjectResult(jsonData){
 	alert(jsonData.message);
 	gotoback();
+}
+
+
+function addCpMember(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	
+	box.innerHTML = "<div id=\"completelist\"> 사원 등록 </div>";
+	box.innerHTML += "<div id=\"insmemberbox\">"
+					+ "<input type=\"text\" name=\"userid\" placeholder=\"아이디\" /><br>"
+					+ "<input type=\"text\" name=\"uname\" placeholder=\"이름\" /><br>"
+					+ "<input type=\"password\" name=\"acode\" id=\"accesscode\" placeholder=\"비밀번호\"/><br>"
+					+ "<input type=\"hidden\" name=\"cpcode\" value=\""+cpcode.value+"\" />"
+					+ "<input type=\"text\" name=\"uphone\" placeholder=\"핸드폰\" /><br>"
+					+ "<input type=\"text\" name=\"mail\" id=\"mailforrm\" placeholder=\"메일\" /><br>"
+					+ "<select id=\"selectBox\" name=\"tecode\">"
+					+ "<option value=\"I\">인사팀</option><option value=\"G\">개발팀</option><option value=\"D\">디자인팀</option><option value=\"M\">마케팅팀</option><option value=\"Y\">영업팀</option></select><br>"
+					+ "<input type=\"hidden\" name=\"wcode\" value=\"1\" />"
+					+ "<input type=\"hidden\" name=\"utype\" value=\"G\" />"
+					+ "<input type=\"hidden\" name=\"seperate\" value=\"seperate\" />"
+					+ "<input type=\"button\" id=\"memberregister\" onClick=\"registerMember()\" value=\"등록\"></div>"
+					+ "<div id='btns' onClick=\"gotoback()\" >뒤로가기</div>";
+	
+	box.style.display = "block";
+	modal_background.style.display = "block";
+}
+function registerMember(){
+	let form = document.createElement("form");
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let uname = document.getElementsByName("uname")[0];
+	let acode = document.getElementsByName("acode")[0];
+	let uphone = document.getElementsByName("uphone")[0];
+	let mail = document.getElementsByName("mail")[0];
+	let tecode = document.getElementsByName("tecode")[0];
+	let wcode = document.getElementsByName("wcode")[0];
+	let utype = document.getElementsByName("utype")[0];
+	let seperate = document.getElementsByName("seperate")[0];
+	form.action = "SignUp";
+	form.method = "post";
+	form.appendChild(cpcode);
+	form.appendChild(userid);
+	form.appendChild(uname);
+	form.appendChild(acode);
+	form.appendChild(uphone);
+	form.appendChild(mail);
+	form.appendChild(tecode);
+	form.appendChild(wcode);
+	form.appendChild(utype);
+	form.appendChild(seperate);
+	
+	document.body.appendChild(form);
+	form.submit();
 }
