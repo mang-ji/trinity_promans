@@ -152,7 +152,7 @@
 
 
 	<select id="selectSchedule"
-		parameterType="team3.promans.beans.ProjectStepBean"
+		parameterType="team3.promans.beans.ScheduleDetailBean"
 		resultType="team3.promans.beans.ScheduleBean">
 		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE,
 		NVL((SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid} AND PRCODE = #{prcode} AND PSCODE = #{pscode}),'G') AS UTYPE 
@@ -389,6 +389,12 @@
 	
 	</select>
 	
+	<select id = "getSDType" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType = "string">
+	
+	select sm_utype as utype from sm where sm_cpcode=#{cpcode} and sm_sccode=#{sccode} and sm_userid=#{userid}
+	
+	</select>
+	
 	
 	<select id="selectReqProject" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ProjectBean">
 		select pr.pr_name as prname,  pr.pr_code as prcode,  pm.pm_userid as userid , pr.pr_state as prstate 
@@ -402,5 +408,10 @@
 		from pr inner join pm on pr.pr_cpcode=pm.pm_cpcode and pr.pr_code=pm.pm_prcode  
 		where pr.pr_cpcode=#{cpcode} and pr.pr_state='Y'
 	</select>
-
+     
+     <select id = "selectScheduleMember" parameterType = "team3.promans.beans.ProjectMemberBean" resultType = "team3.promans.beans.ProjectMemberBean">
+     
+     	select userid, username as uname from projectmemberview where cpcode =#{cpcode} and prcode = #{prcode} 
+     
+     </select>
 </mapper>

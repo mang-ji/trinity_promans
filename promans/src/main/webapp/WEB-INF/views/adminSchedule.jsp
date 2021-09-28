@@ -52,20 +52,19 @@
         	<input type="hidden" name="sccode" value="${sccode}">
         	<input type="hidden" name="userid" value="${userid}">
         	
-       	<div id="modalDiv"></div>
-        <div id = "modal1" style="display:none;" ></div>
-        <div id = "modal2"  style="display:none;"></div>
-        
+   
         <form action='CreateProject' method='post' >
 	<div id ='Form'>
-	 <div id="modal_background">
-	 	<div id="modal_box">
+	 <div id="modal_background" style='display:none;'>
+	 	
+	 	<div id="modal_box" style='display:none;'>
 	 	<div id="requestList"></div>
 	 	</div>
+	 	<div id = "modal_box2" style = 'display:none;'></div>
 	 </div>
 	 </div>
 	</form>
-        	
+        	<div id ='reqMenu' ></div>
         <div  class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div style="position:fixed;" >
@@ -124,6 +123,7 @@
             </div>
             
              <div id="notices">
+             <div id = reqMenu></div>
                 <div id = "redirect1">이전 화면으로</div>
              	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
              	<div id="child2" ><div id = 'SCList'>WORK LIST</div></div>

@@ -218,5 +218,13 @@ public class HomeController {
 		mav = fm.submitMail(mb);
 		return mav;
 	}
+	
+	@PostMapping("/reqWork")
+	public ModelAndView reqWork(@ModelAttribute ScheduleDetailBean sdb) {
+		System.out.println((sdb.getSdcode()));
+		
+		
+	    return sm.reqWork(sdb);
+	}
 }
 
