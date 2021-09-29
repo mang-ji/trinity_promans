@@ -17,7 +17,22 @@
    </update>
    
    <insert id="insStep" parameterType="team3.promans.beans.ProjectStepBean">
-      insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L')
+		DECLARE
+		CP NVARCHAR2(7) := #{cpcode};
+		PR NVARCHAR2(9) := #{prcode};
+		PS NVARCHAR2(9) := #{pscode};
+		PSNAME NVARCHAR2(15) := #{psname};
+		ID NVARCHAR2(20) := #{userid};
+		UT NVARCHAR2(1) := 'A';
+		ST NVARCHAR2(1) := 'I';
+		BEGIN
+		INSERT INTO PS VALUES(CP,PR,PS,PSNAME,ST,ID,'L');
+		FOR TESTS IN (SELECT CM_USERID FROM CM WHERE CM_UTYPE = UT AND CM_CPCODE = CP)
+		LOOP
+		INSERT INTO PS VALUES(CP,PR,PS,PSNAME,ST,TESTS.CM_USERID,UT);
+		END LOOP;
+		END;
+    <!--   insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L') -->
    </insert>
    
    <insert id="insProjectMember" parameterType="team3.promans.beans.ProjectMemberBean">

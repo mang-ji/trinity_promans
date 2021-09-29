@@ -503,7 +503,7 @@ function selectSchedule(jsonData){
 		list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px;\">";
 	
 		//if(jsonData[0].utype != "G"){
-			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
+			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 6px;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
 				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left;\" onClick=\"addJobMember()\"></div>"
 				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
 		//	}
