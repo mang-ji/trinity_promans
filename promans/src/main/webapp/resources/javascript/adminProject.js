@@ -962,7 +962,7 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 		
   		 box.innerHTML = "<div id='modal_background2'><div id='modal_box2'></div></div>";
 		 box.innerHTML +="<div id=\"teamlistt\"> 프로젝트 생성 </div>"
-						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">프로젝트 스텝명 :</div><input type='text' id=\"stepnameinput\" name='stepName'/></div>"
+						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">프로젝트 스텝명 :</div><input type='text' id=\"stepnameinput\" name='psname'/></div>"
 						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">관리자 :</div><input type='text' id='teamonelistinput'/><input type='button' id=\"findbtn\" value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
 					
   		 box.innerHTML += "<div id=\"btnss\">생성하기</div>";
@@ -982,13 +982,21 @@ function makeBtnClick(prcode){
 	let make = document.getElementById("btnss");
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	let prcode1 = document.getElementsByName("prcode")[0];
+	let form = document.createElement("form");
 	make.addEventListener('click', function(){
-		let psname1 = document.getElementsByName("stepName")[0];
-		let userid1 = document.getElementsByName("userid1")[0];
-		let cpcode1 = document.getElementsByName("cpcode")[0];
-		let clientData = [{cpcode:cpcode1.value, prcode:prcode ,psname:psname1.value, userid:userid1.value}];
-
-		postAjax("rest/MakeStep",JSON.stringify(clientData),"insStep",2);
+		let psname = document.getElementsByName("psname")[0];
+		let userid = document.getElementsByName("userid")[1]; // 0번째는 로그인한 사람 유저아이디임 
+		let cpcode = document.getElementsByName("cpcode")[0];
+		
+		form.action = "MakeStep";
+		form.method = "post";
+		form.appendChild(cpcode);
+		form.appendChild(userid);
+		form.appendChild(psname);
+		form.appendChild(prcode1);
+		document.body.appendChild(form);
+		form.submit();
 		
 		box.style.display = "none";
 		modal_background.style.display = "none";
@@ -996,9 +1004,6 @@ function makeBtnClick(prcode){
 	
 }
 
-function insStep(jsonData){
-	alert(jsonData.message);
-}
 
 
 /* 관리자 시킬 사람 조회 */
@@ -1042,7 +1047,7 @@ function selectStepManager(){
 	username = array[1];
 	
 	manager.value = username;
-	manager.innerHTML += "<input type='hidden' name='userid1' value=\'"+userid+"\' />";
+	manager.innerHTML += "<input type='hidden' name='userid' value=\'"+userid+"\' />";
 
 	close2();
 }

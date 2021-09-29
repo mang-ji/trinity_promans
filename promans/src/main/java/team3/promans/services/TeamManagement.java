@@ -142,9 +142,9 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 				if(this.convertBoolean(sql.selectOne("selecttProjectMember", cmb.get(i)))) {
 					/* 프로젝트멤버 테이블에서 삭제 ! */
 					if(this.convertBoolean(sql.update("deleteProjectMember",cmb.get(i)))) {
-						map.put("message",  cmb.get(i).getUserid()+ "님 비사원처리가 완료되었습니다.");
+						map.put("message",  "비사원처리가 완료되었습니다.");
 					}
-				}else {map.put("message",  cmb.get(i).getUserid()+ "님 비사원처리가 완료되었습니다."); }
+				}else {map.put("message",  "비사원처리가 완료되었습니다."); }
 			}
 		}
 		return map;

@@ -173,28 +173,62 @@ function getProject1 (jsonData){
 	
 	getProject.innerHTML = list;
 }
+/*
+function makeProjects(){
+	
+
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	
+	box.innerHTML = "<div id ='backMakePro'>";
+	box.innerHTML += "<div id='forMargin'>프로젝트 생성하기</div><div id= 'makeProo' >Project Name : <input type='text' name='prname' placeholder='프로젝트 명을 입력해주세요.' style='width:270px;'></div>";
+	box.innerHTML += "<div id= 'makeProo'> <textarea onkeyup:'resize(this)' name='prcontent'  placeholder='간단한 설명을 입력해주세요.' style='width:270px;'>";
+	box.innerHTML += "</div><div id= 'makeProo'>";
+	box.innerHTML += "</div><div id= 'makeProo'>START : <input type='date' name='prsdate' placeholder='start date'/>&emsp;&emsp;END : <input type='date' name='prldate' placeholder='end date'/></div>";
+	box.innerHTML += "<div id ='imgToggle'><img src='resources/images/lock.jpg' id = 'lock' style = 'width:35px; height:35px; '/>OPEN / CLOSE : <label class='switch'><input type='checkbox' name=\"propen\" onClick='toggle(event)' value =\"O\" /><span class='slider round'></span></label></div><br>";
+	box.innerHTML += "<input type='submit' value='생성하기'  style='color:#FFFFFF; font-size:15px; margin-top:-20px; border:0px; background-color:#bbbbbb; width:100px; height:40px;' />";
+	box.innerHTML += "<div style= 'font-size:15px; ' onClick='popClose()' id ='backback' >뒤로 가기</div>";
+	box.innerHTML += "</div>";
+	
+	
+	box.style.display = "block";
+	modal_background.style.display = "block";
+}
+
+
+*/
 
 function makeProjects(){
 	
 
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
-	 
-	box.innerHTML += "<div id ='backMakePro'>";
+	
+	box.innerHTML = "<div id ='backMakePro'>";
 	box.innerHTML += "<div id='forMargin'>프로젝트 생성하기</div><div id= 'makeProo' >Project Name : <input type='text' name='prname' placeholder='프로젝트 명을 입력해주세요.' style='width:270px;'></div>";
 	box.innerHTML += "<div id= 'makeProo'> <textarea onkeyup:'resize(this)' name='prcontent'  placeholder='간단한 설명을 입력해주세요.' style='width:270px;'>";
 	box.innerHTML += "</div><div id= 'makeProo'>";
 	box.innerHTML += "</div><div id= 'makeProo'>START : <input type='date' name='prsdate' placeholder='start date'/>&emsp;&emsp;END : <input type='date' name='prldate' placeholder='end date'/></div>";
-	box.innerHTML += "<div id ='imgToggle'><img src='resources/images/lock.jpg' id = 'lock' style = 'width:35px; height:35px; '/>OPEN / CLOSE : <label class='switch'><input type='checkbox' name = 'propen'onClick='toggle(this)' value ='O'><span class='slider round'></span></label></div><br>";
-	box.innerHTML += "<input type='submit' value='생성하기'  style='color:#FFFFFF; font-size:15px; margin-top:-20px; border:0px; background-color:#bbbbbb; width:100px; height:40px;' >";
+	box.innerHTML += "<div id ='imgToggle'><img src='resources/images/lock.jpg' id = 'lock' style = 'width:35px; height:35px; '/>OPEN / CLOSE : <label class='switch'><input type=\"hidden\" id=\"openn\" name=\"propen\" value=\"O\"/><input type='checkbox' id=\"opencheck\" name=\"checkboxx\" /><span class='slider round'></span></label></div><br>";
+	box.innerHTML += "<input type='submit' value='생성하기'  style='color:#FFFFFF; font-size:15px; margin-top:-20px; border:0px; background-color:#bbbbbb; width:100px; height:40px;' />";
 	box.innerHTML += "<div style= 'font-size:15px; ' onClick='popClose()' id ='backback' >뒤로 가기</div>";
 	box.innerHTML += "</div>";
 	
-
+	$("#opencheck").change(
+		function(){
+			if($("#opencheck").is(":checked")){
+				$("#openn").val('C');
+			}else {
+				$("#openn").val('O');
+			}
+		}
+	);
+	
 	box.style.display = "block";
 	modal_background.style.display = "block";
-	
 }
+
+
 
 function resize(size){
 	
@@ -203,17 +237,30 @@ function resize(size){
   size.style.height = (12 + obj.scrollHeight) + "px";
 	
 }
+/*
 function toggle(data){// 안 누르면 = O 누르면 O,true = C 
 	
-	
-
-	alert("실행 가능?");
+	alert("실행 가능?" );
 	
 	if(!data.checked){
 		data.value = "O";
 	}else{
 		
 		data.value ="C";
+	}
+	
+}*/
+
+function toggle(event){// 안 누르면 = O 누르면 O,true = C 
+alert(event.target.value + " 일단 이게 o긴 하나?");
+	if(event.target.checked){
+		if(event.target.value=="C"){
+			event.target.value="O";
+		}else{
+			event.target.value="C";
+		}
+	}else{
+		event.target.value="O";
 	}
 	
 }
@@ -605,7 +652,7 @@ function getReqProjectList(jsonData){
 		if(jsonData[0]!=null){
 		box.innerHTML = "<div id=\"completelist\"> 완료 요청 리스트 </div>";
 		for(i=0; i<jsonData.length;i++){
-				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq' onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
+				box.innerHTML +="<div id='projectReqq'><input type='radio' name='projectReq'id=\"rd\" onClick=\"makeFeedback()\" value=\'"+jsonData[i].prcode+","+jsonData[i].userid+"\' >"
 				+"<div id=\"projectReqBoxx\"><div>프로젝트명 : "+jsonData[i].prname + "</div>"
 				+"<div>관리자 : " +jsonData[i].userid 
 				+"&emsp;진행상태 : 대기</></div></div>";

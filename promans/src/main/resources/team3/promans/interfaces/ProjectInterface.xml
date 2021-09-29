@@ -39,7 +39,7 @@
 
 	<select id="selectStepMax" parameterType="team3.promans.beans.ProjectStepBean" resultType="int">
 
-     select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode}
+     select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode} and ps_utype='L'
 
 	</select>
 	

@@ -32,6 +32,7 @@ import team3.promans.beans.MailBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
+import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.FileManagement;
 import team3.promans.beans.WorkDiaryBean;
@@ -234,6 +235,7 @@ public class HomeController {
 	
 	@PostMapping("CreateProject")
 	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
+		System.out.println(pb + " 유나확인용 ~~ ");
 		return pm.createProject(pb);
 	}
 	
@@ -301,6 +303,13 @@ public class HomeController {
 	public ModelAndView resetPass(@ModelAttribute CpMemberBean cmb) {
 		mav = tm.resetPass(cmb);
 		return mav;  
-}
+	}
+	
+	@PostMapping("/MakeStep")
+	public ModelAndView makeStep(@ModelAttribute ProjectStepBean psb) {
+		return pm.makeStep(psb);
+	}
+	
+	
 }
 

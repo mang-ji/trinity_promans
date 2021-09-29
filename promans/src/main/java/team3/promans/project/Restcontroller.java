@@ -190,12 +190,6 @@ public class Restcontroller {
 	}
 	
 	
-	
-	@PostMapping("/MakeStep")
-	public Map<String,String> makeStep(@RequestBody List<ProjectStepBean> psb) {
-		
-		return pm.makeStep(psb.get(0));
-	}
 
 	
 	@PostMapping("/ScheFeedback")

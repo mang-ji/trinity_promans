@@ -71,8 +71,8 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		return sqlSession.update("updateComplete", sdb);
 	}
 
-	public Map<String, String> makeStep(ProjectStepBean psb) {
-		Map<String,String> map = new HashMap<>();
+	public ModelAndView makeStep(ProjectStepBean psb) {
+		mav = new ModelAndView();
 		
 		psb.setPscode(this.stepMax(psb));
 		
@@ -82,15 +82,18 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 				psb.setPscode(psb.getPscode() + "-A");
 				psb.setUserid(sqlSession.selectOne("selectAllManagerUserid", psb));
 				/* 총관리자를 ps테이블에 먼저 넣어줌 */
-				System.out.println(psb.getPscode() + " : " + psb.getUserid());
 				if(this.convertData(sqlSession.insert("insAllManagerToPs",psb))) {
-					map.put("message", "스텝 생성이 완료되었습니다.");
+					mav.setViewName("redirect:/");
+					mav.setViewName("adminProject");
+					mav.addObject("message", "스텝 생성이 완료되었습니다.");
 				}
-			}else {map.put("message","해당 스텝이 이미 존재합니다.");}
+			}else {
+				mav.setViewName("adminProject");
+				mav.addObject("message","해당 스텝이 이미 존재합니다.");}
 		
 		
 		
-		return map;
+		return mav;
 	}
 
 	public String stepMax(ProjectStepBean psb) {
@@ -177,7 +180,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 
 			pb.setPrcode(max<10? "PR0"+max:"PR"+max);
 
-			if(pu.getAttribute("utype").equals("A"))	{
+			if(pu.getAttribute("utype").equals("A")){
 				pb.setPrstate("I");
 				pb.setPrutype("L");
 				if(this.convertData(sqlSession.insert("createProject", pb))){

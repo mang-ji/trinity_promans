@@ -401,14 +401,16 @@ input[type="text"]{border-radius:4px; margin-bottom:20px; text-align:center;}
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
 }
+/*
+input[type="radio"]{display:none;}
 
-
-
-
-
-
-
-
+label.r {display:inline-block;width:550px;height:120px;background-repeat:no-repeat;background-size:20px auto;}
+label.r1 {display:inline-block;width:550px;height:140px;background-repeat:no-repeat;background-size:20px auto;}
+label.r2 {display:inline-block;width:70px;height:30px; padding:3px; background-repeat:no-repeat;background-size:20px auto; border:1px solid #929292; background-color:white;}
+label.r2:hover {display:inline-block;width:70px;height:30px; padding:3px; background-repeat:no-repeat;background-size:20px auto;  background-color:#929292;}
+label.r3 {display:inline-block;width:70px;height:30px; padding:3px; background-repeat:no-repeat;background-size:20px auto; border:1px solid #929292;  background-color:white;}
+label.r3:hover {display:inline-block;width:70px;height:30px; padding:3px; background-repeat:no-repeat;background-size:20px auto;  background-color:#929292;}
+#rd1 {background-color:#929292;} */
 
 
 
