@@ -1,5 +1,5 @@
 @charset "UTF-8";
-#notices { width:20rem; position:fixed; left:1150px; height:80%; top:100px; }
+#notices { width:20rem; position:fixed; left:1150px; height:80%; top:123px; }
 #SCList { 	background-color:#4f5f86;
 	color:white;
 	text-align:center;
@@ -11,20 +11,29 @@
 }
 #child1 { width:20rem; height:auto; background-color:white;
 				 margin-bottom: 30px;  }
-#redirect1{
-	width:20rem; height:40px; background-color:white;
-	 margin-bottom: 30px; 
-	
-	 text-align:center;
-	 padding-top:7px;
-}
+
 #reqMenu{
 	left:1150px;
 	height:20%;
 	position:fixed;
-	margin-top:20px;
+	margin-top:30px;
 	
 	
+	
+}
+
+#reqSDBtn{
+	margin-left:90px;
+	margin-top:10px;
+	text-align:center;
+	width:150px;
+	padding-top:5px;
+	height:30px;
+	border :0px solid grey; border-radius:20px;
+	box-shadow : 5px 5px 8px 2px gray;
+	box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    cursor:pointer;
+    font-size:15px;
 	
 }
 
@@ -37,20 +46,26 @@
 	box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
     cursor:pointer;
     font-size:15px;
-	
-}
-
-#getSDInfo{
-	text-align:center;
+    	text-align:center;
 	padding-top:5px;
        width:100px;
        height:30px;
+	
 }
 
-#SDBtn.hover{
+#getSDInfoo{
+      float:left;
 	
-	background-color:#5e5d5e;
-	color:white;
+	margin-left:110px;
+	border :0px solid grey; border-radius:20px;
+	box-shadow : 5px 5px 8px 2px gray;
+	box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    cursor:pointer;
+    font-size:15px;
+    	text-align:center;
+	padding-top:5px;
+       width:100px;
+       height:30px;
 }
 
 
@@ -71,7 +86,7 @@
 }
 
 .workCheck{
-     opacity:0;
+    display:none;
 }
 
 

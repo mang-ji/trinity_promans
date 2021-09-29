@@ -391,7 +391,7 @@
 	
 	<select id = "getSDType" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType = "string">
 	
-	select sm_utype as utype from sm where sm_cpcode=#{cpcode} and sm_sccode=#{sccode} and sm_userid=#{userid}
+	select sm_utype as utype from sm where sm_cpcode=#{cpcode} and sm_prcode = #{prcode} and sm_pscode= #{pscode} and sm_sccode=#{sccode} and sm_userid=#{userid}
 	
 	</select>
 	

@@ -159,7 +159,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pu.setAttribute("utype", list.get(0).getUtype());
 			
 			System.out.println(list.get(0).getUtype());
-			System.out.println("ghkrdls");
 			
 			}
 		} catch (Exception e) {e.printStackTrace();}
@@ -186,11 +185,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<ScheduleDetailBean> getSDInfo(ScheduleDetailBean sdb) {
-		try {
-			pu.setAttribute("pscode", sdb.getSccode());
-			
-			
-		} catch (Exception e) {e.printStackTrace();}
 		
 		return  sql.selectList("getSDInfo", sdb);
 	}

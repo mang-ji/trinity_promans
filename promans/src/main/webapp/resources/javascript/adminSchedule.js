@@ -7,6 +7,7 @@ function getSchedule(){
 }
 
 
+
 function getSDGraph(jsonData){
 	alert("요기 못온다는 거쥐");
 
@@ -99,28 +100,55 @@ function getWork(jsonData){
 	let count =1;
 	let utype = document.getElementsByName("utype")[0];
 	let reqMenu = document.getElementById("reqMenu");
-
+	let style = document.createElement("style");
+	let css="";
+	
 	
 	for(i=0; i<jsonData.length; i++ ){
   
 	
-	child2.innerHTML += "<div><div><input type='radio' name='sdcode' class= 'workCheck' id=\"workCheck"+i+"\" value = \'"+jsonData[i].sdcode+"\' /><label for=\"workCheck"+i+"\">"+"&ensp;"+count+".&ensp;"+jsonData[i].sdcontent +"</label></div></div>";
+	child2.innerHTML += "<div><div style = 'text-align:center;'><input type='radio' name='sdcode' class= 'workCheck' id=\"workCheck"+i+"\" value = \'"+jsonData[i].sdcode+"\'/><label for=\"workCheck"+i+"\" style = 'width:100%; padding-top:5px; padding-bottom:5px;'>"+"&ensp;"+count+".&ensp;"+jsonData[i].sdcontent +"</label></div></div>";
     child2.innerHTML += "<input type = 'hidden' name 'sdcode' value = \'"+jsonData[i].sdcode+"\'/>";
       
 		count++;
-
+     
+      css += "input[id=\"workCheck"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"workCheck"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"workCheck"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
+     
+	
+	
 	}
+	
+	style.innerHTML = css;
+	document.head.append(style);
+	
    if(utype.value == "L"){
 	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
-	reqMenu.innerHTML += "<div id = 'SDMbtn'><div onClick = 'getSDInfo()' id = 'getSDInfo' name = 'getSDInfo'>완료 승인</div><div  id = 'getSDInfo' onClick = 'addScheduleDetail()'>업무 추가</div></div>";
+	reqMenu.innerHTML += "<div id = 'SDMbtn'><div id = 'getSDInfo' name = 'getSDInfo' onClick = 'page()'>이전 화면으로</div><div onClick = 'getSDInfo()' id = 'getSDInfo' name = 'getSDInfo'>완료 승인</div><div  id = 'getSDInfo' onClick = 'addScheduleDetail()'>업무 추가</div></div>";
 
 	
 	
 	
 }else{
-	
 	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
+	reqMenu.innerHTML += "<div id = 'SDMbtn'><div id = 'getSDInfoo'  onClick = 'page()' name = 'getSDInfo'>이전 화면으로</div></div>";
 }
+	
+	
+	
+}
+
+function page(){
+	
+
+	let form = document.createElement("form");
+	form.action="page";
+	form.method="get";
+	
+	document.body.appendChild(form);
+	
+	form.submit();
 	
 	
 }
@@ -242,11 +270,10 @@ function popClose(){
 	let modalForm = document.getElementById("Form");
 	let backModal = document.getElementById("modal_background");
 
-
 	
 	backPop.style.display = "none";
 	
-	backModal.remove()
+	backModal.remove();
 		
 		
 	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div><div id = 'modal_box2'></div></div>";
@@ -309,16 +336,15 @@ function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테�
    let pscode = document.getElementsByName("pscode")[0];
    let sccode = document.getElementsByName("sccode")[0];
 
-	pscode.value = jsonData1[0].pscode;
+	//pscode.value = jsonData1[0].pscode;
 
 	let json = [];
 	
  	for(i=0; i<jsonData1.length; i++){
-   		json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:sccode.value, sddcode:jsonData1[i].sddcode, userid:userid.value});
+   		json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value,sccode:sccode.value, sddcode:jsonData1[i].sddcode, userid:userid.value});
     }
 
    let clientData = JSON.stringify(json);
-  	alert(clientData);
 
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
 	

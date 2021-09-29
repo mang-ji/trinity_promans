@@ -117,6 +117,7 @@ public class HomeController {
 	}
 	@GetMapping("myPageForm")
 	public String myPageForm() {
+		
 		return "myPage";
 	}
 	@GetMapping("mainPageForm")
@@ -126,6 +127,13 @@ public class HomeController {
 	@GetMapping("scheduleForm")
 	public String scheduleForm() {
 		return "adminSchedule";
+	}
+	@GetMapping("page")
+	public ModelAndView page() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("count", "2");
+		mav.setViewName("adminProject");
+		return mav;
 	}
 	
 	@GetMapping("myScheduleForm")

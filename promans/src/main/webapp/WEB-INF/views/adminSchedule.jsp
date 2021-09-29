@@ -7,6 +7,7 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="resources/css/adminSchedule.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/adminSchedule.js"></script>
+	<script type="text/javascript" src="resources/javascript/PageCount.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
 	<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
@@ -29,11 +30,11 @@
  		   let cpcode = document.getElementsByName("cpcode")[0];
  		   let userid = document.getElementsByName("userid")[0];
  		
- 		    alert(sccode.value);
     		let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, sccode:sccode.value, userid:userid.value}];
     		
     		let clientData = JSON.stringify(jsonData);
     		
+    		alert(clientData);
     		postAjax("rest/GetScheDetail", clientData, "selectScheDetail", 2);
     		
     		postAjax("rest/GetNot", clientData, "getNot",2);
@@ -124,7 +125,7 @@
             
              <div id="notices">
              <div id = reqMenu></div>
-                <div id = "redirect1">이전 화면으로</div>
+              
              	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
              	<div id="child2" ><div id = 'SCList'>WORK LIST</div></div>
              </div>

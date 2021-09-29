@@ -1,10 +1,12 @@
 let sccode;
 
 
+
+
+
+
 function getStepGraph(jsonData){
 
-alert("여기 오긴해?");
-alert(jsonData.pscode);
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
@@ -583,7 +585,7 @@ function firstInsSchedule(data){
 
 
 function getScheDetail(sccode1, pscode1){
-	
+	pageCount=2;
     let f = document.createElement("form");
 	let prcode = document.getElementsByName("prcode")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
