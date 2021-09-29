@@ -129,7 +129,8 @@
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
         FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' 
+		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
+		
 	</select>
 
 
