@@ -310,7 +310,5 @@ public class HomeController {
 	public ModelAndView makeStep(@ModelAttribute ProjectStepBean psb) {
 		return pm.makeStep(psb);
 	}
-	
-	
 }
 

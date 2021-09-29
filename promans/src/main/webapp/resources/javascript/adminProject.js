@@ -371,7 +371,7 @@ function setButton(){
 	setBtn2.style.display = "block";
 	setBtn3.style.display = "block";
 	changeBtn.innerHTML = 
-	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
+	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left; margin-top: 2px;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
 }
 function setButton2(){
 	let closeButton = document.getElementsByName("closeButton")[0];
@@ -503,9 +503,9 @@ function selectSchedule(jsonData){
 		list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px;\">";
 	
 		//if(jsonData[0].utype != "G"){
-			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 6px;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
-				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left;\" onClick=\"addJobMember()\"></div>"
-				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
+			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 5px;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"addJobMember()\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
 		//	}
 		selectStep.innerHTML = list;
 		ShceduleEdit.innerHTML = edit;
