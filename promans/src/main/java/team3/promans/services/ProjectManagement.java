@@ -70,7 +70,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public int updateComplete(ScheduleDetailBean sdb) {
 		return sqlSession.update("updateComplete", sdb);
 	}
-
+	
 	public ModelAndView makeStep(ProjectStepBean psb) {
 		mav = new ModelAndView();
 		
@@ -168,6 +168,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		ModelAndView mav = new ModelAndView();
 		String userid = "";
 		String cpcode = "";
+		System.out.println(pb.getPropen());
 		try {
 			userid = (String)pu.getAttribute("userid");
 			cpcode = (String)pu.getAttribute("cpcode");
@@ -254,10 +255,15 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 				/* 총관리자도 프로젝트 멤버에 넣어줌 (추가작업임) */
 				if(this.convertData(sqlSession.insert("insertAllManagerToPm", pb))) {
 					map.put("message", "승인을 완료하였습니다.");
+					
 				}
 			}
 		}
 		return map;
 	}
+
+
+
+
 	
 }

@@ -125,6 +125,7 @@ public class HomeController {
 	}
 	@GetMapping("myPageForm")
 	public String myPageForm() {
+		
 		return "myPage";
 	}
 	@GetMapping("mainPageForm")
@@ -134,6 +135,13 @@ public class HomeController {
 	@GetMapping("scheduleForm")
 	public String scheduleForm() {
 		return "adminSchedule";
+	}
+	@GetMapping("page")
+	public ModelAndView page() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("count", "2");
+		mav.setViewName("adminProject");
+		return mav;
 	}
 	
 	@GetMapping("findPassForm")
@@ -235,7 +243,6 @@ public class HomeController {
 	
 	@PostMapping("CreateProject")
 	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
-		System.out.println(pb + " 유나확인용 ~~ ");
 		return pm.createProject(pb);
 	}
 	
@@ -244,7 +251,14 @@ public class HomeController {
 		mav = fm.submitMail(mb);
 		return mav;
 	}
-	
+
+	@PostMapping("/reqWork")
+	public ModelAndView reqWork(@ModelAttribute ScheduleDetailBean sdb) {
+		System.out.println((sdb.getSdcode()));
+		
+		
+	    return sm.reqWork(sdb);
+	}
 	@PostMapping("downLoadFile")
 	public void downLoadFile(@ModelAttribute CloudBean cb, HttpServletResponse res,HttpServletRequest req) {
 		String saveDir = 
@@ -292,6 +306,8 @@ public class HomeController {
 			}
 		}
 	}
+	
+	
 	@PostMapping("/findPass")
 	public ModelAndView findPass(@ModelAttribute CpMemberBean cmb) {
 		mav = tm.findPass(cmb);
@@ -310,6 +326,6 @@ public class HomeController {
 		return pm.makeStep(psb);
 	}
 	
-	
+
 }
 

@@ -1212,4 +1212,3 @@ function sendFeedback(data){ // data = pr, ps,userid, cp
 function sendFeedback2(data){
 	alert(data.message);
 }
-

@@ -159,9 +159,9 @@ public class Restcontroller {
 	}
 	
 	@PostMapping("/GetSchedule")
-	public List<ScheduleBean> getSchedule(@RequestBody List<ProjectStepBean> psb){
+	public List<ScheduleBean> getSchedule(@RequestBody List<ScheduleDetailBean> sdb){
 		
-		return si.selectSchedule(psb.get(0)) ;
+		return si.selectSchedule(sdb.get(0)) ;
 	}
 	@PostMapping("/GetSDInfo")
 	public List<ScheduleDetailBean> getSDInfo(@RequestBody List<ScheduleDetailBean> sdb){
@@ -262,6 +262,12 @@ public class Restcontroller {
 	public List<ProjectMemberBean> selectProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return si.selectProjectMember(pmb.get(0));
 	}
+	
+	@PostMapping("/selectScheduleMember")
+	public List<ProjectMemberBean> selectScheduleMember(@RequestBody List<ProjectMemberBean> pmb){
+		return si.selectScheduleMember(pmb.get(0));
+	}
+	
 	@PostMapping("/InsProjectMember")
 	public Map<String,String> insProjectMember(@RequestBody List<ProjectMemberBean> pmb){
 		return pm.insProjectMember(pmb.get(0));
@@ -356,12 +362,13 @@ public class Restcontroller {
 		
 	}
 	
+
 	@PostMapping("/GetWork")
 	public List<ScheduleDetailBean> getWork(@RequestBody List<ScheduleDetailBean> sdb) {
 		
 		return si.getWork(sdb.get(0));
 	}
-	
+
 	@PostMapping("/DeleteCpMember")
 	public Map<String, String> deleteCpMember(@RequestBody List<CpMemberBean> cmb) {
 		return tm.deleteCpMember(cmb);

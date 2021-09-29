@@ -21,7 +21,7 @@ public interface SelectInterface {
 	  public List<Notice_CalendarBean> getCalendar(Notice_CalendarBean nc);
 	  public List<ProjectBean> getProject(ProjectMemberBean pmb); 
 	  public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb); 
-	  public List<ScheduleBean> selectSchedule(ProjectStepBean psb); 
+	  public List<ScheduleBean> selectSchedule(ScheduleDetailBean sdb); 
 	  public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb);
 	  public ModelAndView insNotice(Notice_CalendarBean nc);
 	  public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb);
@@ -32,16 +32,18 @@ public interface SelectInterface {
 	  public List<ProjectStepBean> selectStepReq(ProjectStepBean psb);
 	  public List<ProjectStepBean> selectManager(ProjectStepBean psb);
 	  public List<ProjectMemberBean> selectProjectMember(ProjectMemberBean pmb);
+	  public List<ProjectMemberBean> selectScheduleMember(ProjectMemberBean pmb);
 	  public ModelAndView noticeDelete(Notice_CalendarBean nc);
 	  public int getMaxNocode(Notice_CalendarBean nc);
 	  public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc);
 	  public List<GraphDataBean> getDataGraph(List<ProjectBean> pb);
 	  public List<CpMemberBean> getCpMembers(CpMemberBean cmb);
 	  public ModelAndView goAdminProject(ProjectMemberBean pmb);
+
 	  public GraphDataBean getSDGraph(ScheduleBean sb);
 	  public  GraphDataBean getStepGraph(ScheduleBean sb);
 	  public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb);
-	  
+
 	  public List<ProjectBean> selectProjectReq(ProjectBean pb);
 	  public List<ProjectBean> selectProjectMakeReq(ProjectBean pb);
 

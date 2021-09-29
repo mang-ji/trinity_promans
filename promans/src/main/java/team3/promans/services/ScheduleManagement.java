@@ -142,4 +142,13 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 	}
 
 
+	public ModelAndView reqWork(ScheduleDetailBean sdb) {
+	 mav = new ModelAndView();
+		if(sql.update("reqWork", sdb) ==1) {
+			mav.setViewName("adminSchedule");
+		}
+		
+	 return  mav;
+		
+	}
 }

@@ -7,6 +7,7 @@ function getSchedule(){
 }
 
 
+
 function getSDGraph(jsonData){
 	alert("요기 못온다는 거쥐");
 
@@ -97,35 +98,170 @@ function getWork(jsonData){
 	let notices = document.getElementById("notices");
 	let child2 = document.getElementById("child2");
 	let count =1;
+	let utype = document.getElementsByName("utype")[0];
+	let reqMenu = document.getElementById("reqMenu");
+	let style = document.createElement("style");
+	let css="";
+	
 	
 	for(i=0; i<jsonData.length; i++ ){
   
 	
-	child2.innerHTML += "<div><div><input type='checkbox' name='workCheck' value = value=\'"+jsonData[i].sdcode+"\' onClick = 'clickCheck(this)'/>"+"&ensp;"+count+".&ensp;"+jsonData[i].sdcontent +"</div></div>";
-	
+	child2.innerHTML += "<div><div style = 'text-align:center;'><input type='radio' name='sdcode' class= 'workCheck' id=\"workCheck"+i+"\" value = \'"+jsonData[i].sdcode+"\'/><label for=\"workCheck"+i+"\" style = 'width:100%; padding-top:5px; padding-bottom:5px;'>"+"&ensp;"+count+".&ensp;"+jsonData[i].sdcontent +"</label></div></div>";
+    child2.innerHTML += "<input type = 'hidden' name 'sdcode' value = \'"+jsonData[i].sdcode+"\'/>";
       
 		count++;
+     
+      css += "input[id=\"workCheck"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"workCheck"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"workCheck"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
+     
+	
+	
+	}
+	
+	style.innerHTML = css;
+	document.head.append(style);
+	
+   if(utype.value == "L"){
+	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
+	reqMenu.innerHTML += "<div id = 'SDMbtn'><div id = 'getSDInfo' name = 'getSDInfo' onClick = 'page()'>이전 화면으로</div><div onClick = 'getSDInfo()' id = 'getSDInfo' name = 'getSDInfo'>완료 승인</div><div  id = 'getSDInfo' onClick = 'addScheduleDetail()'>업무 추가</div></div>";
 
 	
-   
-	}
+	
+	
+}else{
 	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
+	reqMenu.innerHTML += "<div id = 'SDMbtn'><div id = 'getSDInfoo'  onClick = 'page()' name = 'getSDInfo'>이전 화면으로</div></div>";
+}
+	
+	
 	
 }
 
-function clickCheck(target) {
-   const checkboxes 
-      = document.getElementsByName("workCheck");
+function page(){
+	
+
+	let form = document.createElement("form");
+	form.action="page";
+	form.method="get";
+	
+	document.body.appendChild(form);
+	
+	form.submit();
+	
+	
+}
+
+function addScheduleDetail(){ //업무추가 누르면 실행되는 펑션
+	
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
+	let sccode = document.getElementsByName("sccode")[0];
+	
+
+	
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
+	
+	let clientData = JSON.stringify(jsonData);
+	
+	postAjax('rest/selectScheduleMember', clientData, 'getScheManager', 2);
+	
+	
+	
+}
+
+
+function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 추가하려고 프로젝트 멤버 조회하는 곳
+   
+    let box = document.getElementById("modal_box");
+    let background = document.getElementById("modal_background");
+
+	box.style.display = "block";
+	background.style.display = "block";
+
+	box.innerHTML += "<div class='modal' id = 'modal3' tabindex='-1' role='dialog' style='border:1px solid black;'>";
+	
+	
+		
+	box.innerHTML += "<div class='modal-dialog' role='document'>Schedule Detail<input type = 'text' class='modal-content' name = 'sdcontent'/><div class='modal-header'>";
+	
+	for(i=0; i<jsonData.length; i++){
+	box.innerHTML += "<div class='modal-body'><p></p></div><input type ='radio'value= \'"+jsonData[i].userid+"\' name = 'radioo'/>"+jsonData[i].uname+"";
+	}
+	box.innerHTML += "<div class='modal-footer'>";
+	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"insScheduleDetail()\">추가하기</button>";
+	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'popClose()'>Close</button>";
+	box.innerHTML += "</div></div></div>";
+	
+}
+
+function insScheduleDetail(){
+	
+	let cpcode = document.getElementsByName("cpcode")[0];
+    let prcode = document.getElementsByName("prcode")[0]; 
+    let sdcontent = document.getElementsByName("sdcontent")[0];
+    let pscode = document.getElementsByName("pscode")[0];
+    let sccode = document.getElementsByName("sccode")[0];
+	let userid="";
+	let arr= "";
+
+	
+		 const radioNodeList
+  = document.getElementsByName('radioo'); 
   
-  checkboxes.forEach((cb) => {
-    cb.checked = false;
-  })
-  
-  target.checked = true;
+	 radioNodeList.forEach((node) => {
+
+    if(node.checked)  {
+     userid 
+        = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
+     
+
+    }
+
+  }); 
+
+
+let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode:pscode.value,sdcontent:sdcontent.value,sccode:sccode.value}];
+
+let clientData = JSON.stringify(jsonData);
+
+alert(clientData);
+
+postAjax("rest/InsSD", clientData, 'upPass', 2);
+
+
 }
 
 
 function reqWork(){
+	
+	let workCheck = document.getElementsByName("sdcode");
+	let userid = document.getElementsByName("userid")[0];
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
+	let f = document.createElement("form");
+	
+	let sdcode;
+	
+	for(i=0; i<workCheck.length; i++){
+		if(workCheck[i].checked){
+			sdcode=workCheck[i];
+		}
+	}
+	
+    alert(sdcode.value);
+	f.appendChild(cpcode);
+	f.appendChild(userid);
+	f.appendChild(prcode);
+	f.appendChild(sdcode); 
+   
+    document.body.appendChild(f);
+
+    f.action = "reqWork";
+    f.method = "POST";
+   
+    f.submit();
 	
 }
 
@@ -137,12 +273,12 @@ function popClose(){
 	
 	backPop.style.display = "none";
 	
-	backModal.remove()
+	backModal.remove();
 		
 		
-	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div></div>";
+	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div><div id = 'modal_box2'></div></div>";
 
-	
+
 		
 	
 	
@@ -153,11 +289,9 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 	let list = "";
 	let selectSD = document.getElementById("selectScheduleDetail");
 	let feed = document.getElementsByClassName("feed")[0];
-	
-	
-	
-	feed.innerHTML +="추가</div>";
-	feed.innerHTML += "<div onClick = 'editSchedule()'>편집</div><div onClick = 'getSDInfo()' name = 'getSDInfo'>완료승인</div>";
+
+	feed.innetHTML += "<input type ='hidden' name = 'sccode' value = \'"+jsonData[0].sccode+"\'/>";
+
 	for(i=0; i<jsonData.length; i++){
 		
 	feed.innerHTML += "<div class='Detail'>" 
@@ -178,23 +312,7 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 	
 }
 
-function editSchedule(){ //편집 누르면 완료요청, 업무추가 버튼 나옴
-	
 
-	let addScheduleDetail = document.getElementsByName("addScheduleDetail");
-          
-        if(addScheduleDetail[0].style.display=='none'){
-		for(i=0; i<addScheduleDetail.length; i++){
-			addScheduleDetail[i].style.display="block";
-		}
-		}else{
-			for(i=0; i<addScheduleDetail.length; i++){
-			addScheduleDetail[i].style.display="none";
-		}
-			
-		}
-		
-}
 
 function getSDInfo(Param){ //완료요청 누르면 실행되는 펑션 , 완료 요청 정보 가져오려면 필요한 데이터 받아오는 펑션
 
@@ -202,9 +320,6 @@ function getSDInfo(Param){ //완료요청 누르면 실행되는 펑션 , 완료
    let cpcode = document.getElementsByName("cpcode")[0];
     let pscode = document.getElementsByName("pscode")[0];
 //let sdname = document.getElementsByName("scname")[0];  
- let modal = document.getElementById("modal1");
-
-    modal.style.display = "block";
 
    let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value}];
    let clientData = JSON.stringify(jsonData); 
@@ -219,17 +334,17 @@ function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테�
    let cpcode = document.getElementsByName("cpcode")[0];
    let userid = document.getElementsByName("userid")[0];
    let pscode = document.getElementsByName("pscode")[0];
+   let sccode = document.getElementsByName("sccode")[0];
 
-	pscode.value = jsonData1[0].pscode;
+	//pscode.value = jsonData1[0].pscode;
 
 	let json = [];
 	
  	for(i=0; i<jsonData1.length; i++){
-   		json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:jsonData1[i].pscode,sccode:jsonData1[i].sccode , sddcode:jsonData1[i].sddcode, userid:userid.value});
+   		json.push({cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value,sccode:sccode.value, sddcode:jsonData1[i].sddcode, userid:userid.value});
     }
 
    let clientData = JSON.stringify(json);
-  	alert(clientData);
 
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
 	
@@ -237,25 +352,23 @@ function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테�
 
 function reqForCompletion(jsonData){ //(대기 상태인 업무 디테일 조회) 여기서 피드백하기 or 완료승인 버튼으로 분기됨
 	
-	let box = document.getElementById("modal1");
+	let box_back = document.getElementById("modal_background");
+	let box = document.getElementById("modal_box");
 	console.log(JSON.stringify(jsonData));
-	box.innerHTML += "<div class='modal' id = 'modal' tabindex='-1' role='dialog' style='border:1px solid black;'>";
-	box.innerHTML += "<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>";
-	box.innerHTML += "<h5 class='modal-title'></h5></div>";
-	
+      
+    box_back.style.display = "block";
+    box.style.display = "block";
     for(i=0; i<jsonData.length; i++){
 	
-	box.innerHTML += "<input type='hidden' name='sccode2' value=\'"+jsonData[i].sccode+"\'/>";
-	box.innerHTML += "<div class='modal-body'><p><input type= 'radio'name ='radio'value = \'"+jsonData[i].userid+","+jsonData[i].sdcode+","+jsonData[i].sccode+"\'>"+jsonData[i].sdname+jsonData[i].sdcontent+jsonData[i].sddate+jsonData[i].sddstate+jsonData[i].username+"</></p></div>";
+	box.innerHTML += "<div><input type='hidden' name='sccode' value=\'"+jsonData[i].sccode+"\'/>";
+	box.innerHTML += "<input type= 'radio'name ='radio'value = \'"+jsonData[i].userid+","+jsonData[i].sdcode+","+jsonData[i].sccode+"\'>"+jsonData[i].sdcontent+jsonData[i].sddate+jsonData[i].username;
 	
 	}
-	box.innerHTML += "<div class='modal-footer'>";
 	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"scheFeedback()\">피드백하기</button>";
 	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"reqPass()\">완료승인</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'closee()'>Close</button>";
-	box.innerHTML += "</div></div></div></div>";
+	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'popClose()'>Close</button></div>";
 	
-
+   
 	
 }
 
@@ -263,8 +376,8 @@ function reqForCompletion(jsonData){ //(대기 상태인 업무 디테일 조회
 
 function scheFeedback(){ // 피드백 모달 창 생성 
  
- let box = document.getElementById("modal2");
-
+ let box = document.getElementById("modal_box2");
+ 
 
 box.style.display ="block";
 
@@ -310,24 +423,15 @@ let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, 
 
 }
 
-function closee(){ //업무 완료 승인 창 스타일 주기
-	let div = document.getElementById("modal1");
-    let modal = document.getElementById("modalDiv");
-		div.remove();
-		modal.innerHTML="<div id = 'modal1' style='display:none;' ></div><div id = 'modal2'  style='display:none;'></div>";
-		
-	
-}
 
 
-function  closeScheFeedback(message){ //피드백 창 끄는 펑션
+function  closeScheFeedback(){ //피드백 창 끄는 펑션
 	
-	let div = document.getElementById("modal2");
-	let div1 = document.getElementById("modal1");
-	let modal = document.getElementById("modalDiv");
+	let div = document.getElementById("modal_box2");
+	let modal = document.getElementById("modal_background");
 	div.remove();
-	div1.remove();
-	modal.innerHTML="<div id = 'modal1' style='display:none;' ></div><div id = 'modal2'  style='display:none;'></div>";
+
+	modal.innerHTML +="<div id = 'modal2' style='display:none;'></div>";
 }
 
 function sendScheFeedback(jsonData){ //피드백 전송
@@ -339,7 +443,7 @@ function sendScheFeedback(jsonData){ //피드백 전송
     sendFeed.addEventListener('click',function(){
 
      jsonData.push({sdcontent:sdcontent.value});
-	 postAjax("rest/ScheFeedback", JSON.stringify(jsonData), "closeScheFeedback", 2 );
+	 postAjax("rest/ScheFeedback", JSON.stringify(jsonData), "popClose", 2 );
 	
 });
 	
@@ -351,7 +455,7 @@ let cpcode = document.getElementsByName("cpcode")[0];
 let prcode = document.getElementsByName("prcode")[0];
 let pscode = document.getElementsByName("pscode")[0];
 
- let box = document.getElementById("modal2");
+ let box = document.getElementById("modal_box2");
 
 box.style.display ="block";
 	
@@ -386,100 +490,14 @@ postAjax("rest/ReqPass", clientData, 'upPass', 2);
 }
 
 function upPass(){ //업무 디테일 완료 승인해주면 모달 창 다 꺼지는 거
-	/*let modal1 = document.getElementById("modal1");
-	let modal2 = document.getElementById("modal2");
-	modal2.remove();
-	modal1.remove();*/
+
 	location.href = "scheduleForm";
 	
 	
 }
 
-function addScheduleDetail(){ //업무추가 누르면 실행되는 펑션
-	
-	let cpcode = document.getElementsByName("cpcode")[0];
-	let prcode = document.getElementsByName("prcode")[0];
-	
-	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
-	
-	let clientData = JSON.stringify(jsonData);
-	
-	postAjax('rest/selectProjectMember', clientData, 'getScheManager', 2);
-	
-	
-	
-}
 
 
-function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 추가하려고 프로젝트 멤버 조회하는 곳
-   
-    let box = document.getElementById("modal1");
-    
-
-	box.style.display = "block";
-
-	box.innerHTML += "<div class='modal' id = 'modal3' tabindex='-1' role='dialog' style='border:1px solid black;'>";
-	
-	
-		
-	box.innerHTML += "<div class='modal-dialog' role='document'>Schedule Detail<input type = 'text' class='modal-content' name = 'sdcontent'/><div class='modal-header'>";
-	
-	for(i=0; i<jsonData.length; i++){
-	box.innerHTML += "<div class='modal-body'><p></p></div><input type ='radio'value= \'"+jsonData[i].userid+"\' name = 'radioo'/>"+jsonData[i].uname+"";
-	}
-	box.innerHTML += "<div class='modal-footer'>";
-	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"insScheduleDetail()\">추가하기</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'closee()'>Close</button>";
-	box.innerHTML += "</div></div></div>";
-	
-}
-
-function insScheduleDetail(){
-	
-	let cpcode = document.getElementsByName("cpcode")[0];
-    let prcode = document.getElementsByName("prcode")[0]; 
-    let sdcontent = document.getElementsByName("sdcontent")[0];
-    let pscode = document.getElementsByName("pscode")[0];
-	let sccode = document.getElementsByName("sccode")[0];
-	let userid="";
-	let arr= "";
-
-	
-		 const radioNodeList
-  = document.getElementsByName('radioo'); 
-  
-	 radioNodeList.forEach((node) => {
-
-    if(node.checked)  {
-     userid 
-        = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
-     
-
-    }
-
-  }); 
-
-let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode:pscode.value, sdcontent:sdcontent.value,sccode:sccode.value}];
-
-let clientData = JSON.stringify(jsonData);
-
-postAjax("rest/InsSD", clientData, 'upPass', 2);
-
-
-}
-
-/*
-window.addEventListener('load',function(){
-	let feed = document.getElementsByClassName("feed")[0];
-	let plus = "";
-	
-	for(i=0; i<5; i++){
-		plus += "<div class=\"Detail\">야호_"+(i+1)+"</div>";
-	}
-	
-	feed.innerHTML = plus;
-		
-});*/
 
 
 
