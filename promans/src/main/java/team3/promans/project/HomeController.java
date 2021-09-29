@@ -234,6 +234,7 @@ public class HomeController {
 	
 	@PostMapping("CreateProject")
 	public ModelAndView createProject(@ModelAttribute ProjectBean pb) {
+		System.out.println(pb.getPropen());
 		return pm.createProject(pb);
 	}
 	
@@ -290,6 +291,8 @@ public class HomeController {
 			}
 		}
 	}
+	
+	
 	@PostMapping("/findPass")
 	public ModelAndView findPass(@ModelAttribute CpMemberBean cmb) {
 		mav = tm.findPass(cmb);

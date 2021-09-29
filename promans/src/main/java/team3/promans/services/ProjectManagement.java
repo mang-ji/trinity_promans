@@ -73,21 +73,10 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 
 	public Map<String, String> makeStep(ProjectStepBean psb) {
 		Map<String,String> map = new HashMap<>();
-		
+		System.out.println(psb.getUserid());
 		psb.setPscode(this.stepMax(psb));
-		
-			/* ps관리자를 Ps테이블에 넣어줌 */
-			if(this.convertData(sqlSession.insert("insStep", psb))){
-				/* + 추가작업) 총관리자 userid 를 다시 셀렉해서 */
-				psb.setUserid(sqlSession.selectOne("selectAllManagerUserid", psb));
-				/* 총관리자를 ps테이블에 먼저 넣어줌 */
-				if(this.convertData(sqlSession.insert("insAllManagerToPs",psb))) {
-					map.put("message", "스텝 생성이 완료되었습니다.");
-				}
-			}else {map.put("message","해당 스텝이 이미 존재합니다.");}
-		
-		
-		
+		sqlSession.insert("insStep", psb);
+		System.out.println("됬다 ㅎㅎ");
 		return map;
 	}
 
@@ -163,6 +152,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		ModelAndView mav = new ModelAndView();
 		String userid = "";
 		String cpcode = "";
+		System.out.println(pb.getPropen());
 		try {
 			userid = (String)pu.getAttribute("userid");
 			cpcode = (String)pu.getAttribute("cpcode");
@@ -249,6 +239,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 				/* 총관리자도 프로젝트 멤버에 넣어줌 (추가작업임) */
 				if(this.convertData(sqlSession.insert("insertAllManagerToPm", pb))) {
 					map.put("message", "승인을 완료하였습니다.");
+					
 				}
 			}
 		}
