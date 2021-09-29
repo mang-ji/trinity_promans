@@ -69,4 +69,10 @@
 	  		SELECT NVL(SUBSTR(MAX(SD_CODE),3,4),0) FROM SD WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE=#{sccode}
 	  	
 	  	</select>
+	  	
+	  	<update id ="reqWork" parameterType = "team3.promans.beans.ScheduleDetailBean" >
+	  	
+	  	UPDATE SD SET SD_STATE = 'W' WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_CODE = #{sdcode} AND SD_USERID = #{userid}
+	  	
+	  	</update>
 </mapper>

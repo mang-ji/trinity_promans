@@ -1,10 +1,12 @@
 let sccode;
 
 
+
+
+
+
 function getStepGraph(jsonData){
 
-alert("여기 오긴해?");
-alert(jsonData.pscode);
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
@@ -584,7 +586,7 @@ function firstInsSchedule(data){
 
 
 function getScheDetail(sccode1, pscode1){
-	
+	pageCount=2;
     let f = document.createElement("form");
 	let prcode = document.getElementsByName("prcode")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
@@ -604,26 +606,6 @@ function getScheDetail(sccode1, pscode1){
 	
 }
 
-function editSchedule(){ //편집 누르면 완료요청, 업무추가 버튼 나옴
-	
-
-	let addScheduleDetail = document.getElementsByName("addScheduleDetail");
-          
-        if(addScheduleDetail[0].style.display=='none'){
-		for(i=0; i<addScheduleDetail.length; i++){
-			addScheduleDetail[i].style.display="block";
-		}
-		}else{
-			for(i=0; i<addScheduleDetail.length; i++){
-			addScheduleDetail[i].style.display="none";
-		}
-			
-		}
-		
-		
-		
-		
-}
 
 function getSDInfo(Param){ //완료요청 누르면 실행되는 펑션 , 완료 요청 정보 가져오려면 필요한 데이터 받아오는 펑션
 
@@ -823,87 +805,7 @@ function upPass(){ //업무 디테일 완료 승인해주면 모달 창 다 꺼�
 	
 }
 
-function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되는 펑션
-	
-	let cpcode = document.getElementsByName("cpcode")[0];
-	let prcode = document.getElementsByName("prcode")[0];
-	
-	sccode = sccode1;
-	sdname = sdname1;
-	
-	alert(cpcode.value + prcode.value + sdname1);
-	
-	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
-	
-	let clientData = JSON.stringify(jsonData);
-	
-	postAjax('rest/selectProjectMember', clientData, 'getScheManager', 2);
-	
-	
-	
-}
 
-
-function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 추가하려고 프로젝트 멤버 조회하는 곳
-   
-    let box = document.getElementById("modal_box");
-    let background = document.getElementById("modal_background");
-
-	box.style.display = "block";
-	background.style.display = "block";
-
-	box.innerHTML += "<div class='modal' id = 'modal3' tabindex='-1' role='dialog' style='border:1px solid black;'>";
-	
-	
-		
-	box.innerHTML += "<div class='modal-dialog' role='document'>Schedule Detail<input type = 'text' class='modal-content' name = 'sdcontent'/><div class='modal-header'>";
-	
-	for(i=0; i<jsonData.length; i++){
-	box.innerHTML += "<div class='modal-body'><p></p></div><input type ='radio'value= \'"+jsonData[i].userid+"\' name = 'radioo'/>"+jsonData[i].username+"";
-	}
-	box.innerHTML += "<div class='modal-footer'>";
-	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"insScheduleDetail()\">추가하기</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'closee()'>Close</button>";
-	box.innerHTML += "</div></div></div>";
-	
-}
-
-function insScheduleDetail(){
-	
-	let cpcode = document.getElementsByName("cpcode")[0];
-    let prcode = document.getElementsByName("prcode")[0]; 
-    let sdcontent = document.getElementsByName("sdcontent")[0];
-    let pscode = document.getElementsByName("pscode")[0];
-	let userid="";
-	let arr= "";
-
-	
-		 const radioNodeList
-  = document.getElementsByName('radioo'); 
-  
-	 radioNodeList.forEach((node) => {
-
-    if(node.checked)  {
-     userid 
-        = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
-     
-
-    }
-
-  }); 
-arr = sdname.split(",");
-
-let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode:pscode.value,sdname:arr[0], sdcontent:sdcontent.value,sccode:arr[1]}];
-
-let clientData = JSON.stringify(jsonData);
-console.log(sccode);
-console.log(sdname);
-alert(clientData);
-
-postAjax("rest/InsSD", clientData, 'upPass', 2);
-
-
-}
 
 function sendProjectInfo(prcode){
 	let createBtn = document.getElementById("buttonboundary");

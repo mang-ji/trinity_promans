@@ -1,5 +1,5 @@
 @charset "UTF-8";
-#notices { width:20rem; position:fixed; left:1150px; margin-top:124px;}
+#notices { width:20rem; position:fixed; left:1150px; height:80%; top:123px; }
 #SCList { 	background-color:#4f5f86;
 	color:white;
 	text-align:center;
@@ -11,12 +11,63 @@
 }
 #child1 { width:20rem; height:auto; background-color:white;
 				 margin-bottom: 30px;  }
-#redirect1{
-	width:20rem; height:40px; background-color:white;
-	 margin-bottom: 30px; 
-	 text-align:center;
-	 padding-top:7px;
+
+#reqMenu{
+	left:1150px;
+	height:20%;
+	position:fixed;
+	margin-top:30px;
+	
+	
+	
 }
+
+#reqSDBtn{
+	margin-left:90px;
+	margin-top:10px;
+	text-align:center;
+	width:150px;
+	padding-top:5px;
+	height:30px;
+	border :0px solid grey; border-radius:20px;
+	box-shadow : 5px 5px 8px 2px gray;
+	box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    cursor:pointer;
+    font-size:15px;
+	
+}
+
+
+#getSDInfo{
+	float:left;
+	margin-left:10px;
+	border :0px solid grey; border-radius:20px;
+	box-shadow : 5px 5px 8px 2px gray;
+	box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    cursor:pointer;
+    font-size:15px;
+    	text-align:center;
+	padding-top:5px;
+       width:100px;
+       height:30px;
+	
+}
+
+#getSDInfoo{
+      float:left;
+	
+	margin-left:110px;
+	border :0px solid grey; border-radius:20px;
+	box-shadow : 5px 5px 8px 2px gray;
+	box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    cursor:pointer;
+    font-size:15px;
+    	text-align:center;
+	padding-top:5px;
+       width:100px;
+       height:30px;
+}
+
 
 #child2 {
 	overFlow : auto; width:20rem; background-color:white; height:auto;
@@ -24,7 +75,7 @@
 }
 
 #modal_background {
-	
+	display: none;
 	position: fixed;
 	z-index: 1;
 	overflow: auto;
@@ -33,6 +84,11 @@
 	backdrop-filter:blur(15px);
 	display:none;
 }
+
+.workCheck{
+    display:none;
+}
+
 
 #modal_box {
 	display: none;
@@ -45,6 +101,20 @@
 	text-align:center;
 	border:2px solid #4f5f86;
 
+}
+
+#modal_box2{
+	
+	display: none;
+	width: 43%; height: 70%;
+	position:absolute;
+	top:49%;
+	left:49%;
+	transform: translate(-50%, -50%);
+	background-color:#FFFFFF;
+	text-align:center;
+	border:2px solid #4f5f86;
+	
 }
 
 

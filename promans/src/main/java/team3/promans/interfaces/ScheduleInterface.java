@@ -20,4 +20,5 @@ public interface ScheduleInterface {
 	public void insSM(ScheduleDetailBean sdb);
 	public int maxScCode(ScheduleDetailBean sdb);
 	public int maxdiary(WorkDiaryBean wdb);
+	public ModelAndView reqWork(ScheduleDetailBean sdb);
 }

@@ -125,6 +125,7 @@ public class HomeController {
 	}
 	@GetMapping("myPageForm")
 	public String myPageForm() {
+		
 		return "myPage";
 	}
 	@GetMapping("mainPageForm")
@@ -134,6 +135,13 @@ public class HomeController {
 	@GetMapping("scheduleForm")
 	public String scheduleForm() {
 		return "adminSchedule";
+	}
+	@GetMapping("page")
+	public ModelAndView page() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("count", "2");
+		mav.setViewName("adminProject");
+		return mav;
 	}
 	
 	@GetMapping("findPassForm")
@@ -243,7 +251,14 @@ public class HomeController {
 		mav = fm.submitMail(mb);
 		return mav;
 	}
-	
+
+	@PostMapping("/reqWork")
+	public ModelAndView reqWork(@ModelAttribute ScheduleDetailBean sdb) {
+		System.out.println((sdb.getSdcode()));
+		
+		
+	    return sm.reqWork(sdb);
+	}
 	@PostMapping("downLoadFile")
 	public void downLoadFile(@ModelAttribute CloudBean cb, HttpServletResponse res,HttpServletRequest req) {
 		String saveDir = 
