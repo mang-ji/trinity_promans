@@ -127,7 +127,10 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
-
+		try {
+			pu.setAttribute("utype", sql.selectOne("selectCmUtype", pmb));
+		} catch (Exception e) {e.printStackTrace();}
+		
 		return  sql.selectList("getProject", pmb);
 	}
 
@@ -264,20 +267,9 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<GraphDataBean> getDataGraph(List<ProjectBean> pb) {
-		List<GraphDataBean> gdb = new ArrayList<GraphDataBean>(pb.size());
+		List<GraphDataBean> gdb = new ArrayList<GraphDataBean>();
 		
 		gdb = sql.selectList("getGraphInfo",pb.get(0));
-		for(int i=0; i<pb.size(); i++) {
-			gdb.get(i).setStepW(sql.selectOne("getDataGraphPsW", pb.get(i)));
-			gdb.get(i).setScheW(sql.selectOne("getDataGraphScW", pb.get(i)));
-			gdb.get(i).setSdW(sql.selectOne("getDataGraphSdW", pb.get(i)));
-			gdb.get(i).setStepI(sql.selectOne("getDataGraphPsI", pb.get(i)));
-			gdb.get(i).setScheI(sql.selectOne("getDataGraphScI", pb.get(i)));
-			gdb.get(i).setSdI(sql.selectOne("getDataGraphSdI", pb.get(i)));
-			gdb.get(i).setStepC(sql.selectOne("getDataGraphPsC", pb.get(i)));
-			gdb.get(i).setScheC(sql.selectOne("getDataGraphScC", pb.get(i)));
-			gdb.get(i).setSdC(sql.selectOne("getDataGraphSdC", pb.get(i)));	
-		}
 		  
 		return gdb;
 		
@@ -307,7 +299,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pmb.setCpcode((String)pu.getAttribute("cpcode"));
 			pmb.setPrcode((String)pu.getAttribute("prcode"));
 			pmb.setUserid((String)pu.getAttribute("userid"));
-			pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
+		
+			System.out.println(pu.getAttribute("utype") + " 안녕 여기 확인용 ~~~ ");
+			if(pu.getAttribute("utype") == "A") {
+				pu.setAttribute("utype", "A");
+				System.out.println("관리자 타기 !" );
+			}else {
+				pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
+				System.out.println("여기는ㄴ 리더! ");
+			}
 			
 		} catch (Exception e) {e.printStackTrace();}
 		mav.setViewName("adminProject");

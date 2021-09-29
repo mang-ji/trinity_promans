@@ -50,8 +50,8 @@
 					placeholder="비밀번호를 입력해주세요." onKeyup="EntersendUserInfo()">
 			</div>
 			<div id="nonId"></div>
-			<div id="idForget">아이디를 잊으셨나요?</div>
-			<div id="text">ICIA 일보아카데미만 로그인 가능합니다! 게스트 계정 만들 수 없고, 1조 프로젝트
+			<div id="idForget"><a href = "findPassForm">비밀번호를 잊으셨나요?</a></div>
+			<div id="text">ICIA 일보아카데미만 로그인 가능합니다! 게스트 계정 만들 수 없고, 3조 프로젝트
 				용 로그인 창 입니다.</div>
 
 			<div>

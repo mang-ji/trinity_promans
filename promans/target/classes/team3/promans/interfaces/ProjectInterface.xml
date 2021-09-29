@@ -17,7 +17,22 @@
    </update>
    
    <insert id="insStep" parameterType="team3.promans.beans.ProjectStepBean">
-      insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L')
+		DECLARE
+		CP NVARCHAR2(7) := #{cpcode};
+		PR NVARCHAR2(9) := #{prcode};
+		PS NVARCHAR2(9) := #{pscode};
+		PSNAME NVARCHAR2(15) := #{psname};
+		ID NVARCHAR2(20) := #{userid};
+		UT NVARCHAR2(1) := 'A';
+		ST NVARCHAR2(1) := 'I';
+		BEGIN
+		INSERT INTO PS VALUES(CP,PR,PS,PSNAME,ST,ID,'L');
+		FOR TESTS IN (SELECT CM_USERID FROM CM WHERE CM_UTYPE = UT AND CM_CPCODE = CP)
+		LOOP
+		INSERT INTO PS VALUES(CP,PR,PS,PSNAME,ST,TESTS.CM_USERID,UT);
+		END LOOP;
+		END;
+    <!--   insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L') -->
    </insert>
    
    <insert id="insProjectMember" parameterType="team3.promans.beans.ProjectMemberBean">
@@ -39,7 +54,7 @@
 
 	<select id="selectStepMax" parameterType="team3.promans.beans.ProjectStepBean" resultType="int">
 
-     select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode}
+     select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode} and ps_utype='L'
 
 	</select>
 	
@@ -74,4 +89,13 @@
 	<update id="reqProjectAccept" parameterType="team3.promans.beans.ProjectBean"> 
 		update pr set pr_state='W' where pr_cpcode=#{cpcode} and pr_code=#{prcode}
 	</update>
+	<insert id="insertAllManagerToPm" parameterType="team3.promans.beans.ProjectBean">
+		insert into pm values(#{cpcode},#{prcode},#{userid},'A','1')
+	</insert>
+	<insert id="insAllManagerToPs">
+		insert into ps values(#{cpcode}, #{prcode}, #{pscode}, #{psname}, 'I',#{userid},'A')
+	</insert>
+	<select id="selectAllManagerUserid" parameterType="team3.promans.beans.ProjectBean" resultType="string">
+		select cm_userid as userid from cm where cm_cpcode=#{cpcode} and cm_utype='A'
+	</select>
 </mapper>

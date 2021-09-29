@@ -115,3 +115,10 @@ input[name="ftitle"]:focus{
 	
 }
 
+.lock{
+	height:25px;
+	float:right;
+	margin-right:5px;
+	margin-top:1.5px;
+}
+

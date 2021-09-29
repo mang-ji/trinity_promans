@@ -38,6 +38,7 @@
         </script>
     </head>
     <body onLoad="projectOnLoad()">
+    <iframe id="iframe1" style="display:none;"></iframe>
         	<input type="hidden" name="userid" value="${userid}">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
@@ -61,29 +62,15 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
-                      <!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#!">Action</a>
-                                        <a class="dropdown-item" href="#!">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#!">Something else here</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>-->
+
                     </div>
                 </nav>
                 <!-- Page content-->
                 <div class="container-fluid">
                 <div class="list" style="margin-top:5%;" id="markList"></div>
+                
                 <div class="list" style="margin-top:5px;" id="fileList"></div>
+                
                 <div id="change"><input type="button" id="markBtn" style="margin-left:5%; margin-top:5px; float:left;" class="buttonStyle" value="즐겨찾기 추가" onClick="noneMarkList(this)"></div>
                 <div id="delChange"><input type="button" id="deleteFile" style=" margin-top:5px; float:left;" class="buttonStyle" value="파일 삭제" onClick="delFileList()"></div>
                 
@@ -113,8 +100,8 @@
 					
                 	</ul>
                 	
-                	<div onClick="imgChange()" name="img"><img src="resources/images/close.jpg" style="margin-left:4%; width: 85px;"></div>
-                	<div onClick="imgChange()" name="img" style="display:none;"><img src="resources/images/open.jpg" style="width:60px;"></div>
+                	<div onClick="imgChange()" name="img"><img src="resources/images/openLogo.png" style="margin-left:4%; width: 85px;"></div>
+                	<div onClick="imgChange()" name="img" style="display:none;"><img src="resources/images/closeLogo.png" style="width:60px;"></div>
                 	<input type="hidden" name="fopen" value="O">
 					<!-- <select name="fopen">
 					<option value="O">공개</option>

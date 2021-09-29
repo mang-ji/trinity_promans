@@ -70,24 +70,37 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public int updateComplete(ScheduleDetailBean sdb) {
 		return sqlSession.update("updateComplete", sdb);
 	}
-
-	public Map<String, String> makeStep(ProjectStepBean psb) {
-		Map<String,String> map = new HashMap<>();
+	
+	public ModelAndView makeStep(ProjectStepBean psb) {
+		mav = new ModelAndView();
 		
 		psb.setPscode(this.stepMax(psb));
 		
-		if(this.convertData(sqlSession.insert("insStep", psb))){
-			map.put("message", "스텝 생성이 완료되었습니다.");
-		}else {map.put("message","해당 스텝이 이미 존재합니다.");}
+			/* ps관리자를 Ps테이블에 넣어줌 */
+			if(this.convertData(sqlSession.insert("insStep", psb))){
+				/* + 추가작업) 총관리자 userid 를 다시 셀렉해서 */
+				psb.setPscode(psb.getPscode() + "-A");
+				psb.setUserid(sqlSession.selectOne("selectAllManagerUserid", psb));
+				/* 총관리자를 ps테이블에 먼저 넣어줌 */
+				if(this.convertData(sqlSession.insert("insAllManagerToPs",psb))) {
+					mav.setViewName("redirect:/");
+					mav.setViewName("adminProject");
+					mav.addObject("message", "스텝 생성이 완료되었습니다.");
+				}
+			}else {
+				mav.setViewName("adminProject");
+				mav.addObject("message","해당 스텝이 이미 존재합니다.");}
 		
-		return map;
+		
+		
+		return mav;
 	}
 
 	public String stepMax(ProjectStepBean psb) {
 		/* pscode 생성 어케하쥐 */
 		int psMax = sqlSession.selectOne("selectStepMax",psb);
 		String stringMax ="";
-		if(psMax<10) {
+		if((psMax+1)<10) {
 			stringMax = "PS0" + (psMax+1);
 		}else {
 			stringMax = "PS" +(psMax+1);
@@ -155,6 +168,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		ModelAndView mav = new ModelAndView();
 		String userid = "";
 		String cpcode = "";
+		System.out.println(pb.getPropen());
 		try {
 			userid = (String)pu.getAttribute("userid");
 			cpcode = (String)pu.getAttribute("cpcode");
@@ -167,7 +181,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 
 			pb.setPrcode(max<10? "PR0"+max:"PR"+max);
 
-			if(pu.getAttribute("utype").equals("A"))	{
+			if(pu.getAttribute("utype").equals("A")){
 				pb.setPrstate("I");
 				pb.setPrutype("L");
 				if(this.convertData(sqlSession.insert("createProject", pb))){
@@ -228,14 +242,21 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 
 
 	public Map<String, String> acceptMakeProject(ProjectBean pb) {
-		
 		Map<String,String> map = new HashMap<>();
 		map.put("message", " 승인 실패하였습니다.");
 		/* 프로젝트 보류 > 진행으로 업데이트 */
 		if(this.convertData(sqlSession.update("acceptMakeProject", pb))) {
 			/* 프로젝트 멤버 테이블에서 보류상태인 관리자를 리더로 업데이트 */
 			if(this.convertData(sqlSession.update("updateLeader",pb))) {
-				map.put("message", "승인을 완료하였습니다.");
+				/* 총괄 프로젝트멤버테이블에 넣으려고 userid 설정하는 부분 */
+				try {
+					pb.setUserid((String)pu.getAttribute("userid"));
+				} catch (Exception e) {e.printStackTrace();}
+				/* 총관리자도 프로젝트 멤버에 넣어줌 (추가작업임) */
+				if(this.convertData(sqlSession.insert("insertAllManagerToPm", pb))) {
+					map.put("message", "승인을 완료하였습니다.");
+					
+				}
 			}
 		}
 		return map;

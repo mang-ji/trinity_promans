@@ -29,7 +29,11 @@ $(document).ready(function(){
 
 function getFileList(data){
 	let fileList = document.getElementById("fileList");
+	let userid = document.getElementsByName("userid")[0];
 	let style = document.createElement("style");
+	let lock = document.createElement("img");
+	lock.src = "/resources/images/closeLogo.png";
+	lock.className = "lock";
 	let list="";
 	let css  = "";
 	
@@ -43,18 +47,56 @@ function getFileList(data){
 		list+= "</div>";
 	
 	for(i=0; i<data.length; i++){
-		list+= "<div class=\"item_list\" id=\"flRadio"+i+"\"><label for=\"flRadio"+i+"\" style=\"width:100%;height:30px; margin:auto;\">";
-		list+= "<div style=\"width:10%; height:30px; float:left; padding-right:10px; text-align:right; color:#585858; border-right:1px solid #bbbbbb;\">"+(i+1)+"</div>";
-		list+= "<div style=\"width:39%; height:30px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle +"</div>";
-		list+= "<div style=\"width:34.1%; height:30px; float:left; margin-left:10px; border-right:1px solid #bbbbbb;\">"+ data[i].fwriter +"</div>";
-		list+= "<div style=\"width:14%; height:30px; float:left; margin-left:9.4px; color:#bbbbbb;\">"+ data[i].fdate +"</div>";
+		list+= "<div class=\"item_list\">";
+		list+= "<input type=\"button\" class=\"item_list\" id=\"flRadio"+i+"\" name=\"flRadio\" onClick=\"downLoadFile(\'"+data[i].fname+"\')\"><label for=\"flRadio"+i+"\" style=\"width:100%;height:30px; margin:auto;\">";
+		list+= "<div style=\"width:10%; height:29px; float:left; padding-right:10px; text-align:right; color:#585858; border-right:1px solid #bbbbbb;\">"+(i+1)+"</div>";
+		if(data[i].fopen == "C" && data[i].fwriter == userid.value){
+			list+= "<div style=\"width:39%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"
+			+ data[i].ftitle +"<img class=\"lock\" src=\"/resources/images/closeLogo.png\"></div>";
+		}else{
+			list+= "<div style=\"width:39%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle +"</div>";
+		
+		}
+		list+= "<div style=\"width:34.1%; height:29px; float:left; margin-left:10px; border-right:1px solid #bbbbbb;\">"+ data[i].fwriter +"</div>";
+		list+= "<div style=\"width:14%; height:29px; float:left; margin-left:9.4px; color:#bbbbbb;\">"+ data[i].fdate +"</div>";
 		list+= "</label></div>";
 		
+		//css+= "input[id=\"flRadio"+i+"\"] \+ label{border-top:1px solid #bbbbbb; border-bottom:1px solid #bbbbbb; width:100%; height:30px; margin:auto;}";
+		//css+= "input[id=\"flRadio"+i+"\"]:checked \+ label{border-top:1px solid #0A0A2A; border-bottom:1px solid #0A0A2A; background-color:#D8D8D8; color:#ffffff;}";
+		css+= "input[id=\"flRadio"+i+"\"]:checked:active \+ label{border-top:1px solid #0A0A2A; border-bottom:1px solid #0A0A2A; background-color:#E6E6E6; color:#424242;}";
+		css+= "input[id=\"flRadio"+i+"\"]:hover \+ label{border-bottom:1px solid #bbbbbb; background-color:#F2F2F2; color:#848484;}";
+		css+= "input[id=\"flRadio"+i+"\"]:active \+ label{border-top:1px solid #0A0A2A; border-bottom:1px solid #0A0A2A; background-color:#E6E6E6; color:#424242;}";
+		css+= "input[id=\"flRadio"+i+"\"]{display:none;}";
+		css+= ".fdateColor{color:#848484;}";
+		
 	}
-
+	
+	style.innerHTML=css;
+	document.head.append(style);
 	fileList.innerHTML=list;
 	
 }
+
+
+function downLoadFile(fname){
+	let form = document.createElement("form");
+	let input = document.createElement("input");
+	form.action = "downLoadFile";
+	form.method = "post";
+	form.target = "iframe1";
+	
+	input.name = "fname";
+	input.value = fname;
+	input.type = "hidden";
+	
+	form.append(input);
+	
+	document.body.appendChild(form);
+	
+	form.submit();
+}
+
+
 
 function insBookMark(fcode,fwriter){
 	if(confirm("즐겨찾기에 추가하시겠습니까?")){
@@ -85,7 +127,13 @@ function afterInsBookMark(data){
 
 function getMarkList(data){
 	let list = "";
+	let css = "";
 	let markList = document.getElementById("markList");
+	let style = document.createElement("style");
+	let userid = document.getElementsByName("userid")[0];	
+	let lock = document.createElement("img");
+	
+	
 	list+= "<input type=\"checkbox\" id=\"markOn\" onClick=\"markOnOff(this)\"><label for=\"markOn\" style=\"cursor:pointer;\">BookMark</label>";
 		
 		list+= "<div style=\"width:100%; height:30px; margin:auto; border-top:1px solid #bbbbbb;\">";
@@ -97,14 +145,40 @@ function getMarkList(data){
 		
 		for(i=0; i<data.length; i++){
 			list+="<div class=\"item_list\" name=\"markCss\" style=\"display:none;\">";
-			list+= "<div style=\"width:10%; height:30px; float:left; padding-right:10px; text-align:right; color:#585858; border-right:1px solid #bbbbbb;\"onClick=\"alreadyMark(\'"+data[i].fcode+"\')\">★</div>";
-			list+= "<div style=\"width:39%; height:30px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle +"</div>";
-			list+= "<div style=\"width:34.1%; height:30px; float:left; margin-left:10px; border-right:1px solid #bbbbbb;\">"+ data[i].fwriter +"</div>";
-			list+= "<div style=\"width:14%; height:30px; float:left; margin-left:9.4px; color:#bbbbbb;\">"+ data[i].fdate +"</div>";
+			list+= "<div class=\"star\" style=\"width:10%; height:29px; float:left; padding-right:10px; text-align:right; color:#585858; border-right:1px solid #bbbbbb;\"onClick=\"alreadyMark(\'"+data[i].fcode+"\')\"></div>";
+			list+= "<input type=\"button\" class=\"item_list\" id=\"markBtn"+i+"\" name=\"flRadio\" onClick=\"downLoadFile(\'"+data[i].fname+"\')\"><label for=\"markBtn"+i+"\" style=\"width:90%;height:30px; margin:auto;\">";
+			if(data[i].fopen == "C" && data[i].fwriter == userid.value){
+				list+= "<div name=\"lockImg\" style=\"width:43.3%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"
+				+ data[i].ftitle +"<img class=\"lock\" src=\"/resources/images/closeLogo.png\"></div>";
+				
+			}else{
+				list+= "<div style=\"width:43.3%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"+ data[i].ftitle +"</div>";
+			}
+			list+= "<div style=\"width:37.9%; height:29px; float:left; margin-left:10px; border-right:1px solid #bbbbbb;\">"+ data[i].fwriter +"</div>";
+			list+= "<div style=\"width:14%; height:29px; float:left; margin-left:9.4px; color:#bbbbbb;\">"+ data[i].fdate +"</div>";
 			list+= "</label></div>";
-		
+			
+			css+=".star:before{content:'★'}";
+			css+=".star:hover{background-color:#f3f3f3;}";
+			css+=".star.starH:before{content:'☆'}";
+			
+			//css+= "input[id=\"markBtn"+i+"\"] \+ label{border-top:1px solid #bbbbbb; border-bottom:1px solid #bbbbbb; width:100%; height:30px; margin:auto;}";
+			css+= "input[id=\"markBtn"+i+"\"]:checked:active \+ label{border-top:1px solid #0A0A2A; border-bottom:1px solid #0A0A2A; background-color:#E6E6E6; color:#424242;}";
+			css+= "input[id=\"markBtn"+i+"\"]:hover \+ label{border-bottom:1px solid #bbbbbb; background-color:#F2F2F2; color:#848484;}";
+			css+= "input[id=\"markBtn"+i+"\"]:active \+ label{border-top:1px solid #0A0A2A; border-bottom:1px solid #0A0A2A; background-color:#E6E6E6; color:#424242;}";
+			css+= "input[id=\"markBtn"+i+"\"]{display:none;}";
+			
 		}
+		style.innerHTML = css;
+		document.head.append(style);
 		markList.innerHTML=list;
+		
+		$(document).ready(function(){
+			$(".star").hover(function(){
+				$(this).toggleClass('starH');
+			})
+		});
+		
 }
 
 function markOnOff(obj){
@@ -321,7 +395,7 @@ function imgChange(){
 		img[0].style.display = "block";
 		img[1].style.display = "none";
 		fopen.value = "O";
-	}else{
+	}else if(fopen.value == "O"){
 		img[1].style.display = "block";
 		img[0].style.display = "none";
 		fopen.value = "C";

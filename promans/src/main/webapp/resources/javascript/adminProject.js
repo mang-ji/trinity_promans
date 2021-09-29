@@ -141,6 +141,7 @@ function selectProject(jsonData){
 	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+prcode.value+"\')\" />";
 		list+= "<input type='button' class='buttonStyle' value='팀원 추가' onClick=\"getCompanyMember(\'"+prcode.value+"\')\"/>";
 		list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+prcode.value+"\')\"/>";
+		list+= "<div id=\"buttonboundary\"></div>";
 	}
 	
 	selectStep.innerHTML = list;
@@ -504,7 +505,7 @@ function selectSchedule(jsonData){
 		list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px;\">";
 	
 		//if(jsonData[0].utype != "G"){
-			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
+			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 6px;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
 				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left;\" onClick=\"addJobMember()\"></div>"
 				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
 		//	}
@@ -807,18 +808,18 @@ function upPass(){ //업무 디테일 완료 승인해주면 모달 창 다 꺼�
 
 
 function sendProjectInfo(prcode){
-	let createBtn = document.getElementById("createBtn");
+	let createBtn = document.getElementById("buttonboundary");
 	let data = "";
 	// 프로젝트 완료요청은 일단 재낌 , 프로젝트용 피드백 테이블이 없삼 
-	data += "<input type='button' class='stepbuttonStyle' value='승인 요청' onClick=\"reqProjectAccept(\'"+prcode+"\')\">"; 
-	data += "<input type='button' class='stepbuttonStyle' value='스텝 생성' onClick=\"makeProjectStep(\'"+prcode+"\')\"><br>";
+	data += "<input type='button' class='buttonStyle' value='승인 요청' onClick=\"reqProjectAccept(\'"+prcode+"\')\">"; 
+	data += "<input type='button' class='buttonStyle' value='스텝 생성' onClick=\"makeProjectStep(\'"+prcode+"\')\"><br>";
 	
 	createBtn.innerHTML = data;
 	
 	editBtnTwice();
 }
 function editBtnTwice(){
-	let editBtn = document.getElementById("createBtn");
+	let editBtn = document.getElementById("buttonboundary");
 	if(editBtn.style.display=="none"){
 		editBtn.style.display="block";
 	}else{
@@ -861,14 +862,12 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 	let modal_background = document.getElementById("modal_background");
 	
 		
-  		 box.innerHTML = "<div id='modal_background2'>";
-  		 box.innerHTML += "<div id='modal_box2'></div></div>";
-		 box.innerHTML = "<div id=\"teamlistt\"> 프로젝트 생성 </div>"
-						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">프로젝트 스텝명 : </div>"
-						+"<input type='text' id='stepnamee' name='stepName'/></div>"
-						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">관리자 : </div>"
-						+"<input type='text' id='teamonelistinput'/><input type='button' value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
-  		 box.innerHTML += "<div id=\"btnss\" >생성하기</div>";
+  		 box.innerHTML = "<div id='modal_background2'><div id='modal_box2'></div></div>";
+		 box.innerHTML +="<div id=\"teamlistt\"> 프로젝트 생성 </div>"
+						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">프로젝트 스텝명 :</div><input type='text' id=\"stepnameinput\" name='psname'/></div>"
+						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">관리자 :</div><input type='text' id='teamonelistinput'/><input type='button' id=\"findbtn\" value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
+					
+  		 box.innerHTML += "<div id=\"btnss\">생성하기</div>";
   		 box.innerHTML += "<div id=\"btns\" onClick='close1()'>뒤로가기</div>";
   		 box.innerHTML += "</div></div></div></div>";
 
@@ -882,16 +881,24 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 
 
 function makeBtnClick(prcode){
-	let make = document.getElementById("btns");
+	let make = document.getElementById("btnss");
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	let prcode1 = document.getElementsByName("prcode")[0];
+	let form = document.createElement("form");
 	make.addEventListener('click', function(){
-		let psname1 = document.getElementsByName("stepName")[0];
-		let userid1 = document.getElementsByName("userid1")[0];
-		let cpcode1 = document.getElementsByName("cpcode")[0];
-		let clientData = [{cpcode:cpcode1.value, prcode:prcode ,psname:psname1.value, userid:userid1.value}];
-
-		postAjax("rest/MakeStep",JSON.stringify(clientData),"insStep",2);
+		let psname = document.getElementsByName("psname")[0];
+		let userid = document.getElementsByName("userid")[1]; // 0번째는 로그인한 사람 유저아이디임 
+		let cpcode = document.getElementsByName("cpcode")[0];
+		
+		form.action = "MakeStep";
+		form.method = "post";
+		form.appendChild(cpcode);
+		form.appendChild(userid);
+		form.appendChild(psname);
+		form.appendChild(prcode1);
+		document.body.appendChild(form);
+		form.submit();
 		
 		box.style.display = "none";
 		modal_background.style.display = "none";
@@ -899,9 +906,6 @@ function makeBtnClick(prcode){
 	
 }
 
-function insStep(jsonData){
-	alert(jsonData.message);
-}
 
 
 /* 관리자 시킬 사람 조회 */
@@ -914,19 +918,13 @@ function selectManager(prcode1){
 function getManagerList(jsonData){
 	let box = document.getElementById("modal_box2");
 	let modal_background = document.getElementById("modal_background2");
-  		 box.innerHTML += "<div class='modal' tabindex='-1' role='dialog' style='border:1px solid black;'>";
-  		 box.innerHTML += "프로젝트 멤버 리스트";
-		 box.innerHTML += "<h5 class='modal-title'></h5></div>"; 
-	
-		 for(i=0; i<jsonData.length;i++){
-			 box.innerHTML +=  "<input type='radio' name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'>"+jsonData[i].username +"</><br>" ;
-		}
+  		 box.innerHTML = "<div id=\"teamlistt\">프로젝트 멤버 리스트</div>";
 		
-  		 box.innerHTML += "<div class='modal-footer'>";
-  		 box.innerHTML += "<div class='modal-footer'>";
-  		 box.innerHTML += "<button type='button' class='btn btn-primary' onClick='selectStepManager()'>select</button>";
-  		 box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close2()'>Close</button>";
-  		 box.innerHTML += "</div></div>";
+		 for(i=0; i<jsonData.length;i++){
+			 box.innerHTML +=  "<input type='radio' id=\"stepManagerList\" name='selectedRadio' value= \'"+jsonData[i].userid+","+jsonData[i].username+"\'> 이름 :&ensp;"+jsonData[i].username +"&emsp; 아이디 :&ensp;"+jsonData[i].userid+"</><br>" ;
+			}
+  		 box.innerHTML += "<input type='button' id=\"memberselectbtn\" onClick='selectStepManager()' value=\"선택하기\"/>";
+  		 box.innerHTML += "<input type='button' id=\"memberselectbtn\" onClick='close2()' value=\"뒤로가기\"/>";
 
 		modal_background.style.display = "block";
 		box.style.display = "block";
@@ -939,7 +937,7 @@ function selectStepManager(){
 	let userid;
 	let username;
 	let radio = document.getElementsByName("selectedRadio");
-	let manager = document.getElementById("selectedManager");
+	let manager = document.getElementById("teamonelistinput");
 	
 	radio.forEach((node) => {
     if(node.checked)  { 
@@ -951,7 +949,7 @@ function selectStepManager(){
 	username = array[1];
 	
 	manager.value = username;
-	manager.innerHTML += "<input type='hidden' name='userid1' value=\'"+userid+"\' />";
+	manager.innerHTML += "<input type='hidden' name='userid' value=\'"+userid+"\' />";
 
 	close2();
 }
@@ -1037,15 +1035,19 @@ function getStep(jsonData){
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	
-	box.innerHTML += "<div id='modal_box2'></div>";
+	box.innerHTML = "<div id='modal_box2'></div>";
 	box.innerHTML += "<div id='modal_background2'>";
-
+	
+	box.innerHTML = "<div id=\"teamlistt\">프로젝트 스텝 완료요청 리스트</div>";
 	for(i=0;i<jsonData.length;i++){
-		box.innerHTML +="<input type='radio' name='stepReq' value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' >"+ "스텝명 : "+jsonData[i].psname+"  관리자 : " +jsonData[i].username + "  진행상태 : "+ jsonData[i].stname+"</><br>";
+		box.innerHTML +="<div id=\"projectReqq\" ><input type='radio' name='stepReq' id=\"teamonelistinput\" value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' ></>"
+						+"<div id=\"projectReqBoxx\"><div>스텝명 : "+jsonData[i].psname + "</div>"
+						+"<div>관리자 : " +jsonData[i].username 
+						+"&emsp;&emsp;진행상태 : "+ jsonData[i].stname+"</div></div></div>";
 	}
 	
-	box.innerHTML += "<button type='button' class='btn btn-primary' id='selectStep1' >Select</button>";
-  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close1()'>Close</button><br>";
+	box.innerHTML += "<input type='button' id=\"btns\" name='selectStep1' value=\"선택하기\"/>";
+  	box.innerHTML += "<input type='button' id=\"btns\" onClick='close1()' value=\"뒤로가기\"/>";
 
 	box.style.display = "block";
 	modal_background.style.display = "block";
@@ -1060,7 +1062,7 @@ function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, c
 	let radio = document.getElementsByName("stepReq");
 	let box = document.getElementById("modal_box2"); 
 	let modal_background = document.getElementById("modal_background2");
-	let selectButton = document.getElementById("selectStep1");
+	let selectButton = document.getElementsByName("selectStep1")[0];
 	let arr;
 	let pscode;
 	let userid;

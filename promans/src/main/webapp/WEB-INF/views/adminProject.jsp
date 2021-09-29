@@ -39,6 +39,7 @@
     		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
     		
     		
+<<<<<<< HEAD
     		
     	     }else{
     	    	 
@@ -51,6 +52,8 @@
     	    	 
     	    	
     	     }
+=======
+>>>>>>> b96b55c602a5dae9d115b571b3daabb5f204d335
      });
      
 
@@ -172,7 +175,6 @@
 					 	<div id='createBtn'></div>
 					 </div>
               </div>
-               
                <div id="mainPop"><div id="popUp"></div></div>
             </div>
            	   
