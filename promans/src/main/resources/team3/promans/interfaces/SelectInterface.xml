@@ -129,7 +129,7 @@
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
         FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode} and prstate !='Y'
+		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' 
 	</select>
 
 
@@ -141,7 +141,7 @@
 		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
 		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
-		PRCODE = #{prcode} 
+		PRCODE = #{prcode}  and utype !='A'
 
 	</select>
 	

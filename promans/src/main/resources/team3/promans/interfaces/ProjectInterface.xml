@@ -54,7 +54,7 @@
 
 	<select id="selectStepMax" parameterType="team3.promans.beans.ProjectStepBean" resultType="int">
 
-     select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode}
+     select nvl(max(substr(ps_code,3,4)),0) from ps where ps_cpcode=#{cpcode} and ps_prcode=#{prcode} and ps_utype='L'
 
 	</select>
 	
@@ -95,7 +95,7 @@
 	<insert id="insAllManagerToPs">
 		insert into ps values(#{cpcode}, #{prcode}, #{pscode}, #{psname}, 'I',#{userid},'A')
 	</insert>
-	<select id="selectAllManagerUserid" parameterType="team3.promans.beans.ProjectBean">
+	<select id="selectAllManagerUserid" parameterType="team3.promans.beans.ProjectBean" resultType="string">
 		select cm_userid as userid from cm where cm_cpcode=#{cpcode} and cm_utype='A'
 	</select>
 </mapper>

@@ -36,7 +36,6 @@
     		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
     		
     		
-    		
      });
      
      /*window.addEventListener('load',function(){
