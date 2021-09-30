@@ -104,11 +104,10 @@ public class Restcontroller {
 
 		return sm.writeSchedule(sdb.get(0));
 	}
-	
 	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public ModelAndView writeDiary(@ModelAttribute WorkDiaryBean wdb) {
-		return sm.writeDiary(wdb);
+	public Map<String,String> writeDiary(@RequestBody List<WorkDiaryBean> wdb) {
+		return sm.writeDiary(wdb.get(0));
 	}
 	
 	

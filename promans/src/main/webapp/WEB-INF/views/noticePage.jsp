@@ -110,25 +110,14 @@ table {
 					<!-- <div id="change"></div> -->
 					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display: none;" onClick="deleteNotice()" /> 
 					<input type="button" id="Writebtn" value="글쓰기" name="writer" onClick="OpenPopup()" />
-
-
 				</div>
-
 				<div id="Notice"></div>
-
-
 			</div>
 		</div>
 	</div>
-
 	<div id="popup">
 		<div id="popup1"></div>
 	</div>
-
-
-
-
-
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

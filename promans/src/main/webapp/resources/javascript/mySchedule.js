@@ -33,9 +33,8 @@ function getSchedule(data) {
 		dels1.addEventListener('click', function(){
 	
 		delbtn1.style.display ="block";
-		shead1.innerHTML = `<th></th><th></th>
-							<th>제목</th>
-							<th>작성날짜</th>`;
+		shead1.innerHTML = `<tr><td>제목</td><td>날짜</td></tr>`;
+		
 		if(list1 != ""){
 			slist1.innerHTML = list1;
 		}else{
@@ -63,6 +62,7 @@ function getSchedulelist(data){
 	tschedule1.remove();
 
 	html +=`<div id ="box">`;
+	html +=`<input type="hidden" name="sdcode" value=${data[0].sdcode}>`;
 	html +=`<div id ="title">제목 : ${data[0].sdcontent}</div>`;
 	html +=`<div id ="date">작성날짜 : ${data[0].sddate}</div>`;
 	html +=`<a href="myScheduleForm"><input type ="button" id ="btn" value ="목록"></a>`;
@@ -88,6 +88,7 @@ function OpenPopup(data){
 	html +=`<input type ="hidden" name ="userid" value =${userid.value}>`;
 	html +=`<input type ="hidden" name= "sccode" value =${sccode.value}>`;
 	html +=`<div class ="rspopup">`;
+	html +=`<style>{overflow: auto;}</style>`;
 	html +=`<h6>완료 요청</h6><input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
 	html +=`<style>h6{text-align: center;}</style>`;
 	for(i=0; i<sdcontent.length; i++){
@@ -95,7 +96,6 @@ function OpenPopup(data){
 		html +="<div id =\"sdcontenta\" name =\"sdcontents\">"+sdcontent[i].value+"</div>";
 	}
 	html +=`<input type ="submit" class ="rbtn" value ="요청" onClick="reqbtn()">`;
-	//html +=`<input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
 	html +=`</div>`;
 	
 	popup.innerHTML = html;

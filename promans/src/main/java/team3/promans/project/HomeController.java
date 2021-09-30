@@ -186,12 +186,6 @@ public class HomeController {
 	public String allAdminManage() {
 		return "allAdminManage";
 	}
-	
-	@PostMapping("writeDiary")
-	public ModelAndView writeDiary(WorkDiaryBean wdb) {
-		mav = sm.writeDiary(wdb);
-		return mav;
-	}
 
 	@PostMapping("goAdminProjectForm")
 	public ModelAndView goAdminProjectForm(@RequestParam("prcode") String prcode ) {
