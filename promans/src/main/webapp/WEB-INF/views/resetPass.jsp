@@ -21,7 +21,7 @@
 
 			<div id="pw1">새 비밀번호</div>
 			<div>
-				<input type="password" id="pwbox" class="box" name = "pw" placeholder="새 비밀번호를 입력해주세요.">
+				<input type="password" id="pwbox" class="box" name = "acode" placeholder="새 비밀번호를 입력해주세요.">
 			</div>
 			<div>
 			<div id="pw2">새 비밀번호 확인</div>
