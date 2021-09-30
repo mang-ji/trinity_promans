@@ -72,6 +72,7 @@ function afterNotice(data) {
 		let cpcodes = document.getElementsByName("cpcode")[0];
 		
 		let data = [ {cpcode:cpcodes.value, nocode:nocode}];
+		alert(JSON.stringify(data));
 		
 		postAjax("rest/getNoticeDetail", JSON.stringify(data), 'getNoticeDetail', 2);
 		}

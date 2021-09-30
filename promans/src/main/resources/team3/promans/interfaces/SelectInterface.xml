@@ -72,17 +72,14 @@
 		resultType="team3.promans.beans.Notice_CalendarBean">
 		SELECT NO_USERID as writer,
 		NO_TITLE as title,
-		NO_CODE as
-		nocode,
-		NO_CONTENTS as
-		contents,
+		NO_CODE as nocode,
+		NO_CONTENTS as contents,
 		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
-		NO_FILEPATH as
-		filepath,
-		NO_FNAME as fname
-		FROM PNT
-		WHERE NO_CPCODE =
-		#{cpcode} and NO_CODE = #{nocode}
+		NO_FILEPATH as filepath,
+		NO_FNAME as fname,
+        cm.cm_uname as uname
+		FROM PNT inner join cm on no_cpcode = cm_cpcode and no_userid = cm_userid
+		WHERE NO_CPCODE = #{cpcode} and NO_CODE = #{nocode}
 	</select>
 
 	<!-- 공지사항 삭제 -->
