@@ -34,7 +34,7 @@
     		
     		let clientData = JSON.stringify(jsonData);
     		
-    		alert(clientData);
+    		
     		postAjax("rest/GetScheDetail", clientData, "selectScheDetail", 2);
     		
     		postAjax("rest/GetNot", clientData, "getNot",2);

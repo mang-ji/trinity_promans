@@ -265,6 +265,7 @@ public class Restcontroller {
 	
 	@PostMapping("/selectScheduleMember")
 	public List<ProjectMemberBean> selectScheduleMember(@RequestBody List<ProjectMemberBean> pmb){
+		System.out.println(pmb);
 		return si.selectScheduleMember(pmb.get(0));
 	}
 	

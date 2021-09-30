@@ -19,12 +19,6 @@
 
 <title>공지사항</title>
 
-<style>
-table {
-	width: 100%;
-	border: 1px solid #444444;
-}
-</style>
 
 </head>
 <body onLoad="projectOnLoad()">
@@ -93,18 +87,21 @@ table {
 
 				<form action="noticeDelete" method="post" id="testDiv">
 					<input type="hidden" name="cpcode" value="${cpcode}">
-					<table id="table_notice">
-						<tr id="trNotice">
-							<th></th>
-							<th style="padding-left: 250px">제목</th>
-							<th style="padding-left: 250px">작성날짜</th>
-						</tr>
-						<tbody id="table_body">
+					<div id="table_notice">
+						<div id="trNotice">
+						    
+							<span id = 'notSpan0'>No.</span>
+							<span id = 'notSpan1'>Title</span>
+							<span id = 'notSpan2'>Date</span>
+						</div>
+						<div id="table_body">
 
-						</tbody>
+						</div>
 
-					</table>
+					</div>
 				</form>
+				
+			
 				<div>
 					<input type="button" id="editbtn" value="편집" name="editBtn" />
 					<!-- <div id="change"></div> -->

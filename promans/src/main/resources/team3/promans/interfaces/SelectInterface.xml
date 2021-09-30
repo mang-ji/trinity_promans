@@ -426,7 +426,7 @@
      
      <select id = "selectScheduleMember" parameterType = "team3.promans.beans.ProjectMemberBean" resultType = "team3.promans.beans.ProjectMemberBean">
      
-     	select userid, username as uname from projectmemberview where cpcode =#{cpcode} and prcode = #{prcode} 
+     	select userid, username as uname from projectmemberview where cpcode = #{cpcode} and prcode = #{prcode} and NOT(utcode = 'A' or utcode = 'L')
      
      </select>
 
