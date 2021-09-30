@@ -266,7 +266,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 	public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc) {
-		return sql.selectList("getNoticeDetail",nc);
+		
+		 List<Notice_CalendarBean> list = sql.selectList("getNoticeDetail",nc);
+		 
+		 try {
+			list.get(0).setUname(enc.aesDecode(list.get(0).getUname(), list.get(0).getWriter()));
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return list;
 	}
 
 	

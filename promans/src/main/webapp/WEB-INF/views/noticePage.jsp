@@ -87,6 +87,7 @@
 
 				<form action="noticeDelete" method="post" id="testDiv">
 					<input type="hidden" name="cpcode" value="${cpcode}">
+					<div id ='bakcNot'>
 					<div id="table_notice">
 						<div id="trNotice">
 						    
@@ -98,6 +99,7 @@
 
 						</div>
 
+					</div>
 					</div>
 				</form>
 				
