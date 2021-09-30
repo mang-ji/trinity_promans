@@ -53,7 +53,7 @@
 	</select>
 	
 	<update id = "findPass" parameterType="team3.promans.beans.CpMemberBean">
-    	update cm set cm_acode=#{acode} where cm_mail=#{mail}
+    	update cm set cm_acode=#{acode} where cm_userid=#{userid}
     </update>
 	
 	
