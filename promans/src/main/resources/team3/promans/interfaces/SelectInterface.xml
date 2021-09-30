@@ -142,7 +142,7 @@
 		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
 		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
-		PRCODE = #{prcode}  and utype !='A'
+		PRCODE = #{prcode}  and utype !='A' 
 
 	</select>
 	
@@ -223,7 +223,7 @@
 	
 	
 	<select id="selectStepReq" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
-		select cpcode, prcode, pscode, psname, username, stcode ,stname, userid,utype from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode}
+		select cpcode, prcode, pscode, psname, username, stcode ,stname, userid,utype from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode} and utype!='A'
 	</select>
 
 	<select id="selectManager"
@@ -433,6 +433,11 @@
 
 	<select id="selectCmUtype" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
 		select cm_utype as utype from cm where cm_userid=#{userid}
+	</select>
+	<select id="getProjectFeedback" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ScheduleDetailBean">
+		select pr.pr_name as scname, prft.prft_contents as sdcontent, to_char(prft.prft_date,'yyyy-MM-dd:HH24:MI') as sddate
+		from prft inner join pr on prft.prft_cpcode=pr.pr_cpcode and prft.prft_prcode=pr.pr_code 
+		where prft.prft_userid=#{userid} and prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode} and prft.prft_state='W' order by prft.prft_date desc
 	</select>
 
 

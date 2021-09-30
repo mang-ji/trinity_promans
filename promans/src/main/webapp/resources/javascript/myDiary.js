@@ -83,9 +83,9 @@ function OpenPopup1(){
 	let html = "";
 		
 	html +=`<form action="writeDiary" method="post">`;
-	html +=`<input type ="hidden" name ="cpcode" value =${cpcode.value}>`;
-	html +=`<input type ="hidden" name ="prcode" value =${prcode.value}>`;
-	html +=`<input type ="hidden" name ="userid" value =${userid.value}>`;
+	html +=`<input type ="hidden" name ="cpcode" value = \"${cpcode.value}\">`;
+	html +=`<input type ="hidden" name ="prcode" value = \"${prcode.value}\" >`;
+	html +=`<input type ="hidden" name ="userid" value = \"${userid.value}\">`;
 	html +=`<div class ="wdpopup">`;
 	html +=`<h6>업무일지 작성</h6>`;
 	html +=`<style>h6{text-align: center;}</style>`;

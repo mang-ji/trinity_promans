@@ -53,6 +53,7 @@ public ModelAndView writeDiary(WorkDiaryBean wdb) {
 	int max = this.maxdiary(wdb) + 1;
 	wdb.setWdcode(max < 10 ? "WD0" +max:"WD"+max);
 	
+	System.out.println(wdb + " 확인용 유나아~");
 	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
 		
 		mav.addObject("message","일지 등록이 완료되었습니다.");

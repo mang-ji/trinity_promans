@@ -239,8 +239,6 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	}
 
 
-
-
 	public Map<String, String> acceptMakeProject(ProjectBean pb) {
 		Map<String,String> map = new HashMap<>();
 		map.put("message", " 승인 실패하였습니다.");
@@ -257,6 +255,23 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 					map.put("message", "승인을 완료하였습니다.");
 					
 				}
+			}
+		}
+		return map;
+	}
+
+
+
+
+	public Map<String, String> insProjectStepAccept(ProjectStepBean psb) {
+		Map<String,String> map = new HashMap<>();
+		map.put("message", "프로젝트 스텝 승인에 실패하였습니다.");
+		/* 먼저 리더인 사람의 프로젝트 스텝을 업데이트 해주고 */
+		if(this.convertData(sqlSession.update("updateProjectStepAccept",psb))){
+			psb.setUserid(sqlSession.selectOne("selectAllManagerUserid",psb));
+			psb.setPscode(psb.getPscode() + "-A");
+			if(this.convertData(sqlSession.update("updateProjectStepAccept",psb))) {
+				map.put("message", "프로젝트 스텝 승인을 완료하였습니다.");
 			}
 		}
 		return map;

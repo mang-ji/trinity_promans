@@ -1132,21 +1132,32 @@ function getStep(jsonData){
 	let prcode = document.getElementsByName("prcode")[0];
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	let css ="";
+	let style = document.createElement("style");
 	
-	box.innerHTML = "<div id='modal_box2'></div>";
-	box.innerHTML += "<div id='modal_background2'>";
+	box.innerHTML = "<div id='modal_background2'>";
+	box.innerHTML += "<div id='modal_box2'></div></div>";
 	
-	box.innerHTML = "<div id=\"teamlistt\">프로젝트 스텝 완료요청 리스트</div>";
-	for(i=0;i<jsonData.length;i++){
-		box.innerHTML +="<div id=\"projectReqq\" ><input type='radio' name='stepReq' id=\"teamonelistinput\" value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' ></>"
-						+"<div id=\"projectReqBoxx\"><div>스텝명 : "+jsonData[i].psname + "</div>"
+	
+	box.innerHTML += "<div id=\"teamlistt\">프로젝트 스텝 완료요청 리스트</div>";
+	if(jsonData[0] !=null){
+		for(i=0;i<jsonData.length;i++){
+		box.innerHTML +="<div id=\"projectReqq\" ><input type='radio' name='stepReq' class=\"rd\" id=\"rd"+i+"\" value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' ></>"
+						+"<label for=\"rd"+i+"\" style='height:100px; margin-bottom:20px;' ><div id=\"projectReqBoxx\"><div>스텝명 : "+jsonData[i].psname + "</div>"
 						+"<div>관리자 : " +jsonData[i].username 
-						+"&emsp;&emsp;진행상태 : "+ jsonData[i].stname+"</div></div></div>";
-	}
+						+"&emsp;&emsp;진행상태 : "+ jsonData[i].stname+"</div></label></div>";
+						
+		css += "input[id=\"rd"+i+"\"]:hover \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:30px;}";
+        css += "input[id=\"rd"+i+"\"]:checked \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:30px;}";
+        css += "input[id=\"rd"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff; border-radius:30px;}";
+		}
+	}else {box.innerHTML += "<div id=\"message\">완료 요청중인 프로젝트 스텝이 없습니다.</div>";}
+	
 	
 	box.innerHTML += "<input type='button' id=\"btns\" name='selectStep1' value=\"선택하기\"/>";
   	box.innerHTML += "<input type='button' id=\"btns\" onClick='close1()' value=\"뒤로가기\"/>";
-
+	style.innerHTML = css;
+	document.head.appendChild(style);
 	box.style.display = "block";
 	modal_background.style.display = "block";
 
@@ -1175,12 +1186,13 @@ function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, c
 			cpcode = arr.split(",")[2];
 	    }
 	 	 });
-		box.innerHTML +="<div id='modal_edge'>";
-		box.innerHTML += "<input type='radio' name='feedback' value='feed' onClick=\"getFeedState(event)\" >피드백</>";
-		box.innerHTML += "<input type='radio' name='feedback' value='accept' onClick=\"getFeedState(event)\">승인</><br>";
-		box.innerHTML += "<input type='text' id='feedcontents' placeholder='피드백을 입력하세요' style='width:400px; height:200px;' /><br>";
-		box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendFeedback(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\">Complete</button>";
-	  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close2()'>Close</button></div>";
+		box.innerHTML = "<input type='radio' name='feedback' value='feed'  id=\"feedbackbtn\" onClick=\"getFeedState(event)\" >피드백</>";
+		box.innerHTML += "<input type='radio' name='feedback' value='accept' id=\"acceptbtn\" onClick=\"getFeedState(event)\">승인</><br>";
+		box.innerHTML += "<div id='feedcontentplace' ></div>";
+		/*box.innerHTML += "<div id=\"btnbtn\" onClick=\"sendFeedback(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\" >완료하기</div>";*/
+	  	box.innerHTML += "<div id='btnbtn' name='accepttt' style=\"display:none\" onClick=\"sendAccept(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\">승인하기</div>";
+		box.innerHTML += "<div id='btnbtn'  name='feedbackkk' style=\"display:none\" onClick=\"sendFeedback(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\">반려하기</div>";
+		box.innerHTML += "<div id=\"btnbtn\" onClick='close2()' >뒤로가기</div>";
 		
 		modal_background.style.display = "block";
 		box.style.display = "block";
@@ -1188,27 +1200,53 @@ function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, c
 }
 
 function getFeedState(event) {
-	let textBox = document.getElementById("feedcontents");
+	let textBox = document.getElementById("feedcontentplace");
+	let acceptbtn = document.getElementsByName("accepttt")[0];
+	let feedbackbtn = document.getElementsByName("feedbackkk")[0];
 	
+	textBox.innerHTML = "<input type='text' id='feedcontents' placeholder='피드백을 입력하세요' /><br>";
+	/*btnplace.innerHTML = "<input type=\"button\" id=\"feedbackbtnmake\" value=\"반려하기\"/>";
+	btnplace2.innerHTML = "<input type=\"button\" id=\"feedbackbtnmake\" value=\"승인하기\"/>";*/
    	if(event.target.value == "feed"){
 		textBox.style.display = "block";
+		feedbackbtn.style.display = "block";
+		acceptbtn.style.display = "none";
 		
 	}else if(event.target.value == "accept"){
 		textBox.style.display = "none";
+		feedbackbtn.style.display = "none";
+		acceptbtn.style.display = "block";
 	}
+	
+	
 }
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
-
-	let modal = document.getElementById("modal_edge");
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
 	let array = data.split(",");
 	let feedbox = document.getElementById("feedcontents");
 	let clientData = [{cpcode:array[3], prcode:array[0], pscode:array[1], userid:array[2], sdcontent:feedbox.value}]; // 피드백 보낼 때 
-	postAjax("rest/InsProjectFeedback", JSON.stringify(clientData),"sendFeedback2",2);
+	postAjax("rest/InsProjectStepFeedback", JSON.stringify(clientData),"sendFeedback2",2);
 	
-	modal.remove();
+	box.style.display = "none";
+	modal_background.style.display = "none";
 	
 }
 function sendFeedback2(data){
+	alert(data.message);
+}
+
+function sendAccept(data){
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	let array = data.split(",");
+	let clientData = [{cpcode:array[3], prcode:array[0], pscode:array[1], userid:array[2]}]; // 피드백 보낼 때 
+	postAjax("rest/InsProjectStepAccept", JSON.stringify(clientData),"sendAccept2",2);
+	
+	box.style.display = "none";
+	modal_background.style.display = "none";
+}
+function sendAccept2(data){
 	alert(data.message);
 }

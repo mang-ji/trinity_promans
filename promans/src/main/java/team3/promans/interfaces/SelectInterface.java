@@ -46,5 +46,6 @@ public interface SelectInterface {
 
 	  public List<ProjectBean> selectProjectReq(ProjectBean pb);
 	  public List<ProjectBean> selectProjectMakeReq(ProjectBean pb);
+	  public List<ScheduleDetailBean> getProjectFeedback(ProjectBean pb);
 
 }
