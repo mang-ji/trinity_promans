@@ -26,5 +26,6 @@ public interface ProjectInterface {
 	public Map<String,String> updateProjectAccept(ProjectBean pb);
 	public Map<String, String> rejectProject(ProjectBean pb);
 	public Map<String, String> reqProjectAccept(ProjectBean pb);
+	public Map<String, String> insProjectStepAccept(ProjectStepBean psb);
 	
 }

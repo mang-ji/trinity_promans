@@ -253,7 +253,6 @@ width:50px;   border:0px; height:30px; padding-top:3px;}
  #projectReqBoxx {border: 10px solid #c0c0c0; width: 540px;border-radius:20px; padding:15px;}
 
 #projectReqq {text-align:left; margin-left:30px; margin-bottom:10px; }
-
 /* 스텝 추가 */
 .plStep{
 	width:80%;
@@ -379,7 +378,22 @@ width:50px;   border:0px; height:30px; padding-top:3px;}
 	float:left;
 }.scListContentsLeft{border-right:1px solid gray;}
 
+.rd {display:none;}
 
+#btnbtn {margin-top:10px; background-color:#929292; color:#fff;   text-align:center; 
+width:100px;  margin-left:275px; height:30px; padding-top:3px;
+}
+#btnbtn:hover { background-color:#fff; color:#929292; text-align:center; padding-top:3px;
+ width:100px; height:30px;}
+#feedcontents{margin-left:10px;  width:365px; height:250px; border-radius:4px; border: 3px solid grey;}
 
+#feedbackbtn { margin-left:120px; margin-right:8px; margin-top:20px; margin-bottom:15px;}
+#acceptbtn {margin-left: 20px; margin-right:8px;}
 
-
+ 
+#feedbackbtnmake {margin-top:10px; background-color:#929292; color:#fff;  text-align:center; 
+width:100px;  margin-left:275px; height:30px; padding-top:3px; border:0px;
+}
+#feedbackbtnmake:hover { background-color:#fff; color:#929292; text-align:center; padding-top:3px;
+ width:100px; height:30px;}
+#message {text-align:center; margin-top:25%; font-size:20px; margin-bottom:150px;}

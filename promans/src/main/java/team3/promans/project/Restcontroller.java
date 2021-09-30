@@ -280,7 +280,7 @@ public class Restcontroller {
 		return pm.insProjectMember(pmb.get(0));
 	}
 	
-	@PostMapping("/InsProjectFeedback")
+	@PostMapping("/InsProjectStepFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
 	}
@@ -400,6 +400,13 @@ public class Restcontroller {
 	public Map<String, String> acceptMakeProject(@RequestBody List<ProjectBean> pb){
 		return pm.acceptMakeProject(pb.get(0));
 	}
-	
-	
+	@PostMapping("/InsProjectStepAccept")
+	public Map<String, String> insProjectStepAccept(@RequestBody List<ProjectStepBean> psb) {
+		return pm.insProjectStepAccept(psb.get(0));
+	}
+	@PostMapping("/GetProjectFeedback")
+	public List<ScheduleDetailBean> getProjectFeedback(@RequestBody List<ProjectBean> pb) {
+		System.out.println(pb + " 유나 확인 ");
+		return si.getProjectFeedback(pb.get(0));
+	}
 }

@@ -131,6 +131,9 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pu.setAttribute("utype", sql.selectOne("selectCmUtype", pmb));
 		} catch (Exception e) {e.printStackTrace();}
 		
+		sql.selectList("getProject", pmb);
+		
+		
 		return  sql.selectList("getProject", pmb);
 	}
 
@@ -395,12 +398,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 
+
 	public List<ProjectStepBean> getScCompleteList(ScheduleBean sb) {
 		return sql.selectList("getScCompleteList", sb);
 	}
 
-
-
+	public List<ScheduleDetailBean> getProjectFeedback(ProjectBean pb) {
+		return sql.selectList("getProjectFeedback",pb);
+	}
 	
 }
 

@@ -1,12 +1,10 @@
 let sccode;
 
 
-
-
-
-
 function getStepGraph(jsonData){
 
+alert("여기 오긴해?");
+alert(jsonData.pscode);
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
@@ -551,6 +549,7 @@ function selectSchedule(jsonData){
 			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 5px;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
 				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"addJobMember()\"></div>"
 				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
+
 		//	}
 		selectStep.innerHTML = list;
 		ShceduleEdit.innerHTML = edit;
@@ -653,7 +652,7 @@ function closePop(){
 
 
 function getScheDetail(sccode1, pscode1){
-	pageCount=2;
+	
     let f = document.createElement("form");
 	let prcode = document.getElementsByName("prcode")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
@@ -673,6 +672,26 @@ function getScheDetail(sccode1, pscode1){
 	
 }
 
+function editSchedule(){ //편집 누르면 완료요청, 업무추가 버튼 나옴
+	
+
+	let addScheduleDetail = document.getElementsByName("addScheduleDetail");
+          
+        if(addScheduleDetail[0].style.display=='none'){
+		for(i=0; i<addScheduleDetail.length; i++){
+			addScheduleDetail[i].style.display="block";
+		}
+		}else{
+			for(i=0; i<addScheduleDetail.length; i++){
+			addScheduleDetail[i].style.display="none";
+		}
+			
+		}
+		
+		
+		
+		
+}
 
 function getSDInfo(Param){ //완료요청 누르면 실행되는 펑션 , 완료 요청 정보 가져오려면 필요한 데이터 받아오는 펑션
 
@@ -872,7 +891,87 @@ function upPass(){ //업무 디테일 완료 승인해주면 모달 창 다 꺼�
 	
 }
 
+function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되는 펑션
+	
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
+	
+	sccode = sccode1;
+	sdname = sdname1;
+	
+	alert(cpcode.value + prcode.value + sdname1);
+	
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
+	
+	let clientData = JSON.stringify(jsonData);
+	
+	postAjax('rest/selectProjectMember', clientData, 'getScheManager', 2);
+	
+	
+	
+}
 
+
+function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 추가하려고 프로젝트 멤버 조회하는 곳
+   
+    let box = document.getElementById("modal_box");
+    let background = document.getElementById("modal_background");
+
+	box.style.display = "block";
+	background.style.display = "block";
+
+	box.innerHTML += "<div class='modal' id = 'modal3' tabindex='-1' role='dialog' style='border:1px solid black;'>";
+	
+	
+		
+	box.innerHTML += "<div class='modal-dialog' role='document'>Schedule Detail<input type = 'text' class='modal-content' name = 'sdcontent'/><div class='modal-header'>";
+	
+	for(i=0; i<jsonData.length; i++){
+	box.innerHTML += "<div class='modal-body'><p></p></div><input type ='radio'value= \'"+jsonData[i].userid+"\' name = 'radioo'/>"+jsonData[i].username+"";
+	}
+	box.innerHTML += "<div class='modal-footer'>";
+	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"insScheduleDetail()\">추가하기</button>";
+	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'closee()'>Close</button>";
+	box.innerHTML += "</div></div></div>";
+	
+}
+
+function insScheduleDetail(){
+	
+	let cpcode = document.getElementsByName("cpcode")[0];
+    let prcode = document.getElementsByName("prcode")[0]; 
+    let sdcontent = document.getElementsByName("sdcontent")[0];
+    let pscode = document.getElementsByName("pscode")[0];
+	let userid="";
+	let arr= "";
+
+	
+		 const radioNodeList
+  = document.getElementsByName('radioo'); 
+  
+	 radioNodeList.forEach((node) => {
+
+    if(node.checked)  {
+     userid 
+        = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
+     
+
+    }
+
+  }); 
+arr = sdname.split(",");
+
+let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode:pscode.value,sdname:arr[0], sdcontent:sdcontent.value,sccode:arr[1]}];
+
+let clientData = JSON.stringify(jsonData);
+console.log(sccode);
+console.log(sdname);
+alert(clientData);
+
+postAjax("rest/InsSD", clientData, 'upPass', 2);
+
+
+}
 
 function sendProjectInfo(prcode){
 	let createBtn = document.getElementById("buttonboundary");
@@ -1101,21 +1200,32 @@ function getStep(jsonData){
 	let prcode = document.getElementsByName("prcode")[0];
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	let css ="";
+	let style = document.createElement("style");
 	
-	box.innerHTML = "<div id='modal_box2'></div>";
-	box.innerHTML += "<div id='modal_background2'>";
+	box.innerHTML = "<div id='modal_background2'>";
+	box.innerHTML += "<div id='modal_box2'></div></div>";
 	
-	box.innerHTML = "<div id=\"teamlistt\">프로젝트 스텝 완료요청 리스트</div>";
-	for(i=0;i<jsonData.length;i++){
-		box.innerHTML +="<div id=\"projectReqq\" ><input type='radio' name='stepReq' id=\"teamonelistinput\" value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' ></>"
-						+"<div id=\"projectReqBoxx\"><div>스텝명 : "+jsonData[i].psname + "</div>"
+	
+	box.innerHTML += "<div id=\"teamlistt\">프로젝트 스텝 완료요청 리스트</div>";
+	if(jsonData[0] !=null){
+		for(i=0;i<jsonData.length;i++){
+		box.innerHTML +="<div id=\"projectReqq\" ><input type='radio' name='stepReq' class=\"rd\" id=\"rd"+i+"\" value=\'"+jsonData[i].pscode+","+jsonData[i].userid+","+jsonData[i].cpcode+"\' ></>"
+						+"<label for=\"rd"+i+"\" style='height:100px; margin-bottom:20px;' ><div id=\"projectReqBoxx\"><div>스텝명 : "+jsonData[i].psname + "</div>"
 						+"<div>관리자 : " +jsonData[i].username 
-						+"&emsp;&emsp;진행상태 : "+ jsonData[i].stname+"</div></div></div>";
-	}
+						+"&emsp;&emsp;진행상태 : "+ jsonData[i].stname+"</div></label></div>";
+						
+		css += "input[id=\"rd"+i+"\"]:hover \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:30px;}";
+        css += "input[id=\"rd"+i+"\"]:checked \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:30px;}";
+        css += "input[id=\"rd"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff; border-radius:30px;}";
+		}
+	}else {box.innerHTML += "<div id=\"message\">완료 요청중인 프로젝트 스텝이 없습니다.</div>";}
+	
 	
 	box.innerHTML += "<input type='button' id=\"btns\" name='selectStep1' value=\"선택하기\"/>";
   	box.innerHTML += "<input type='button' id=\"btns\" onClick='close1()' value=\"뒤로가기\"/>";
-
+	style.innerHTML = css;
+	document.head.appendChild(style);
 	box.style.display = "block";
 	modal_background.style.display = "block";
 
@@ -1144,12 +1254,13 @@ function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, c
 			cpcode = arr.split(",")[2];
 	    }
 	 	 });
-		box.innerHTML +="<div id='modal_edge'>";
-		box.innerHTML += "<input type='radio' name='feedback' value='feed' onClick=\"getFeedState(event)\" >피드백</>";
-		box.innerHTML += "<input type='radio' name='feedback' value='accept' onClick=\"getFeedState(event)\">승인</><br>";
-		box.innerHTML += "<input type='text' id='feedcontents' placeholder='피드백을 입력하세요' style='width:400px; height:200px;' /><br>";
-		box.innerHTML += "<button type='button' class='btn btn-primary' onClick=\"sendFeedback(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\">Complete</button>";
-	  	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='close2()'>Close</button></div>";
+		box.innerHTML = "<input type='radio' name='feedback' value='feed'  id=\"feedbackbtn\" onClick=\"getFeedState(event)\" >피드백</>";
+		box.innerHTML += "<input type='radio' name='feedback' value='accept' id=\"acceptbtn\" onClick=\"getFeedState(event)\">승인</><br>";
+		box.innerHTML += "<div id='feedcontentplace' ></div>";
+		/*box.innerHTML += "<div id=\"btnbtn\" onClick=\"sendFeedback(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\" >완료하기</div>";*/
+	  	box.innerHTML += "<div id='btnbtn' name='accepttt' style=\"display:none\" onClick=\"sendAccept(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\">승인하기</div>";
+		box.innerHTML += "<div id='btnbtn'  name='feedbackkk' style=\"display:none\" onClick=\"sendFeedback(\'"+prcode.value+","+pscode+","+userid+","+cpcode+"\')\">반려하기</div>";
+		box.innerHTML += "<div id=\"btnbtn\" onClick='close2()' >뒤로가기</div>";
 		
 		modal_background.style.display = "block";
 		box.style.display = "block";
@@ -1157,28 +1268,53 @@ function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, c
 }
 
 function getFeedState(event) {
-	let textBox = document.getElementById("feedcontents");
+	let textBox = document.getElementById("feedcontentplace");
+	let acceptbtn = document.getElementsByName("accepttt")[0];
+	let feedbackbtn = document.getElementsByName("feedbackkk")[0];
 	
+	textBox.innerHTML = "<input type='text' id='feedcontents' placeholder='피드백을 입력하세요' /><br>";
+	/*btnplace.innerHTML = "<input type=\"button\" id=\"feedbackbtnmake\" value=\"반려하기\"/>";
+	btnplace2.innerHTML = "<input type=\"button\" id=\"feedbackbtnmake\" value=\"승인하기\"/>";*/
    	if(event.target.value == "feed"){
 		textBox.style.display = "block";
+		feedbackbtn.style.display = "block";
+		acceptbtn.style.display = "none";
 		
 	}else if(event.target.value == "accept"){
 		textBox.style.display = "none";
+		feedbackbtn.style.display = "none";
+		acceptbtn.style.display = "block";
 	}
+	
+	
 }
 
 function sendFeedback(data){ // data = pr, ps,userid, cp 
-
-	let modal = document.getElementById("modal_edge");
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
 	let array = data.split(",");
 	let feedbox = document.getElementById("feedcontents");
 	let clientData = [{cpcode:array[3], prcode:array[0], pscode:array[1], userid:array[2], sdcontent:feedbox.value}]; // 피드백 보낼 때 
-	postAjax("rest/InsProjectFeedback", JSON.stringify(clientData),"sendFeedback2",2);
+	postAjax("rest/InsProjectStepFeedback", JSON.stringify(clientData),"sendFeedback2",2);
 	
-	modal.remove();
+	box.style.display = "none";
+	modal_background.style.display = "none";
 	
 }
 function sendFeedback2(data){
 	alert(data.message);
 }
 
+function sendAccept(data){
+	let box = document.getElementById("modal_box");
+	let modal_background = document.getElementById("modal_background");
+	let array = data.split(",");
+	let clientData = [{cpcode:array[3], prcode:array[0], pscode:array[1], userid:array[2]}]; // 피드백 보낼 때 
+	postAjax("rest/InsProjectStepAccept", JSON.stringify(clientData),"sendAccept2",2);
+	
+	box.style.display = "none";
+	modal_background.style.display = "none";
+}
+function sendAccept2(data){
+	alert(data.message);
+}

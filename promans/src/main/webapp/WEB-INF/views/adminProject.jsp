@@ -37,9 +37,19 @@
     		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
     		
     		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
+<<<<<<< HEAD
+=======
+    		
+    		
+    		
+>>>>>>> fe9c72f0d2d0b4aa461a11b172ecd58f5754c126
     	     }else{
     	    	 pageC(count1);
     	     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe9c72f0d2d0b4aa461a11b172ecd58f5754c126
      });
      
 
@@ -104,7 +114,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="feedbackForm">피드백</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>

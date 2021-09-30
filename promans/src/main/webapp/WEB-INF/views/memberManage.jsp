@@ -40,7 +40,7 @@
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a> 
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a> 
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a> 
-					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a> 
+					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="feedbackForm">피드백</a> 
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
