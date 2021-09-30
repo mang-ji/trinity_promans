@@ -37,19 +37,9 @@
     		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
     		
     		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
-<<<<<<< HEAD
-=======
-    		
-    		
-    		
->>>>>>> fe9c72f0d2d0b4aa461a11b172ecd58f5754c126
     	     }else{
     	    	 pageC(count1);
     	     }
-<<<<<<< HEAD
-=======
-
->>>>>>> fe9c72f0d2d0b4aa461a11b172ecd58f5754c126
      });
      
 
