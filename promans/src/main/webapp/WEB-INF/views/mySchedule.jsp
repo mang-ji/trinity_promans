@@ -76,8 +76,7 @@
                     <div id="selectStep"></div>
 				<form action="myScheduleForm" method="get">
 					<table class="tschedule">
-						<thead id="shead">
-						</thead>
+						<thead id="shead"></thead>
 						<tbody id="slist"></tbody>
 					</table>
 				</form>

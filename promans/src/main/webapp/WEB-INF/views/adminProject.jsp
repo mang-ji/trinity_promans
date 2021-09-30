@@ -29,40 +29,20 @@
     		let userid1 = document.getElementsByName("userid")[0];
     		let cpcode1 = document.getElementsByName("cpcode")[0];
     		let prcode1 = document.getElementsByName("prcode")[0];
-    	
+  	
     		let jsonData = [{cpcode:cpcode1.value, prcode:prcode1.value, userid:userid1.value}];
-    		
+ 		
     		let clientData = JSON.stringify(jsonData);
-    		
-    		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
-    		
-    		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
-    		
-    		
-    		
+     		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
+      		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
     	     }else{
-    	    	 
-    	    	 
-    	    	  
-    	      		
     	    	 pageC(count1);
-    	    	 
-    	    	
-    	    	 
-    	    	
     	     }
-
      });
-     
-
      function pageC(count){
-     	
      	alert(count);
      	if(count.value ==2){
- 			
-     		
  			let pscode = document.getElementsByName("pscode")[0].value;
- 			
  			getSchedule(pscode);
  			
 	}

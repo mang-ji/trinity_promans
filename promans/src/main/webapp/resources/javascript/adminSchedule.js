@@ -9,7 +9,7 @@ function getSchedule(){
 
 
 function getSDGraph(jsonData){
-	alert("요기 못온다는 거쥐");
+	
 
 // Themes begin
 am4core.useTheme(am4themes_animated);
@@ -123,7 +123,7 @@ function getWork(jsonData){
 	style.innerHTML = css;
 	document.head.append(style);
 	
-   if(utype.value == "L"){
+   if(utype.value == "L" || utype.value == "A"){
 	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
 	reqMenu.innerHTML += "<div id = 'SDMbtn'><div id = 'getSDInfo' name = 'getSDInfo' onClick = 'page()'>이전 화면으로</div><div onClick = 'getSDInfo()' id = 'getSDInfo' name = 'getSDInfo'>완료 승인</div><div  id = 'getSDInfo' onClick = 'addScheduleDetail()'>업무 추가</div></div>";
 
@@ -157,14 +157,14 @@ function addScheduleDetail(){ //업무추가 누르면 실행되는 펑션
 	
 	let cpcode = document.getElementsByName("cpcode")[0];
 	let prcode = document.getElementsByName("prcode")[0];
-	let sccode = document.getElementsByName("sccode")[0];
 	
-
+     
 	
 	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
 	
 	let clientData = JSON.stringify(jsonData);
 	
+
 	postAjax('rest/selectScheduleMember', clientData, 'getScheManager', 2);
 	
 	
@@ -176,23 +176,34 @@ function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 
    
     let box = document.getElementById("modal_box");
     let background = document.getElementById("modal_background");
+    let css = "";
+    let style = document.createElement("style");
 
 	box.style.display = "block";
 	background.style.display = "block";
 
-	box.innerHTML += "<div class='modal' id = 'modal3' tabindex='-1' role='dialog' style='border:1px solid black;'>";
+	box.innerHTML += "<div class='modal' id = 'modal3' style='border:1px solid black;' >";
 	
 	
 		
-	box.innerHTML += "<div class='modal-dialog' role='document'>Schedule Detail<input type = 'text' class='modal-content' name = 'sdcontent'/><div class='modal-header'>";
+	box.innerHTML += "<div id ='modal-title'>Schedule Detail<div id='sdcontentBox'><input type = 'text' class='modal-content' id = 'sdcontent' name = 'sdcontent' placeholder='업무명을 작성해주세요.'/></div></div>";
 	
 	for(i=0; i<jsonData.length; i++){
-	box.innerHTML += "<div class='modal-body'><p></p></div><input type ='radio'value= \'"+jsonData[i].userid+"\' name = 'radioo'/>"+jsonData[i].uname+"";
+		
+	box.innerHTML += "<input type ='radio'value= \'"+jsonData[i].userid+"\' class = 'radioo'  name = 'radioo' id =\"radioo"+i+"\"/><label for = \"radioo"+i+"\" style='width:100%; padding-top:5px; padding-bottom:5px;' >"+jsonData[i].uname+""+"</label>";
+	
+	  css += "input[id=\"radioo"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"radioo"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"radioo"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
+	
 	}
-	box.innerHTML += "<div class='modal-footer'>";
-	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"insScheduleDetail()\">추가하기</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'popClose()'>Close</button>";
-	box.innerHTML += "</div></div></div>";
+	
+	style.innerHTML = css;
+	document.head.append(style);
+	
+	box.innerHTML += "<div id = 'marginBTNS'><input type='button' id=\"btns\" onClick = \"insScheduleDetail()\" value =\"추가하기\" /><br>";
+	box.innerHTML += "<input type='button' id=\"btns\" onClick='popClose()' value=\"뒤로가기\"/></div>";
+	box.innerHTML += "</div>";
 	
 }
 
@@ -226,7 +237,7 @@ let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode
 
 let clientData = JSON.stringify(jsonData);
 
-alert(clientData);
+
 
 postAjax("rest/InsSD", clientData, 'upPass', 2);
 
@@ -250,7 +261,7 @@ function reqWork(){
 		}
 	}
 	
-    alert(sdcode.value);
+ 
 	f.appendChild(cpcode);
 	f.appendChild(userid);
 	f.appendChild(prcode);
@@ -305,7 +316,7 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 	feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
 	
 	
-	alert(JSON.stringify(jsonData));
+
 	
 	postAjax("rest/GetWork", JSON.stringify(jsonData), 'getWork',2);
 	
@@ -354,19 +365,32 @@ function reqForCompletion(jsonData){ //(대기 상태인 업무 디테일 조회
 	
 	let box_back = document.getElementById("modal_background");
 	let box = document.getElementById("modal_box");
+	let css ="";
+	let style = document.createElement("style");
 	console.log(JSON.stringify(jsonData));
       
     box_back.style.display = "block";
     box.style.display = "block";
+    
+    	box.innerHTML += "<div id ='modal-title2'>Waiting List</div>";
+        box.innerHTML += "<div id = 'modal-title2_box'>";
+box.innerHTML += "<div id = 'SDcat4'><span id = 'SDcat1'>STAFF</span><span id = 'SDcat2'>WORK</span><span id = 'SDcat3'>DATE</span></div>";
     for(i=0; i<jsonData.length; i++){
 	
-	box.innerHTML += "<div><input type='hidden' name='sccode' value=\'"+jsonData[i].sccode+"\'/>";
-	box.innerHTML += "<input type= 'radio'name ='radio'value = \'"+jsonData[i].userid+","+jsonData[i].sdcode+","+jsonData[i].sccode+"\'>"+jsonData[i].sdcontent+jsonData[i].sddate+jsonData[i].username;
+	box.innerHTML += "<input type='hidden' name='sccode' value=\'"+jsonData[i].sccode+"\'/>";
 	
+	box.innerHTML += "<div id ='selSDD2'><input type='radio' name ='radio2' class = 'selSD' id = \"selSD"+i+"\" value = \'"+jsonData[i].userid+","+jsonData[i].sdcode+","+jsonData[i].sccode+"\'/><label for = \"selSD"+i+"\" style= 'width:100%; padding-top:5px; padding-bottom:5px;'><div id ='Wctt1'>"+jsonData[i].username+"</div><div id ='Wctt'>"+jsonData[i].sdcontent+"</div><div id ='Wctt'>"+jsonData[i].sddate+"</div></label></div>";
+	
+      css += "input[id=\"selSD"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"selSD"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
+      css += "input[id=\"selSD"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
+     
 	}
-	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"scheFeedback()\">피드백하기</button>";
-	box.innerHTML += "<button type='button' class='btn btn-primary' onClick = \"reqPass()\">완료승인</button>";
-	box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick = 'popClose()'>Close</button></div>";
+	style.innerHTML = css;
+	document.head.append(style);
+	box.innerHTML += "</div><div id = 'marginBTNSS' style = 'margin-top:60px;' ><input type='button' id=\"btns\" onClick = \"scheFeedback()\" value =\"피드백하기\"/>"
+	                   +"<input type='button' id=\"btns\" onClick = \"reqPass()\" value = \"완료승인\"/>"
+	                   +"<input type='button' id=\"btns\" onClick='popClose()' value=\"뒤로가기\"/></div>";
 	
    
 	
@@ -383,7 +407,7 @@ box.style.display ="block";
 
 
   const radioNodeList
-  = document.getElementsByName('radio');
+  = document.getElementsByName('radio2');
 
 let cpcode = document.getElementsByName("cpcode")[0];
 let prcode = document.getElementsByName("prcode")[0];
@@ -399,7 +423,7 @@ let arr = "";
         = node.value;  // rltjs,SD01 
      arr = userid.split(",");
     
-alert(arr[2]);
+
     }
 
 
@@ -461,8 +485,7 @@ box.style.display ="block";
 	
 	
 	 const radioNodeList
-  = document.getElementsByName('radio');
-
+  = document.getElementsByName('radio2');
 
 let arr = ""; 
 
@@ -473,7 +496,7 @@ let arr = "";
         = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
      arr = userid.split(",");
     
-alert(userid);
+
     }
 
 
@@ -483,7 +506,7 @@ let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, 
 
 let clientData = JSON.stringify(jsonData);
 
-alert(clientData);
+
 postAjax("rest/ReqPass", clientData, 'upPass', 2);
 
 
