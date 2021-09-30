@@ -17,7 +17,7 @@ public interface ProjectInterface {
 	public List<ProjectStepBean> updateStep(List<ProjectStepBean> psb);
 	public ModelAndView reqComplete(ScheduleDetailBean sdb);
 	public int updateComplete(ScheduleDetailBean sdb);
-	public Map<String, String> makeStep(ProjectStepBean psb);
+	public ModelAndView makeStep(ProjectStepBean psb);
 	public Map<String,String> insProjectMember(ProjectMemberBean pmb);
 	public Map<String, String> insProjectFeedback(ScheduleDetailBean sdb);
 	public Map<String,String> deleteProjectMember(ProjectMemberBean pmb);
@@ -26,5 +26,6 @@ public interface ProjectInterface {
 	public Map<String,String> updateProjectAccept(ProjectBean pb);
 	public Map<String, String> rejectProject(ProjectBean pb);
 	public Map<String, String> reqProjectAccept(ProjectBean pb);
-
+	public Map<String, String> insProjectStepAccept(ProjectStepBean psb);
+	
 }

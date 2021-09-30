@@ -32,6 +32,7 @@ import team3.promans.beans.MailBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
+import team3.promans.beans.ProjectStepBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.services.FileManagement;
 import team3.promans.beans.WorkDiaryBean;
@@ -134,6 +135,18 @@ public class HomeController {
 	public String scheduleForm() {
 		return "adminSchedule";
 	}
+	@GetMapping("feedbackForm")
+	public String feedbackForm() {
+		return "feedback";
+	}
+	
+	@GetMapping("page")
+	public ModelAndView page() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("count", "2");
+		mav.setViewName("adminProject");
+		return mav;
+	}
 	
 	@GetMapping("findPassForm")
 	public String findPassForm() {
@@ -172,12 +185,6 @@ public class HomeController {
 	@GetMapping("allAdminManage")
 	public String allAdminManage() {
 		return "allAdminManage";
-	}
-	
-	@PostMapping("writeDiary")
-	public ModelAndView writeDiary(WorkDiaryBean wdb) {
-		mav = sm.writeDiary(wdb);
-		return mav;
 	}
 
 	@PostMapping("goAdminProjectForm")
@@ -242,7 +249,14 @@ public class HomeController {
 		mav = fm.submitMail(mb);
 		return mav;
 	}
-	
+
+	@PostMapping("/reqWork")
+	public ModelAndView reqWork(@ModelAttribute ScheduleDetailBean sdb) {
+		System.out.println((sdb.getSdcode()));
+		
+		
+	    return sm.reqWork(sdb);
+	}
 	@PostMapping("downLoadFile")
 	public void downLoadFile(@ModelAttribute CloudBean cb, HttpServletResponse res,HttpServletRequest req) {
 		String saveDir = 
@@ -290,6 +304,8 @@ public class HomeController {
 			}
 		}
 	}
+	
+	
 	@PostMapping("/findPass")
 	public ModelAndView findPass(@ModelAttribute CpMemberBean cmb) {
 		mav = tm.findPass(cmb);
@@ -301,6 +317,11 @@ public class HomeController {
 	public ModelAndView resetPass(@ModelAttribute CpMemberBean cmb) {
 		mav = tm.resetPass(cmb);
 		return mav;  
-}
+	}
+	
+	@PostMapping("/MakeStep")
+	public ModelAndView makeStep(@ModelAttribute ProjectStepBean psb) {
+		return pm.makeStep(psb);
+	}
 }
 

@@ -26,7 +26,7 @@
 		SD_SCCODE as sccode,
 		SD_CODE as sdcode,
 		SD_TITLE as sdcontent,
-		SD_DATE as sddate,
+		TO_CHAR(SD_DATE, 'YYYY-MM-DD') as sddate,
 		SD_PRCODE as prcode,
 		SD_PSCODE as pscode 
 		FROM SD
@@ -102,7 +102,7 @@
 		WD_CODE as wdcode,
 		WD_TITLE as wdtitle,
 		WD_CONTENTS as wdcontents,
-		WD_DATE as wddate
+		TO_CHAR(WD_DATE, 'YYYY-MM-DD') as wddate
 		FROM WD
 		WHERE WD_CPCODE = #{cpcode}
 		and WD_PRCODE = #{prcode}
@@ -129,7 +129,8 @@
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
         FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode} and prstate !='Y'
+		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
+		
 	</select>
 
 
@@ -141,7 +142,7 @@
 		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
 		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
-		PRCODE = #{prcode} 
+		PRCODE = #{prcode}  and utype !='A' 
 
 	</select>
 	
@@ -151,13 +152,12 @@
 	</select>
 
 
-	<select id="selectSchedule"
-		parameterType="team3.promans.beans.ProjectStepBean"
-		resultType="team3.promans.beans.ScheduleBean">
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE,
-		NVL((SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid} AND PRCODE = #{prcode} AND PSCODE = #{pscode}),'G') AS UTYPE 
+	<select id="selectSchedule" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.ScheduleBean">
+		
+		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE 
 		FROM SCHEDULEVIEW 
 		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
+	
 	</select>
 
 	<select id="getScheDetail"
@@ -222,7 +222,7 @@
 	
 	
 	<select id="selectStepReq" parameterType="team3.promans.beans.ProjectStepBean" resultType="team3.promans.beans.ProjectStepBean">
-		select cpcode, prcode, pscode, psname, username, stcode ,stname, userid,utype from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode}
+		select cpcode, prcode, pscode, psname, username, stcode ,stname, userid,utype from projectstepview where stcode='W' and cpcode = #{cpcode} and prcode = #{prcode} and utype!='A'
 	</select>
 
 	<select id="selectManager"
@@ -256,6 +256,16 @@
 		PS_USERID=#{userid}
 
 	</select>
+	
+	<select id="getScCompleteList" parameterType="team3.promans.beans.ScheduleBean" resultType="team3.promans.beans.ScheduleBean">
+		SELECT 
+		SC_NAME AS SCNAME,
+		SC_STATE AS SCSTATE,
+		ST.ST_NAME AS SCSTNAME 
+		FROM SC INNER JOIN ST ON SC.SC_STATE = ST.ST_CODE 
+		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode}
+	</select>
+	
 
 	<select id="selectProjectMember" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectMemberBean">
 		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} and cm_utype != 'A'
@@ -397,9 +407,15 @@
 	
 	<select id = "SDList1" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType = "team3.promans.beans.ScheduleDetailBean">
 	
-	 SELECT SD_CPCODE AS CPCODE, SD_PRCODE AS PRCODE, SD_PSCODE AS PSCODE , SD_SCCODE AS SCCODE, SD_TITLE AS SDCONTENT, ST.ST_NAME AS SDDSTATE
+	 SELECT SD_CPCODE AS CPCODE, SD_PRCODE AS PRCODE, SD_PSCODE AS PSCODE , SD_SCCODE AS SCCODE, SD_TITLE AS SDCONTENT, ST.ST_NAME AS SDDSTATE, SD.SD_CODE as SDCODE
      FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
      WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_USERID = #{userid} AND SD_STATE = 'I'
+	
+	</select>
+	
+	<select id = "getSDType" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType = "string">
+	
+	select sm_utype as utype from sm where sm_cpcode=#{cpcode} and sm_prcode = #{prcode} and sm_pscode= #{pscode} and sm_sccode=#{sccode} and sm_userid=#{userid}
 	
 	</select>
 	
@@ -416,9 +432,22 @@
 		from pr inner join pm on pr.pr_cpcode=pm.pm_cpcode and pr.pr_code=pm.pm_prcode  
 		where pr.pr_cpcode=#{cpcode} and pr.pr_state='Y'
 	</select>
-	
+
+     
+     <select id = "selectScheduleMember" parameterType = "team3.promans.beans.ProjectMemberBean" resultType = "team3.promans.beans.ProjectMemberBean">
+     
+     	select userid, username as uname from projectmemberview where cpcode = #{cpcode} and prcode = #{prcode} and NOT(utcode = 'A' or utcode = 'L')
+     
+     </select>
+
 	<select id="selectCmUtype" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
 		select cm_utype as utype from cm where cm_userid=#{userid}
 	</select>
+	<select id="getProjectFeedback" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ScheduleDetailBean">
+		select pr.pr_name as scname, prft.prft_contents as sdcontent, to_char(prft.prft_date,'yyyy-MM-dd:HH24:MI') as sddate
+		from prft inner join pr on prft.prft_cpcode=pr.pr_cpcode and prft.prft_prcode=pr.pr_code 
+		where prft.prft_userid=#{userid} and prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode} and prft.prft_state='W' order by prft.prft_date desc
+	</select>
+
 
 </mapper>

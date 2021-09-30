@@ -5,8 +5,8 @@
 <head>
 	<meta charset="utf-8" />
 	<!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
-	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
-	<link href="resources/css/mySchedule.css"rel="stylesheet"type="text/css">
+	<link href="resources/css/styles.css"rel="stylesheet" type="text/css">
+	<link href="resources/css/mySchedule.css"rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="resources/javascript/mySchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -36,7 +36,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="feedbackForm">피드백</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
@@ -72,20 +72,15 @@
                 <!-- Page content-->
 			<div class="container-fluid">
 				 <div id = "selectBack">    
-                     <div id = "selHeight">ProMan'S</div>
+                     <div id = "selHeight">내 업무</div>
                     <div id="selectStep"></div>
 				<form action="myScheduleForm" method="get">
 					<table class="tschedule">
-						<tr id="shead">
-							<th></th>
-							<th>제목</th>
-							<th>작성날짜</th>
-						</tr>
+						<thead id="shead"></thead>
 						<tbody id="slist"></tbody>
 					</table>
 				</form>
 				<div>
-					<!-- <input type="button" id="reqbtn" onClick="reqbtn()" value="완료 요청"> -->
 					 <input type="button" id="reqbtn" onClick="OpenPopup()" value="완료 요청">
 				</div>
 				<div id="sia"></div>

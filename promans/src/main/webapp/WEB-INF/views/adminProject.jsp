@@ -7,6 +7,7 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="resources/css/styles.css"rel="stylesheet"type="text/css">
 	<link href="resources/css/adminProject.css"rel="stylesheet"type="text/css">
+		<script type="text/javascript" src="resources/javascript/PageCount.js"></script>
 	<script type="text/javascript" src="resources/javascript/adminProject.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
 	<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
@@ -22,22 +23,32 @@
  	 //let publicIP;
  	 
      window.addEventListener('load',function(){
+    	 let count1 = document.getElementsByName("count")[0];
+    	    alert(count1.value);
+    	     if(count1.value!="2"){
     		let userid1 = document.getElementsByName("userid")[0];
     		let cpcode1 = document.getElementsByName("cpcode")[0];
     		let prcode1 = document.getElementsByName("prcode")[0];
-    		
-    		
+  	
     		let jsonData = [{cpcode:cpcode1.value, prcode:prcode1.value, userid:userid1.value}];
-    		
+ 		
     		let clientData = JSON.stringify(jsonData);
-    		
-    		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
-    		
-    		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
-    		
-    		
-    		
+     		postAjax("rest/GetProjectStep", clientData, "selectProject", 2);
+      		postAjax("rest/GetStepGraph", clientData, "getStepGraph", 2);
+    	     }else{
+    	    	 pageC(count1);
+    	     }
      });
+     function pageC(count){
+     	alert(count);
+     	if(count.value ==2){
+ 			let pscode = document.getElementsByName("pscode")[0].value;
+ 			getSchedule(pscode);
+ 			
+	}
+
+ 		
+     }
      
      /*window.addEventListener('load',function(){
     	 getAjax('https://api.ipify.org','format=json','setPublicIP');
@@ -56,6 +67,8 @@
     <body onLoad="projectOnLoad()">
     
   
+    	
+    	<input type="hidden" name="count" value="${count}">
     	<input type="hidden" name="utype" value="${utype}">
         <input type="hidden" name="cpcode" value="${cpcode}">
         <input type="hidden" name="prcode" value="${prcode}">
@@ -83,7 +96,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="noticeForm">공지사항</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="adminProject">프로젝트 관리</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="projectForm" id="project">프로젝트</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="calendarForm">캘린더</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="feedbackForm">피드백</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="mailForm">메일 발송</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>

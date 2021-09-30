@@ -20,24 +20,61 @@
 	color:#4f5f86;     
 }
 
-.tschedule{
-	border-collapse: separate;
-	display: table;
-	table-layout: fixed;
+.tschedule {
+  --bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: #212529;
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: #212529;
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+  --bs-table-hover-color: #212529;
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  vertical-align: top;
+  border-color: #dee2e6;
 }
 
-#shead{
-	display: table-cell;
-	vertical-align: middle;
+.tschedule > :not(caption) > * > * {
+  padding: 0.5rem 0.5rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
 }
 
-#slist{
-	display: table-cell;
-	vertical-align: middle;
+.tschedule > tbody {
+  vertical-align: inherit;
 }
+
+.tschedule > thead {
+  vertical-align: bottom;
+}
+
+th {
+  text-align: inherit;
+  text-align: -webkit-match-parent;
+}
+
+thead,
+tbody,
+tr,
+td,
+th {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}
+
 #reqbtn{
 	background-color:#4f5f86;
 	color:#c0c5cd;
+}
+h6{
+	background :#4f5f86;
+	margin-top: 0px;
+	font-size: 30px;
+	height: 40px;
 }
 .rspopup{
 	width: 400px;
@@ -48,23 +85,38 @@
 	color: #f9fafb;
 	font-family:sans-serif;
 	font-size:16px;
-	border-radius: 3px;
+	overflow: auto;
 	transition: all 0.5s ease-in-out;
+}
+
+.rspopup::-webkit-scrollbar{
+	width :10px;
+	background-color: black;
+}
+
+.rspopup::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+}
+
+.rspopup::-webkit-scrollbar-track {
+	background-color: grey;
+    box-shadow: inset 0px 0px 5px white;
 }
 
 .rbtn{
 	position: fixed;
-	margin-top: 100px;
-	margin-left: 175.5px;
+	top: 510px;
+	left: 780px;
 	background-color:#4f5f86;
 	color:#c0c5cd;
 }
 
 .closebtn{
 	position: fixed;
-	margin-top: -216px;
-	margin-left: 374px;
-	background: #6c757d;
+	margin-left: 366.4px;
+	margin-top :-42.3px;
+	background-color: transparent;
+	border-top-right-radius: 10px;
 	border :0;
 	outline: 0;
 }

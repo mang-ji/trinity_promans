@@ -87,3 +87,13 @@ window.addEventListener('load',function(){
 	<div id="chartdiv"></div>
 </body>
 </html>
+
+
+
+<!-- <div id ='imgToggle'>
+	<img src='resources/images/lock.jpg' id = 'lock' style = 'width:35px; height:35px; '/>OPEN / CLOSE : 
+		<label class='switch'><input type='checkbox' name='propen' onClick='toggle(this)' value='O'>
+			<span class='slider round'>
+			</span>
+		</label>
+</div> -->
