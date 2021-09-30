@@ -1,7 +1,8 @@
 package team3.promans.services;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,19 +49,18 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 }*/
 
 //업무일지작성
-public ModelAndView writeDiary(WorkDiaryBean wdb) {
-	mav = new ModelAndView();
+public Map<String,String> writeDiary(WorkDiaryBean wdb) {
+	Map<String,String> map = new HashMap<>();
 	int max = this.maxdiary(wdb) + 1;
 	wdb.setWdcode(max < 10 ? "WD0" +max:"WD"+max);
-	
+	System.out.println(wdb + "  확인용이요!!!");
 	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
-		
-		mav.addObject("message","일지 등록이 완료되었습니다.");
+		map.put("message", "완료되었다!");
 	}else {
-		mav.addObject("message","일지 등록에 실패하였읍니다.");
+		map.put("message", "안되");
 	}
-	mav.setViewName("redirect:/myDiaryForm");
-	return mav;
+
+	return map;
 }
 
 //업무 디테일 완료요청(일반멤버)
