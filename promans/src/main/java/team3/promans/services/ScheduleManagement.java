@@ -61,6 +61,10 @@ public ModelAndView writeDiary(WorkDiaryBean wdb) {
 	}
 	mav.setViewName("redirect:/myDiaryForm");
 	return mav;
+	
+	
+
+	
 }
 
 //업무 디테일 완료요청(일반멤버)

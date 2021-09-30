@@ -90,8 +90,8 @@ function afterNotice(data) {
 		
 		html += "<div id =\"box\">";
 		html += "<div id = \"title\">Notice Details</div>";
-		html += "<div id = \"title2\">"+"제목:"+data[0].title+"</div>";
-		html += "<div id = \"contents\"><img src=\""+data[0].filepath+"\" style=\"width:300px; height:200px; text-align:center;\"/><div id = 'content2'>"+data[0].contents+"</div><span id = \"date\">"+data[0].sdate+"</span></div>";
+		html += "<div id = \"title2\">"+data[0].title+"</div>";
+		html += "<div id = \"contents\"><div id ='notImg'><img src=\""+data[0].filepath+"\" style=\"width:300px; height:250px;\"/></div><div id = 'content2'>"+data[0].contents+"</div><span id = \"date\">"+data[0].sdate+"</span></div>";
 		html += "<a href=\"noticeForm\"><input type =\"button\" id = \"btn\" value =\"목록\" ></a>";
 		html += "</div>";
 		
