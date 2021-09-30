@@ -127,11 +127,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 
 	public List<ProjectBean> getProject(ProjectMemberBean pmb) {
+	
 		try {
 			pu.setAttribute("utype", sql.selectOne("selectCmUtype", pmb));
+			
+			if(pu.getAttribute("utype").equals("A")) {
+				return sql.selectList("getAllManagersProject", pmb);
+			}
 		} catch (Exception e) {e.printStackTrace();}
 		
-		sql.selectList("getProject", pmb);
 		
 		
 		return  sql.selectList("getProject", pmb);

@@ -120,17 +120,27 @@
 	</insert>
 
 
-	<select id="getProject"
-		parameterType="team3.promans.beans.ProjectMemberBean"
-		resultType="team3.promans.beans.ProjectBean">
+	<select id="getProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectBean">
         
-        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
-		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
+       	SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
-        FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
+        FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode} and prstate !='Y' 
+		UNION 
+		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE CPCODE = #{cpcode} and propen='공개' and prstate !='Y' order by prdate desc
 		
+	</select>
+	<select id="getAllManagersProject"  parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectBean">
+		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE CPCODE = #{cpcode} and prstate !='Y' 
 	</select>
 
 
@@ -446,8 +456,11 @@
 	<select id="getProjectFeedback" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ScheduleDetailBean">
 		select pr.pr_name as scname, prft.prft_contents as sdcontent, to_char(prft.prft_date,'yyyy-MM-dd:HH24:MI') as sddate
 		from prft inner join pr on prft.prft_cpcode=pr.pr_cpcode and prft.prft_prcode=pr.pr_code 
-		where prft.prft_userid=#{userid} and prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode} and prft.prft_state='W' order by prft.prft_date desc
+		where prft.prft_userid=#{userid} and prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode} and prft.prft_state='W'
+		 order by prft.prft_date desc
 	</select>
+	
+	
 
 
 </mapper>

@@ -3,8 +3,7 @@ let sccode;
 
 function getStepGraph(jsonData){
 
-alert("여기 오긴해?");
-alert(jsonData.pscode);
+
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end

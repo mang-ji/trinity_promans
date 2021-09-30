@@ -407,7 +407,6 @@ public class Restcontroller {
 	}
 	@PostMapping("/GetProjectFeedback")
 	public List<ScheduleDetailBean> getProjectFeedback(@RequestBody List<ProjectBean> pb) {
-		System.out.println(pb + " 유나 확인 ");
 		return si.getProjectFeedback(pb.get(0));
 	}
 }
