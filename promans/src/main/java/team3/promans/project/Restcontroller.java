@@ -104,12 +104,11 @@ public class Restcontroller {
 
 		return sm.writeSchedule(sdb.get(0));
 	}
-	
 	//업무일지작성
 	@PostMapping("/WriteDiary")
-	public ModelAndView writeDiary(@ModelAttribute WorkDiaryBean wdb) {
-		
-		return sm.writeDiary(wdb);
+	public Map<String,String> writeDiary(@RequestBody List<WorkDiaryBean> wdb) {
+		return sm.writeDiary(wdb.get(0));
+
 	}
 	
 	
@@ -240,6 +239,13 @@ public class Restcontroller {
 	@PostMapping("getCompleteList")
 	public List<ProjectStepBean> getCompleteList(@RequestBody List<ProjectStepBean> psb){
 		return si.getCompleteList(psb.get(0));
+	
+		
+	}
+	
+	@PostMapping("getScCompleteList")
+	public List<ProjectStepBean> getScCompleteList(@RequestBody List<ScheduleBean> sb){
+		return si.getScCompleteList(sb.get(0));
 		
 	}
 		
@@ -275,7 +281,7 @@ public class Restcontroller {
 		return pm.insProjectMember(pmb.get(0));
 	}
 	
-	@PostMapping("/InsProjectFeedback")
+	@PostMapping("/InsProjectStepFeedback")
 	public Map<String,String> InsProjectFeedback(@RequestBody List<ScheduleDetailBean> sdb) {
 		return pm.insProjectFeedback(sdb.get(0));
 	}
@@ -395,6 +401,13 @@ public class Restcontroller {
 	public Map<String, String> acceptMakeProject(@RequestBody List<ProjectBean> pb){
 		return pm.acceptMakeProject(pb.get(0));
 	}
-	
-	
+	@PostMapping("/InsProjectStepAccept")
+	public Map<String, String> insProjectStepAccept(@RequestBody List<ProjectStepBean> psb) {
+		return pm.insProjectStepAccept(psb.get(0));
+	}
+	@PostMapping("/GetProjectFeedback")
+	public List<ScheduleDetailBean> getProjectFeedback(@RequestBody List<ProjectBean> pb) {
+		System.out.println(pb + " 유나 확인 ");
+		return si.getProjectFeedback(pb.get(0));
+	}
 }

@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+#parent {overflow:hidden;  height:40px;}
+#child {float:left; margin-right:200px; margin-left:50px;  font-weight:bold;}
+#num {float:left; margin-left:20px; width:75px; text-align:center;}
+#projectname {float:left; margin-left:10px; width:180px;  text-align:left; }
+#feedcontent {float:left; width:450px; text-align:left;}
+#feeddate {float:left; width:200px;}
+#boxx {overflow:hidden;}
+#selectBack {
+	width: 100%;
+	height: 100%;
+}
+
+#selHeight {
+	height: 100px;
+	padding-top: 20px;
+	text-align: center;
+	font-family: Sans-Serif;
+	font-size: 40px;
+	font-weight: bold;
+	color: #4f5f86;
+}
+
+#selectStep {
+	border: 2px solid #f6f8f8;
+	border-top: 4px solid black;
+}

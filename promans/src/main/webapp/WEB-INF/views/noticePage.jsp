@@ -43,7 +43,7 @@
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="projectForm" id="project">프로젝트</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="calendarForm">캘린더</a> <a class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="feedbackForm">피드백</a> <a class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="mailForm">메일 발송</a> 
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
@@ -107,25 +107,14 @@
 					<!-- <div id="change"></div> -->
 					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display: none;" onClick="deleteNotice()" /> 
 					<input type="button" id="Writebtn" value="글쓰기" name="writer" onClick="OpenPopup()" />
-
-
 				</div>
-
 				<div id="Notice"></div>
-
-
 			</div>
 		</div>
 	</div>
-
 	<div id="popup">
 		<div id="popup1"></div>
 	</div>
-
-
-
-
-
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

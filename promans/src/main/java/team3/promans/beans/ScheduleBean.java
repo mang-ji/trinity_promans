@@ -10,6 +10,7 @@ public class ScheduleBean {
 	private String sccode;
 	private String scname;
 	private String scstate;
+	private String scstname;
 	private String scstcode;
 	private String userid;
 	private String utype;

@@ -125,7 +125,6 @@ public class HomeController {
 	}
 	@GetMapping("myPageForm")
 	public String myPageForm() {
-		
 		return "myPage";
 	}
 	@GetMapping("mainPageForm")
@@ -136,6 +135,11 @@ public class HomeController {
 	public String scheduleForm() {
 		return "adminSchedule";
 	}
+	@GetMapping("feedbackForm")
+	public String feedbackForm() {
+		return "feedback";
+	}
+	
 	@GetMapping("page")
 	public ModelAndView page() {
 		ModelAndView mav = new ModelAndView();
@@ -181,12 +185,6 @@ public class HomeController {
 	@GetMapping("allAdminManage")
 	public String allAdminManage() {
 		return "allAdminManage";
-	}
-	
-	@PostMapping("writeDiary")
-	public ModelAndView writeDiary(WorkDiaryBean wdb) {
-		mav = sm.writeDiary(wdb);
-		return mav;
 	}
 
 	@PostMapping("goAdminProjectForm")
@@ -325,7 +323,5 @@ public class HomeController {
 	public ModelAndView makeStep(@ModelAttribute ProjectStepBean psb) {
 		return pm.makeStep(psb);
 	}
-	
-
 }
 
