@@ -152,13 +152,12 @@
 	</select>
 
 
-	<select id="selectSchedule"
-		parameterType="team3.promans.beans.ScheduleDetailBean"
-		resultType="team3.promans.beans.ScheduleBean">
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE,
-		NVL((SELECT UTYPE FROM PROJECTSTEPVIEW WHERE USERID = #{userid} AND PRCODE = #{prcode} AND PSCODE = #{pscode}),'G') AS UTYPE 
+	<select id="selectSchedule" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.ScheduleBean">
+		
+		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE 
 		FROM SCHEDULEVIEW 
 		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
+	
 	</select>
 
 	<select id="getScheDetail"
@@ -257,6 +256,16 @@
 		PS_USERID=#{userid}
 
 	</select>
+	
+	<select id="getScCompleteList" parameterType="team3.promans.beans.ScheduleBean" resultType="team3.promans.beans.ScheduleBean">
+		SELECT 
+		SC_NAME AS SCNAME,
+		SC_STATE AS SCSTATE,
+		ST.ST_NAME AS SCSTNAME 
+		FROM SC INNER JOIN ST ON SC.SC_STATE = ST.ST_CODE 
+		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode}
+	</select>
+	
 
 	<select id="selectProjectMember" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectMemberBean">
 		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} and cm_utype != 'A'

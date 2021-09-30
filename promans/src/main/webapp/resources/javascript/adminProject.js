@@ -229,10 +229,43 @@ function getCom(){
 	let userids = document.getElementsByName("userid")[0];
 	let prcodes = document.getElementsByName("prcode")[0];
 	let cpcodes = document.getElementsByName("cpcode")[0];
+	let pscode = document.getElementsByName("pscode")[0];
 	
-	let data = [{cpcode:cpcodes.value,prcode:prcodes.value,userid:userids.value}];
-	postAjax("rest/getCompleteList",JSON.stringify(data),"ajaxComList",2);
+	let data = [{cpcode:cpcodes.value,prcode:prcodes.value,userid:userids.value,pscode:pscode.value}];
+	postAjax("rest/getScCompleteList",JSON.stringify(data),"ajaxScComList",2);
 }
+
+
+
+function ajaxScComList(data){
+	let html = "";
+	let css = "";
+	let headCss = document.createElement("style");
+	let selectStep = document.getElementById("selectStep");
+	
+	html+= "<div class=\"scList\">";
+	html+= "<div class=\"scListHead\">";
+	html+= "<div class=\"scListHeadText\">완료 요청 리스트</div>";
+	html+= "</div>";
+	html+= "<div class=\"scListTitle\">";
+	html+= "<div class=\"scListContentsLeft scListConTitle\">업무 명</div><div class=\"scListConTitle\">진행 상태</div>";
+	html+= "</div>";
+	
+	for(i=0; i<data.length; i++){
+		html+= "<div class=\"scListContentsHead\">";
+		html+= "<div class=\"scListContents scListContentsLeft\">" +data[i].scname+ "</div>";
+		html+= "<div class=\"scListContents\">" +data[i].scstname+ "</div>";
+		html+= "</div>";
+	}
+	
+	html+="</div>";
+	
+	selectStep.innerHTML= html;
+}
+
+
+
+
 
 function ajaxComList(jsonData){
 	let get = "";
@@ -371,7 +404,7 @@ function setButton(){
 	setBtn2.style.display = "block";
 	setBtn3.style.display = "block";
 	changeBtn.innerHTML = 
-	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
+	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left; margin-top: 2px;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
 }
 function setButton2(){
 	let closeButton = document.getElementsByName("closeButton")[0];
@@ -433,16 +466,26 @@ function clickIns(){
 	let cpcodes = document.getElementsByName("cpcode")[0].value;
 	let pscodeValue = document.getElementsByName("pscode")[0].value;
 	let scnames = document.getElementsByName("scname")[0];
-	let result;
+	let result = "";
 
 	$(document).ready(function(){
 		$('input:radio[name=\"radio\"]').each(function(){
 			if(this.checked){result = this.value;}
 		});
 	});
-		let jsonData = 
-		[{prcode:prcodes,cpcode:cpcodes,userid:result,scname:scnames.value,pscode:pscodeValue}];
-		postAjax("rest/insSchedule",JSON.stringify(jsonData),"afterInsPs",2);
+	
+	if(result == ""){
+		alert("관리자를 선택해주세요.");
+		return;
+	}
+	if(scnames.value == ""){
+		alert("스텝 이름을 입력해주세요.");
+		return;
+	}
+	
+	let jsonData = 
+	[{prcode:prcodes,cpcode:cpcodes,userid:result,scname:scnames.value,pscode:pscodeValue}];
+	postAjax("rest/insSchedule",JSON.stringify(jsonData),"afterInsPs",2);
 			
 }
 
@@ -503,9 +546,10 @@ function selectSchedule(jsonData){
 		list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px;\">";
 	
 		//if(jsonData[0].utype != "G"){
-			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
-				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left;\" onClick=\"addJobMember()\"></div>"
-				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
+			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 5px;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"addJobMember()\"></div>"
+				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
+
 		//	}
 		selectStep.innerHTML = list;
 		ShceduleEdit.innerHTML = edit;
@@ -545,21 +589,39 @@ function firstInsSchedule(data){
 		let cpcode = document.getElementsByName("cpcode")[0].value;
 		let pscode = document.getElementsByName("pscode")[0].value;
 		
+		
+		
+		html+= "<div class=\"plStep\"> 스텝 추가 </div>";
+		
+		html+= "<input type=\"text\" name=\"scname\" class=\"scNtext\""+
+		"placeholder=\"스텝 제목을 입력해주세요.\" onfocus=\"this.placeholder=\'\'\""+
+		"onblur=\"this.placeholder=\'스텝 제목을 입력해주세요.\'\">";
+		
+		html+= "<div class=\"stepList\">";
+		html+= "<div class=\"stepHead\">Step Admin</div>"
+		html+= "<div style=\"margin:auto; width:100%; height:40px;\">";
+		html+= "<div class=\"stepTitle stepTitle2 stLeft\">아이디</div><div class=\"stepTitle stepTitle2\">이름</div></div>";
+		
 		for(i=0; i<data.length; i++){
+				
+			html+= "<div class=\"stepContents\">";
+			html+= "<input type=\"radio\" id=\"stepRadio"+i+"\" name=\"radio\" value=\""+data[i].userid+"\")\">";
+			html+= "<label for=\"stepRadio"+i+"\">";
+			html+= "<div style=\"margin:auto; width:100%; height:27px;\">";
+			html+= "<div class=\"stepTitle stLeft\">" + data[i].userid + "</div>";
+			html+= "<div class=\"stepTitle\">" + data[i].username + "</div></div>";
+			html+= "</label></div>";
 			
-		html +=
-		"<div><input type=\"radio\" id=\"radio"+i+"\" name=\"radio\" value=\""+data[i].userid+"\")\"><label for=\"radio"+i+"\">"
-		+ data[i].username +"<div style=\"width:100px; float:left;\">"
-		+ data[i].userid +"</label></div></div>";
-		
-		css += "input[id=\"radio"+i+"\"] \+ label{border:1px solid #bbbbbb; width:500px; cursor:pointer;}";
-		css += "input[id=\"radio"+i+"\"]:checked \+ label{background-color:#bbbbbb}";
-		css += "input[id=\"radio"+i+"\"]{display:none}";
+			css += "input[id=\"stepRadio"+i+"\"] \+ label{border-top:1px solid black; width:100%; height:27px; cursor:pointer;}";
+			css += "input[id=\"stepRadio"+i+"\"]:checked \+ label{background-color:#0A0A2A; color:white;}";
+			css += "input[id=\"stepRadio"+i+"\"]:hover:active \+ label{background-color:#4f5f86; color:white;}";
+			css += "input[id=\"stepRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb;}";
+			css += "input[id=\"stepRadio"+i+"\"]{display:none}";
 		}
-		html += "<input type=\"text\" name=\"scname\"><br>";
+		html+= "</div>";
 		
-		html+= "<input type=\"button\" value=\"생성\" onClick=\"clickIns()\">";
-		
+		html+= "<input type=\"button\" class=\"buttonStyle stepCreateBtn\" value=\"생성\" onClick=\"clickIns()\">";
+		html+= "<div class=\"closePop\" onClick=\"closePop()\">뒤로 가기</div>";
 		document.head.append(headCss);
 		headCss.innerHTML = css;
 		popUp.innerHTML = html;
@@ -579,8 +641,14 @@ function firstInsSchedule(data){
 	}else{
 		alert("권한이 없습니다.");
 	}
-		
+	
 }
+
+function closePop(){
+	let mainPop = document.getElementById("mainPop");
+	mainPop.style.display = "none";
+}
+
 
 
 function getScheDetail(sccode1, pscode1){
