@@ -50,6 +50,8 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 
 	@Autowired
 	JavaMailSenderImpl javaMail;
+	
+	ModelAndView mav;
 
 	public void addTeamMember(List<ProjectMemberBean> pm) {
 
@@ -172,7 +174,7 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 
 		}else {
 			String subject = "비밀번호 재설정 인증 이메일 입니다.";
-			String contents = "<a href=\"http://192.168.44.31/resetForm?userid="+cmb.getUserid()+"\">"+"비밀번호를 재설정 해주세요."+"</a>";
+			String contents = "<a href=\"http://192.168.1.138/resetForm?userid="+cmb.getUserid()+"\">"+"비밀번호를 재설정 해주세요."+"</a>";
 			String from = "siriwitcher@naver.com";
 			String to = cmb.getMail();
 
@@ -196,7 +198,16 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	}
 
 	public ModelAndView resetPass(CpMemberBean cmb) {
-	
-		return null;
+		mav = new ModelAndView();
+		
+		try {
+			cmb.setAcode(enc.encode(cmb.getAcode()));
+			sql.update("findPass", cmb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mav.setViewName("logInPage");
+		
+		return mav;
 	}
 }
