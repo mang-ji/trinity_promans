@@ -239,6 +239,13 @@ public class Restcontroller {
 	@PostMapping("getCompleteList")
 	public List<ProjectStepBean> getCompleteList(@RequestBody List<ProjectStepBean> psb){
 		return si.getCompleteList(psb.get(0));
+	
+		
+	}
+	
+	@PostMapping("getScCompleteList")
+	public List<ProjectStepBean> getScCompleteList(@RequestBody List<ScheduleBean> sb){
+		return si.getScCompleteList(sb.get(0));
 		
 	}
 		

@@ -154,12 +154,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	public List<ScheduleBean> selectSchedule(ScheduleDetailBean sdb) {
 		List<ScheduleBean> list = sql.selectList("selectSchedule", sdb);
-		   sdb.setSccode(list.get(0).getSccode());
-		  list.get(0).setUtype(sql.selectOne("getSDType", sdb));
+		
 		try {
 			if(list.size() != 0) {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 			pu.setAttribute("utype", list.get(0).getUtype());
+			
+			sdb.setSccode(list.get(0).getSccode());
+			list.get(0).setUtype(sql.selectOne("getSDType", sdb));
 			
 			System.out.println(list.get(0).getUtype());
 			
@@ -381,7 +383,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ProjectMemberBean> selectScheduleMember(ProjectMemberBean pmb) {
 		List<ProjectMemberBean> list = sql.selectList("selectScheduleMember", pmb);
 		
-		System.out.println(list);
 		for(int i=0; i<list.size();i++) {
 			try {
 				list.get(i).setUname(enc.aesDecode(list.get(i).getUname(), list.get(i).getUserid()));
@@ -390,6 +391,12 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		
 		return list;
 	
+	}
+
+
+
+	public List<ProjectStepBean> getScCompleteList(ScheduleBean sb) {
+		return sql.selectList("getScCompleteList", sb);
 	}
 
 
