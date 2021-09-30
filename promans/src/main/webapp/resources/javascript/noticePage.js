@@ -19,21 +19,32 @@ function afterNotice(data) {
 		let index =0;
 		for (i = 0; i < data.length; i++) {
 			
-			html2 += "<tr>";
-			html2 += "<td><input type=\"checkbox\" name=\"nocode\" id=\"noticeBox"+i+"\" value=\""+data[i].nocode+"\"><label for=\"noticeBox"+i+"\"></td>";
-			html2 += "<td style=\"padding-left:30px\">" + (i+1) + "</td>";
-			html2 += "<td style=\"padding-left:250px\">" + data[i].title + "</td>";
-			html2 += "<td style=\"padding-left:250px\">" + data[i].sdate + "</td></tr>";
+			
+			html2 += "<input type=\"checkbox\" class='noticeBox' name=\"nocode\" id=\"noticeBox"+i+"\" value=\""+data[i].nocode+"\"><label for=\"noticeBox"+i+"\">";
+		    html2 +="<div>" + (i+1) + "</div>";
+			html2 +="<div>" + data[i].title + "</div>";
+			html2 +="<div>" + data[i].sdate + "</div></label>";
+
+            html += "<div onClick = \"NoticeClick(\'"+data[i].nocode+"\')\">";
+			html += "<div id=\"noticeBoxx"+i+"\"><div id = 'countN'>" + (i+1) + "."+"</div>";
+			html += "<div id = 'notTitle'>" + data[i].title + "</div>";
+			html += "<div id = 'notDate'>" + data[i].sdate + "</div></div><br>";
+			
+			    css += "input[id=\"noticeBox"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
+                css += "input[id=\"noticeBox"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
+                css += "input[id=\"noticeBox"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
+                css += "id=\"noticeBoxx"+i+"\":hover \+ {background-color:#bbbbbb;color:#ffffff;}";
+               
+
+            
+                
 			
 		}	
+		
+        style.innerHTML = css;
+        document.head.append(style);
 
-		for (i = 0; i < data.length; i++) {
-			html += "<tr onClick = \"NoticeClick(\'"+data[i].nocode+"\')\">";
-			html += "<td style=\"padding-left:30px\">" + (i+1) + "</td>";
-			html += "<td style=\"padding-left:250px\">" + data[i].title + "</td>";
-			html += "<td style=\"padding-left:250px\">" + data[i].sdate + "</td></tr>";
-		}
-		//deletebtn.remove();
+	
 		tablebody.innerHTML = html;
 	
 		editBtn.addEventListener('click',function(){
@@ -41,9 +52,9 @@ function afterNotice(data) {
 			//change.innerHTML = "<input type=\"button\" id=\"editbtn\" value=\"편집\" onClick=\"closeBtn()\"/>";
 			deletebtn.style.display = "none";
 			deletebtn.style.display = "block";
-			trNotice.innerHTML = "<th></th><th></th>"+
-						"<th style=\"padding-left:250px\">제목</th>"+
-						"<th style=\"padding-left:250px\">작성날짜</th>";
+			trNotice.innerHTML = "<div></div><div></div>"+
+						"<div style=\"padding-left:250px\">제목</div>"+
+						"<div style=\"padding-left:250px\">작성날짜</div>";
 			tablebody.innerHTML = html2;
 		});
 	}
@@ -78,9 +89,9 @@ function afterNotice(data) {
 		table_notice.remove();
 		
 		html += "<div id =\"box\">";
-		html += "<div id = \"title\">"+"제목 : "+data[0].title+"</div>";
-		html += "<div id = \"date\">"+"작성날짜 : "+data[0].sdate+"</div>";
-		html += "<div id = \"contents\">"+"<img src=\""+data[0].filepath+"\" style=\"width:300px; height:300px;\"/>"+"<br>"+data[0].contents+"</div>";
+		html += "<div id = \"title\">Notice Details</div>";
+		html += "<div id = \"title2\">"+data[0].title+"</div>";
+		html += "<div id = \"contents\"><div id ='notImg'><img src=\""+data[0].filepath+"\" style=\"width:300px; height:250px;\"/></div><div id = 'content2'>"+data[0].contents+"</div><span id = \"date\">"+data[0].sdate+"</span></div>";
 		html += "<a href=\"noticeForm\"><input type =\"button\" id = \"btn\" value =\"목록\" ></a>";
 		html += "</div>";
 		

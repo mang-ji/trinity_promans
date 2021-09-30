@@ -22,6 +22,7 @@
 	
 }
 
+
 #reqSDBtn{
 	margin-left:90px;
 	margin-top:10px;
@@ -87,6 +88,147 @@
 
 .workCheck{
     display:none;
+}
+
+.selSD{
+	
+	display:none;
+
+}
+
+#sdcontent{
+    width:400px;
+   position:relative;
+   left:120px;
+   margin-bottom: 10px;
+   font-size:15px;
+   text-align:center;
+}
+
+.radioo{
+	
+	display:none;
+	
+}
+
+#btns {background-color:#fff; color:#929292; text-align:center; 
+width:100px;  border:0px; height:30px; padding-top:3px;
+}
+#btns:hover { background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:100px; height:30px;}
+
+
+#modal-title{
+	
+	height:15%;
+	background-color:#4f5f86;
+	color:#FFFFFF;
+	font-size:20px;
+	font-weight:bold;
+	
+}
+
+#modal-title2{
+	
+	height:10%;
+	background-color:#4f5f86;
+	color:#FFFFFF;
+	font-size:25px;
+	font-weight:bold;
+	padding-top:5px;
+	
+}
+
+
+
+#marginBTNS{
+	
+	margin-top:5px;
+
+	
+}
+
+#modal-title2_box{
+	
+	
+    position:relative;
+    margin-top:30px;
+  
+ 
+  
+	
+	
+}
+#Wctt{
+	
+	
+	float:left;
+	position:absolut;
+	width:25%;
+}
+
+#Wctt1{
+	
+	
+	float:left;
+	position:absolut;
+	width:25%;
+	margin-left:90px;
+}
+
+#SDcat4{
+	
+	position:relative;
+	border-bottom: 2px solid #c0c4d7;
+	bottom:20px;
+	height:34px;
+	
+	
+}
+
+#SDcat3{
+	
+	position:relative;
+	left:125px;
+	font-family:sans-serif;
+	font-weight:bold;
+
+	
+
+}
+
+
+#SDcat2{
+	
+	position:relative;
+	left:7px;
+	font-family:sans-serif;
+	font-weight:bold;
+
+	
+
+}
+
+#SDcat1{
+	
+	position:relative;
+	right:110px;
+	font-family:sans-serif;
+	font-weight:bold;
+
+}
+
+
+#sdcontentBox{
+	
+	margin-top:5px;
+
+	
+}
+
+#selSD2{
+	
+    left:50px;
 }
 
 
