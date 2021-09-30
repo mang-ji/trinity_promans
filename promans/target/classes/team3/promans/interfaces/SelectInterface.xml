@@ -122,11 +122,16 @@
 		resultType="team3.promans.beans.ProjectBean">
         
         SELECT CPCODE, PRCODE, PRNAME, PROPEN,
-		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
-        FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
+        FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode} and prstate !='Y'
+        UNION 
+        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE  CPCODE = #{cpcode} and propen='공개' and prstate !='Y'
 		
 	</select>
 
