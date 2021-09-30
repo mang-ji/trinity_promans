@@ -34,6 +34,7 @@ table {
         <input type="hidden" name="pscode" value="${pscode}">
         <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
+        <input type="hidden" name="writer" value="${userid}">
 
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
@@ -48,7 +49,7 @@ table {
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="projectForm" id="project">프로젝트</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="calendarForm">캘린더</a> <a class="list-group-item list-group-item-action list-group-item-light p-3"
+					href="feedbackForm">피드백</a> <a class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="mailForm">메일 발송</a> 
 					<a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="cloudCate()">파일함</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="myScheduleCate()">내 업무</a>
@@ -108,7 +109,7 @@ table {
 					<input type="button" id="editbtn" value="편집" name="editBtn" />
 					<!-- <div id="change"></div> -->
 					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display: none;" onClick="deleteNotice()" /> 
-					<input type="button" id="Writebtn" name="writer" value="글쓰기" onClick="OpenPopup()" />
+					<input type="button" id="Writebtn" value="글쓰기" name="writer" onClick="OpenPopup()" />
 				</div>
 				<div id="Notice"></div>
 			</div>

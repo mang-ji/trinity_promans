@@ -81,6 +81,7 @@ function OpenPopup1(){
 	let wdcontents = document.getElementsByName("wdcontents")[0];
 	let html = "";
 		
+
 	html +=`<input type ="hidden" name ="cpcode" value =${cpcode.value}>`;
 	html +=`<input type ="hidden" name ="prcode" value =${prcode.value}>`;
 	html +=`<input type ="hidden" name ="userid" value =${userid.value}>`;

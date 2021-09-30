@@ -253,3 +253,147 @@ width:50px;   border:0px; height:30px; padding-top:3px;}
  #projectReqBoxx {border: 10px solid #c0c0c0; width: 540px;border-radius:20px; padding:15px;}
 
 #projectReqq {text-align:left; margin-left:30px; margin-bottom:10px; }
+/* 스텝 추가 */
+.plStep{
+	width:80%;
+	font-size:30px;
+	margin:auto;
+	margin-top:30px;
+	margin-bottom:30px;
+}
+
+.scNtext{
+	width:400px;
+	height:35px;
+	padding-left:23px;
+	margin:auto;
+	margin-bottom:20px;
+	border:1px solid blue;
+	font-size:15px;
+	
+}.scNtext:focus{
+	outline: none;
+    border: 1px solid indigo;
+}
+
+.stepList{
+	border-top:2px solid black;
+	border-bottom:2px solid black;
+	width:90%;
+	margin:auto;
+}
+
+.stepHead{
+    border-bottom: 2px solid black;
+    margin-top: 28px;
+    height: 60px;
+    font-size:20px;
+    font-weight:bold;
+	
+}
+
+.stepTitle{
+	width:50%;
+	height:27px;
+	float:left;
+	font-size:15px;
+}/*.stLeft{border-right:1px solid black;}*/
+
+.stepTitle2{
+	font-weight:bold;
+	background-color:#4f5f86;
+	color:white;
+	height: 40px;
+    line-height: 2.2;
+}
+
+.stepContents{
+	width:100%;
+	height:27px;
+}
+
+.stepCreateBtn{
+	width:90%;
+	margin:auto;
+	margin-top:20px;
+	margin-bottom:10px;
+}
+
+.closePop{
+	margin:auto;
+	margin-bottom:20px;
+	margin-top:15px;
+	color:#bbbbbb;
+	font-size:15px;
+	font-weight:100;
+}
+
+.scList{
+	width:90%;
+	margin:auto;
+	border-top:2px solid black;
+	border-bottom:2px solid black;
+	margin-top:30px;
+}
+.scListHead{
+	width:100%;
+	height:60px;
+	margin:auto;
+}
+
+.scListHeadText{
+	width:100%;
+	height:60px;
+	margin:auto;
+	text-align: center;
+    margin-top: 30px;
+    font-size:18px;
+}
+
+.scListTitle{
+	width:100%;
+	height: 40px;
+	border-top:1px solid black;
+}
+.scListContentsHead{
+	width:100%;
+	height:30px;
+	border-top:1px solid darkblue;
+}
+
+.scListConTitle{
+    text-align: center;
+    font-size: 15px;
+    color: darkblue;
+    font-weight: 600;
+    height: 40px;
+    float: left;
+    width: 50%;
+    line-height: 2.5;
+}
+
+.scListContents{
+	width:50%;
+	height:30px;
+	float:left;
+}.scListContentsLeft{border-right:1px solid gray;}
+
+.rd {display:none;}
+
+#btnbtn {margin-top:10px; background-color:#929292; color:#fff;   text-align:center; 
+width:100px;  margin-left:275px; height:30px; padding-top:3px;
+}
+#btnbtn:hover { background-color:#fff; color:#929292; text-align:center; padding-top:3px;
+ width:100px; height:30px;}
+#feedcontents{margin-left:10px;  width:365px; height:250px; border-radius:4px; border: 3px solid grey;}
+
+#feedbackbtn { margin-left:120px; margin-right:8px; margin-top:20px; margin-bottom:15px;}
+#acceptbtn {margin-left: 20px; margin-right:8px;}
+
+ 
+#feedbackbtnmake {margin-top:10px; background-color:#929292; color:#fff;  text-align:center; 
+width:100px;  margin-left:275px; height:30px; padding-top:3px; border:0px;
+}
+#feedbackbtnmake:hover { background-color:#fff; color:#929292; text-align:center; padding-top:3px;
+ width:100px; height:30px;}
+#message {text-align:center; margin-top:25%; font-size:20px; margin-bottom:150px;}

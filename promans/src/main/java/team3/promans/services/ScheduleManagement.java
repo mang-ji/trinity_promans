@@ -53,7 +53,7 @@ public Map<String,String> writeDiary(WorkDiaryBean wdb) {
 	Map<String,String> map = new HashMap<>();
 	int max = this.maxdiary(wdb) + 1;
 	wdb.setWdcode(max < 10 ? "WD0" +max:"WD"+max);
-	System.out.println(wdb + "  확인용이요!!!");
+	System.out.println(wdb + " 확인용 유나아~");
 	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
 		map.put("message", "완료되었다!");
 	}else {
@@ -142,4 +142,13 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 	}
 
 
+	public ModelAndView reqWork(ScheduleDetailBean sdb) {
+	 mav = new ModelAndView();
+		if(sql.update("reqWork", sdb) ==1) {
+			mav.setViewName("adminSchedule");
+		}
+		
+	 return  mav;
+		
+	}
 }
