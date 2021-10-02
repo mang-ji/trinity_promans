@@ -74,7 +74,6 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	public List<ScheduleDetailBean> firstInsSchedule(ProjectStepBean pmb) {
 
 		boolean result = this.getPsUtype(pmb);
-		System.out.println(result);
 		List<ScheduleDetailBean> list = new ArrayList<ScheduleDetailBean>(); 
 		if(result == true) {
 			list = sql.selectList("addJob", pmb);

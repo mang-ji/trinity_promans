@@ -125,7 +125,7 @@ public class Restcontroller {
 		
 	@PostMapping("getCalendar")
 	public List<Notice_CalendarBean> getCalendars(@RequestBody List<Notice_CalendarBean> ncb) {
-		System.out.println(ncb.get(0).getCpcode()+" : controller");
+	
 		return si.getCalendar(ncb.get(0));
 	}
 	
@@ -172,7 +172,8 @@ public class Restcontroller {
 	
 	@PostMapping("GetScheDetail")
 	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
-		
+		System.out.println(sdb);
+		System.out.println("스케줄디테일 아이디확인");
 		return si.getScheDetail(sdb.get(0));
 
 	}
@@ -272,8 +273,7 @@ public class Restcontroller {
 	
 	@PostMapping("/selectScheduleMember")
 	public List<ProjectMemberBean> selectScheduleMember(@RequestBody List<ProjectMemberBean> pmb){
-		System.out.println(pmb);
-		return si.selectScheduleMember(pmb.get(0));
+	return si.selectScheduleMember(pmb.get(0));
 	}
 	
 	@PostMapping("/InsProjectMember")
@@ -407,7 +407,7 @@ public class Restcontroller {
 	}
 	@PostMapping("/GetProjectFeedback")
 	public List<ScheduleDetailBean> getProjectFeedback(@RequestBody List<ProjectBean> pb) {
-		System.out.println(pb + " 유나 확인 ");
+		
 		return si.getProjectFeedback(pb.get(0));
 	}
 	
@@ -424,5 +424,10 @@ public class Restcontroller {
 	@PostMapping("FirstInsSdBool")
 	public List<ScheduleDetailBean> FirstInsSdBool(@RequestBody List<ScheduleDetailBean> sdb) {
 		return sm.FirstInsSdBool(sdb.get(0));
+	}
+	@PostMapping("/reqSc")
+	public  Map<String, String> reqSc(@RequestBody List<ScheduleBean> sb) {
+		
+		return sm.reqSc(sb.get(0));
 	}
 }

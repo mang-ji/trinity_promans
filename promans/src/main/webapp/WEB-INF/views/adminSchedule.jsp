@@ -31,6 +31,7 @@
  		   let cpcode = document.getElementsByName("cpcode")[0];
  		   let userid = document.getElementsByName("userid")[0];
  		
+ 		
     		let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, sccode:sccode.value, userid:userid.value}];
     		
     		let clientData = JSON.stringify(jsonData);

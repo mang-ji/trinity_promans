@@ -39,7 +39,7 @@
     	     }
      });
      function pageC(count){
-     	alert(count);
+ 
      	if(count.value ==2){
  			let pscode = document.getElementsByName("pscode")[0].value;
  			getSchedule(pscode);

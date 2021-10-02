@@ -175,9 +175,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> getSD = sql.selectList("getScheDetail", sdb);
-		/*sdb.setSccode(getSD.get(0).getSccode());
-		getSD.get(0).setUtype(sql.selectOne("getSDType", sdb));*/
-		
 		for(int i=0; i< getSD.size(); i++) {
 			
 			try {
@@ -239,7 +236,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			}
 		} catch (Exception e) {e.printStackTrace();}
 
-		 System.out.println(list);
 		return list;
 	}
 
@@ -262,7 +258,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 	public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc) {
-		return sql.selectList("getNoticeDetail",nc);
+		
+		 List<Notice_CalendarBean> list = sql.selectList("getNoticeDetail",nc);
+		 
+		 try {
+			list.get(0).setUname(enc.aesDecode(list.get(0).getUname(), list.get(0).getWriter()));
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return list;
 	}
 
 	
@@ -304,7 +307,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pmb.setCpcode((String)pu.getAttribute("cpcode"));
 			pmb.setPrcode((String)pu.getAttribute("prcode"));
 			pmb.setUserid((String)pu.getAttribute("userid"));
-			
 			System.out.println((String)pu.getAttribute("utype") + " here Second");
 			if((boolean)pu.getAttribute("utype").equals("A")) {
 				pu.setAttribute("utype", "A");
@@ -343,8 +345,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
         	gdb.setStepW(sql.selectOne("getStepW", sb));
     		gdb.setStepI(sql.selectOne("getStepI", sb));
     		gdb.setStepC(sql.selectOne("getStepC", sb));
-    		
-    		
         }else {
     		gdb.setPscode(sb.getPscode());
     		gdb.setScheW(sql.selectOne("getScheW", sb));
@@ -365,6 +365,9 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> SDList1;
+		try {
+			sdb.setUserid((String)pu.getAttribute("userid"));
+		} catch (Exception e) {e.printStackTrace();}
 		SDList1 = sql.selectList("SDList1", sdb);
 		return SDList1;
 	}

@@ -8,6 +8,7 @@ import lombok.Data;
 public class Notice_CalendarBean {
 	private String cpcode;
 	private String prcode;
+	private String uname;
 	private String writer;
 	private String title;
 	private String contents;

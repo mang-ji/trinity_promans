@@ -852,7 +852,6 @@ function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테�
     }
 
    let clientData = JSON.stringify(json);
-
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
 	
 }
@@ -1080,6 +1079,8 @@ arr = sdname.split(",");
 let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode:pscode.value,sdname:arr[0], sdcontent:sdcontent.value,sccode:arr[1]}];
 
 let clientData = JSON.stringify(jsonData);
+console.log(sccode);
+console.log(sdname);
 postAjax("rest/InsSD", clientData, 'upPass', 2);
 
 
