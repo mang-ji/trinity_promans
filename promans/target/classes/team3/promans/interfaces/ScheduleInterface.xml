@@ -75,4 +75,12 @@
 	  	UPDATE SD SET SD_STATE = 'W' WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_CODE = #{sdcode} AND SD_USERID = #{userid}
 	  	
 	  	</update>
+	  	
+	  
+	  	<update id ="reqSc" parameterType = "team3.promans.beans.ScheduleBean">
+	  	
+	  	  UPDATE SC SET SC_STATE = 'W' WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE =#{pscode} AND SC_CODE = #{sccode}
+	  	
+	  	</update>
+	  	
 </mapper>

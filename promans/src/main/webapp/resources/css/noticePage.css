@@ -257,15 +257,8 @@ textarea {
 }
 
 
-#pbtn:hover {
-	cursor: pointer;
-	color: white;
-	background-color: rgb(141, 141, 141);
-}
 
-#pbtn:focus {
-	outline: none;
-}
+
 
 #closebtn {
   	position:relative;

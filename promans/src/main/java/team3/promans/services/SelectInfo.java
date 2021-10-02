@@ -161,12 +161,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		try {
 			if(list.size() != 0) {
 			pu.setAttribute("pscode", list.get(0).getPscode());
-			pu.setAttribute("utype", list.get(0).getUtype());
 			
 			sdb.setSccode(list.get(0).getSccode());
 			list.get(0).setUtype(sql.selectOne("getSDType", sdb));
 			
-			System.out.println(list.get(0).getUtype());
+			pu.setAttribute("utype", list.get(0).getUtype());
+			
+		
+			
+	
 			
 			}
 		} catch (Exception e) {e.printStackTrace();}
@@ -176,7 +179,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> getSD = sql.selectList("getScheDetail", sdb);
-		
 		
 		for(int i=0; i< getSD.size(); i++) {
 
@@ -239,7 +241,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			}
 		} catch (Exception e) {e.printStackTrace();}
 
-		 System.out.println(list);
 		return list;
 	}
 
@@ -312,13 +313,13 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pmb.setPrcode((String)pu.getAttribute("prcode"));
 			pmb.setUserid((String)pu.getAttribute("userid"));
 		
-			System.out.println(pu.getAttribute("utype") + " 안녕 여기 확인용 ~~~ ");
+			
 			if(pu.getAttribute("utype") == "A") {
 				pu.setAttribute("utype", "A");
-				System.out.println("관리자 타기 !" );
+			
 			}else {
 				pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
-				System.out.println("여기는ㄴ 리더! ");
+		
 			}
 			
 		} catch (Exception e) {e.printStackTrace();}
@@ -349,7 +350,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
       GraphDataBean gdb = new GraphDataBean();
 	
         if(sb.getPscode() ==null) {
-        	System.out.println("요긴 step");
+        
         	
         	gdb.setStepW(sql.selectOne("getStepW", sb));
     		gdb.setStepI(sql.selectOne("getStepI", sb));
@@ -357,7 +358,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
     		
     		
         }else {
-        	System.out.println("요긴 schedule");
+        
     		gdb.setPscode(sb.getPscode());
     		gdb.setScheW(sql.selectOne("getScheW", sb));
     		gdb.setScheI(sql.selectOne("getScheI",sb));
@@ -377,6 +378,9 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> SDList1;
+		try {
+			sdb.setUserid((String)pu.getAttribute("userid"));
+		} catch (Exception e) {e.printStackTrace();}
 		SDList1 = sql.selectList("SDList1", sdb);
 		return SDList1;
 	}

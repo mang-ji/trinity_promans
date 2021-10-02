@@ -45,7 +45,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public ModelAndView reqComplete(ScheduleDetailBean sdb) {
 		mav = new ModelAndView();
 		sdb.setUtype("L");
-		System.out.println(sdb);
+	
 		//S=완료  I=피드백(진행)
 //		if(sdb.getSddstate() == "S") {
 //			if(this.convertBoolean(this.updateComplete(sdb))) {
@@ -168,7 +168,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		ModelAndView mav = new ModelAndView();
 		String userid = "";
 		String cpcode = "";
-		System.out.println(pb.getPropen());
+	
 		try {
 			userid = (String)pu.getAttribute("userid");
 			cpcode = (String)pu.getAttribute("cpcode");

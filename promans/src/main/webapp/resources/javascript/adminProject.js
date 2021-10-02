@@ -3,8 +3,7 @@ let sccode;
 
 function getStepGraph(jsonData){
 
-alert("여기 오긴해?");
-alert(jsonData.pscode);
+
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
@@ -726,7 +725,7 @@ function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테�
     }
 
    let clientData = JSON.stringify(json);
-  	alert(clientData);
+  
 
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
 	
@@ -783,7 +782,7 @@ let arr = "";
         = node.value;  // rltjs,SD01 
      arr = userid.split(",");
     
-alert(arr[2]);
+
     }
 
 
@@ -866,7 +865,7 @@ let arr = "";
         = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
      arr = userid.split(",");
     
-alert(userid);
+
     }
 
 
@@ -876,7 +875,6 @@ let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, 
 
 let clientData = JSON.stringify(jsonData);
 
-alert(clientData);
 postAjax("rest/ReqPass", clientData, 'upPass', 2);
 
 
@@ -899,7 +897,7 @@ function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되
 	sccode = sccode1;
 	sdname = sdname1;
 	
-	alert(cpcode.value + prcode.value + sdname1);
+	
 	
 	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
 	
@@ -966,7 +964,7 @@ let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode
 let clientData = JSON.stringify(jsonData);
 console.log(sccode);
 console.log(sdname);
-alert(clientData);
+
 
 postAjax("rest/InsSD", clientData, 'upPass', 2);
 

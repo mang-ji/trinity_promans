@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
+import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 import team3.promans.beans.WorkDiaryBean;
 
@@ -29,31 +30,12 @@ public class ScheduleManagement implements team3.promans.interfaces.ScheduleInte
 	ModelAndView mav;
 
 
-/*public String writeSchedule(ScheduleDetailBean sdb) {
-	System.out.println(sdb);
-	String msg = "";
-	try {
-		sdb.setCpcode((String) pu.getAttribute("cpcode"));
-		sdb.setPrcode((String) pu.getAttribute("prcode"));
-		sdb.setPscode((String) pu.getAttribute("pscode"));
-		sdb.setSccode((String) pu.getAttribute("sccode"));
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	if(this.convertBoolean(sql.insert("writeSchedule", sdb))) {
-		msg = "성공";
-	}else {
-		msg = "실패";
-	}
-	return msg;
-}*/
-
 //업무일지작성
 public Map<String,String> writeDiary(WorkDiaryBean wdb) {
 	Map<String,String> map = new HashMap<>();
 	int max = this.maxdiary(wdb) + 1;
 	wdb.setWdcode(max < 10 ? "WD0" +max:"WD"+max);
-	System.out.println(wdb + " 확인용 유나아~");
+
 	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
 		map.put("message", "완료되었다!");
 	}else {
@@ -88,7 +70,6 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 
 	public void scheFeedback(List<ScheduleDetailBean> sdb) {
 	    sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
-	    System.out.println(sdb.get(0));
 		sql.insert("scheFeedback", sdb.get(0));
 		this.updateScheFeedback(sdb);
 		
@@ -96,7 +77,7 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 	}
 	
 	public void updateScheFeedback (List<ScheduleDetailBean> sdb) {
-		System.out.println("피드백 여기 업뎃");
+	
 		sql.update("updateScheFeedback",sdb.get(0));
 	}
 
@@ -144,11 +125,28 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 
 	public ModelAndView reqWork(ScheduleDetailBean sdb) {
 	 mav = new ModelAndView();
+	 System.out.println(sdb);
 		if(sql.update("reqWork", sdb) ==1) {
+			mav.setViewName("adminSchedule");
+		}else {
+			
 			mav.setViewName("adminSchedule");
 		}
 		
+		
 	 return  mav;
 		
+	}
+
+	public Map<String, String> reqSc(ScheduleBean sb) {
+		Map<String,String> map = new HashMap<>();
+		
+		
+		if(this.convertBoolean(sql.update("reqSc", sb))) {
+		map.put("message", "업무 승인 요청이 완료 되었습니다.");
+		}
+		
+		
+		return map;
 	}
 }
