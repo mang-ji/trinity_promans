@@ -44,7 +44,8 @@
 			<input type="text" id="emailBox" class="box" name = "mail" placeholder="이메일를 입력해주세요.">
 			</div><br>
 			<input type="button" class="button" name="auth" value="인증하기" onClick= "findPass()"> 
-
+	</div>
+	</div>
 
 </body>
 </html>

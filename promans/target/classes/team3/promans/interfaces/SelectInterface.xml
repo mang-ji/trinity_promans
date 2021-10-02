@@ -108,6 +108,29 @@
 		and WD_PRCODE = #{prcode}
 		and WD_USERID = #{userid} 
 	</select>
+	
+	<delete id="deleteDiary" parameterType="team3.promans.beans.WorkDiaryBean">
+		DELETE
+		FROM
+		WD
+		WHERE WD_CPCODE= #{cpcode}
+		and WD_CODE= #{wdcode}
+	</delete>
+	
+	<select id="GetDiaryDetail" parameterType="team3.promans.beans.WorkDiaryBean" resultType="team3.promans.beans.WorkDiaryBean">
+		SELECT WD_CPCODE as cpcode,
+		WD_PRCODE as prcode,
+		WD_USERID as userid,
+		WD_CODE as wdcode,
+		WD_TITLE as wdtitle,
+		WD_CONTENTS as wdcontents,
+		TO_CHAR(WD_DATE, 'YYYY-MM-DD') as wddate
+		FROM WD
+		WHERE WD_CPCODE = #{cpcode}
+		and WD_PRCODE = #{prcode}
+		and WD_USERID = #{userid} 
+		and wd_code = #{wdcode}
+	</select>
 
 	<!-- 공지사항 글쓰기 -->
 	<insert id="insNotice"

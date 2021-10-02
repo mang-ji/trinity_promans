@@ -1,8 +1,9 @@
 package team3.promans.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,17 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
 		return getDiaryList;
 	}
-
+	
+	/*public Map<String,String> deleteDiary(List<WorkDiaryBean> wdb){
+		Map<String,String> map = new HashMap<>();
+		wdb.get(0).getWdcode();
+		if(this.convertBoolean(sql.delete("deleteDiary", wdb))) {
+			map.put("message", "삭제완료");
+		}else {
+			map.put("message", "서버오류");
+		}
+		return map;
+	}*/
 
 	/* 공지사항 리스트 조회 */
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
@@ -331,36 +342,26 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		
 		  
 		return gdb;
-		
-		
 	}
 
+public GraphDataBean getStepGraph(ScheduleBean sb) {
+	GraphDataBean gdb = new GraphDataBean();
+    if(sb.getPscode() ==null) {
+  	System.out.println("요긴 step");
+  		gdb.setStepW(sql.selectOne("getStepW", sb));
+    	gdb.setStepI(sql.selectOne("getStepI", sb));
+    	gdb.setStepC(sql.selectOne("getStepC", sb));
+    }else {
+       	System.out.println("요긴 schedule");
+    	gdb.setPscode(sb.getPscode());
+    	gdb.setScheW(sql.selectOne("getScheW", sb));
+    	gdb.setScheI(sql.selectOne("getScheI",sb));
+    	gdb.setScheC(sql.selectOne("getScheC",sb));
+    }
+	return gdb;
+}
 
-
-	public GraphDataBean getStepGraph(ScheduleBean sb) {
-		
-      GraphDataBean gdb = new GraphDataBean();
-	
-        if(sb.getPscode() ==null) {
-        	System.out.println("요긴 step");
-        	
-        	gdb.setStepW(sql.selectOne("getStepW", sb));
-    		gdb.setStepI(sql.selectOne("getStepI", sb));
-    		gdb.setStepC(sql.selectOne("getStepC", sb));
-    		
-    		
-        }else {
-        	System.out.println("요긴 schedule");
-    		gdb.setPscode(sb.getPscode());
-    		gdb.setScheW(sql.selectOne("getScheW", sb));
-    		gdb.setScheI(sql.selectOne("getScheI",sb));
-    		gdb.setScheC(sql.selectOne("getScheC",sb));
-        }
-			
-			
-		return gdb;
-	}
-	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
+public List<ProjectBean> selectProjectReq(ProjectBean pb) {
 		return sql.selectList("selectReqProject", pb);
 
 
@@ -406,6 +407,21 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleDetailBean> getProjectFeedback(ProjectBean pb) {
 		return sql.selectList("getProjectFeedback",pb);
 	}
+
+
+
+	public List<WorkDiaryBean> GetDiaryDetail(WorkDiaryBean wdb) {
+		return sql.selectList("GetDiaryDetail",wdb);
+	}
+
+
+
+	@Override
+	public List<WorkDiaryBean> deleteDiary(WorkDiaryBean wdb) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }
 

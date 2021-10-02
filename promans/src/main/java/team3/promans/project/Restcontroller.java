@@ -117,6 +117,11 @@ public class Restcontroller {
 		return si.getDiary(wdb.get(0));
 	}
 	
+	@PostMapping("GetDiaryDetail")
+	public List<WorkDiaryBean> GetDiaryDetail(@RequestBody List<WorkDiaryBean> wdb) {
+		return si.GetDiaryDetail(wdb.get(0));
+	}
+	
 	//업무 완료요청(일반멤버)
 	@PostMapping("/ReqSchedule")
 	public boolean reqSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
