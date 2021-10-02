@@ -155,11 +155,23 @@
 
 
 	<select id="selectSchedule" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.ScheduleBean">
-		
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE 
-		FROM SCHEDULEVIEW 
-		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
-	
+		SELECT DISTINCT 
+		SCCODE, 
+		SCNAME, 
+		SCSTCODE, 
+		SCSTATE, 
+		PSCODE, 
+		UTYPE,
+		(CASE WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} 
+		            AND SM.SM_UTYPE='L' AND SM_USERID=#{userid} THEN 'L' 
+		        WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} 
+		            AND SM.SM_UTYPE!='L' THEN NULL 
+		        WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} THEN 'G' END) AS UTYPE2 
+		FROM (SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE, CPCODE, PRCODE,
+		    NVL((SELECT PS_UTYPE FROM PS WHERE PS_CODE=#{pscode} AND PS_USERID=#{userid}),'G') AS UTYPE 
+		    FROM SCHEDULEVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode} 
+		    ORDER BY DECODE(SCSTCODE,'I',1),DECODE(SCSTCODE,'W',1)) A 
+		    INNER JOIN SM ON A.SCCODE = SM.SM_SCCODE
 	</select>
 
 	<select id="getScheDetail"
@@ -261,11 +273,13 @@
 	
 	<select id="getScCompleteList" parameterType="team3.promans.beans.ScheduleBean" resultType="team3.promans.beans.ScheduleBean">
 		SELECT 
+		SC_CODE AS SCCODE,
 		SC_NAME AS SCNAME,
 		SC_STATE AS SCSTATE,
 		ST.ST_NAME AS SCSTNAME 
 		FROM SC INNER JOIN ST ON SC.SC_STATE = ST.ST_CODE 
-		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode}
+		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode} AND SC_STATE='W'
+		
 	</select>
 	
 
@@ -439,6 +453,7 @@
      <select id = "selectScheduleMember" parameterType = "team3.promans.beans.ProjectMemberBean" resultType = "team3.promans.beans.ProjectMemberBean">
      
      	select userid, username as uname from projectmemberview where cpcode = #{cpcode} and prcode = #{prcode} and NOT(utcode = 'A' or utcode = 'L')
+     	
      
      </select>
 

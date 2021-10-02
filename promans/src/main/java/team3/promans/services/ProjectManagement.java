@@ -14,6 +14,7 @@ import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
+import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 
 @Service
@@ -275,6 +276,39 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 			}
 		}
 		return map;
+	}
+
+
+
+
+	public boolean scSendFeed(ScheduleDetailBean sdb) {
+		boolean result = false;
+		//bean --> cp cr ps sc id con
+		sdb.setSddstate("1");
+		if(convertData(sqlSession.insert("scSendFeed",sdb))) {
+			if(this.scSendFeedUpdate(sdb)) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public boolean scSendFeedUpdate(ScheduleDetailBean sdb) {
+		return this.convertData(sqlSession.update("scSendFeedUpdate",sdb));
+	}
+
+
+
+
+	public boolean CompleteConfirm(ScheduleBean sb) {
+		boolean result = false;
+		
+		if(convertData(sqlSession.update("CompleteConfirm",sb))) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 

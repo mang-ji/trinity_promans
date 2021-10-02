@@ -54,7 +54,10 @@
 	  	
 	  	<insert id ="insSD" parameterType = "team3.promans.beans.ScheduleDetailBean">
 	  	
-	  	INSERT INTO SD VALUES (#{cpcode}, #{prcode}, #{pscode}, #{sccode},#{userid} ,#{sdcode}, #{sdcontent}, SYSDATE, 'I' )
+	  	INSERT ALL
+	  	INTO SM VALUES(#{cpcode}, #{prcode}, #{pscode}, #{sccode}, #{userid}, 1 , 'G')
+	  	INTO SD VALUES (#{cpcode}, #{prcode}, #{pscode}, #{sccode},#{userid} ,#{sdcode}, #{sdcontent}, SYSDATE, 'I' )
+	  	SELECT*FROM DUAL
 	  	
 	  	</insert>
 	  	
@@ -72,15 +75,25 @@
 	  	
 	  	<update id ="reqWork" parameterType = "team3.promans.beans.ScheduleDetailBean" >
 	  	
-	  	UPDATE SD SET SD_STATE = 'W' WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_CODE = #{sdcode} AND SD_USERID = #{userid}
+	  		UPDATE SD SET SD_STATE = 'W' WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_CODE = #{sdcode} AND SD_USERID = #{userid}
 	  	
 	  	</update>
 	  	
-	  
+	  	<select id="FirstInsSdBool" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.ScheduleDetailBean">
+	  		SELECT PM_USERID AS USERID, 
+			CM.CM_UNAME AS USERNAME 
+			FROM PM INNER JOIN CM ON PM.PM_CPCODE = CM.CM_CPCODE 
+			AND PM.PM_USERID = CM.CM_USERID  
+			WHERE PM_CPCODE=#{cpcode} AND PM_PRCODE=#{prcode}  
+	  	</select> 
+	  	
+	  	<select id="getSdUtype" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="string">
+	  		SELECT SM_UTYPE FROM SM WHERE SM_CPCODE=#{cpcode} AND SM_PRCODE=#{prcode} AND SM_PSCODE=#{pscode} AND SM_SCCODE=#{sccode} AND SM_USERID=#{userid}
+	  	</select>  
+	   
 	  	<update id ="reqSc" parameterType = "team3.promans.beans.ScheduleBean">
 	  	
 	  	  UPDATE SC SET SC_STATE = 'W' WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE =#{pscode} AND SC_CODE = #{sccode}
 	  	
 	  	</update>
-	  	
 </mapper>

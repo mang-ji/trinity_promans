@@ -336,29 +336,28 @@ width:50px;   border:0px; height:30px; padding-top:3px;}
 	margin-top:30px;
 }
 .scListHead{
-	width:100%;
-	height:60px;
-	margin:auto;
+    width: 100%;
+    height: 100px;
+    margin: auto;
+    font-weight: bold;
+    background-color: #4f5f86;
+    color: white;
+    line-height: 5.5;
 }
 
 .scListHeadText{
-	width:100%;
-	height:60px;
-	margin:auto;
-	text-align: center;
-    margin-top: 30px;
-    font-size:18px;
+    width: 100%;
+    height: 60px;
+    margin: auto;
+    text-align: center;
+    font-size: 18px;
 }
 
 .scListTitle{
 	width:100%;
 	height: 40px;
 	border-top:1px solid black;
-}
-.scListContentsHead{
-	width:100%;
-	height:30px;
-	border-top:1px solid darkblue;
+	border-bottom: 1px solid black;
 }
 
 .scListConTitle{
@@ -366,17 +365,153 @@ width:50px;   border:0px; height:30px; padding-top:3px;}
     font-size: 15px;
     color: darkblue;
     font-weight: 600;
-    height: 40px;
+    height: 39px;
     float: left;
     width: 50%;
     line-height: 2.5;
 }
+.scListContentsHead{
+	width:90%;
+	height:30px;
+	margin:auto;
+	text-align: center;
+}
 
 .scListContents{
-	width:50%;
+	margin-left:16px;
+	width:48%;
 	height:30px;
 	float:left;
-}.scListContentsLeft{border-right:1px solid gray;}
+	font-size:16px;
+}/*.scListContentsLeft{border-right:1px solid gray;}*/
+
+.scListConfirmContainer{
+	width:80%;
+	margin:auto;
+	margin-top:20px;
+	height:30px;
+}
+.scListConfirm{
+    width: 45.5%;
+    margin-right: 20px;
+    margin-left: 20px;
+    height:40px;
+    float: left;
+}
+.scButtonStyle{
+	background-color: #4f5f86;
+    color: #c0c5cd;
+    border-radius: 2px;
+}
+
+.scListBack{
+	color: gray;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 17px;
+    margin-bottom: 20px;
+    width: 100%;
+	
+}
+.sendFeedDiv{
+	width:100%;
+	
+}
+
+.sendFeedHead{
+	width: 100%;
+    height: 80px;
+}
+
+.sendFeedHeadText{
+	font-size: 20px;
+    line-height: 4;
+}
+
+.feedArea{
+    width: 75%;
+    height: 150px;
+}
+
+.feedBtnArea{
+    width: 75%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.feBtnStyle{
+	width:100%;
+	height:35px;
+}
+
+.scheListDiv{
+	width:80%;
+	margin:auto;
+	margin-top:30px;
+	border-top:2px solid black;
+	border-bottom:2px solid black;
+	font-family:Sans-Serif;
+}
+
+
+.scheListHead{
+	width:100%;
+	height:100px;
+}.scheListHeadText{
+	font-size:25px;
+	font-weight:bold;
+	line-height:3.9;
+	text-align:center;
+	border-bottom:2px solid gray;
+	height: 100%;
+}
+
+.scheListTitle{
+	width:100%;
+	height:30px;
+	margin:auto;
+}.scheNo{
+	width:20%;
+	height:100%;
+	float:left;
+	text-align:center;
+	line-height: 1.77;
+}.scheSche{
+	width:50%;
+	padding-left: 50px;
+	height:100%;
+	float:left;
+	text-align:center;
+	line-height: 1.77;
+}.shePro{
+	width:30%;
+	height:100%;
+	float:left;	
+	text-align:center;
+	line-height: 1.77;
+}
+
+.scheduleContents{
+	width:100%;
+	height: 30px;
+}
+
+.scheName{
+	text-align:left;
+	padding-left:24%;	
+}
+.scheImg{
+	height:25px;
+	float:right;
+}
+
+
+
+
+
+
+
 
 .rd {display:none;}
 

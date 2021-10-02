@@ -2,8 +2,6 @@ let sccode;
 
 
 function getStepGraph(jsonData){
-
-
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
@@ -142,46 +140,6 @@ function selectProject(jsonData){
 	}
 	
 	selectStep.innerHTML = list;
-	
-	/*if(utype == "L" || utype == "A"){
-		
-		list += "<input type=\"button\" id=\"setBtn\" value=\"편집\" style=\"display:block\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>";
-		list += "<input type=\"button\" id=\"setBtn2\" value=\"완료 요청\" style=\"display:none;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
-		list += "<input type=\"button\" id=\"setBtn3\" value=\"추가\" style=\"display:none;\" name=\"clickAdd\">";
-		
-	}
-		list += "<input type=\"button\" onClick=\"getCom()\" value=\"완료 리스트\">";
-	selectStep.innerHTML = list;
-	let clickAdd = document.getElementsByName("clickAdd")[0];
-	clickAdd.addEventListener('click',function(){
-		for(i=0; i<jsonData.length; i++){
-			addList += "<input type=\"radio\" name=\"clickAddJobMember\" id=\"addRadio"+i+"\" onClick=\"addJobMember(\'"+jsonData[i].pscode+"\')\"><label for=\"addRadio"+i+"\">"
-			+ jsonData[i].psname + jsonData[i].stname + "</label><br>";
-			addListCss += "input[id=\"addRadio"+i+"\"] \+ label{border:1px solid #bbbbbb; width:500px; cursor:pointer;}";
-			addListCss += "input[id=\"addRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb;color:#ffffff;}";
-			addListCss += "input[id=\"addRadio"+i+"\"]{display:none;}";
-			
-		}
-		
-		headCss.innerHTML = addListCss;
-		document.head.append(headCss);
-		selectStep.innerHTML = addList;
-		
-	});
-	let cpcode = document.getElementsByName("cpcode")[0].value;
-	let prcode = document.getElementsByName("prcode")[0].value;
-	
-
-	
-	let btn = document.getElementById("setBtn2");
-	btn.addEventListener('click',function(){
-		btn.style.display="none";
-		headCss.innerHTML = css;
-		document.head.append(headCss);
-		selectStep.innerHTML = list2;
-		
-	});*/
-
 }
 
 function getRequestList(){
@@ -195,33 +153,60 @@ function getRequestList(){
 }
 
 function ajaxReqList(jsonData){
-	let list2 = "";
-	let css = "";
-	let headCss = document.createElement("style");
-	let selectStep = document.getElementById("selectStep");
-	let utype = jsonData[0].utype;
-	
-		console.log(jsonData[0].stcode);
-	for(i=0; i<jsonData.length; i++){
-		if(jsonData[i].stcode == "I"){
-		list2 += "<input type=\"radio\" id=\"radio"+i+"\" name=\"radio\" onClick=\"requestComplete(\'"+ jsonData[i].pscode +"\',\'"+jsonData[i].psname+"\')\"><label for=\"radio"+i+"\">"
-		+ jsonData[i].psname + jsonData[i].stname + "</label><br>";
+		let list2 = "";
+		let list = "";
+		let css = "";
+		let headCss = document.createElement("style");
+		let selectStep = document.getElementById("selectStep");
+		
+		list+= "<div class=\"scheListDiv\">";
+			
+			list+= "<div class=\"scheListHead\">";
+			list+= "<div class=\"scheListHeadText\">Schedule</div>";
+			list+= "</div>";
+			
+			list+= "<div class=\"scheListTitle\">";		
+			list+= "<div class=\"scheNo\">No</div>";
+			list+= "<div class=\"scheSche\">Schedule</div>";
+			list+= "<div class=\"shePro\">Progress</div>";
+			list+= "</div>";
+			
+			for(i=0; i<jsonData.length; i++){
+				if(jsonData[i].stcode == "I"){
+					list+= "<div class=\"scheduleContents\">";
+					list+= "<input type=\"radio\" id=\"reqListRadio"+i+"\" name=\"radio\" onClick=\"requestComplete(\'"+ jsonData[i].pscode +"\',\'"+jsonData[i].psname+"\')\">";
+					list+= "<label for=\"reqListRadio"+i+"\">";
 					
-			
-		css += "input[id=\"radio"+i+"\"] \+ label{border:1px solid #bbbbbb; width:500px; cursor:pointer;}";
-		css += "input[id=\"radio"+i+"\"]:hover \+ label{background-color:#bbbbbb;color:#ffffff;}";
-		css += "input[id=\"radio"+i+"\"]{display:none; cursor:pointer;}";
-		}
-	}
+					list+= "<div class=\"scheNo scheCount\">" +(i+1)+ "</div>";
+					list+= "<div class=\"scheSche scheName\">" + jsonData[i].psname + "</div>";
+					list+= "<div class=\"shePro scstate\">" + jsonData[i].stname + "</div>";
+					
+					list+= "</label></div>";
+					
+					css+= "input[id=\"reqListRadio"+i+"\"]{display:none;}";
+					css+= "input[id=\"reqListRadio"+i+"\"] \+ label{width:100%; border-top:1px solid gray; height:100%;}";
+					css+= "input[id=\"reqListRadio"+i+"\"]:hover \+ label{background-color:#4f5f86; color:white;}";
+					css+= "input[id=\"reqListRadio"+i+"\"]:hover:active \+ label{background-color:blue; color:white;}";
+				}
+			}
+			list+= "</div>";
+			list+= "<div class=\"scListBack\" onClick=\"reqListBack()\">뒤로 가기</div>";
+			headCss.innerHTML=css;
+			document.head.append(headCss);
+			selectStep.innerHTML=list;
+}
+
+function reqListBack(){
+	let prcode = document.getElementsByName("prcode")[0];
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let pscode = document.getElementsByName("pscode")[0];
+		
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, userid:userid.value}];
+	let clientData = JSON.stringify(jsonData);
 	
-	if(utype == "L" || utype == "A"){
-		list2 += "<input type=\"button\" value=\"요청 취소\" onClick=\"cancelReq()\"><br>";
-		list2 += "<input type=\"button\" id=\"setBtn3\" value=\"추가\" onClick=\"addJobMember()\">";
-			
-	}
-		headCss.innerHTML=css;
-		document.head.append(headCss);
-		selectStep.innerHTML=list2;	
+	postAjax("rest/GetSchedule", clientData, "selectSchedule",2);
+	postAjax("rest/GetStepGraph", clientData, "getStepGraph",2);
 }
 
 function getCom(){
@@ -239,7 +224,7 @@ function getCom(){
 function ajaxScComList(data){
 	let html = "";
 	let css = "";
-	let headCss = document.createElement("style");
+	let style = document.createElement("style");
 	let selectStep = document.getElementById("selectStep");
 	
 	html+= "<div class=\"scList\">";
@@ -251,17 +236,133 @@ function ajaxScComList(data){
 	html+= "</div>";
 	
 	for(i=0; i<data.length; i++){
-		html+= "<div class=\"scListContentsHead\">";
-		html+= "<div class=\"scListContents scListContentsLeft\">" +data[i].scname+ "</div>";
-		html+= "<div class=\"scListContents\">" +data[i].scstname+ "</div>";
-		html+= "</div>";
+			html+= "<div class=\"scListContentsHead\">";
+			html+= "<input type=\"radio\" name=\"scListRadio\" value=\""+data[i].sccode+"\" id=\"scListRadio"+i+"\" class=\"scListContentsHead\">";
+			html+= "<label for=\"scListRadio"+i+"\">";
+			html+= "<div class=\"scListContents scListContentsLeft\">" +data[i].scname+ "</div>";
+			html+= "<div class=\"scListContents\">" +data[i].scstname+ "</div>";
+			html+= "</label></div>";
+			
+			css+= "input[id=\"scListRadio"+i+"\"] \+ label{width:100%;}";
+			css+= "input[id=\"scListRadio"+i+"\"]:hover \+ label{background-color:darkblue; color:white;}";
+			css+= "input[id=\"scListRadio"+i+"\"]:hover:active \+ label{background-color:#ced4da; color:white;}";
+			css+= "input[id=\"scListRadio"+i+"\"]:checked \+ label{background-color:indigo; color:white;}";
+			css+= "input[id=\"scListRadio"+i+"\"]:checked:hover \+ label{background-color:#6c757d; color:white;}";
+			css+= "input[id=\"scListRadio"+i+"\"]{display:none;}";
 	}
 	
 	html+="</div>";
+	html+= "<div class=\"scListConfirmContainer\">";
+	html+= "<div><input class=\"scButtonStyle scListConfirm\" type=\"button\" onClick=\"scListFeed()\" value=\"피드백\"></div>";
+	html+= "<div><input class=\"scButtonStyle scListConfirm\" type=\"button\" onClick=\"CompleteConfirm()\" value=\"완료 승인\"></div>";
 	
+	html+= "</div>";
+	
+	html+= "<div class=\"scListBack\" onClick=\"scListBackBtn()\">뒤로 가기</div>";
+	
+	style.innerHTML = css;
+	document.head.append(style);
 	selectStep.innerHTML= html;
 }
 
+function scListBackBtn(){
+	let prcode = document.getElementsByName("prcode")[0];
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let pscode = document.getElementsByName("pscode")[0];
+		
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, userid:userid.value}];
+	let clientData = JSON.stringify(jsonData);
+	
+	postAjax("rest/GetSchedule", clientData, "selectSchedule",2);
+	postAjax("rest/GetStepGraph", clientData, "getStepGraph",2);
+}
+
+function scListFeed(){
+	let scListRadio = document.getElementsByName("scListRadio");
+	let cpcode = document.getElementsByName("cpcode")[0].value;
+	let prcode = document.getElementsByName("prcode")[0].value;
+	let pscode = document.getElementsByName("pscode")[0].value;
+	let userid = document.getElementsByName("userid")[0].value;
+	let mainPop = document.getElementById("mainPop");
+	let popUp = document.getElementById("popUp");
+	let result="";
+	let html="";
+	
+
+		
+	for(i=0; i<scListRadio.length; i++){
+		if(scListRadio[i].checked){
+			result = scListRadio[i].value;
+		}	
+	}	
+	if(result == ""){
+		alert("업무를 선택해주세요.");
+		return;
+	}
+	
+	html+= "<div class=\"sendFeedDiv\">";
+	
+	html+= "<div class=\"sendFeedHead\"><div class=\"sendFeedHeadText\">Send FeedBack</div></div>";
+	html+= "<textarea class=\"feedArea\" name=\"sdcontent\" "+
+			"placeholder=\"내용을 입력해주세요.\" onfocus=\"this.placeholder=\'\'\" onblur=\"this.placeholder=\'내용을 입력해주세요.\'\"></textarea>";
+	html+= "<div class=\"feedBtnArea\"><input type=\"button\" value=\"전송하기\" class=\"scButtonStyle feBtnStyle\" name=\"feedBtn\"></div>";
+	
+	html+="<div class=\"scListBack\" onClick=\"closePop()\">뒤로가기</div>";
+	html+="</div>";
+	
+	popUp.innerHTML=html;
+	mainPop.style.display = "block";
+	
+	document.getElementsByName("feedBtn")[0].addEventListener('click',function(){
+		let content = document.getElementsByName("sdcontent")[0].value;
+		
+		let data = JSON.stringify([{cpcode:cpcode,prcode:prcode,pscode:pscode,userid:userid,sccode:result,sdcontent:content}]);
+		
+		postAjax("rest/scSendFeed",data,"scSendFeed",2);
+	});
+}
+
+function CompleteConfirm(){
+	let scListRadio = document.getElementsByName("scListRadio");	
+	let cpcode = document.getElementsByName("cpcode")[0].value;
+	let prcode = document.getElementsByName("prcode")[0].value;
+	let pscode = document.getElementsByName("pscode")[0].value;
+	let isConfirm = confirm("이 업무를 완료하시겠습니까?");
+	
+	for(i=0; i<scListRadio.length; i++){
+		if(scListRadio[i].checked){
+			result = scListRadio[i].value;
+		}	
+	}
+	if(isConfirm){
+		let data = JSON.stringify([{cpcode:cpcode,prcode:prcode,pscode:pscode,sccode:result}]);
+			
+		postAjax("rest/CompleteConfirm",data,"afterCompleteConfirm",2);
+		
+	}else{
+		alert("취소하셨습니다.");
+	}
+}
+
+function afterCompleteConfirm(data){
+	
+	if(data==true){
+		alert("성공적으로 업무가 완료되었습니다.");
+	}else{
+		alert("다시 시도해주세요.");
+	}
+}
+
+
+function scSendFeed(data){
+	
+	if(data==true){
+		alert("성공적으로 피드백을 전송했습니다.");
+	}else{
+		alert("다시 시도해주세요.");
+	}
+}
 
 
 
@@ -403,7 +504,7 @@ function setButton(){
 	setBtn2.style.display = "block";
 	setBtn3.style.display = "block";
 	changeBtn.innerHTML = 
-	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left; margin-top: 2px;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
+	"<input type=\"button\" class=\"buttonStyle\" style=\"float:left; margin-top: 2px; margin-left:10%;\" name=\"closeButton\" value=\"닫기\" onClick=\"setButton2()\"/>";
 }
 function setButton2(){
 	let closeButton = document.getElementsByName("closeButton")[0];
@@ -512,69 +613,95 @@ function getSchedule(pscode){
 	postAjax("rest/GetStepGraph", clientData, "getStepGraph",2);
 	
 }
-
 function selectSchedule(jsonData){
-	if(jsonData!=""){
-		let list = "";
-		let edit = "";
-		let ShceduleEdit = document.getElementById("ShceduleEdit");
-		let count=1;
-		let addList = "";
-		let addListCss = "";
-		let css = "";
-		let headCss = document.createElement("style");
-		let selectStep = document.getElementById("selectStep");
-		let utype = document.getElementsByName("utype")[0].value;
-		
-		list += "<span id='span1'>No.</span><span  id='span2' >Schedule</span><span  id='span2'>Progress</span>";
-		
-		for(i=0; i<jsonData.length; i++){
-		
-		list += "<div onClick = \"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\" id ='SSC'>"
-		
-		+"<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/>"
-		+"<input type ='hidden' name = 'pscode' value = \'"+jsonData[i].pscode+"\'/>"
-		
-		+"<span  id ='sccount'>"
-		+ count +"<span  id ='scname'>"+ jsonData[i].scname + "<span  id='scstate'> "+ jsonData[i].scstate + "</span ></span ></span ></div>"
-		
-		+"<div onClick = \"addScheduleDetail(\'"+jsonData[i].scname+","+jsonData[i].sccode+"\')\" name = 'addScheduleDetail' style = 'display:none'>"
-		+"추가</div>";	
-		   count++;}
+		if(jsonData!=""){
+			let list = "";
+			let edit = "";
+			let css = "";
+			let ShceduleEdit = document.getElementById("ShceduleEdit");
+			let headCss = document.createElement("style");
+			let selectStep = document.getElementById("selectStep");
+			let utype = document.getElementsByName("utype")[0].value = jsonData[0].utype;
 	
-		list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px;\">";
-	
-		//if(jsonData[0].utype != "G"){
-			edit += "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 5px;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>"
-				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"addJobMember()\"></div>"
-				+"<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
-
-		//	}
-		selectStep.innerHTML = list;
-		ShceduleEdit.innerHTML = edit;
+			list+= "<div class=\"scheListDiv\">";
+			
+			list+= "<div class=\"scheListHead\">";
+			list+= "<div class=\"scheListHeadText\">Schedule</div>";
+			list+= "</div>";
+			
+			list+= "<div class=\"scheListTitle\">";		
+			list+= "<div class=\"scheNo\">No</div>";
+			list+= "<div class=\"scheSche\">Schedule</div>";
+			list+= "<div class=\"shePro\">Progress</div>";
+			list+= "</div>";
+			
+			for(i=0; i<jsonData.length; i++){
+				if(jsonData[i].utype2 != null){
+					list+= "<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/>";
+					list+= "<input type ='hidden' name = 'pscode' value = \'"+jsonData[i].pscode+"\'/>";
+					
+					list+= "<div class=\"scheduleContents\">";
+					list+= "<input type=\"button\" id=\"schBtn"+i+"\" onClick=\"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\">";
+					list+= "<label for=\"schBtn"+i+"\">";
+					
+					list+= "<div class=\"scheNo scheCount\">" +(i+1)+ "</div>";
+					console.log(jsonData[i].utype2);
+					if(jsonData[i].utype2 == "L"){
+						list+= "<div class=\"scheSche scheName\">" +jsonData[i].scname
+							+ "이나쁜놈들아~~<div class=\"scheImg\"><img class=\"scheImg\" src=\"resources/images/checkSch.png\"></div></div>";
+					}else{
+						list+= "<div class=\"scheSche scheName\">" +jsonData[i].scname+ "</div>";
+					}
+					
+					list+= "<div class=\"shePro scstate\">" +jsonData[i].scstate+ "</div>";
+					
+					list+= "</label></div>";
+					
+					css+= "input[id=\"schBtn"+i+"\"]{display:none;}";
+					css+= "input[id=\"schBtn"+i+"\"] \+ label{width:100%; border-top:1px solid gray; height:100%;}";
+					css+= "input[id=\"schBtn"+i+"\"]:hover \+ label{background-color:#4f5f86; color:white;}";
+					css+= "input[id=\"schBtn"+i+"\"]:hover:active \+ label{background-color:blue; color:white;}";
+					
+				}
+			}
+			list+= "</div>";
+			//@@@@@@@@@@@@@여기까지가 list 끝 지점@@@@@@@@@@@@@@@@@@
+			if(utype=="L" || utype=="A"){
+				list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px; margin-right:10%;\">";
 		
-		let btn = document.getElementById("setBtn2");
-		btn.addEventListener('click',function(){
-			btn.style.display="none";
+				edit+= "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 5px; margin-left:10%;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>";
+				edit+= "<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"addJobMember()\"></div>";
+				edit+= "<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
+			}
+			
 			headCss.innerHTML = css;
-			document.head.append(headCss);
-			//selectStep.innerHTML = list2;
+			document.head.append(headCss);		
 			selectStep.innerHTML = list;
 			ShceduleEdit.innerHTML = edit;
-		});
-		
-	}else{
-		if(confirm("업무가 없습니다. 생성하시겠습니까?")){
-			let cpcode = document.getElementsByName("cpcode")[0].value;
-			let prcode = document.getElementsByName("prcode")[0].value;
-			let pscode = document.getElementsByName("pscode")[0].value;
-			let userid = document.getElementsByName("userid")[0].value;
 			
-			let data = JSON.stringify([{cpcode:cpcode,prcode,prcode,pscode,pscode,userid,userid}]);
-			postAjax("rest/firstInsSchedule",data,"firstInsSchedule",2);
+			
+			let btn = document.getElementById("setBtn2");
+			btn.addEventListener('click',function(){
+				btn.style.display="none";
+				headCss.innerHTML = css;
+				document.head.append(headCss);
+				selectStep.innerHTML = list;
+				ShceduleEdit.innerHTML = edit;
+			});
+			
+			
+		}else{
+			if(confirm("업무가 없습니다. 생성하시겠습니까?")){
+				let cpcode = document.getElementsByName("cpcode")[0].value;
+				let prcode = document.getElementsByName("prcode")[0].value;
+				let pscode = document.getElementsByName("pscode")[0].value;
+				let userid = document.getElementsByName("userid")[0].value;
+				let utype = document.getElementsByName("utype")[0].value;
+				let data = JSON.stringify([{cpcode:cpcode,prcode:prcode,pscode:pscode,userid:userid,utype:utype}]);
+				postAjax("rest/firstInsSchedule",data,"firstInsSchedule",2);
+			}
 		}
 	}
-}
 
 function firstInsSchedule(data){
 	if(data != ""){
@@ -590,11 +717,11 @@ function firstInsSchedule(data){
 		
 		
 		
-		html+= "<div class=\"plStep\"> 스텝 추가 </div>";
+		html+= "<div class=\"plStep\"> 업무 추가 </div>";
 		
 		html+= "<input type=\"text\" name=\"scname\" class=\"scNtext\""+
-		"placeholder=\"스텝 제목을 입력해주세요.\" onfocus=\"this.placeholder=\'\'\""+
-		"onblur=\"this.placeholder=\'스텝 제목을 입력해주세요.\'\">";
+		"placeholder=\"업무 제목을 입력해주세요.\" onfocus=\"this.placeholder=\'\'\""+
+		"onblur=\"this.placeholder=\'업무 제목을 입력해주세요.\'\">";
 		
 		html+= "<div class=\"stepList\">";
 		html+= "<div class=\"stepHead\">Step Admin</div>"
@@ -725,8 +852,6 @@ function getReqForCompletion(jsonData1){ //완료요청 상태인 업무 디테�
     }
 
    let clientData = JSON.stringify(json);
-  
-
     postAjax("rest/ReqForCompletion", clientData , "reqForCompletion" , 2);
 	
 }
@@ -781,8 +906,6 @@ let arr = "";
      let userid 
         = node.value;  // rltjs,SD01 
      arr = userid.split(",");
-    
-
     }
 
 
@@ -864,8 +987,6 @@ let arr = "";
      let userid 
         = node.value;  //rltjs01,SD02,SC01 arr[0], [1], [2]
      arr = userid.split(",");
-    
-
     }
 
 
@@ -874,7 +995,6 @@ let arr = "";
 let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, userid:arr[0], sdcode:arr[1] , sccode:arr[2]}];
 
 let clientData = JSON.stringify(jsonData);
-
 postAjax("rest/ReqPass", clientData, 'upPass', 2);
 
 
@@ -896,9 +1016,6 @@ function addScheduleDetail(sdname1, sccode1){ //업무추가 누르면 실행되
 	
 	sccode = sccode1;
 	sdname = sdname1;
-	
-	
-	
 	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value}];
 	
 	let clientData = JSON.stringify(jsonData);
@@ -964,8 +1081,6 @@ let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid, pscode
 let clientData = JSON.stringify(jsonData);
 console.log(sccode);
 console.log(sdname);
-
-
 postAjax("rest/InsSD", clientData, 'upPass', 2);
 
 
@@ -1005,7 +1120,6 @@ function deleteProjectMember(prcode){
 }
 
 function deleteProjectMember(jsonData){
-	alert(jsonData);
 }
 
 /* 프로젝트 스텝들의 완료 요청 리스트 불러오는 함수 */
@@ -1016,7 +1130,6 @@ function reqProjectAccept(prcode){
 	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectResult",2);
 }
 function reqProjectResult(jsonData){
-	alert(jsonData.message);
 }
 
 
@@ -1183,7 +1296,6 @@ function sendSelectedMember(prcode){
 }
 
 function insProjectMember(data){
-	alert(data.message);
 }
 
 
@@ -1300,7 +1412,6 @@ function sendFeedback(data){ // data = pr, ps,userid, cp
 	
 }
 function sendFeedback2(data){
-	alert(data.message);
 }
 
 function sendAccept(data){
@@ -1314,5 +1425,4 @@ function sendAccept(data){
 	modal_background.style.display = "none";
 }
 function sendAccept2(data){
-	alert(data.message);
 }

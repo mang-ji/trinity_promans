@@ -74,7 +74,6 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	public List<ScheduleDetailBean> firstInsSchedule(ProjectStepBean pmb) {
 
 		boolean result = this.getPsUtype(pmb);
-
 		List<ScheduleDetailBean> list = new ArrayList<ScheduleDetailBean>(); 
 		if(result == true) {
 			list = sql.selectList("addJob", pmb);
@@ -129,6 +128,12 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	}
 	@Override
 	public boolean getPsUtype(ProjectStepBean psb) {
+		try {
+			if(psb.getUtype().equals("A")) {
+				pu.setAttribute("utype", "A");
+				psb.setPscode(psb.getPscode()+"-A");
+			}
+		} catch (Exception e) {e.printStackTrace();}
 		String result = sql.selectOne("getPsUtype", psb);
 		return (result!=null)?true:false;
 	}
