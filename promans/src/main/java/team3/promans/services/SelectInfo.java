@@ -16,6 +16,7 @@ import team3.promans.beans.WorkDiaryBean;
 import team3.promans.auth.Encryption;
 import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.beans.FeedbackBean;
 import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.Notice_CalendarBean;
 
@@ -162,9 +163,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleBean> selectSchedule(ScheduleDetailBean sdb) {
 		List<ScheduleBean> list = sql.selectList("selectSchedule", sdb);
 		
+		System.out.println(list.get(0).getUtype()  +" 유나 타입 확인 1 ");
 		try {
 			if(list.size() != 0) {
 			pu.setAttribute("pscode", list.get(0).getPscode());
+			
 			pu.setAttribute("utype", list.get(0).getUtype());
 			
 			sdb.setSccode(list.get(0).getSccode());
@@ -316,7 +319,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pmb.setPrcode((String)pu.getAttribute("prcode"));
 			pmb.setUserid((String)pu.getAttribute("userid"));
 		
-			System.out.println(pu.getAttribute("utype") + " 안녕 여기 확인용 ~~~ ");
 			if(pu.getAttribute("utype") == "A") {
 				pu.setAttribute("utype", "A");
 				System.out.println("관리자 타기 !" );
@@ -414,9 +416,38 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return sql.selectList("getScCompleteList", sb);
 	}
 
-	public List<ScheduleDetailBean> getProjectFeedback(ProjectBean pb) {
-		return sql.selectList("getProjectFeedback",pb);
+	public List<FeedbackBean> getPrftList(ProjectBean pb) {
+	
+		return sql.selectList("getPrftList",pb);
 	}
+
+
+
+	public List<FeedbackBean> getPsftList(ProjectBean pb) {
+		
+		return sql.selectList("getPsftList", pb);
+	}
+
+
+
+	public List<FeedbackBean> getScftList(ScheduleDetailBean sdb) {
+		
+		return sql.selectList("getScftList", sdb);
+	}
+
+
+
+	public List<FeedbackBean> getSdftList(ScheduleDetailBean sdb) {
+		return sql.selectList("getSdftList", sdb);
+	}
+
+
+
+	public List<FeedbackBean> getMyfeedback(ScheduleDetailBean sdb) {
+		
+		return sql.selectList("getMyfeedback",sdb);
+	}
+
 	
 }
 

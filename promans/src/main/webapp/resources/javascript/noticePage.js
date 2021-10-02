@@ -8,7 +8,7 @@ window.addEventListener('load', function() {
 function afterNotice(data) {
 		let tablebody = document.getElementById("table_body");
 		//let closeBtn = document.getElementsByName("closeBtn");
-		
+		let deletebtn = document.getElementsByName("deletebtn")[0];
 		let html = "";
 		let html2 = "";
 		let css = "";
@@ -17,45 +17,49 @@ function afterNotice(data) {
 		let change = document.getElementById("change");
 		let editBtn =document.getElementsByName("editBtn")[0];
 		
-		for (i = 0; i < data.length; i++) {
-			
+		let nocodes="";
+		
+		if(data.length != 0){
+			for (i = 0; i < data.length; i++) {
 				
-			html2 += "<input type=\"checkbox\"  class='noticeBox' name=\"nocode\" id=\"noticeBox"+i+"\" value=\""+data[i].nocode+"\"><label for=\"noticeBox"+i+"\">";
-		    html2 +="<div>" + (i+1) + "</div>";
-			html2 +="<div>" + data[i].title + "</div>";
-			html2 +="<div>" + data[i].sdate + "</div></label>";
-
-            html += "<div onClick = \"NoticeClick(\'"+data[i].nocode+"\')\">";
-			html += "<div id=\"noticeBoxx"+i+"\"><div id = 'countN'>" + (i+1) + "."+"</div>";
-			html += "<div id = 'notTitle'>" + data[i].title + "</div>";
-			html += "<div id = 'notDate'>" + data[i].sdate + "</div></div><br>";
+					
+				html2 += "<input type=\"checkbox\"  style=\"display:none;\" class='noticeBox' name=\"nocode\" id=\"noticeBox"+i+"\" value=\""+data[i].nocode+"\"><label for=\"noticeBox"+i+"\">";
+			    html2 +="<div>" + (i+1) + "</div>";
+				html2 +="<div>" + data[i].title + "</div>";
+				html2 +="<div>" + data[i].sdate + "</div></label>";
+	
 			
-			    css += "input[id=\"noticeBox"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
-                css += "input[id=\"noticeBox"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
-                css += "input[id=\"noticeBox"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
-                css += "id=\"noticeBoxx"+i+"\":hover \+ {background-color:#bbbbbb;color:#ffffff;}";
-               
-            
-                
-			
-		}	
+	            html += "<div id=\"boundary\" ><input type=\"checkbox\" id=\"checkboxxx\" name=\"nocode\" style=\"display:none;\" value=\""+data[i].nocode+"\" />";
+				html += "<div id=\"checks"+i+"\" onClick=\"NoticeClick(\'"+data[i].nocode+"\')\"><div id = 'countN'>" + (i+1) + "."+"</div>";
+				html += "<div id = 'notTitle'>" + data[i].title + "</div>";
+				html += "<div id = 'notDate'>" + data[i].sdate + "</div></div></div>";
+				
+				    css += "input[id=\"checks"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
+	                css += "input[id=\"checks"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
+	                css += "input[id=\"checks"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
+	                css += "id=\"checks"+i+"\":hover \+ {background-color:#bbbbbb;color:#ffffff;}";
+				
+				}
+		}else{
+			html = "<div id=\"noticezero\"> 공지사항이 없습니다.</div>";
+			}
+		
 		
         style.innerHTML = css;
         document.head.append(style);
 
-	
 		tablebody.innerHTML = html;
-		
-		editBtn.addEventListener('click',function(){
-			
-			deletebtn.style.display = "none";
-			deletebtn.style.display = "block";
-			trNotice.innerHTML = "<div></div><div></div>"+
-						"<div style=\"padding-left:250px\">제목</div>"+
-						"<div style=\"padding-left:250px\">작성날짜</div>";
-			tablebody.innerHTML = html2;
-		});
 	
+		editBtn.addEventListener('click',function(){
+			let checks = document.getElementsByName("nocode");
+			for(i=0; i<data.length;i++){
+				checks[i].style.display = "block";
+			}
+			
+			deletebtn.style.display = "block";
+			
+	
+		});
 	}
 
 
@@ -64,7 +68,6 @@ function afterNotice(data) {
 		let cpcodes = document.getElementsByName("cpcode")[0];
 		
 		let data = [ {cpcode:cpcodes.value, nocode:nocode}];
-		alert(JSON.stringify(data));
 		
 		postAjax("rest/getNoticeDetail", JSON.stringify(data), 'getNoticeDetail', 2);
 		}
@@ -153,9 +156,8 @@ function afterNotice(data) {
 	
 	/*공지사항 삭제*/
 	function deleteNotice(){
-		let CheckBox = document.getElementsByName("CheckBox");
+		let CheckBox = document.getElementsByName("checkbox");
 		let f = document.getElementById("testDiv");
-		
+			
 			f.submit();
-		
 		}

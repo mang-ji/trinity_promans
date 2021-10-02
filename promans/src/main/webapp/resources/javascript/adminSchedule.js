@@ -515,8 +515,17 @@ postAjax("rest/ReqPass", clientData, 'upPass', 2);
 function upPass(){ //업무 디테일 완료 승인해주면 모달 창 다 꺼지는 거
 
 	location.href = "scheduleForm";
+}
+
+function promans(){
+	/*
+	let f= document.createElement("form");
+	f.action = "mainPageForm";
+	f.method = "get";
+	document.body.appendChild(f);
+	f.submit();*/
 	
-	
+	location.href = "mainPageForm";
 }
 
 

@@ -75,7 +75,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		mav = new ModelAndView();
 		
 		psb.setPscode(this.stepMax(psb));
-		
+	
 			/* ps관리자를 Ps테이블에 넣어줌 */
 			if(this.convertData(sqlSession.insert("insStep", psb))){
 				/* + 추가작업) 총관리자 userid 를 다시 셀렉해서 */

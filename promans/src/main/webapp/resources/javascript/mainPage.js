@@ -633,12 +633,12 @@ function proReq1(){
 	let open = document.getElementsByName("propen")[0];
 	
 	let jsonData =[{cpcode:cpcode.value, prname:prname.value,prcontents:prcontents.value, propen:open.value}];
-	alert(JSON.stringify(jsonData));
+	
 	postAjax("rest/CreateProject", JSON.stringify(jsonData), "insProReq", 2);
 }
 
 function insProReq(jsondata){
-	alert();
+	
 }
 
 function acceptProjectReq(){
@@ -801,7 +801,7 @@ function acceptMakeProjects(cpcode){
 		array = node.value.split(",");
     	}
 	});
-	alert(array[0]+ " prcode  확인용 용!! ");
+	
 	let jsonData = [{cpcode:cpcode, prcode:array[0]}];
 	
 	postAjax("rest/AcceptMakeProject", JSON.stringify(jsonData), "acceptMakeProjectResult",2);

@@ -96,6 +96,7 @@
 							<span id = 'notSpan2'>Date</span>
 						</div>
 						<div id="table_body">
+			
 
 						</div>
 

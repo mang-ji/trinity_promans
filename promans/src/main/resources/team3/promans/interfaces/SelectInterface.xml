@@ -130,7 +130,7 @@
 		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
-        FROM PROJECTVIEW WHERE  CPCODE = #{cpcode} and propen='공개' and prstate !='Y'
+        FROM PROJECTVIEW WHERE  CPCODE = #{cpcode} and propen='공개' and prstate !='Y' order by prdate desc
 		
 	</select>
 	<select id="getAllManagersProject"  parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectBean">
@@ -138,7 +138,7 @@
 		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
-        FROM PROJECTVIEW WHERE CPCODE = #{cpcode} and prstate !='Y' 
+        FROM PROJECTVIEW WHERE userid=#{userid} and  CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
 	</select>
 
 
@@ -458,6 +458,47 @@
 		 order by prft.prft_date desc
 	</select>
 	
+	<select id="getPrftList" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.FeedbackBean">
+		select pr.pr_name as prftname, prft.prft_contents as prftcontent, to_char(prft.prft_date,'yyyy-MM-dd:HH24:MI') as prftdate
+		 ,pr.pr_code as prcode
+		from prft inner join pr on prft.prft_cpcode=pr.pr_cpcode and prft.prft_prcode=pr.pr_code 
+		where prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode} and prft.prft_state='1'
+		 order by prft.prft_date desc
+	</select>
+	<select id="getPsftList" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.FeedbackBean">
+		select ps.ps_name as psftname, psft.psft_contents as psftcontent, to_char(psft.psft_date,'yyyy-MM-dd:HH24:MI') as psftdate,
+      	  psft.psft_prcode as prcode  ,psft.psft_pscode as pscode 
+      	from psft inner join ps on psft.psft_cpcode=ps.ps_cpcode and psft.psft_prcode=ps.ps_prcode and psft.psft_pscode = ps.ps_code
+         where  psft.psft_cpcode=#{cpcode} and psft.psft_prcode=#{prcode} and psft.psft_state='1'
+      	 order by psft.psft_date desc
+	</select>
+	<select id="getScftList" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.FeedbackBean">
+		select sc.sc_name as scftname, scft.scft_contents as scftcontent, to_char(scft.scft_date,'yyyy-MM-dd:HH24:MI') as scftdate,
+		   scft.scft_prcode as prcode  ,scft.scft_pscode as pscode  ,scft.scft_sccode as sccode
+		from scft inner join sc on scft.scft_cpcode=sc.sc_cpcode and scft.scft_prcode=sc.sc_prcode and scft.scft_pscode= sc.sc_pscode and scft.scft_sccode=sc.sc_code 
+		where scft.scft_cpcode=#{cpcode} and scft.scft_prcode=#{prcode} and scft.scft_state='1' and scft.scft_pscode=#{pscode}
+		 order by scft.scft_date desc
+	</select>
+	<select id="getSdftList" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.FeedbackBean">
+		 select sd.sd_title as sdftname, ft.ft_contents as sdftcontent, to_char(ft.ft_date,'yyyy-MM-dd:HH24:MI') as sdftdate,
+		 		 ft.ft_prcode as prcode  ,ft.ft_pscode as pscode  ,ft.ft_sccode as sccode, ft.ft_sdcode as sdcode 
+         from ft inner join sd on ft.ft_cpcode=sd.sd_cpcode and ft.ft_prcode=sd.sd_prcode 
+          and ft.ft_pscode = sd.sd_pscode and ft.ft_sccode = sd.sd_sccode and ft.ft_sdcode = sd.sd_code
+         where ft.ft_userid=#{userid} and ft.ft_cpcode=#{cpcode} and ft.ft_prcode=#{prcode} and ft.ft_fbstate='1' 
+         	and ft.ft_pscode=#{pscode} and ft.ft_sccode=#{sccode}
+         order by ft.ft_date desc
+	</select>
+	
+	<select id="getMyfeedback"  parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.FeedbackBean">
+		select sc.sc_name as scname, ps.ps_name as psname, ft.ft_contents as sdftcontent, ft.ft_date as sdftdate ,
+				sd.sd_title as sdftname  
+		from ft inner join sc on ft.ft_cpcode=sc.sc_cpcode and ft.ft_prcode=sc.sc_prcode and ft.ft_pscode=sc.sc_pscode 
+                        and ft.ft_sccode=sc.sc_code
+        inner join ps on ft.ft_cpcode=ps.ps_cpcode and ft.ft_prcode=ps.ps_prcode and ft.ft_pscode=ps.ps_code
+        inner join sd on ft.ft_cpcode=sd.sd_cpcode and ft.ft_prcode=sd.sd_prcode and ft.ft_pscode=sd.sd_pscode
+                            and ft.ft_sccode=sd.sd_sccode and ft.ft_sdcode=sd.sd_code 
+		where ft.ft_userid=#{userid} and ft.ft_cpcode=#{cpcode} order by sdftdate desc
+	</select>
 	
 
 
