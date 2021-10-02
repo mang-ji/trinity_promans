@@ -150,7 +150,8 @@ public class Authentication implements AuthInterface {
 			cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
 			cm.setAcode(enc.encode(cm.getAcode()));
 			cm.setUname(enc.aesEncode(cm.getUname(), cm.getUserid()));
-
+			
+			System.out.println(cm + "   dbsk ghkrdls ~~");
 			this.insCpMember(cm);
 
 		} catch (Exception e) {e.printStackTrace();}

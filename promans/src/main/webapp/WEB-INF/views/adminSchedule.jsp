@@ -6,7 +6,6 @@
 	<meta charset="utf-8" />
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="resources/css/adminSchedule.css"rel="stylesheet"type="text/css">
-	<link href="resources/css/adminProject.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/adminSchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/PageCount.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>

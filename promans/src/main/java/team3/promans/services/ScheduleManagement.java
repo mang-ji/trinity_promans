@@ -164,12 +164,11 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 		 	sdb.setCpcode((String)pu.getAttribute("cpcode"));
 			sdb.setPrcode((String)pu.getAttribute("prcode"));
 			sdb.setPscode((String)pu.getAttribute("pscode"));
-			sdb.setSccode((String)pu.getAttribute("sccode"));
 			sdb.setUserid((String)pu.getAttribute("userid"));
 			sdb.setUtype((String)pu.getAttribute("utype"));
 			
 			String utype = this.getSdUtype(sdb);
-		
+			System.out.println(sdb.getSccode() + " ggggg");
 			pu.setAttribute("sccode", sdb.getSccode());
 			
 			if(!(sdb.getUtype().equals("A"))) {

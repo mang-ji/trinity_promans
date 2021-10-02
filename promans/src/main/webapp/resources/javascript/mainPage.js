@@ -827,7 +827,7 @@ function addCpMember(){
 function registerMember(){
 	let form = document.createElement("form");
 	let cpcode = document.getElementsByName("cpcode")[0];
-	let userid = document.getElementsByName("userid")[0];
+	let userid = document.getElementsByName("userid")[1];
 	let uname = document.getElementsByName("uname")[0];
 	let acode = document.getElementsByName("acode")[0];
 	let uphone = document.getElementsByName("uphone")[0];

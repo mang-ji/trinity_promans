@@ -409,12 +409,11 @@ function afterFirstInsSdBool(data){
 		mainPop.style.display="block";
 
 		$(document).ready(function(){
-			$('input:radio[name=stepRadio]').each(function(){
-				if(this.checked){result = this.value;}
-			});
-		
 			$('input[name=sdCreateBtn]').on('click',function(){
-				alert(result);
+				$('input:radio[name=stepRadio]').each(function(){
+					if(this.checked){result=this.value;}
+				});
+
 				let data=[{cpcode:$('input[name=cpcode]').val(),
 							prcode:$('input[name=prcode]').val(),
 							pscode:$('input[name=pscode]').val(),
@@ -422,7 +421,7 @@ function afterFirstInsSdBool(data){
 							sdcontent:$('input[name=sdcontent]').val(),
 							userid:result}];
 						
-				postAjax("rest/InsSD",JSON.stringify(data),"afterFirstInsSd",2);
+				postAjax("rest/InsSD",JSON.stringify(data),"upPass",2);
 			});
 		});
 		
