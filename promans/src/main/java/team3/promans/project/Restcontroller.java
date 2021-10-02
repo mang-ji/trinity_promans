@@ -411,7 +411,7 @@ public class Restcontroller {
 	public Map<String, String> insProjectStepAccept(@RequestBody List<ProjectStepBean> psb) {
 		return pm.insProjectStepAccept(psb.get(0));
 	}
-<<<<<<< HEAD
+
 	@PostMapping("/GetPrftList")
 	public List<FeedbackBean> getPrftList(@RequestBody List<ProjectBean> pb) {
 		return si.getPrftList(pb.get(0));
