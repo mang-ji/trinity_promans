@@ -81,8 +81,6 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 	    sdb.get(0).setSdcontent(sdb.get(1).getSdcontent());
 		sql.insert("scheFeedback", sdb.get(0));
 		this.updateScheFeedback(sdb);
-		
-		
 	}
 	
 	public void updateScheFeedback (List<ScheduleDetailBean> sdb) {
