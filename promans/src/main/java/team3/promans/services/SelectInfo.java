@@ -1,6 +1,8 @@
 package team3.promans.services;
 
 import java.util.ArrayList;
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -156,10 +158,10 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
 		if(list.size() !=0) {
-			String utype = sql.selectOne("selectUtype",pmb); /*utype 가져오려고 */
+			/*String utype = sql.selectOne("selectUtype",pmb); 
 			try {
-				pu.setAttribute("utype", utype); /* utype 을 아예 세션화 시킴 */
-			} catch (Exception e) {e.printStackTrace();} 
+				pu.setAttribute("utype", utype);
+			} catch (Exception e) {e.printStackTrace();} */
 		}
 
 		
@@ -171,14 +173,13 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		
 		try {
 			if(list.size() != 0) {
-			pu.setAttribute("pscode", list.get(0).getPscode());
-			pu.setAttribute("utype", list.get(0).getUtype());
-			
-			sdb.setSccode(list.get(0).getSccode());
-			list.get(0).setUtype(sql.selectOne("getSDType", sdb));
-			
-			System.out.println(list.get(0).getUtype());
-			
+				pu.setAttribute("pscode", list.get(0).getPscode());
+				System.out.println((String)pu.getAttribute("utype")+ "here selectSchedule");
+				if(!(boolean)pu.getAttribute("utype").equals("A")) {
+					pu.setAttribute("utype", list.get(0).getUtype());
+				}else {
+					list.get(0).setUtype("A");
+				}
 			}
 		} catch (Exception e) {e.printStackTrace();}
 		return list;
@@ -187,10 +188,8 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleDetailBean> getScheDetail(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> getSD = sql.selectList("getScheDetail", sdb);
-		
-		
 		for(int i=0; i< getSD.size(); i++) {
-
+			
 			try {
 				getSD.get(i).setUsername(enc.aesDecode(getSD.get(i).getUsername(), getSD.get(i).getUserid()));
 				
@@ -250,7 +249,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			}
 		} catch (Exception e) {e.printStackTrace();}
 
-		 System.out.println(list);
 		return list;
 	}
 
@@ -273,7 +271,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 	public List<Notice_CalendarBean> getNoticeDetail(Notice_CalendarBean nc) {
-		return sql.selectList("getNoticeDetail",nc);
+		
+		 List<Notice_CalendarBean> list = sql.selectList("getNoticeDetail",nc);
+		 
+		 try {
+			list.get(0).setUname(enc.aesDecode(list.get(0).getUname(), list.get(0).getWriter()));
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return list;
 	}
 
 	
@@ -315,18 +320,15 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			pmb.setCpcode((String)pu.getAttribute("cpcode"));
 			pmb.setPrcode((String)pu.getAttribute("prcode"));
 			pmb.setUserid((String)pu.getAttribute("userid"));
-		
-			System.out.println(pu.getAttribute("utype") + " 안녕 여기 확인용 ~~~ ");
-			if(pu.getAttribute("utype") == "A") {
+			System.out.println((String)pu.getAttribute("utype") + " here Second");
+			if((boolean)pu.getAttribute("utype").equals("A")) {
 				pu.setAttribute("utype", "A");
-				System.out.println("관리자 타기 !" );
 			}else {
 				pu.setAttribute("utype", sql.selectOne("goAdminProject", pmb));
-				System.out.println("여기는ㄴ 리더! ");
 			}
 			
 		} catch (Exception e) {e.printStackTrace();}
-		mav.setViewName("adminProject");
+		mav.setViewName("redirect:/projectForm");
 		return mav;
 	}
 
@@ -344,24 +346,26 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return gdb;
 	}
 
-public GraphDataBean getStepGraph(ScheduleBean sb) {
-	GraphDataBean gdb = new GraphDataBean();
-    if(sb.getPscode() ==null) {
-  	System.out.println("요긴 step");
-  		gdb.setStepW(sql.selectOne("getStepW", sb));
-    	gdb.setStepI(sql.selectOne("getStepI", sb));
-    	gdb.setStepC(sql.selectOne("getStepC", sb));
-    }else {
-       	System.out.println("요긴 schedule");
-    	gdb.setPscode(sb.getPscode());
-    	gdb.setScheW(sql.selectOne("getScheW", sb));
-    	gdb.setScheI(sql.selectOne("getScheI",sb));
-    	gdb.setScheC(sql.selectOne("getScheC",sb));
-    }
-	return gdb;
-}
 
-public List<ProjectBean> selectProjectReq(ProjectBean pb) {
+	public GraphDataBean getStepGraph(ScheduleBean sb) {
+		
+      GraphDataBean gdb = new GraphDataBean();
+	
+        if(sb.getPscode() ==null) {
+        	gdb.setStepW(sql.selectOne("getStepW", sb));
+    		gdb.setStepI(sql.selectOne("getStepI", sb));
+    		gdb.setStepC(sql.selectOne("getStepC", sb));
+        }else {
+    		gdb.setPscode(sb.getPscode());
+    		gdb.setScheW(sql.selectOne("getScheW", sb));
+    		gdb.setScheI(sql.selectOne("getScheI",sb));
+    		gdb.setScheC(sql.selectOne("getScheC",sb));
+        }
+			
+			
+		return gdb;
+	}
+	public List<ProjectBean> selectProjectReq(ProjectBean pb) {
 		return sql.selectList("selectReqProject", pb);
 
 
@@ -371,6 +375,9 @@ public List<ProjectBean> selectProjectReq(ProjectBean pb) {
 	public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb) {
 		
 		List<ScheduleDetailBean> SDList1;
+		try {
+			sdb.setUserid((String)pu.getAttribute("userid"));
+		} catch (Exception e) {e.printStackTrace();}
 		SDList1 = sql.selectList("SDList1", sdb);
 		return SDList1;
 	}
@@ -407,9 +414,7 @@ public List<ProjectBean> selectProjectReq(ProjectBean pb) {
 	public List<ScheduleDetailBean> getProjectFeedback(ProjectBean pb) {
 		return sql.selectList("getProjectFeedback",pb);
 	}
-
-
-
+	
 	public List<WorkDiaryBean> GetDiaryDetail(WorkDiaryBean wdb) {
 		return sql.selectList("GetDiaryDetail",wdb);
 	}
@@ -421,8 +426,6 @@ public List<ProjectBean> selectProjectReq(ProjectBean pb) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 }
 
 

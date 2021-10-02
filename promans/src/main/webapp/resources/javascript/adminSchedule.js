@@ -46,7 +46,7 @@ pieSeries.labels.template.padding(0,0,0,0);
 
 pieSeries.ticks.template.disabled = true;
 
-// Create a base filter effect (as if it's not there) for the hover to return to
+// Create a base filter effect (as if it'getworks not there) for the hover to return to
 var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
 shadow.opacity = 0;
 
@@ -79,7 +79,7 @@ function getNot(jsonData){
 	
 	let child1 = document.getElementById("child1");
 	let count = 1;
-	for(i=0; i<jsonData.length; i++ ){
+	for(i=0; i<3; i++ ){
     
 	child1.innerHTML += "<div id ='noBack'><div id = 'noticee'><input type = 'hidden' name = 'nocode' value = "+jsonData[i].nocode+"/>"+count+".&ensp;"+jsonData[i].title
 	                   +"<div id ='noSdate'>"+jsonData[i].sdate+"</div></div>"
@@ -124,7 +124,7 @@ function getWork(jsonData){
 	document.head.append(style);
 	
    if(utype.value == "L" || utype.value == "A"){
-	notices.innerHTML += "<div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div>";
+	notices.innerHTML += "<div id ='reqBoxx'><div id = 'reqSDBtn' onClick = 'reqWork()'>완료 승인 요청</div><div id = 'reqSDBtn' onClick= 'reqSc()'>업무 완료 요청</div></div>";
 	reqMenu.innerHTML += "<div id = 'SDMbtn'><div id = 'getSDInfo' name = 'getSDInfo' onClick = 'page()'>이전 화면으로</div><div onClick = 'getSDInfo()' id = 'getSDInfo' name = 'getSDInfo'>완료 승인</div><div  id = 'getSDInfo' onClick = 'addScheduleDetail()'>업무 추가</div></div>";
 
 	
@@ -138,6 +138,30 @@ function getWork(jsonData){
 	
 	
 }
+
+function reqSc(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
+	let pscode = document.getElementsByName("pscode")[0];
+	let sccode = document.getElementsByName("sccode")[0];
+	
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, sccode:sccode.value}];
+	
+	let clientData = JSON.stringify(jsonData);
+	
+	postAjax('rest/reqSc', clientData, 'reqSCList', 2);
+	
+	
+	
+}
+
+function reqSCList(jsonData){
+	
+	alert(jsonData.message);
+	
+}
+
+
 
 function page(){
 	
@@ -246,13 +270,13 @@ postAjax("rest/InsSD", clientData, 'upPass', 2);
 
 
 function reqWork(){
-	
+	alert("완료 승인 요청이 되었습니다.");
 	let workCheck = document.getElementsByName("sdcode");
 	let userid = document.getElementsByName("userid")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
 	let prcode = document.getElementsByName("prcode")[0];
 	let f = document.createElement("form");
-	
+
 	let sdcode;
 	
 	for(i=0; i<workCheck.length; i++){
@@ -260,6 +284,7 @@ function reqWork(){
 			sdcode=workCheck[i];
 		}
 	}
+	
 	
  
 	f.appendChild(cpcode);
@@ -296,33 +321,125 @@ function popClose(){
 }
 
 function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑션.
-
-	let list = "";
-	let selectSD = document.getElementById("selectScheduleDetail");
-	let feed = document.getElementsByClassName("feed")[0];
-
-	feed.innetHTML += "<input type ='hidden' name = 'sccode' value = \'"+jsonData[0].sccode+"\'/>";
-
-	for(i=0; i<jsonData.length; i++){
+	if(jsonData != ""){
+		let list = "";
+		let selectSD = document.getElementById("selectScheduleDetail");
+		let feed = document.getElementsByClassName("feed")[0];
+	
+		feed.innetHTML += "<input type ='hidden' name = 'sccode' value = \'"+jsonData[0].sccode+"\'/>";
+	
+		for(i=0; i<jsonData.length; i++){
+			
+		feed.innerHTML += "<div class='Detail'>" 
+						/*+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"*/
+						+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username 
+						+ "</div><div id=\"state\">"+ jsonData[i].sddstate  + "</div></div>"
+						+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
+						+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
 		
-	feed.innerHTML += "<div class='Detail'>" 
-					/*+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"*/
-					+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username 
-					+ "</div><div id=\"state\">"+ jsonData[i].sddstate  + "</div></div>"
-					+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
-					+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
+		}
+		feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
 	
+		postAjax("rest/GetWork", JSON.stringify(jsonData), 'getWork',2);
+	}else if(confirm("업무 디테일이 없습니다. 생성하시겠습니까?")){
+		$(document).ready(function(){
+			let data=[{cpcode:$('input[name=cpcode]').val(),
+						prcode:$('input[name=prcode]').val(),
+						pscode:$('input[name=pscode]').val(),
+						sccode:$('input[name=sccode]').val(),
+						userid:$('input[name=userid]').val(),
+						utype:$('input[name=utype]').val()}];
+						
+			postAjax("rest/FirstInsSdBool",JSON.stringify(data),"afterFirstInsSdBool",2);
+			
+		});
+		
+	}else{
+		alert("취소되었습니다.");
+		location.href = "projectForm";
 	}
-	feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
-	
-	
-
-	
-	postAjax("rest/GetWork", JSON.stringify(jsonData), 'getWork',2);
-	
 	
 }
 
+
+function afterFirstInsSdBool(data){
+	if(data!=""){
+		let html = "";
+		let css = "";
+		let result = "";
+		let mainPop = document.getElementById("mainPop");
+		let popUp = document.getElementById("popUp");
+		let headCss = document.createElement("style");
+		console.log(data);
+		html+= "<div class=\"plStep\"> 업무 추가 </div>";
+		
+		html+= "<input type=\"text\" name=\"sdcontent\" class=\"scNtext\""+
+		"placeholder=\"업무 제목을 입력해주세요.\" onfocus=\"this.placeholder=\'\'\""+
+		"onblur=\"this.placeholder=\'업무 제목을 입력해주세요.\'\">";
+		
+		html+= "<div class=\"stepList\">";
+		html+= "<div class=\"stepHead\">Schedule Admin</div>"
+		html+= "<div style=\"margin:auto; width:100%; height:40px;\">";
+		html+= "<div class=\"stepTitle stepTitle2 stLeft\">아이디</div><div class=\"stepTitle stepTitle2\">이름</div></div>";
+		
+		for(i=0; i<data.length; i++){
+				
+			html+= "<div class=\"stepContents\">";
+			html+= "<input type=\"radio\" id=\"stepRadio"+i+"\" name=\"stepRadio\" value=\""+data[i].userid+"\">";
+			html+= "<label for=\"stepRadio"+i+"\">";
+			html+= "<div style=\"margin:auto; width:100%; height:27px;\">";
+			html+= "<div class=\"stepTitle stLeft\">" + data[i].userid + "</div>";
+			html+= "<div class=\"stepTitle\">" + data[i].username + "</div></div>";
+			html+= "</label></div>";
+			
+			css += "input[id=\"stepRadio"+i+"\"] \+ label{border-top:1px solid black; width:100%; height:27px; cursor:pointer;}";
+			css += "input[id=\"stepRadio"+i+"\"]:checked \+ label{background-color:#0A0A2A; color:white;}";
+			css += "input[id=\"stepRadio"+i+"\"]:hover:active \+ label{background-color:#4f5f86; color:white;}";
+			css += "input[id=\"stepRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb;}";
+			css += "input[id=\"stepRadio"+i+"\"]{display:none}";
+		}
+		html+= "</div>";
+		
+		html+= "<input type=\"button\" name=\"sdCreateBtn\" class=\"buttonStyle stepCreateBtn\" value=\"생성\">";
+		html+= "<div class=\"closePop\" onClick=\"closePop()\">뒤로 가기</div>";
+		
+		document.head.append(headCss);
+		headCss.innerHTML = css;
+		popUp.innerHTML = html;
+		mainPop.style.display="block";
+
+		$(document).ready(function(){
+			$('input:radio[name=stepRadio]').each(function(){
+				if(this.checked){result = this.value;}
+			});
+		
+			$('input[name=sdCreateBtn]').on('click',function(){
+				alert(result);
+				let data=[{cpcode:$('input[name=cpcode]').val(),
+							prcode:$('input[name=prcode]').val(),
+							pscode:$('input[name=pscode]').val(),
+							sccode:$('input[name=sccode]').val(),
+							sdcontent:$('input[name=sdcontent]').val(),
+							userid:result}];
+						
+				postAjax("rest/InsSD",JSON.stringify(data),"afterFirstInsSd",2);
+			});
+		});
+		
+	}else{
+		alert("권한이 없습니다.");
+		location.href = "projectForm";
+	}
+}
+function closePop(){
+	let mainPop = document.getElementById("mainPop");
+	mainPop.style.display = "none";
+	
+}
+
+function afterFirstInsSd(data){
+	alert("예ㅡ");
+}
 
 
 function getSDInfo(Param){ //완료요청 누르면 실행되는 펑션 , 완료 요청 정보 가져오려면 필요한 데이터 받아오는 펑션
@@ -401,10 +518,10 @@ box.innerHTML += "<div id = 'SDcat4'><span id = 'SDcat1'>STAFF</span><span id = 
 function scheFeedback(){ // 피드백 모달 창 생성 
  
  let box = document.getElementById("modal_box2");
- 
 
-box.style.display ="block";
 
+	box.style.display ="block";
+	
 
   const radioNodeList
   = document.getElementsByName('radio2');
@@ -428,22 +545,18 @@ let arr = "";
 
 
   }); 
-//box.innerHTML += "<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
-box.innerHTML += "<div class='modal-dialog' role='document'><div class='modal-content'><div class='modal-header'>Send Feedback";
-box.innerHTML += "<div class='modal-body'><form>";
-box.innerHTML += "<label for='message-text' class='col-form-label'>Message:</label>";
-box.innerHTML += "<textarea class='form-control' id='message-text' name = 'feedbacktext'></textarea></div></form></div>";
-box.innerHTML += "<div class='modal-footer'>";
-box.innerHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal' onClick='closeScheFeedback()'>Close</button>";
-box.innerHTML += "<button type='button' class='btn btn-primary' name = 'sendfeed' >Send message</button>";
-box.innerHTML += "</div></div></div></div>";
+		box.innerHTML += "<div id ='modal-title3'>Send Feedback</div>";
+		box.innerHTML += "<div id ='contentsBox'><textarea  id='contents' placeholder='내용을 입력해주세요' style='width:80%;' name = 'feedbacktext'></textarea><div>";
+		box.innerHTML += "<div id = 'pbtnBox'><span  id = 'pbtn' onClick='closeScheFeedback()'>Close</span><span  id = 'pbtn' name = 'sendfeed' >Send message</span></div>";
+	
 
 
 
-let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, userid:arr[0], sccode:arr[2], sdcode:arr[1]}];
+
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, userid:arr[0], sccode:arr[2], sdcode:arr[1]}];
 
 
- sendScheFeedback(jsonData);
+ 				sendScheFeedback(jsonData);
 
 }
 
@@ -453,9 +566,16 @@ function  closeScheFeedback(){ //피드백 창 끄는 펑션
 	
 	let div = document.getElementById("modal_box2");
 	let modal = document.getElementById("modal_background");
-	div.remove();
+	
 
-	modal.innerHTML +="<div id = 'modal2' style='display:none;'></div>";
+	       div.remove()
+		
+		   modal.innerHTML +="<div id = 'modal_box2' style='display:none;'></div>";
+	
+		
+	
+
+
 }
 
 function sendScheFeedback(jsonData){ //피드백 전송

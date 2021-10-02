@@ -211,11 +211,7 @@ public class HomeController {
 
 	@PostMapping("GoAdminScheduleForm")
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
-		try {
-			pu.setAttribute("sccode", sdb.getSccode());
-		} catch (Exception e) {e.printStackTrace();}
-
-		return "adminSchedule";
+		return sm.goAdminScheduleForm(sdb);
 	}
 	
 	/* 공지사항 삭제 */
@@ -256,9 +252,7 @@ public class HomeController {
 
 	@PostMapping("/reqWork")
 	public ModelAndView reqWork(@ModelAttribute ScheduleDetailBean sdb) {
-		System.out.println((sdb.getSdcode()));
-		
-		
+	
 	    return sm.reqWork(sdb);
 	}
 	@PostMapping("downLoadFile")
@@ -279,8 +273,7 @@ public class HomeController {
 			sos = res.getOutputStream();
 
 			String reFileName = "";
-			System.out.println(fileName);
-			System.out.println(saveDir+"/"+fileName);
+		
 			/*
 			reFileName = URLEncoder.encode(fileName,"UTF-8");
 			reFileName = reFileName.replaceAll("\\+", "%20");*/

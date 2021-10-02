@@ -72,17 +72,14 @@
 		resultType="team3.promans.beans.Notice_CalendarBean">
 		SELECT NO_USERID as writer,
 		NO_TITLE as title,
-		NO_CODE as
-		nocode,
-		NO_CONTENTS as
-		contents,
+		NO_CODE as nocode,
+		NO_CONTENTS as contents,
 		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
-		NO_FILEPATH as
-		filepath,
-		NO_FNAME as fname
-		FROM PNT
-		WHERE NO_CPCODE =
-		#{cpcode} and NO_CODE = #{nocode}
+		NO_FILEPATH as filepath,
+		NO_FNAME as fname,
+        cm.cm_uname as uname
+		FROM PNT inner join cm on no_cpcode = cm_cpcode and no_userid = cm_userid
+		WHERE NO_CPCODE = #{cpcode} and NO_CODE = #{nocode}
 	</select>
 
 	<!-- 공지사항 삭제 -->
@@ -148,11 +145,16 @@
 		resultType="team3.promans.beans.ProjectBean">
         
         SELECT CPCODE, PRCODE, PRNAME, PROPEN,
-		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
-        FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
+        FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode} and prstate !='Y'
+        UNION 
+        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE  CPCODE = #{cpcode} and propen='공개' and prstate !='Y'
 		
 	</select>
 
@@ -176,11 +178,23 @@
 
 
 	<select id="selectSchedule" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.ScheduleBean">
-		
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE 
-		FROM SCHEDULEVIEW 
-		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
-	
+		SELECT DISTINCT 
+		SCCODE, 
+		SCNAME, 
+		SCSTCODE, 
+		SCSTATE, 
+		PSCODE, 
+		UTYPE,
+		(CASE WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} 
+		            AND SM.SM_UTYPE='L' AND SM_USERID=#{userid} THEN 'L' 
+		        WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} 
+		            AND SM.SM_UTYPE!='L' THEN NULL 
+		        WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} THEN 'G' END) AS UTYPE2 
+		FROM (SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE, CPCODE, PRCODE,
+		    NVL((SELECT PS_UTYPE FROM PS WHERE PS_CODE=#{pscode} AND PS_USERID=#{userid}),'G') AS UTYPE 
+		    FROM SCHEDULEVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode} 
+		    ORDER BY DECODE(SCSTCODE,'I',1),DECODE(SCSTCODE,'W',1)) A 
+		    INNER JOIN SM ON A.SCCODE = SM.SM_SCCODE
 	</select>
 
 	<select id="getScheDetail"
@@ -282,11 +296,13 @@
 	
 	<select id="getScCompleteList" parameterType="team3.promans.beans.ScheduleBean" resultType="team3.promans.beans.ScheduleBean">
 		SELECT 
+		SC_CODE AS SCCODE,
 		SC_NAME AS SCNAME,
 		SC_STATE AS SCSTATE,
 		ST.ST_NAME AS SCSTNAME 
 		FROM SC INNER JOIN ST ON SC.SC_STATE = ST.ST_CODE 
-		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode}
+		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode} AND SC_STATE='W'
+		
 	</select>
 	
 
@@ -460,6 +476,7 @@
      <select id = "selectScheduleMember" parameterType = "team3.promans.beans.ProjectMemberBean" resultType = "team3.promans.beans.ProjectMemberBean">
      
      	select userid, username as uname from projectmemberview where cpcode = #{cpcode} and prcode = #{prcode} and NOT(utcode = 'A' or utcode = 'L')
+     	
      
      </select>
 
