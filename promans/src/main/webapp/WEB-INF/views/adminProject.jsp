@@ -24,7 +24,6 @@
  	 
      window.addEventListener('load',function(){
     	 let count1 = document.getElementsByName("count")[0];
-    	    alert(count1.value);
     	     if(count1.value!="2"){
     		let userid1 = document.getElementsByName("userid")[0];
     		let cpcode1 = document.getElementsByName("cpcode")[0];

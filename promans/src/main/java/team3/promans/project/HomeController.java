@@ -207,11 +207,7 @@ public class HomeController {
 
 	@PostMapping("GoAdminScheduleForm")
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
-		try {
-			pu.setAttribute("sccode", sdb.getSccode());
-		} catch (Exception e) {e.printStackTrace();}
-
-		return "adminSchedule";
+		return sm.goAdminScheduleForm(sdb);
 	}
 	
 	/* 공지사항 삭제 */

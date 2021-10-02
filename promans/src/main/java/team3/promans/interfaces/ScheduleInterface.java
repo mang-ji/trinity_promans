@@ -21,4 +21,6 @@ public interface ScheduleInterface {
 	public int maxScCode(ScheduleDetailBean sdb);
 	public int maxdiary(WorkDiaryBean wdb);
 	public ModelAndView reqWork(ScheduleDetailBean sdb);
+	public List<ScheduleDetailBean> FirstInsSdBool(ScheduleDetailBean sdb);
+	public String getSdUtype(ScheduleDetailBean sdb);
 }

@@ -410,4 +410,19 @@ public class Restcontroller {
 		System.out.println(pb + " 유나 확인 ");
 		return si.getProjectFeedback(pb.get(0));
 	}
+	
+	@PostMapping("scSendFeed")
+	public boolean scSendFeed(@RequestBody List<ScheduleDetailBean> sdb) {
+		return pm.scSendFeed(sdb.get(0));
+	}
+	
+	@PostMapping("CompleteConfirm")
+	public boolean CompleteConfirm(@RequestBody List<ScheduleBean> sb) {
+		return pm.CompleteConfirm(sb.get(0));
+	} 
+	
+	@PostMapping("FirstInsSdBool")
+	public List<ScheduleDetailBean> FirstInsSdBool(@RequestBody List<ScheduleDetailBean> sdb) {
+		return sm.FirstInsSdBool(sdb.get(0));
+	}
 }

@@ -14,4 +14,5 @@ public class ScheduleBean {
 	private String scstcode;
 	private String userid;
 	private String utype;
+	private String utype2;
 }

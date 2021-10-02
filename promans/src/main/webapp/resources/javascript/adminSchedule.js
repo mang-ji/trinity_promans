@@ -296,33 +296,125 @@ function popClose(){
 }
 
 function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑션.
-
-	let list = "";
-	let selectSD = document.getElementById("selectScheduleDetail");
-	let feed = document.getElementsByClassName("feed")[0];
-
-	feed.innetHTML += "<input type ='hidden' name = 'sccode' value = \'"+jsonData[0].sccode+"\'/>";
-
-	for(i=0; i<jsonData.length; i++){
+	if(jsonData != ""){
+		let list = "";
+		let selectSD = document.getElementById("selectScheduleDetail");
+		let feed = document.getElementsByClassName("feed")[0];
+	
+		feed.innetHTML += "<input type ='hidden' name = 'sccode' value = \'"+jsonData[0].sccode+"\'/>";
+	
+		for(i=0; i<jsonData.length; i++){
+			
+		feed.innerHTML += "<div class='Detail'>" 
+						/*+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"*/
+						+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username 
+						+ "</div><div id=\"state\">"+ jsonData[i].sddstate  + "</div></div>"
+						+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
+						+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
 		
-	feed.innerHTML += "<div class='Detail'>" 
-					/*+ "<div id=\"schename\" >" + jsonData[i].scname  + "</div>"*/
-					+ "<div id=\"boxes\"><div id=\"username\"><img id=\"img\" src=\"/resources/images/person.jpg.png\"> " + jsonData[i].username 
-					+ "</div><div id=\"state\">"+ jsonData[i].sddstate  + "</div></div>"
-					+ "<div id=\"content\">" + jsonData[i].sdcontent + "</div>"
-					+ "<div id=\"date\">" + jsonData[i].sddate + "</div></div>";	
+		}
+		feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
 	
+		postAjax("rest/GetWork", JSON.stringify(jsonData), 'getWork',2);
+	}else if(confirm("업무 디테일이 없습니다. 생성하시겠습니까?")){
+		$(document).ready(function(){
+			let data=[{cpcode:$('input[name=cpcode]').val(),
+						prcode:$('input[name=prcode]').val(),
+						pscode:$('input[name=pscode]').val(),
+						sccode:$('input[name=sccode]').val(),
+						userid:$('input[name=userid]').val(),
+						utype:$('input[name=utype]').val()}];
+						
+			postAjax("rest/FirstInsSdBool",JSON.stringify(data),"afterFirstInsSdBool",2);
+			
+		});
+		
+	}else{
+		alert("취소되었습니다.");
+		location.href = "projectForm";
 	}
-	feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
-	
-	
-
-	
-	postAjax("rest/GetWork", JSON.stringify(jsonData), 'getWork',2);
-	
 	
 }
 
+
+function afterFirstInsSdBool(data){
+	if(data!=""){
+		let html = "";
+		let css = "";
+		let result = "";
+		let mainPop = document.getElementById("mainPop");
+		let popUp = document.getElementById("popUp");
+		let headCss = document.createElement("style");
+		console.log(data);
+		html+= "<div class=\"plStep\"> 업무 추가 </div>";
+		
+		html+= "<input type=\"text\" name=\"sdcontent\" class=\"scNtext\""+
+		"placeholder=\"업무 제목을 입력해주세요.\" onfocus=\"this.placeholder=\'\'\""+
+		"onblur=\"this.placeholder=\'업무 제목을 입력해주세요.\'\">";
+		
+		html+= "<div class=\"stepList\">";
+		html+= "<div class=\"stepHead\">Schedule Admin</div>"
+		html+= "<div style=\"margin:auto; width:100%; height:40px;\">";
+		html+= "<div class=\"stepTitle stepTitle2 stLeft\">아이디</div><div class=\"stepTitle stepTitle2\">이름</div></div>";
+		
+		for(i=0; i<data.length; i++){
+				
+			html+= "<div class=\"stepContents\">";
+			html+= "<input type=\"radio\" id=\"stepRadio"+i+"\" name=\"stepRadio\" value=\""+data[i].userid+"\">";
+			html+= "<label for=\"stepRadio"+i+"\">";
+			html+= "<div style=\"margin:auto; width:100%; height:27px;\">";
+			html+= "<div class=\"stepTitle stLeft\">" + data[i].userid + "</div>";
+			html+= "<div class=\"stepTitle\">" + data[i].username + "</div></div>";
+			html+= "</label></div>";
+			
+			css += "input[id=\"stepRadio"+i+"\"] \+ label{border-top:1px solid black; width:100%; height:27px; cursor:pointer;}";
+			css += "input[id=\"stepRadio"+i+"\"]:checked \+ label{background-color:#0A0A2A; color:white;}";
+			css += "input[id=\"stepRadio"+i+"\"]:hover:active \+ label{background-color:#4f5f86; color:white;}";
+			css += "input[id=\"stepRadio"+i+"\"]:hover \+ label{background-color:#bbbbbb;}";
+			css += "input[id=\"stepRadio"+i+"\"]{display:none}";
+		}
+		html+= "</div>";
+		
+		html+= "<input type=\"button\" name=\"sdCreateBtn\" class=\"buttonStyle stepCreateBtn\" value=\"생성\">";
+		html+= "<div class=\"closePop\" onClick=\"closePop()\">뒤로 가기</div>";
+		
+		document.head.append(headCss);
+		headCss.innerHTML = css;
+		popUp.innerHTML = html;
+		mainPop.style.display="block";
+
+		$(document).ready(function(){
+			$('input:radio[name=stepRadio]').each(function(){
+				if(this.checked){result = this.value;}
+			});
+		
+			$('input[name=sdCreateBtn]').on('click',function(){
+				alert(result);
+				let data=[{cpcode:$('input[name=cpcode]').val(),
+							prcode:$('input[name=prcode]').val(),
+							pscode:$('input[name=pscode]').val(),
+							sccode:$('input[name=sccode]').val(),
+							sdcontent:$('input[name=sdcontent]').val(),
+							userid:result}];
+						
+				postAjax("rest/InsSD",JSON.stringify(data),"afterFirstInsSd",2);
+			});
+		});
+		
+	}else{
+		alert("권한이 없습니다.");
+		location.href = "projectForm";
+	}
+}
+function closePop(){
+	let mainPop = document.getElementById("mainPop");
+	mainPop.style.display = "none";
+	
+}
+
+function afterFirstInsSd(data){
+	alert("예ㅡ");
+}
 
 
 function getSDInfo(Param){ //완료요청 누르면 실행되는 펑션 , 완료 요청 정보 가져오려면 필요한 데이터 받아오는 펑션

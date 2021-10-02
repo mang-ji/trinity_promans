@@ -1,8 +1,17 @@
 package team3.promans.services;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +115,7 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 		
 		sdb.setSdcode((max<10)?"SD0"+max:"SD"+max);
 		sql.insert("insSD", sdb);
-		this.insSM(sdb);	
+		//this.insSM(sdb);	
 	}
 	
 	public void insSM(ScheduleDetailBean sdb) {
@@ -150,5 +159,53 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 		
 	 return  mav;
 		
+	}
+
+	public List<ScheduleDetailBean> FirstInsSdBool(ScheduleDetailBean sdb) {
+		System.out.println(sdb.getUtype());
+		if(!(sdb.getUtype().equals("L") || sdb.getUtype().equals("A"))) {
+			List<ScheduleDetailBean> list = new ArrayList<ScheduleDetailBean>();
+			System.out.println("1");
+			return list;
+		}
+		
+		List<ScheduleDetailBean> list = sql.selectList("FirstInsSdBool", sdb);
+		
+		if(list.size() != 0) {
+			for(int i=0; i<list.size(); i++) {
+				try {
+					list.get(i).setUsername(enc.aesDecode(list.get(i).getUsername(), list.get(i).getUserid()));
+				} catch (Exception e) {e.printStackTrace();}
+				
+			}
+		}
+		return list;
+	}
+
+	public String goAdminScheduleForm(ScheduleDetailBean sdb) {
+		try {
+		 	sdb.setCpcode((String)pu.getAttribute("cpcode"));
+			sdb.setPrcode((String)pu.getAttribute("prcode"));
+			sdb.setPscode((String)pu.getAttribute("pscode"));
+			sdb.setSccode((String)pu.getAttribute("sccode"));
+			sdb.setUserid((String)pu.getAttribute("userid"));
+			sdb.setUtype((String)pu.getAttribute("utype"));
+			
+			String utype = this.getSdUtype(sdb);
+		
+			pu.setAttribute("sccode", sdb.getSccode());
+			
+			if(!(sdb.getUtype().equals("A"))) {
+				pu.setAttribute("utype", utype);
+			}
+			
+		} catch (Exception e) {e.printStackTrace();}
+
+		return "adminSchedule";
+	}
+
+	@Override
+	public String getSdUtype(ScheduleDetailBean sdb) {
+		return sql.selectOne("getSdUtype", sdb);
 	}
 }

@@ -540,8 +540,6 @@ function goAdminProject(prcode){
           input.value = prcode;
           input.name = "prcode";
 
-    
-
      f.appendChild(input);
 
      document.body.appendChild(f);
