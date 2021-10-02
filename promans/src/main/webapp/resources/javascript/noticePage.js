@@ -15,8 +15,10 @@ function afterNotice(data) {
 		let style = document.createElement("style");
 		let trNotice = document.getElementById("trNotice");
 		let change = document.getElementById("change");
+		
 		let editBtn =document.getElementsByName("editBtn")[0];
 		
+
 		let nocodes="";
 		
 		if(data.length != 0){
@@ -66,7 +68,7 @@ function afterNotice(data) {
 	
 	function NoticeClick(nocode){
 		let cpcodes = document.getElementsByName("cpcode")[0];
-		
+	
 		let data = [ {cpcode:cpcodes.value, nocode:nocode}];
 		
 		postAjax("rest/getNoticeDetail", JSON.stringify(data), 'getNoticeDetail', 2);

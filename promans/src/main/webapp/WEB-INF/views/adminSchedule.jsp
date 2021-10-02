@@ -6,6 +6,7 @@
 	<meta charset="utf-8" />
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="resources/css/adminSchedule.css"rel="stylesheet"type="text/css">
+	<link href="resources/css/adminProject.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/adminSchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/PageCount.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
@@ -29,6 +30,7 @@
  		   let prcode = document.getElementsByName("prcode")[0];
  		   let cpcode = document.getElementsByName("cpcode")[0];
  		   let userid = document.getElementsByName("userid")[0];
+ 		
  		
     		let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscode.value, sccode:sccode.value, userid:userid.value}];
     		
@@ -134,6 +136,8 @@
         </div>
         
         <div id="backPop"></div>
+        
+        <div id="mainPop"><div id="popUp"></div></div>
         
        
 

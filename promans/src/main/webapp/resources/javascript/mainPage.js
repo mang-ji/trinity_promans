@@ -239,22 +239,11 @@ function resize(size){
   size.style.height = (12 + obj.scrollHeight) + "px";
 	
 }
-/*
-function toggle(data){// 안 누르면 = O 누르면 O,true = C 
-	
-	alert("실행 가능?" );
-	
-	if(!data.checked){
-		data.value = "O";
-	}else{
-		
-		data.value ="C";
-	}
-	
-}*/
+
+
 
 function toggle(event){// 안 누르면 = O 누르면 O,true = C 
-alert(event.target.value + " 일단 이게 o긴 하나?");
+
 	if(event.target.checked){
 		if(event.target.value=="C"){
 			event.target.value="O";
@@ -540,8 +529,6 @@ function goAdminProject(prcode){
           input.value = prcode;
           input.name = "prcode";
 
-    
-
      f.appendChild(input);
 
      document.body.appendChild(f);
@@ -633,7 +620,7 @@ function proReq1(){
 	let open = document.getElementsByName("propen")[0];
 	
 	let jsonData =[{cpcode:cpcode.value, prname:prname.value,prcontents:prcontents.value, propen:open.value}];
-	
+
 	postAjax("rest/CreateProject", JSON.stringify(jsonData), "insProReq", 2);
 }
 
