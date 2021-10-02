@@ -8,7 +8,6 @@
 <link href="resources/css/styles.css" rel="stylesheet" type="text/css">
 <link href="resources/css/myDiary.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="resources/javascript/myDiary.js"></script>
-<script type="text/javascript" src="resources/javascript/mySchedule.js"></script>
 <script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
@@ -20,6 +19,7 @@
 	<input type="hidden" name="utype" value="${utype}">
 	<input type="hidden" name="cpcode" value="${cpcode}">
 	<input type="hidden" name="prcode" value="${prcode}">
+	<input type="hidden" name="pscode" value="${pscode}">
 	<input type="hidden" name="wdcode" value="${wdcode}">
 	<input type="hidden" name="userid" value="${userid}">
 	<div class="d-flex" id="wrapper">
@@ -87,17 +87,17 @@
 						</table>
 					</form>
 					<div>
-						<input type="button" id="delbtn" value="삭제" name="dbtn"
-							style="display: none;" onClick="deldiary()" /> <input
-							type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup1()" />
+						<input type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup1()" />
+						<!-- <input type="button" id="delbtn" value="삭제" name="dbtn" onClick="deldiary()" /> --> 
 					</div>
-					<div id="dia"></div>
+					
 				</div>
 			</div>
 		</div>
 		<div id="popup2">
 			<div id="popup3"></div>
 		</div>
+	<div id="dia"></div>
 	</div>
 	<!-- Bootstrap core JS-->
 	<script

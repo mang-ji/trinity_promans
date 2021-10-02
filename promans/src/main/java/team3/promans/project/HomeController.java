@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -155,7 +156,6 @@ public class HomeController {
 	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
-
 		return "mySchedule";
 	}
 	
@@ -178,9 +178,13 @@ public class HomeController {
 
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm(WorkDiaryBean wdb) {
-
 		return "myDiary";
 	}
+	
+	/*@PostMapping("DeleteDiary")
+	public Map<String,String> deleteDiary(List<WorkDiaryBean> wdb){
+		return si.deleteDiary(wdb);
+	}*/
 	
 	@GetMapping("allAdminManage")
 	public String allAdminManage() {

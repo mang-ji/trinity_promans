@@ -14,7 +14,7 @@ import team3.promans.beans.WorkDiaryBean;
 public interface ScheduleInterface {
 
 	public String writeSchedule(ScheduleDetailBean sdb);
-	public ModelAndView writeDiary(ScheduleDetailBean sdb);
+	public Map<String,String> writeDiary(WorkDiaryBean wdb);
 	public boolean reqSchedule(List<ScheduleDetailBean> sdb);
 	public int reqPass(ScheduleDetailBean sdb);
 	public void scheFeedback(List<ScheduleDetailBean> sdb);

@@ -1,6 +1,7 @@
 package team3.promans.services;
 
 import java.io.UnsupportedEncodingException;
+
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -44,11 +45,10 @@ public Map<String,String> writeDiary(WorkDiaryBean wdb) {
 	Map<String,String> map = new HashMap<>();
 	int max = this.maxdiary(wdb) + 1;
 	wdb.setWdcode(max < 10 ? "WD0" +max:"WD"+max);
-
 	if(this.convertBoolean(sql.insert("writeDiary", wdb))) {
-		map.put("message", "완료되었다!");
+		map.put("message", "작성 완료!");
 	}else {
-		map.put("message", "안되");
+		map.put("message", "서버 오류!");
 	}
 	return map;
 
@@ -109,12 +109,6 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 	
 	public int maxScCode(ScheduleDetailBean sdb) {
 		return sql.selectOne("maxScCode", sdb);
-	}
-
-	@Override
-	public ModelAndView writeDiary(ScheduleDetailBean sdb) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
