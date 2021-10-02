@@ -538,6 +538,14 @@
 		where ft.ft_userid=#{userid} and ft.ft_cpcode=#{cpcode} order by sdftdate desc
 	</select>
 	
+	<select id = 'notpop' parameterType="team3.promans.beans.Notice_CalendarBean" resultType ="team3.promans.beans.Notice_CalendarBean">
+	
+	 select cm.cm_uname as uname , pnt.no_contents as contents , pnt.no_date as sdate , pnt.no_userid as writer, pnt.no_title as title
+         from pnt inner join cm on pnt.no_cpcode = cm.cm_cpcode and pnt.no_userid = cm.cm_userid 
+         where no_cpcode = #{cpcode} and no_prcode = #{prcode} and no_code = #{nocode}
+	
+	</select>
+	
 
 
 </mapper>

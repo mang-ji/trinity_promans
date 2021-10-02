@@ -176,18 +176,18 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<ScheduleBean> selectSchedule(ScheduleDetailBean sdb) {
 		List<ScheduleBean> list = sql.selectList("selectSchedule", sdb);
 		
-		System.out.println(list.get(0).getUtype()  +" 유나 타입 확인 1 ");
+		
 		try {
 			if(list.size() != 0) {
 			pu.setAttribute("pscode", list.get(0).getPscode());
 			
 			pu.setAttribute("utype", list.get(0).getUtype());
-			
+		
 			sdb.setSccode(list.get(0).getSccode());
 			list.get(0).setUtype(sql.selectOne("getSDType", sdb));
 		
 				pu.setAttribute("pscode", list.get(0).getPscode());
-				System.out.println((String)pu.getAttribute("utype")+ "here selectSchedule");
+			
 				if(!(boolean)pu.getAttribute("utype").equals("A")) {
 					pu.setAttribute("utype", list.get(0).getUtype());
 				}else {
@@ -468,6 +468,21 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	public List<WorkDiaryBean> deleteDiary(WorkDiaryBean wdb) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	public Notice_CalendarBean notpop(Notice_CalendarBean ncb) {
+	     
+		     sql.selectOne("notpop", ncb);
+		     
+		     try {
+		    	 
+				ncb.setUname(enc.aesDecode(ncb.getUname(), ncb.getWriter()));
+				
+			} catch (Exception e) {	e.printStackTrace();} 
+		     
+		return ncb;
 	}
 }
 

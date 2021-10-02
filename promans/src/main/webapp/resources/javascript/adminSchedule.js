@@ -81,7 +81,7 @@ function getNot(jsonData){
 	let count = 1;
 	for(i=0; i<3; i++ ){
     
-	child1.innerHTML += "<div id ='noBack'><div id = 'noticee'><input type = 'hidden' name = 'nocode' value = "+jsonData[i].nocode+"/>"+count+".&ensp;"+jsonData[i].title
+	child1.innerHTML += "<div id ='noBack'><div id = 'noticee' onClick='notDetail(\'"+jsonData[i].nocode+"\')'><input type = 'hidden' name = 'nocode' value = "+jsonData[i].nocode+"/>"+count+".&ensp;"+jsonData[i].title
 	                   +"<div id ='noSdate'>"+jsonData[i].sdate+"</div></div>"
 	                   + "</div>";	
 
@@ -90,6 +90,45 @@ function getNot(jsonData){
 	
 	
 
+}
+
+function notDetail(nocode){
+	
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let prcode = document.getElementsByName("prcode")[0];
+	
+	let jsonData= [{cpcode:cpcode.value, prcode:prcode.value, nocode:nocode}];
+	
+	let clientData = JSON.stringify(jsonData);
+	
+    postAjax('rest/notpop', clientData, 'notDetailPop', 2 );
+	
+	
+}
+
+function notDetailPop(jsonData){
+	
+	
+	let box = document.getElementById("modal_box");
+    let background = document.getElementById("modal_background");
+
+
+	box.style.display = "block";
+	background.style.display = "block";
+
+	box.innerHTML += "<div class='modal' id = 'modal3' style='border:1px solid black;' >";
+		
+	box.innerHTML += "<div id ='modal-title'>Notice Detail</div>";
+		
+	box.innerHTML += "<div>"+jsonData[0].title+"</div>";
+	box.innerHTML += "<div>"+jsonData[0].contents+"</div>";
+	box.innerHTML += "<div>"+jsonData[0].sdate+"</div>";
+	box.innerHTML += "<div>"+jsonData[0].writer+"</div>";
+	
+	box.innerHTML += "<input type='button' id=\"btns\" onClick='popClose()' value=\"뒤로가기\"/></div>";
+	box.innerHTML += "</div>";
+	
+	
 }
 
 

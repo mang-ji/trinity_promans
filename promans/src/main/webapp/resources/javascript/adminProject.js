@@ -2,11 +2,7 @@ let sccode;
 
 
 function getStepGraph(jsonData){
-<<<<<<< HEAD
 
-
-=======
->>>>>>> branch 'main' of https://github.com/mang-ji/trinity_promans.git
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
