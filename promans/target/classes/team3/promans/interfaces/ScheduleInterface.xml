@@ -96,4 +96,12 @@
 	  	  UPDATE SC SET SC_STATE = 'W' WHERE SC_CPCODE = #{cpcode} AND SC_PRCODE = #{prcode} AND SC_PSCODE =#{pscode} AND SC_CODE = #{sccode}
 	  	
 	  	</update>
+	  	
+	  	<select id="selectScheDetailCompleteCount" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="int">  
+	  		select count(*) from sd where sd_cpcode=#{cpcode} and sd_prcode=#{prcode} and sd_pscode=#{pscode} and sd_sccode=#{sccode} and sd_state='S'
+	  	</select>
+	  	<select id="selectScheDetailCount" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="int">
+	  		select count(*) from sd where sd_cpcode=#{cpcode} and sd_prcode=#{prcode} and sd_pscode=#{pscode} and sd_sccode=#{sccode}
+	  	</select>
+	  	
 </mapper>

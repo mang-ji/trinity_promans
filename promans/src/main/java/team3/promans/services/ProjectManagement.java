@@ -153,13 +153,18 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	/* 프로젝트가 총괄한테 프로젝트 완료요청하는 부분 (필요는 없지만 일단 써놓는거임용) */
 	public Map<String, String> reqProjectAccept(ProjectBean pb) {
 		Map<String,String> map = new HashMap<>();
-		if(this.convertData(sqlSession.update("reqProjectAccept", pb))) {
-			map.put("message", "프로젝트 완료 요청을 전송하였습니다.");
-		} 
+		/* 스텝의  완료 요청 상태 카운트 가져오기 */
+		int completeCount = sqlSession.selectOne("selectProStepCompleteCount",pb); // cp,pr code 
+		/* 스텝의 갯수 가져오기 */
+		int allCount = sqlSession.selectOne("selectProStepCount",pb);
+		if(completeCount==allCount) {
+			if(this.convertData(sqlSession.update("reqProjectAccept", pb))) {
+				map.put("message", "프로젝트 완료 요청을 전송하였습니다.");
+			} 
+		}else {map.put("message", "완료 처리되지 않은 프로젝트 스텝이 존재하여 완료 요청이 불가합니다.");}
+		
 		return map;
 	}
-
-
 
 
 	public Map<String,String> deleteProjectMember(ProjectMemberBean pmb) {
