@@ -14,6 +14,7 @@ import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.ProjectBean;
 import team3.promans.beans.ProjectMemberBean;
 import team3.promans.beans.ProjectStepBean;
+import team3.promans.beans.ScheduleBean;
 import team3.promans.beans.ScheduleDetailBean;
 
 @Service
@@ -45,7 +46,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public ModelAndView reqComplete(ScheduleDetailBean sdb) {
 		mav = new ModelAndView();
 		sdb.setUtype("L");
-		System.out.println(sdb);
+	
 		//S=완료  I=피드백(진행)
 //		if(sdb.getSddstate() == "S") {
 //			if(this.convertBoolean(this.updateComplete(sdb))) {
@@ -75,7 +76,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		mav = new ModelAndView();
 		
 		psb.setPscode(this.stepMax(psb));
-		
+	
 			/* ps관리자를 Ps테이블에 넣어줌 */
 			if(this.convertData(sqlSession.insert("insStep", psb))){
 				/* + 추가작업) 총관리자 userid 를 다시 셀렉해서 */
@@ -111,14 +112,20 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	/* 스텝에 멤버추가시 이미 존재하는 회원은 거르고 스텝 테이블에 인서트 하는 부분 */
 	public Map<String,String> insProjectMember(ProjectMemberBean pmb) {
 		Map<String,String> map = new HashMap<String, String>();
-		int i = sqlSession.selectOne("checkUserid",pmb);
-
-		if(this.convertData(i)) {
-			map.put("message", "멤버가 이미 존재합니다.");
-		}else {
-			sqlSession.insert("insProjectMember", pmb);
-			map.put("message", "멤버 추가 완료하였습니다.");
+		String[] userid = pmb.getUserid().split(",");
+		int check;
+		
+		for(int i=0;i<userid.length;i++) {
+			pmb.setUserid(userid[i]);
+			check = sqlSession.selectOne("checkUserid",pmb);
+			if(this.convertData(check)) {
+				map.put("message", "멤버가 이미 존재합니다.");
+			}else {
+				sqlSession.insert("insProjectMember", pmb);
+				map.put("message", "멤버 추가 완료하였습니다.");
+			}
 		}
+		
 
 		return map;
 		
@@ -147,7 +154,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public Map<String, String> reqProjectAccept(ProjectBean pb) {
 		Map<String,String> map = new HashMap<>();
 		if(this.convertData(sqlSession.update("reqProjectAccept", pb))) {
-			map.put("message", "완료 요청이 완료되었습니다.");
+			map.put("message", "프로젝트 완료 요청을 전송하였습니다.");
 		} 
 		return map;
 	}
@@ -168,7 +175,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		ModelAndView mav = new ModelAndView();
 		String userid = "";
 		String cpcode = "";
-		System.out.println(pb.getPropen());
+	
 		try {
 			userid = (String)pu.getAttribute("userid");
 			cpcode = (String)pu.getAttribute("cpcode");
@@ -275,6 +282,39 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 			}
 		}
 		return map;
+	}
+
+
+
+
+	public boolean scSendFeed(ScheduleDetailBean sdb) {
+		boolean result = false;
+		//bean --> cp cr ps sc id con
+		sdb.setSddstate("1");
+		if(convertData(sqlSession.insert("scSendFeed",sdb))) {
+			if(this.scSendFeedUpdate(sdb)) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public boolean scSendFeedUpdate(ScheduleDetailBean sdb) {
+		return this.convertData(sqlSession.update("scSendFeedUpdate",sdb));
+	}
+
+
+
+
+	public boolean CompleteConfirm(ScheduleBean sb) {
+		boolean result = false;
+		
+		if(convertData(sqlSession.update("CompleteConfirm",sb))) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 

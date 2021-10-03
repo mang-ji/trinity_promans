@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -155,7 +156,6 @@ public class HomeController {
 	
 	@GetMapping("myScheduleForm")
 	public String myScheduleForm(ScheduleDetailBean sdb) {
-
 		return "mySchedule";
 	}
 	
@@ -178,9 +178,13 @@ public class HomeController {
 
 	@GetMapping("myDiaryForm")
 	public String myDiaryForm(WorkDiaryBean wdb) {
-
 		return "myDiary";
 	}
+	
+	/*@PostMapping("DeleteDiary")
+	public Map<String,String> deleteDiary(List<WorkDiaryBean> wdb){
+		return si.deleteDiary(wdb);
+	}*/
 	
 	@GetMapping("allAdminManage")
 	public String allAdminManage() {
@@ -207,11 +211,7 @@ public class HomeController {
 
 	@PostMapping("GoAdminScheduleForm")
 	public String goAdminScheduleForm(@ModelAttribute ScheduleDetailBean sdb) {
-		try {
-			pu.setAttribute("sccode", sdb.getSccode());
-		} catch (Exception e) {e.printStackTrace();}
-
-		return "adminSchedule";
+		return sm.goAdminScheduleForm(sdb);
 	}
 	
 	/* 공지사항 삭제 */
@@ -252,9 +252,7 @@ public class HomeController {
 
 	@PostMapping("/reqWork")
 	public ModelAndView reqWork(@ModelAttribute ScheduleDetailBean sdb) {
-		System.out.println((sdb.getSdcode()));
-		
-		
+	
 	    return sm.reqWork(sdb);
 	}
 	@PostMapping("downLoadFile")
@@ -275,8 +273,7 @@ public class HomeController {
 			sos = res.getOutputStream();
 
 			String reFileName = "";
-			System.out.println(fileName);
-			System.out.println(saveDir+"/"+fileName);
+		
 			/*
 			reFileName = URLEncoder.encode(fileName,"UTF-8");
 			reFileName = reFileName.replaceAll("\\+", "%20");*/
@@ -321,6 +318,7 @@ public class HomeController {
 	
 	@PostMapping("/MakeStep")
 	public ModelAndView makeStep(@ModelAttribute ProjectStepBean psb) {
+		System.out.println(psb + "  유나 확인중이센 ");
 		return pm.makeStep(psb);
 	}
 }

@@ -26,7 +26,10 @@
 			let prcode = document.getElementsByName("prcode")[0];
 			let userid = document.getElementsByName("userid")[0];
 			let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, userid:userid.value}];
-			postAjax("rest/GetProjectFeedback", JSON.stringify(jsonData),"getProjectFeedback2",2);
+			postAjax("rest/GetPrftList", JSON.stringify(jsonData),"getPrftList",2);
+			postAjax("rest/GetPsftList", JSON.stringify(jsonData),"getPsftList",2);
+			postAjax("rest/GetScftList", JSON.stringify(jsonData),"getScftList",2);
+			postAjax("rest/GetSdftList", JSON.stringify(jsonData),"getSdftList",2); 
 		});
 	
 		
@@ -92,11 +95,29 @@
 				</div>
 			</nav>
 			<!-- Page content-->
+			<div id="modal_background">
+				<div id="modal_box"></div>
+			</div>
 			<div id="selectBack">
 					<div id="selHeight">ProMan'S</div>
+					<input type="button" id="feedbackbtn" onClick="getMyFeedback()" value="피드백 모아보기"/>
 					<div id="selectStep"></div>
 					
-					<div id="testda"></div>
+					<div id="big">
+						<div id="prftplace"></div>
+					</div>
+					<div id="big">
+						<div id="psftplace"></div>
+					</div>
+					<div id="big">
+						<div id="scftplace"></div>
+					</div>
+					<div id="big">
+						<div id="sdftplace"></div>
+					</div>
+					<div id="big">
+						<div id="myftplace"></div>
+					</div>
 			</div>
 			
 		</div>

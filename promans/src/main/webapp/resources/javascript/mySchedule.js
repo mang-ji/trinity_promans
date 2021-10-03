@@ -6,8 +6,6 @@ window.addEventListener('load', function() {
 	let data = [{prcode:prcode,pscode:pscode,cpcode:cpcode,userid:userid}];
 	let clientData = JSON.stringify(data);
 	
-	alert(clientData);
-	console.log(clientData);
 	postAjax("rest/GetMySchedule", clientData, 'getSchedule', 2);
 });
 
@@ -43,7 +41,6 @@ function getSchedule(data) {
 		}
 		});
 	});
-	console.log(slist1);
 }
 
 function sview(sdcode){
@@ -89,13 +86,11 @@ function OpenPopup(data){
 	html +=`<input type ="hidden" name= "sccode" value =${sccode.value}>`;
 	html +=`<div class ="rspopup">`;
 	html +=`<style>{overflow: auto;}</style>`;
-	html +=`<h6>완료 요청</h6><input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
+	html +=`<h6>완료 요청</h6><input type ="button" class ="rbtn" value ="O" onClick="reqbtn()"><input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
 	html +=`<style>h6{text-align: center;}</style>`;
 	for(i=0; i<sdcontent.length; i++){
-		html +=`<input type ="checkbox" name ="reqs" value=${sdcode}>`;
-		html +="<div id =\"sdcontenta\" name =\"sdcontents\">"+sdcontent[i].value+"</div>";
+		html +=`<p><input type ="checkbox" name ="reqs" value=${sdcode}>${sdcontent[i].value}</p>`;
 	}
-	html +=`<input type ="submit" class ="rbtn" value ="요청" onClick="reqbtn()">`;
 	html +=`</div>`;
 	
 	popup.innerHTML = html;

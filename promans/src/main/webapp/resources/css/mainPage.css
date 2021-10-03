@@ -344,8 +344,14 @@ p {
 	
 }
 
-#completelist{ text-align:center; font-weight:bold; font-size:20px; margin:30px; border-bottom: solid 3px; }
-#message {text-align:center; margin-top:25%; font-size:20px; margin-bottom:150px;}
+#completelist{ text-align:center;    margin-bottom: 30px; font-weight:bold; font-size:20px; color:white; background-color:#525f83; width:100%; line-height:3 }
+#message {
+    text-align: center;
+    margin-top: 25%;
+    font-size: 16px;
+    margin-bottom: 150px;
+    color: grey;
+}
 #projectReqq {text-align:left; margin-left:30px; }
 
 #btns {background-color:#fff; color:#929292; text-align:center; 

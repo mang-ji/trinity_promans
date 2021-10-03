@@ -50,6 +50,7 @@ function getFileList(data){
 		list+= "<div class=\"item_list\">";
 		list+= "<input type=\"button\" class=\"item_list\" id=\"flRadio"+i+"\" name=\"flRadio\" onClick=\"downLoadFile(\'"+data[i].fname+"\')\"><label for=\"flRadio"+i+"\" style=\"width:100%;height:30px; margin:auto;\">";
 		list+= "<div style=\"width:10%; height:29px; float:left; padding-right:10px; text-align:right; color:#585858; border-right:1px solid #bbbbbb;\">"+(i+1)+"</div>";
+		
 		if(data[i].fopen == "C" && data[i].fwriter == userid.value){
 			list+= "<div style=\"width:39%; height:29px; float:left; margin-left:10px; letter-spacing:1.5px; overflow:hidden; border-right:1px solid #bbbbbb;\">"
 			+ data[i].ftitle +"<img class=\"lock\" src=\"/resources/images/closeLogo.png\"></div>";

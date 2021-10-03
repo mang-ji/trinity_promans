@@ -1,4 +1,69 @@
 @charset "UTF-8";
+.notDetailHead{
+	margin-bottom: 20px;
+}
+
+.notDetailContentDiv{
+	width:90%;
+	margin:auto;
+}
+
+.notDetailContent{
+	height:100%;
+}
+
+.notDetailTitleDiv{
+    height: 40px;
+    width: 80%;
+    line-height: 3;
+    border-bottom: 1px solid black;
+    margin: auto;
+}
+
+.notDetailTitle{
+	width: 80%;
+    float: left;
+    text-align: left;
+}
+
+.notDetailWriter{
+    width: 20%;
+    float: left;
+    font-size: 15px;
+    text-align: center;
+    color: lightgrey;
+}
+
+.notDetailContentsDiv{
+    width: 100%;
+    text-align: left;
+}
+
+.notDetailContents {
+    width: 100%;
+    height: 200px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    position: relative;
+    top: 20px;
+}
+
+.notDetailSdate {
+    float: right;
+    position: relative;
+    color: lightgray;
+    bottom: 20px;
+    right: 10px;
+}
+
+
+
+
+
+
+
+
+
 #notices { width:20rem; position:fixed; left:1150px; height:80%; top:123px; }
 #SCList { 	background-color:#4f5f86;
 	color:white;
@@ -21,6 +86,98 @@
 	
 	
 }
+.closePop{
+	margin:auto;
+	margin-bottom:20px;
+	margin-top:15px;
+	color:#bbbbbb;
+	font-size:15px;
+	font-weight:100;
+}
+
+.plStep{
+	width:80%;
+	font-size:30px;
+	margin:auto;
+	margin-top:30px;
+	margin-bottom:30px;
+}
+
+.scNtext{
+	width:400px;
+	height:35px;
+	padding-left:23px;
+	margin:auto;
+	margin-bottom:20px;
+	border:1px solid blue;
+	font-size:15px;
+	
+}.scNtext:focus{
+	outline: none;
+    border: 1px solid indigo;
+}
+
+.buttonStyle {
+    background-color: #4f5f86;
+    color: #c0c5cd;
+    border-radius: 2px;
+    margin-right: 3px;
+    margin-top:30px;
+}
+
+.stepbuttonStyle {
+	background-color:#4f5f86;
+	color:#c0c5cd; 
+	border-radius:10px; margin-right:3px; margin-top:3px;
+	}
+
+#modal-title3{
+	
+	height:10%;
+	background-color:#4f5f86;
+	color:#FFFFFF;
+	font-size:25px;
+	font-weight:bold;
+	padding-top:5px;
+	
+}
+
+#contents{
+	
+	 width: 100%;
+	height: 200px;
+  position:relative;
+     top:50px;
+   text-align:center;
+   font-size:15px;
+   resize:none;
+   border:1px solid #efeaf0;
+   border-radius:10px;
+   
+}
+
+
+#pbtn{
+	
+		 width:100px; height:40px;
+	 color:#bbbbbb;
+	 padding:10px;
+	 margin-left:10px;
+	 font-size:15px;
+	 text-align:center;
+	 position:relative;
+	 top:110px;
+	
+	
+}
+
+
+#pbtn:hover{
+       
+    color:#FFFFFF; 
+    background-color:#bbbbbb;
+    
+}
 
 
 #reqSDBtn{
@@ -36,6 +193,10 @@
     cursor:pointer;
     font-size:15px;
 	
+}
+
+#reqSDBtn{
+	float:left;
 }
 
 
@@ -233,7 +394,6 @@ width:100px;  border:0px; height:30px; padding-top:3px;
 
 
 #modal_box {
-	display: none;
 	width: 43%; height: 70%;
 	position:absolute;
 	top:49%;
@@ -244,10 +404,50 @@ width:100px;  border:0px; height:30px; padding-top:3px;
 	border:2px solid #4f5f86;
 
 }
+.stepList{
+	border-top:2px solid black;
+	border-bottom:2px solid black;
+	width:90%;
+	margin:auto;
+}
+
+.stepHead{
+    border-bottom: 2px solid black;
+    margin-top: 28px;
+    height: 60px;
+    font-size:20px;
+    font-weight:bold;
+	
+}
+
+.stepTitle{
+	width:50%;
+	height:27px;
+	float:left;
+	font-size:15px;
+}/*.stLeft{border-right:1px solid black;}*/
+
+.stepTitle2{
+	font-weight:bold;
+	background-color:#4f5f86;
+	color:white;
+	height: 40px;
+    line-height: 2.2;
+}
+
+.stepContents{
+	width:100%;
+	height:27px;
+}
+
+.stepCreateBtn{
+	width:90%;
+	margin:auto;
+	margin-top:20px;
+	margin-bottom:10px;
+}
 
 #modal_box2{
-	
-	display: none;
 	width: 43%; height: 70%;
 	position:absolute;
 	top:49%;
@@ -5823,7 +6023,6 @@ textarea.form-control-lg {
   top: 0;
   left: 0;
   z-index: 1055;
-  display: none;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -11663,5 +11862,19 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+#mainPop{
+	position:fixed; z-index:1;
+	left:0px; top:0px; width:100%; height:100%;
+	overflow:auto;
+	background-color:rgba(051,051,153,0.5);
+	display:none;
+}
+#popUp{
+	background-color :#fefefe;
+	margin:15% auto; padding:2px;
+	width:40%;
+	text-align:center;
 }
 

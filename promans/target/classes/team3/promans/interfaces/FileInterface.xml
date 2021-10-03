@@ -24,7 +24,19 @@
 		CL_OPEN AS FOPEN 
 		FROM CLOUD 
 		WHERE CL_CPCODE = #{cpcode} AND CL_PRCODE = #{prcode} AND
-		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode} ORDER BY CL_FDATE DESC
+		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode} 
+		MINUS 
+ 		SELECT CL_FCODE AS FCODE,
+		CL_FNAME AS FNAME,
+		CL_FILEPATH AS FILEPATH,
+		CL_FTITLE AS FTITLE,
+		TO_CHAR(CL_FDATE,'YYYY-MM-DD') AS FDATE,
+		CL_FCODE AS FCODE,
+		CL_USERID AS FWRITER,
+		CL_OPEN AS FOPEN 
+		FROM CLOUD 
+		WHERE CL_CPCODE = #{cpcode} AND CL_PRCODE = #{prcode} AND 
+		CL_PSCODE = #{pscode} AND CL_SCCODE = #{sccode} AND CL_USERID != #{fwriter} AND CL_OPEN = 'C' ORDER BY FDATE DESC 
 	</select>
 	
 	<select id="getMarkList" parameterType="team3.promans.beans.CloudBean" resultType="team3.promans.beans.CloudBean">

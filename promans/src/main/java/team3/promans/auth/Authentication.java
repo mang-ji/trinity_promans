@@ -76,6 +76,7 @@ public class Authentication implements AuthInterface {
 					pu.setAttribute("tecode", this.getUserInfo(ah).getTecode());
 					pu.setAttribute("wcode", this.getUserInfo(ah).getWcode());
 					pu.setAttribute("utype", this.getUserInfo(ah).getUtype());
+					System.out.println(pu.getAttribute("utype") + " : here First");
 					pu.setAttribute("mail", enc.aesDecode(this.getUserInfo(ah).getMail(), ah.getUserid()));
 
 					mav.setViewName("mainPage");
@@ -149,7 +150,8 @@ public class Authentication implements AuthInterface {
 			cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
 			cm.setAcode(enc.encode(cm.getAcode()));
 			cm.setUname(enc.aesEncode(cm.getUname(), cm.getUserid()));
-
+			
+			System.out.println(cm + "   dbsk ghkrdls ~~");
 			this.insCpMember(cm);
 
 		} catch (Exception e) {e.printStackTrace();}

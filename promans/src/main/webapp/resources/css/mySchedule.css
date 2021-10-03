@@ -68,55 +68,84 @@ th {
 
 #reqbtn{
 	background-color:#4f5f86;
-	color:#c0c5cd;
+	color: #f9fafb;
 }
 h6{
+	position :sticky; top :0;
 	background :#4f5f86;
 	margin-top: 0px;
 	font-size: 30px;
 	height: 40px;
 }
+
+#popup{
+	position: fixed;
+	z-index: 1;
+	left: 0px;
+	top: 0px;
+	overflow: auto;
+	width:100%;
+	height:100%;
+	backdrop-filter:blur(15px);
+	display:none;
+}
+
 .rspopup{
 	width: 400px;
 	height: 400px;
 	position: absolute;
 	top: 20%; left :40%;
-	background: #6c757d;
+	background-color: grey;
+    box-shadow: inset 0px 0px 5px white;
 	color: #f9fafb;
 	font-family:sans-serif;
 	font-size:16px;
 	overflow: auto;
-	transition: all 0.5s ease-in-out;
+	border-top-left-radius: 7.5px;
+	border-top-right-radius: 7.5px;
+	transition: all 0.7s ease-in-out;
 }
 
 .rspopup::-webkit-scrollbar{
 	width :10px;
 	background-color: black;
+	border-top-right-radius: 7.5px;
 }
 
 .rspopup::-webkit-scrollbar-thumb {
     background-color: #2f3542;
+	border-top-right-radius: 7.5px;
 }
 
 .rspopup::-webkit-scrollbar-track {
 	background-color: grey;
     box-shadow: inset 0px 0px 5px white;
+    border-top-right-radius: 7.5px;
 }
 
 .rbtn{
 	position: fixed;
-	top: 510px;
-	left: 780px;
-	background-color:#4f5f86;
-	color:#c0c5cd;
+	font-size: 21px;
+	margin-top: -46px;
+	background-color: transparent;
+	color: white;
+	border: 0;
+	outline: 0;
 }
 
 .closebtn{
 	position: fixed;
 	margin-left: 366.4px;
-	margin-top :-42.3px;
+	margin-top :-46px;
+	font-size: 21px;
+	color :white;
 	background-color: transparent;
 	border-top-right-radius: 10px;
 	border :0;
 	outline: 0;
+}
+
+.checkbox-align{
+	margin:-4px 0 0 0; 
+	vertical-align:middle;
 }

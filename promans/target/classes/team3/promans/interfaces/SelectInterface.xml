@@ -60,8 +60,8 @@
 	<select id="getMaxNocode"
 		parameterType="team3.promans.beans.Notice_CalendarBean"
 		resultType="int">
-		SELECT NVL(MAX(NO_CODE),0)
-		FROM PNT
+		SELECT NVL(MAX(substr(NO_CODE,3,4)),0) 
+		FROM PNT 
 		WHERE NO_CPCODE = #{cpcode}
 	</select>
 	
@@ -72,17 +72,14 @@
 		resultType="team3.promans.beans.Notice_CalendarBean">
 		SELECT NO_USERID as writer,
 		NO_TITLE as title,
-		NO_CODE as
-		nocode,
-		NO_CONTENTS as
-		contents,
+		NO_CODE as nocode,
+		NO_CONTENTS as contents,
 		TO_CHAR(NO_DATE, 'YYYY-mm-dd') as sdate,
-		NO_FILEPATH as
-		filepath,
-		NO_FNAME as fname
-		FROM PNT
-		WHERE NO_CPCODE =
-		#{cpcode} and NO_CODE = #{nocode}
+		NO_FILEPATH as filepath,
+		NO_FNAME as fname,
+        cm.cm_uname as uname
+		FROM PNT inner join cm on no_cpcode = cm_cpcode and no_userid = cm_userid
+		WHERE NO_CPCODE = #{cpcode} and NO_CODE = #{nocode}
 	</select>
 
 	<!-- 공지사항 삭제 -->
@@ -108,6 +105,29 @@
 		and WD_PRCODE = #{prcode}
 		and WD_USERID = #{userid} 
 	</select>
+	
+	<delete id="deleteDiary" parameterType="team3.promans.beans.WorkDiaryBean">
+		DELETE
+		FROM
+		WD
+		WHERE WD_CPCODE= #{cpcode}
+		and WD_CODE= #{wdcode}
+	</delete>
+	
+	<select id="GetDiaryDetail" parameterType="team3.promans.beans.WorkDiaryBean" resultType="team3.promans.beans.WorkDiaryBean">
+		SELECT WD_CPCODE as cpcode,
+		WD_PRCODE as prcode,
+		WD_USERID as userid,
+		WD_CODE as wdcode,
+		WD_TITLE as wdtitle,
+		WD_CONTENTS as wdcontents,
+		TO_CHAR(WD_DATE, 'YYYY-MM-DD') as wddate
+		FROM WD
+		WHERE WD_CPCODE = #{cpcode}
+		and WD_PRCODE = #{prcode}
+		and WD_USERID = #{userid} 
+		and wd_code = #{wdcode}
+	</select>
 
 	<!-- 공지사항 글쓰기 -->
 	<insert id="insNotice"
@@ -120,17 +140,28 @@
 	</insert>
 
 
-	<select id="getProject"
-		parameterType="team3.promans.beans.ProjectMemberBean"
-		resultType="team3.promans.beans.ProjectBean">
+	<select id="getProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectBean">
         
+
         SELECT CPCODE, PRCODE, PRNAME, PROPEN,
-		TO_CHAR(PRDATE,'YYYY-MM-dd') AS
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
-        FROM PROJECTVIEW WHERE USERID =
-		#{userid} AND CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
+        FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode} and prstate !='Y'
+        UNION 
+        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE  CPCODE = #{cpcode} and propen='공개' and prstate !='Y' order by prdate desc
 		
+	</select>
+	<select id="getAllManagersProject"  parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectBean">
+		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE userid=#{userid} and  CPCODE = #{cpcode} and prstate !='Y' order by prdate desc
 	</select>
 
 
@@ -153,11 +184,23 @@
 
 
 	<select id="selectSchedule" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.ScheduleBean">
-		
-		SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE 
-		FROM SCHEDULEVIEW 
-		WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}
-	
+		SELECT DISTINCT 
+		SCCODE, 
+		SCNAME, 
+		SCSTCODE, 
+		SCSTATE, 
+		PSCODE, 
+		UTYPE,
+		(CASE WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} 
+		            AND SM.SM_UTYPE='L' AND SM_USERID=#{userid} THEN 'L' 
+		        WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} 
+		            AND SM.SM_UTYPE!='L' THEN NULL 
+		        WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} THEN 'G' END) AS UTYPE2 
+		FROM (SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE, CPCODE, PRCODE,
+		    NVL((SELECT PS_UTYPE FROM PS WHERE PS_CODE=#{pscode} AND PS_USERID=#{userid}),'G') AS UTYPE 
+		    FROM SCHEDULEVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode} 
+		    ORDER BY DECODE(SCSTCODE,'I',1),DECODE(SCSTCODE,'W',1)) A 
+		    INNER JOIN SM ON A.SCCODE = SM.SM_SCCODE
 	</select>
 
 	<select id="getScheDetail"
@@ -259,11 +302,13 @@
 	
 	<select id="getScCompleteList" parameterType="team3.promans.beans.ScheduleBean" resultType="team3.promans.beans.ScheduleBean">
 		SELECT 
+		SC_CODE AS SCCODE,
 		SC_NAME AS SCNAME,
 		SC_STATE AS SCSTATE,
 		ST.ST_NAME AS SCSTNAME 
 		FROM SC INNER JOIN ST ON SC.SC_STATE = ST.ST_CODE 
-		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode}
+		WHERE SC_CPCODE=#{cpcode} AND SC_PRCODE=#{prcode} AND SC_PSCODE=#{pscode} AND SC_STATE='W'
+		
 	</select>
 	
 
@@ -415,7 +460,7 @@
 	
 	<select id = "getSDType" parameterType = "team3.promans.beans.ScheduleDetailBean" resultType = "string">
 	
-	select sm_utype as utype from sm where sm_cpcode=#{cpcode} and sm_prcode = #{prcode} and sm_pscode= #{pscode} and sm_sccode=#{sccode} and sm_userid=#{userid}
+		select sm_utype as utype from sm where sm_cpcode=#{cpcode} and sm_prcode = #{prcode} and sm_pscode= #{pscode} and sm_sccode=#{sccode} and sm_userid=#{userid}
 	
 	</select>
 	
@@ -437,6 +482,7 @@
      <select id = "selectScheduleMember" parameterType = "team3.promans.beans.ProjectMemberBean" resultType = "team3.promans.beans.ProjectMemberBean">
      
      	select userid, username as uname from projectmemberview where cpcode = #{cpcode} and prcode = #{prcode} and NOT(utcode = 'A' or utcode = 'L')
+     	
      
      </select>
 
@@ -446,8 +492,62 @@
 	<select id="getProjectFeedback" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ScheduleDetailBean">
 		select pr.pr_name as scname, prft.prft_contents as sdcontent, to_char(prft.prft_date,'yyyy-MM-dd:HH24:MI') as sddate
 		from prft inner join pr on prft.prft_cpcode=pr.pr_cpcode and prft.prft_prcode=pr.pr_code 
-		where prft.prft_userid=#{userid} and prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode} and prft.prft_state='W' order by prft.prft_date desc
+		where prft.prft_userid=#{userid} and prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode} and prft.prft_state='W'
+		 order by prft.prft_date desc
 	</select>
+	
+	<select id="getPrftList" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.FeedbackBean">
+		select pr.pr_name as prftname, prft.prft_contents as prftcontent, to_char(prft.prft_date,'yyyy-MM-dd:HH24:MI') as prftdate
+		 ,pr.pr_code as prcode
+		from prft inner join pr on prft.prft_cpcode=pr.pr_cpcode and prft.prft_prcode=pr.pr_code 
+		where prft.prft_cpcode=#{cpcode} and prft.prft_prcode=#{prcode}  and prft.prft_userid = #{userid}
+		 order by prft.prft_date desc
+	</select>
+	<select id="getPsftList" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.FeedbackBean">
+		select ps.ps_name as psftname, psft.psft_contents as psftcontent, to_char(psft.psft_date,'yyyy-MM-dd:HH24:MI') as psftdate,
+      	  psft.psft_prcode as prcode  ,psft.psft_pscode as pscode 
+      	from psft inner join ps on psft.psft_cpcode=ps.ps_cpcode and psft.psft_prcode=ps.ps_prcode and psft.psft_pscode = ps.ps_code
+         where  psft.psft_cpcode=#{cpcode} and psft.psft_prcode=#{prcode} and  psft.psft_userid = #{userid}
+      	 order by psft.psft_date desc
+	</select>
+	<select id="getScftList" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.FeedbackBean">
+		select sc.sc_name as scftname, scft.scft_contents as scftcontent, to_char(scft.scft_date,'yyyy-MM-dd:HH24:MI') as scftdate,
+		   scft.scft_prcode as prcode  ,scft.scft_pscode as pscode  ,scft.scft_sccode as sccode
+		from scft inner join sc on scft.scft_cpcode=sc.sc_cpcode and scft.scft_prcode=sc.sc_prcode and scft.scft_pscode= sc.sc_pscode and scft.scft_sccode=sc.sc_code 
+		where scft.scft_cpcode=#{cpcode} and scft.scft_prcode=#{prcode} and scft.scft_userid= #{userid}
+		 order by scft.scft_date desc
+	</select>
+	<select id="getSdftList" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.FeedbackBean">
+		 select sd.sd_title as sdftname, ft.ft_contents as sdftcontent, to_char(ft.ft_date,'yyyy-MM-dd:HH24:MI') as sdftdate,
+		 		 ft.ft_prcode as prcode  ,ft.ft_pscode as pscode  ,ft.ft_sccode as sccode, ft.ft_sdcode as sdcode 
+         from ft inner join sd on ft.ft_cpcode=sd.sd_cpcode and ft.ft_prcode=sd.sd_prcode 
+          and ft.ft_pscode = sd.sd_pscode and ft.ft_sccode = sd.sd_sccode and ft.ft_sdcode = sd.sd_code
+         where ft.ft_userid=#{userid} and ft.ft_cpcode=#{cpcode} and ft.ft_prcode=#{prcode} 
+         order by ft.ft_date desc
+	</select>
+	
+	<select id="getMyfeedback"  parameterType="team3.promans.beans.ScheduleDetailBean" resultType="team3.promans.beans.FeedbackBean">
+		select sc.sc_name as scname, ps.ps_name as psname, ft.ft_contents as sdftcontent, ft.ft_date as sdftdate ,
+				sd.sd_title as sdftname  
+		from ft inner join sc on ft.ft_cpcode=sc.sc_cpcode and ft.ft_prcode=sc.sc_prcode and ft.ft_pscode=sc.sc_pscode 
+                        and ft.ft_sccode=sc.sc_code
+        inner join ps on ft.ft_cpcode=ps.ps_cpcode and ft.ft_prcode=ps.ps_prcode and ft.ft_pscode=ps.ps_code
+        inner join sd on ft.ft_cpcode=sd.sd_cpcode and ft.ft_prcode=sd.sd_prcode and ft.ft_pscode=sd.sd_pscode
+                            and ft.ft_sccode=sd.sd_sccode and ft.ft_sdcode=sd.sd_code 
+		where ft.ft_userid=#{userid} and ft.ft_cpcode=#{cpcode} order by sdftdate desc
+	</select>
+
+	<select id="getSearchWord" parameterType="team3.promans.beans.CpMemberBean" resultType="team3.promans.beans.CpMemberBean">
+		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode=#{cpcode} and cm_utype != 'A'
+	</select>
+
+	
+	<select id = 'notpop' parameterType="team3.promans.beans.Notice_CalendarBean" resultType ="team3.promans.beans.Notice_CalendarBean">
+	 select cm.cm_uname as uname , pnt.no_contents as contents , pnt.no_date as sdate , pnt.no_userid as writer, pnt.no_title as title
+         from pnt inner join cm on pnt.no_cpcode = cm.cm_cpcode and pnt.no_userid = cm.cm_userid 
+         where no_cpcode = #{cpcode} and no_prcode = #{prcode} and no_code = #{nocode}
+	</select>
+	
 
 
 </mapper>
