@@ -80,6 +80,7 @@ function getNot(jsonData){
 	let count = 1;
 	let html="";
 	
+	
 		html += "<div id = 'notTitle'>NOTICE</div>";
 		html += "<div id ='noBack'>";
 	for(i=0; i<jsonData.length; i++ ){
@@ -87,8 +88,13 @@ function getNot(jsonData){
 			
 			html += "<div id = 'noticee' onClick= \"notDetail(\'"+jsonData[i].nocode+"\')\">";
 			html += count+".&ensp;"+jsonData[i].title +"<div id ='noSdate'>";
-			html += jsonData[i].sdate+"</div></div>";	
-		}
+			html += jsonData[i].sdate+"</div></div>";
+			
+     
+     
+	
+	}
+	
 		html += "</div>";
 		count++;
 		
@@ -129,7 +135,7 @@ function notDetailPop(jsonData){
 	html += "</div>";
 	
 	html += "<div class=\"notDetailContentsDiv\">";
-	html += "<div class=\"notDetailContent notDetailContents\">"+jsonData[0].contents+"<div class=\"notDetailSdate\">"+jsonData[0].sdate+"</div></div>";
+	html += "<div class=\"notDetailContent notDetailContents\"><div>"+jsonData[0].contents+"</div><div class=\"notDetailSdate\">"+jsonData[0].sdate+"</div></div>";
 	html += "</div>";
 	
 	html += "</div>";
@@ -261,7 +267,7 @@ function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 
 	
 	
 		
-	box.innerHTML += "<div id ='modal-title'>Schedule Detail<div id='sdcontentBox'><input type = 'text' class='modal-content' id = 'sdcontent' name = 'sdcontent' placeholder='업무명을 작성해주세요.'/></div></div>";
+	box.innerHTML += "<div id ='modal-title4'>Schedule Detail<div id='sdcontentBox'><input type = 'text' class='modal-content' id = 'sdcontent' name = 'sdcontent' placeholder='업무명을 작성해주세요.'/></div></div>";
 	
 	for(i=0; i<jsonData.length; i++){
 		
