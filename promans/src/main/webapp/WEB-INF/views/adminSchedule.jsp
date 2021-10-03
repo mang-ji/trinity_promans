@@ -6,7 +6,6 @@
 	<meta charset="utf-8" />
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="resources/css/adminSchedule.css"rel="stylesheet"type="text/css">
-	<link href="resources/css/adminProject.css"rel="stylesheet"type="text/css">
 	<script type="text/javascript" src="resources/javascript/adminSchedule.js"></script>
 	<script type="text/javascript" src="resources/javascript/PageCount.js"></script>
 	<script type="text/javascript" src="resources/javascript/mainTemplate.js"></script>
@@ -45,6 +44,8 @@
     		
      });
      
+     
+     
      </script>
     </head>
     <body onLoad="projectOnLoad()"> 
@@ -60,7 +61,7 @@
 	<div id ='Form'>
 	 <div id="modal_background" style='display:none;'>
 	 	
-	 	<div id="modal_box" style='display:none;'>
+	 	<div id="modal_box">
 	 	<div id="requestList"></div>
 	 	</div>
 	 	<div id = "modal_box2" style = 'display:none;'></div>
@@ -97,7 +98,7 @@
             <div id="page-content-wrapper">
             		
                 <!-- Top navigation-->
-                    <div id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S</div>
+                    <div id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;" onClick="promans()">ProMan'S</div>
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
                       <!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -128,7 +129,7 @@
              <div id="notices">
              <div id = reqMenu></div>
               
-             	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
+             	<div id="child1"></div>
              	<div id="child2" ><div id = 'SCList'>WORK LIST</div></div>
              </div>
             

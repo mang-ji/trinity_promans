@@ -318,6 +318,7 @@ public class HomeController {
 	
 	@PostMapping("/MakeStep")
 	public ModelAndView makeStep(@ModelAttribute ProjectStepBean psb) {
+		System.out.println(psb + "  유나 확인중이센 ");
 		return pm.makeStep(psb);
 	}
 }

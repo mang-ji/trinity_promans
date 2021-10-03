@@ -96,6 +96,7 @@
 							<span id = 'notSpan2'>Date</span>
 						</div>
 						<div id="table_body">
+			
 
 						</div>
 
@@ -108,7 +109,6 @@
 					<input type="button" id="editbtn" value="편집" name="editBtn" />
 					<input type="button" id="deletebtn" value="삭제" name="deletebtn" style="display: none;" onClick="deleteNotice()" /> 
 					<input type="button" id="Writebtn" value="글쓰기" name="writer" onClick="OpenPopup()" />
-
 				</div>
 				<div id="Notice"></div>
 			</div>

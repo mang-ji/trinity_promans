@@ -136,13 +136,13 @@ function getProject1 (jsonData){
 	let css = "";
 	
 	
+	
 	list +="<div id='parent'>";
 	
 	for(i=0; i<jsonData.length; i++){
 	
 			if(jsonData[i].propen =="공개"){
 				if(jsonData[i].prldate == null){
-					
 					list += "<div class = 'projectBox'><div class='projectBox2' style=\"cursor:pointer; height:180px;\" onClick = \"goAdminProject(\'"+jsonData[i].prcode+"\')\"><div id='steptitle'>" +jsonData[i].prname +"</div><div id='dates'> 프로젝트 생성일 : "+ jsonData[i].prdate 
 					+"&emsp;공개</div><div id='dates'>기간 : "+jsonData[i].prsdate+ " ~ "+"</div></div><input type=\"radio\" name=\"boxRadio\" id=\"boxRadio"+i+"\" value=\""+i+"\" onClick=\"test1(\'"+jsonData[i].prcode+"\')\" class=\"boxRadio\" ><label for=\"boxRadio"+i+"\">차트</label></div>";
 					
@@ -625,7 +625,7 @@ function proReq1(){
 }
 
 function insProReq(jsondata){
-	alert();
+	
 }
 
 function acceptProjectReq(){
@@ -827,7 +827,7 @@ function addCpMember(){
 function registerMember(){
 	let form = document.createElement("form");
 	let cpcode = document.getElementsByName("cpcode")[0];
-	let userid = document.getElementsByName("userid")[0];
+	let userid = document.getElementsByName("userid")[1];
 	let uname = document.getElementsByName("uname")[0];
 	let acode = document.getElementsByName("acode")[0];
 	let uphone = document.getElementsByName("uphone")[0];

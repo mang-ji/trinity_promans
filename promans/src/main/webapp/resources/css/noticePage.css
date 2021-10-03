@@ -26,7 +26,7 @@
 #notSpan0, #notSpan1, #notSpan2{
 	
 	font-weight:bold;
-		position:relative;
+	position:relative;
 	
 	}
 	
@@ -311,7 +311,7 @@ textarea {
 #editbtn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
 
 
@@ -337,15 +337,15 @@ textarea {
 #Writebtn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
 
 #deletebtn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
-
+#deletebtn {float:left;}
 /* #deletebtn {
 	background-color: #c0392b;
 	border-color: #c0392b;
@@ -367,7 +367,7 @@ textarea {
 #btn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
 
 
@@ -388,3 +388,20 @@ textarea {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 } */
+
+
+
+#boundary {overflow:hidden;}
+#countN{ float:left; margin-left:-10px;}
+#checkboxxx {float:left;}
+#notTitle{float:left}
+#notDate{float:left;}
+#table_body {margin-top:10px;} 
+#noticezero {
+    font-size: 15px;
+    margin-right: 12%;
+    text-align: center;
+    color: grey;
+    margin-top: 8%;
+    margin-bottom: 8%;
+}

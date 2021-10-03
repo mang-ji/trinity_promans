@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import team3.promans.beans.CpMemberBean;
+import team3.promans.beans.FeedbackBean;
 import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.Notice_CalendarBean;
 import team3.promans.beans.WorkDiaryBean;
@@ -45,9 +46,15 @@ public interface SelectInterface {
 	  public GraphDataBean getSDGraph(ScheduleBean sb);
 	  public GraphDataBean getStepGraph(ScheduleBean sb);
 	  public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb);
-
+	  public List<Notice_CalendarBean> notpop(Notice_CalendarBean ncb);
 	  public List<ProjectBean> selectProjectReq(ProjectBean pb);
 	  public List<ProjectBean> selectProjectMakeReq(ProjectBean pb);
 	  public List<ProjectStepBean> getScCompleteList(ScheduleBean psb);
-	  public List<ScheduleDetailBean> getProjectFeedback(ProjectBean pb);
+	  public List<FeedbackBean> getPrftList(ProjectBean pb);
+	  public List<FeedbackBean> getPsftList(ProjectBean pb);
+	  public List<FeedbackBean> getScftList(ScheduleDetailBean sdb);
+	  public List<FeedbackBean> getSdftList(ScheduleDetailBean sdb);
+	  public List<FeedbackBean> getMyfeedback(ScheduleDetailBean sdb);
+	  public List<CpMemberBean> getSearchWord(CpMemberBean cmb);
+	  
 }

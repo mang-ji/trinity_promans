@@ -17,7 +17,7 @@
    </update>
    
    <insert id="insStep" parameterType="team3.promans.beans.ProjectStepBean">
-		DECLARE
+		<!-- DECLARE
 		CP NVARCHAR2(7) := #{cpcode};
 		PR NVARCHAR2(9) := #{prcode};
 		PS NVARCHAR2(9) := #{pscode};
@@ -31,8 +31,8 @@
 		LOOP
 		INSERT INTO PS VALUES(CP,PR,PS,PSNAME,ST,TESTS.CM_USERID,UT);
 		END LOOP;
-		END;
-    <!--   insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L') -->
+		END; -->
+      insert into ps values(#{cpcode},#{prcode},#{pscode},#{psname},'I',#{userid},'L') 
    </insert>
    
    <insert id="insProjectMember" parameterType="team3.promans.beans.ProjectMemberBean">

@@ -33,6 +33,7 @@ import team3.promans.auth.ProjectUtils;
 import team3.promans.beans.AccessHistory;
 import team3.promans.beans.CloudBean;
 import team3.promans.beans.CpMemberBean;
+import team3.promans.beans.FeedbackBean;
 import team3.promans.beans.GraphDataBean;
 import team3.promans.beans.MailBean;
 import team3.promans.beans.ScheduleBean;
@@ -415,11 +416,32 @@ public class Restcontroller {
 	public Map<String, String> insProjectStepAccept(@RequestBody List<ProjectStepBean> psb) {
 		return pm.insProjectStepAccept(psb.get(0));
 	}
-	@PostMapping("/GetProjectFeedback")
-	public List<ScheduleDetailBean> getProjectFeedback(@RequestBody List<ProjectBean> pb) {
-		
-		return si.getProjectFeedback(pb.get(0));
+
+	@PostMapping("/GetPrftList")
+	public List<FeedbackBean> getPrftList(@RequestBody List<ProjectBean> pb) {
+		return si.getPrftList(pb.get(0));
 	}
+	@PostMapping("/GetPsftList")
+	public List<FeedbackBean> getPsftList(@RequestBody List<ProjectBean> pb) {
+		return si.getPsftList(pb.get(0));
+	}
+	@PostMapping("/GetScftList")
+	public List<FeedbackBean> getScftList(@RequestBody List<ScheduleDetailBean> sdb) {
+		return si.getScftList(sdb.get(0));
+	}
+	@PostMapping("/GetSdftList")
+	public List<FeedbackBean> getSdftList(@RequestBody List<ScheduleDetailBean> sdb) {
+		return si.getSdftList(sdb.get(0));
+	}
+	@PostMapping("/GetMyfeedback")
+	public List<FeedbackBean> getMyfeedback(@RequestBody List<ScheduleDetailBean> sdb){
+		return si.getMyfeedback(sdb.get(0));
+	}
+//	@PostMapping("/GetProjectFeedback")
+//	public List<ScheduleDetailBean> getProjectFeedback(@RequestBody List<ProjectBean> pb) {
+//		
+//		return si.getProjectFeedback(pb.get(0));
+//	}
 	
 	@PostMapping("scSendFeed")
 	public boolean scSendFeed(@RequestBody List<ScheduleDetailBean> sdb) {
@@ -439,5 +461,15 @@ public class Restcontroller {
 	public  Map<String, String> reqSc(@RequestBody List<ScheduleBean> sb) {
 		
 		return sm.reqSc(sb.get(0));
+	}
+
+	@PostMapping("/GetSearchWord")
+	public List<CpMemberBean> getSearchWord(@RequestBody List<CpMemberBean> cmb) {
+		return si.getSearchWord(cmb.get(0));
+		}
+
+	@PostMapping("/notpop")
+	public  List<Notice_CalendarBean> notpop(@RequestBody List<Notice_CalendarBean>  ncb) {
+		return si.notpop(ncb.get(0));
 	}
 }
