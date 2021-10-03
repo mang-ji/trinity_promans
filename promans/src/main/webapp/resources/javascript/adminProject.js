@@ -1150,7 +1150,7 @@ function makeProjectStep(prcode){ // 입력하는 값 스텝이름, 관리자권
 	
 		
   		 box.innerHTML = "<div id='modal_background2'><div id='modal_box2'></div></div>";
-		 box.innerHTML +="<div id=\"teamlistt\"> 프로젝트 생성 </div>"
+		 box.innerHTML +="<div id=\"teamlistt\"> 프로젝트 스텝 생성 </div>"
 						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">프로젝트 스텝명 :</div><input type='text' id=\"stepnameinput\" name='psname'/></div>"
 						+"<div id=\"projetstepbox\"><div id=\"enterstepname\">관리자 :</div><input type='text' id='teamonelistinput'/><input type='button' id=\"findbtn\" value='조회' onClick=\"selectManager(\'"+prcode+"\')\"></div>";
 					
