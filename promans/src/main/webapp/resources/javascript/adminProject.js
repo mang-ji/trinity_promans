@@ -493,7 +493,7 @@ function afterReq(data){
 		alert("프로젝트 스텝 완료 요청을 완료했습니다.");
 		location.href=adminProject;
 	}else{
-		alert("다시 시도해주세요.");
+		alert("아직 완료 처리가 되지 않은 업무가 있어 요청이 불가합니다.");
 	}
 }
 

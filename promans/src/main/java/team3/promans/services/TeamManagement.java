@@ -101,8 +101,17 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	}
 
 	public boolean requestComplete(ProjectStepBean psb) {
+		boolean check = false;
 		psb.setStcode("W");
-		return this.convertBoolean(sql.update("requestComplete", psb));
+		/* 업무 의 완료된 갯수 가져오기 */
+		int completeCount = sql.selectOne("selectScheCompleteCount",psb);
+		/* 업무 갯수 가져오기 */
+		int allCount = sql.selectOne("selectScheCount",psb);
+		if(allCount==completeCount) {
+			check = this.convertBoolean(sql.update("requestComplete", psb));
+		}
+		
+		return check;
 	}
 
 	public List<ScheduleBean> getComplete(ScheduleBean sb){
@@ -148,9 +157,15 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 				if(this.convertBoolean(sql.selectOne("selecttProjectMember", cmb.get(i)))) {
 					/* 프로젝트멤버 테이블에서 삭제 ! */
 					if(this.convertBoolean(sql.update("deleteProjectMember",cmb.get(i)))) {
-						map.put("message",  "비사원처리가 완료되었습니다.");
+						/* 스케줄 멤버 테이블에 포함되어있는지 확인하고 */
+						if(this.convertBoolean(sql.selectOne("selectScheMember",cmb.get(i)))) {
+							/* 스케줄 멤버 테이블에서 삭제 */
+							if(this.convertBoolean(sql.update("deleteScheMember",cmb.get(i)))) {
+								map.put("message",  "비사원처리가 완료되었습니다.");
+							}
+						}else {map.put("message",  "비사원처리가 완료되었습니다.");}
 					}
-				}else {map.put("message",  "비사원처리가 완료되었습니다."); }
+				}else {map.put("message",  "비사원처리가 완료되었습니다.");}
 			}
 		}
 		return map;

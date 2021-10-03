@@ -281,7 +281,7 @@
 	<select id="getCompleteList"
 		parameterType="team3.promans.beans.ProjectStepBean"
 		resultType="team3.promans.beans.ProjectStepBean">
-		SELECT
+		SELECT 
 		PS_CPCODE AS CPCODE,
 		PS_PRCODE AS PRCODE,
 		PS_CODE AS
@@ -313,7 +313,7 @@
 	
 
 	<select id="selectProjectMember" parameterType="team3.promans.beans.ProjectMemberBean" resultType="team3.promans.beans.ProjectMemberBean">
-		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} and cm_utype != 'A'
+		select cm_userid as userid, cm_uname as uname from cm where cm_cpcode =#{cpcode} and cm_utype != 'A' and cm_wcode='1'
 	</select>
 	
 	<select id ="getDataGraphPsW" parameterType = "team3.promans.beans.ProjectBean" resultType = "int">

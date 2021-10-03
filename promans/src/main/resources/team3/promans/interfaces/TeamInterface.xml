@@ -48,13 +48,24 @@
 	</update>
 	
 	<update id="deleteCpMember" parameterType="team3.promans.beans.CpMemberBean">
-		update cm set cm_wcode='0' where cm_userid=#{userid}
+		update cm set cm_wcode='0' where cm_userid=#{userid} and cm_cpcode=#{cpcode}
 	</update>
 	<update id="deleteProjectMember" parameterType="team3.promans.beans.CpMemberBean">
-		update pm set pm_wcode='0' where pm_userid=#{userid}
+		update pm set pm_wcode='0' where pm_userid=#{userid} and pm_cpcode=#{cpcode}
 	</update>
 	<select id="selecttProjectMember" parameterType="team3.promans.beans.CpMemberBean" resultType="int">
-		select count(*) from pm where pm_userid=#{userid}
+		select count(*) from pm where pm_userid=#{userid} and pm_cpcode=#{cpcode}
 	</select>
-	
+	<update id="deleteScheMember" parameterType="team3.promans.beans.CpMemberBean" >
+		update sm set sm_wcode='0' where sm_userid=#{userid} and sm_cpcode=#{cpcode}
+	</update>
+	<select id="selectScheMember" parameterType="team3.promans.beans.CpMemberBean" resultType="int">
+		select count(*) from cm where cm_userid=#{userid} and cm_cpcode=#{cpcode}
+	</select>
+	<select id="selectScheCompleteCount" parameterType="team3.promans.beans.ProjectStepBean" resultType="int">
+		select count(*) from sc where sc_cpcode=#{cpcode} and sc_prcode=#{prcode} and sc_pscode=#{pscode} and sc_state='S'
+	</select>
+	<select id="selectScheCount" parameterType="team3.promans.beans.ProjectStepBean" resultType="int">
+		select count(*) from sc where sc_cpcode=#{cpcode} and sc_prcode=#{prcode} and sc_pscode=#{pscode} 
+	</select>
 </mapper>
