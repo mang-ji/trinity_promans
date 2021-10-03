@@ -2,6 +2,7 @@ let sccode;
 
 
 function getStepGraph(jsonData){
+
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end

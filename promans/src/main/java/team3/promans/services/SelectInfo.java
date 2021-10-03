@@ -91,16 +91,16 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 	/* 공지사항 리스트 조회 */
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
-		List<Notice_CalendarBean> noticeList;
-		noticeList = sql.selectList("getNoticeList", nc);
+		List<Notice_CalendarBean> noticeList = sql.selectList("getNoticeList", nc);
+		System.out.println(noticeList);
 		return noticeList;
 	}
 
 	/* 공지사항 추가*/
 	public ModelAndView insNotice(Notice_CalendarBean nc) {
 		mav = new ModelAndView();
-		int max = this.getMaxNocode(nc);
-		nc.setNocode(max+1+"");
+		int max = this.getMaxNocode(nc)+1;
+		nc.setNocode((max<10)?"NO0"+max:"NO"+max);
 
 		if(nc.getFile().isEmpty()) {
 			nc.setFname("");
@@ -187,9 +187,9 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 				
 				if(!(boolean)pu.getAttribute("utype").equals("A")) {
 					pu.setAttribute("utype", list.get(0).getUtype());
+				}else {
+					list.get(0).setUtype("A");
 				}
-			}else {
-				list.get(0).setUtype("A");
 			}
 
 		} catch (Exception e) {e.printStackTrace();}
@@ -472,7 +472,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 
-
 	public List<CpMemberBean> getSearchWord(CpMemberBean cmb) {
 		List<CpMemberBean> list =  sql.selectList("getSearchWord",cmb);
 		List<CpMemberBean> newlist = new ArrayList<CpMemberBean>();
@@ -487,7 +486,17 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		}
 	
 		return newlist;
-		
+}
+	public List<Notice_CalendarBean> notpop(Notice_CalendarBean ncb) {
+		List<Notice_CalendarBean> list = sql.selectList("notpop", ncb);
+		     
+		     try {
+		    	 
+				list.get(0).setUname(enc.aesDecode(list.get(0).getUname(), list.get(0).getWriter()));
+				
+			} catch (Exception e) {	e.printStackTrace();} 
+		     
+		return list;
 	}
 }
 

@@ -44,6 +44,8 @@
     		
      });
      
+     
+     
      </script>
     </head>
     <body onLoad="projectOnLoad()"> 
@@ -59,7 +61,7 @@
 	<div id ='Form'>
 	 <div id="modal_background" style='display:none;'>
 	 	
-	 	<div id="modal_box" style='display:none;'>
+	 	<div id="modal_box">
 	 	<div id="requestList"></div>
 	 	</div>
 	 	<div id = "modal_box2" style = 'display:none;'></div>
@@ -127,7 +129,7 @@
              <div id="notices">
              <div id = reqMenu></div>
               
-             	<div id="child1"><div id = 'notTitle'>NOTICE</div></div>
+             	<div id="child1"></div>
              	<div id="child2" ><div id = 'SCList'>WORK LIST</div></div>
              </div>
             
