@@ -2,7 +2,7 @@ function getPrftList(jsonData){
 	let div = document.getElementById("prftplace");
 	
 	if(jsonData.length != 0 ){
-		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Project</span><span id=\"datess\">Date</span></div>";
+		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Project</span><span id=\"datess\">Date</span></div>";
 	
 		div.innerHTML += "<div id=\"boss\">";
 		for(i=0; i<jsonData.length;i++){
@@ -12,7 +12,7 @@ function getPrftList(jsonData){
 		div.innerHTML += "</div>";
 		div.style.display = "block";
 	}else{
-		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Project</span><span id=\"datess\">Date</span></div>";
+		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Project</span><span id=\"datess\">Date</span></div>";
 		div.innerHTML += "<div id=\"noexist\">피드백이 존재하지 않습니다.</div>";
 		div.style.display = "block";
 	}
@@ -24,7 +24,7 @@ function getPsftList(jsonData){
 	
 	if(jsonData.length != 0 ){
 	
-	div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Project Step</span><span id=\"datess\">Date</span></div>";
+	div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Project Step</span><span id=\"datess\">Date</span></div>";
 	div.innerHTML += "<div id=\"boss\">";
 	for(i=0; i<jsonData.length;i++){
 		div.innerHTML += "<div id=\"boxx\" onClick=\"getPsFeedback(\'"+jsonData[i].psftcontent +"\')\" ><div id=\"num\">"+(i+1)+"</div><div id=\"projectname1\">"+jsonData[i].psftname+"에 대한 피드백입니다.</div>"
@@ -34,7 +34,7 @@ function getPsftList(jsonData){
 	
 	div.style.display = "block";
 	}else{
-		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Project Step</span><span id=\"datess\">Date</span></div>";
+		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Project Step</span><span id=\"datess\">Date</span></div>";
 		div.innerHTML += "<div id=\"noexist\">피드백이 존재하지 않습니다.</div>";
 		div.style.display = "block";
 	}
@@ -43,7 +43,7 @@ function getScftList(jsonData){
 	let div = document.getElementById("scftplace");
 	
 	if(jsonData.length != 0 ){
-	div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Schedule</span><span id=\"datess\">Date</span></div>";
+	div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Schedule</span><span id=\"datess\">Date</span></div>";
 	div.innerHTML += "<div id=\"boss\">";
 	for(i=0; i<jsonData.length;i++){
 		div.innerHTML += "<div id=\"boxx\" onClick=\"getScFeedback(\'"+jsonData[i].scftcontent+"\')\"  ><div id=\"num\">"+(i+1)+"</div><div id=\"projectname1\">"+jsonData[i].scftname+"에 대한 피드백입니다.</div>"
@@ -54,7 +54,7 @@ function getScftList(jsonData){
 	div.style.display = "block";
 	
 	}else{
-		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Schedule</span><span id=\"datess\">Date</span></div>";
+		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Schedule</span><span id=\"datess\">Date</span></div>";
 		div.innerHTML += "<div id=\"noexist\">피드백이 존재하지 않습니다.</div>";
 		div.style.display = "block";
 	}
@@ -63,7 +63,7 @@ function getSdftList(jsonData){
 	let div = document.getElementById("sdftplace");
 
 	if(jsonData.length != 0 ){
-	div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Schedule Detail</span><span id=\"datess\">Date</span></div>";
+	div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Schedule Detail</span><span id=\"datess\">Date</span></div>";
 	div.innerHTML += "<div id=\"boss\">";
 	for(i=0; i<jsonData.length;i++){
 		div.innerHTML += "<div id=\"boxx\" onClick= \"getSdFeedback(\'"+jsonData[i].sdftcontent+"\')\" ><div id=\"num\">"+(i+1)+"</div><div id=\"projectname1\">"+jsonData[i].sdftname+"에 대한 피드백입니다.</div>"
@@ -73,7 +73,7 @@ function getSdftList(jsonData){
 	
 	div.style.display = "block";
 	}else{
-		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Schedule Detail</span><span id=\"datess\">Date</span></div>";
+		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Schedule Detail</span><span id=\"datess\">Date</span></div>";
 		div.innerHTML += "<div id=\"noexist\">피드백이 존재하지 않습니다.</div>";
 		div.style.display = "block";
 	}
@@ -144,15 +144,14 @@ function getMyfeedback2(jsonData){
 	div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Work Path</span><span id=\"datess2\">Date</span></div>";
 	div.innerHTML += "<div id=\"boss\">";
 	for(i=0; i<jsonData.length;i++){
-		div.innerHTML += "<div id=\"boxx\"><div id=\"num\">"+(i+1)+"</div><div id=\"projectname\">"+jsonData[i].psname+" > "+jsonData[i].scname+" > "+jsonData[i].sdftname+"</div>"
-						+"<div id=\"feedcontent1\">"+jsonData[i].sdftcontent+"</div>"
-						+"<div id=\"feeddate\">"+jsonData[i].sdftdate+"</div></div>";
+		div.innerHTML += "<div id=\"boxx\" onClick=\"getSdFeedback(\'"+jsonData[i].sdftcontent+"\')\"><div id=\"num\">"+(i+1)+"</div><div id=\"projectname\">"+jsonData[i].psname+" > "+jsonData[i].scname+" > "+jsonData[i].sdftname+"</div>"
+						+"<div id=\"feeddate2\">"+jsonData[i].sdftdate+"</div></div>";
 	}
 	div.innerHTML += "</div>";
 	
 	div.style.display = "block";
 	}else{
-		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;Project</span><span id=\"datess\">Date</span></div>";
+		div.innerHTML = "<div id=\"parent\"><span id=\"nameee\">No.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Project</span><span id=\"datess\">Date</span></div>";
 		div.innerHTML += "<div id=\"noexist\">피드백이 존재하지 않습니다.</div>";
 		div.style.display = "block";
 	}

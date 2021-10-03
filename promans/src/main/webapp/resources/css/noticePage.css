@@ -311,7 +311,7 @@ textarea {
 #editbtn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
 
 
@@ -337,13 +337,13 @@ textarea {
 #Writebtn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
 
 #deletebtn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
 #deletebtn {float:left;}
 /* #deletebtn {
@@ -367,7 +367,7 @@ textarea {
 #btn{
 	background-color:#4f5f86;
 	color:#c0c5cd; 
-	border-radius:10px; margin-right:3px;
+	border-radius:3px; margin-right:3px;
 }
 
 

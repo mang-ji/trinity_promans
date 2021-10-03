@@ -457,4 +457,8 @@ public class Restcontroller {
 		
 		return sm.reqSc(sb.get(0));
 	}
+	@PostMapping("/GetSearchWord")
+	public List<CpMemberBean> getSearchWord(@RequestBody List<CpMemberBean> cmb) {
+		return si.getSearchWord(cmb.get(0));
+	}
 }

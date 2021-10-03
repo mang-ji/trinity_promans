@@ -23,5 +23,6 @@ public class FeedbackBean {
 	private String sdftdate;
 	private String scname;
 	private String psname;
+	private String prname;
 	
 }

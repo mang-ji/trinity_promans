@@ -54,11 +54,23 @@ function afterNotice(data) {
 	
 		editBtn.addEventListener('click',function(){
 			let checks = document.getElementsByName("nocode");
-			for(i=0; i<data.length;i++){
+			
+			
+			
+			
+			if(deletebtn.style.display =="none"){
+				for(i=0; i<data.length;i++){
 				checks[i].style.display = "block";
 			}
+				
+				deletebtn.style.display = "block";
+			}else{
+				for(i=0; i<data.length;i++){
+				checks[i].style.display = "none";
+			}
+				deletebtn.style.display="none";
+			}
 			
-			deletebtn.style.display = "block";
 			
 	
 		});

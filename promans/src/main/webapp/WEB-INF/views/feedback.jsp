@@ -100,7 +100,7 @@
 			</div>
 			<div id="selectBack">
 					<div id="selHeight">ProMan'S</div>
-					<input type="button" id="feedbackbtn" onClick="getMyFeedback()" value="내 피드백"/>
+					<input type="button" id="feedbackbtn" onClick="getMyFeedback()" value="피드백 모아보기"/>
 					<div id="selectStep"></div>
 					
 					<div id="big">
