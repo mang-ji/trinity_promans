@@ -93,7 +93,7 @@ public class HomeController {
 	}
 
 	@PostMapping("SignUp")
-	public String SignUp(@ModelAttribute CpMemberBean cm) {
+	public ModelAndView SignUp(@ModelAttribute CpMemberBean cm) {
 		return auth.SignUp(cm);
 	}
 	@GetMapping("InsCompany")
@@ -318,8 +318,8 @@ public class HomeController {
 	
 	@PostMapping("/MakeStep")
 	public ModelAndView makeStep(@ModelAttribute ProjectStepBean psb) {
-		System.out.println(psb + "  유나 확인중이센 ");
 		return pm.makeStep(psb);
 	}
+
 }
 

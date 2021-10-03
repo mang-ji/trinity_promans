@@ -1,6 +1,7 @@
 package team3.promans.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +42,7 @@ public interface SelectInterface {
 	  public List<CpMemberBean> getCpMembers(CpMemberBean cmb);
 	  public ModelAndView goAdminProject(ProjectMemberBean pmb);
 	  public List<WorkDiaryBean> GetDiaryDetail(WorkDiaryBean wdb);
-	  public List<WorkDiaryBean> deleteDiary(WorkDiaryBean wdb);
+	  public boolean deleteDiary(List<WorkDiaryBean> wdb);
 	  public GraphDataBean getSDGraph(ScheduleBean sb);
 	  public GraphDataBean getStepGraph(ScheduleBean sb);
 	  public List<ScheduleDetailBean> getWork(ScheduleDetailBean sdb);

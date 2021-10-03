@@ -20,9 +20,14 @@ function deleteCpMember(){
 	}
 	
 	postAjax("rest/DeleteCpMember",JSON.stringify(jsonData),"successDeleteCpMem",2);
+	
 }
 
 function successDeleteCpMem(jsonData){
+	location.href = "memberForm"; // 리다이렉트 할 폼을 써준다! 
 	alert(jsonData.message);
 }
+
+
+
 

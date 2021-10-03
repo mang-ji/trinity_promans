@@ -143,24 +143,25 @@ public class Authentication implements AuthInterface {
 	}
 
 
-	public String SignUp(CpMemberBean cm) {
-		
+	public ModelAndView SignUp(CpMemberBean cm) {
+		mav = new ModelAndView();
 		try {
 			cm.setUphone(enc.aesEncode(cm.getUphone(), cm.getUserid()));
 			cm.setMail(enc.aesEncode(cm.getMail(), cm.getUserid()));
 			cm.setAcode(enc.encode(cm.getAcode()));
 			cm.setUname(enc.aesEncode(cm.getUname(), cm.getUserid()));
-			
-			System.out.println(cm + "   dbsk ghkrdls ~~");
-			this.insCpMember(cm);
+		
+			if(this.convertBoolean(this.insCpMember(cm))) {
+				if(cm.getSeperate() != null) {
+					mav.setViewName("redirect:/mainPageForm");
+				}else {
+					mav.setViewName("redirect:/memberForm");
+				}	
+			}
 
 		} catch (Exception e) {e.printStackTrace();}
 		
-		if(cm.getSeperate() != null) {
-			return "mainPage";
-		}
-		
-		return "memberManage";
+		return mav;
 	}
 	
 
