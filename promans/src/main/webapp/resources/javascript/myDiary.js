@@ -88,8 +88,8 @@ function OpenPopup1(){
 	html +=`<div class ="wdpopup">`;
 	html +=`<h6>업무일지 작성</h6><input type="button" class ="cbtn" value ="X" onClick="windowClose1()">`;
 	html +=`<style>h6{text-align: center;}</style>`;
-	html +=`<input type ="text" id ="wdtitle" name ="wdtitle" placeholder="제목을 입력해주세요.">`;
-	html +=`<input type ="text" id ="wdcontents" name ="wdcontents" placeholder="내용을 입력해주세요.">`;
+	html +=`<input type ="text" id ="wdtitle" name ="sendWdtitle" placeholder="제목을 입력해주세요.">`;
+	html +=`<input type ="text" id ="wdcontents" name ="sendWdcontents" placeholder="내용을 입력해주세요.">`;
 	html +=`<input type ="button" class ="pbtn" value ="작성" onClick="sendDiary()">`;
 	html +=`</div>`;
 
@@ -100,9 +100,9 @@ function OpenPopup1(){
 function sendDiary(){
 	let cpcodes = document.getElementsByName("cpcode")[0];
 	let prcodes = document.getElementsByName("prcode")[0];
-	let wdtitle1 = document.getElementsByName("wdtitle")[0];
+	let wdtitle1 = document.getElementsByName("sendWdtitle")[0];
 	let userids = document.getElementsByName("userid")[0];
-	let wdcontents1 = document.getElementsByName("wdcontents")[0];
+	let wdcontents1 = document.getElementsByName("sendWdcontents")[0];
 	
 	let data = [];
 	data = [{cpcode:cpcodes.value,prcode:prcodes.value,userid:userids.value,wdtitle:wdtitle1.value,wdcontents:wdcontents1.value}];

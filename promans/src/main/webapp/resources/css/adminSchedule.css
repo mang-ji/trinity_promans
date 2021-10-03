@@ -144,6 +144,15 @@
 	
 }
 
+#modal-title4 {
+    height: 15%;
+    background-color: #4f5f86;
+    color: #FFFFFF;
+    font-size: 25px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
 #contents{
 	
 	 width: 100%;
@@ -514,7 +523,7 @@ width:100px;  border:0px; height:30px; padding-top:3px;
 
 
 #noBack{
-		overflow:hidden;
+	overflow:hidden;
 	width:100%;
 	display:flex;
 	flex-direction:row-reverse;
@@ -526,13 +535,20 @@ width:100px;  border:0px; height:30px; padding-top:3px;
 	
 }
 
+#noticee{ text-align:center; }
+#noBack:hover{background-color:#5e5d5e; color:#ffffff;}
+
+#noBack:checked{background-color:#5e5d5e;color:#ffffff;}
+
+#noBack:active{background-color:#bbbbbb;color:#ffffff;}
+
+#noticee:hover{ background-color:#5e5d5e; color:#ffffff;}
+
+#noticee:checked{background-color:#5e5d5e;color:#ffffff;}
+
+#noticee:active{background-color:#bbbbbb;color:#ffffff;}
 
 
-#noBack:hover{
-	background-color:#5e5d5e;
-	color:white;
-	
-}
 
 .feed{
 	width:1000px;
