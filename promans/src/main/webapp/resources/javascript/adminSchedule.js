@@ -76,16 +76,23 @@ chart.data = [{
 }
 
 function getNot(jsonData){
-	
 	let child1 = document.getElementById("child1");
 	let count = 1;
-	for(i=0; i<3; i++ ){
-    
-	child1.innerHTML += "<div id ='noBack'><div id = 'noticee' onClick='notDetail(\'"+jsonData[i].nocode+"\')'><input type = 'hidden' name = 'nocode' value = "+jsonData[i].nocode+"/>"+count+".&ensp;"+jsonData[i].title
-	                   +"<div id ='noSdate'>"+jsonData[i].sdate+"</div></div>"
-	                   + "</div>";	
-
+	let html="";
+	
+		html += "<div id = 'notTitle'>NOTICE</div>";
+		html += "<div id ='noBack'>";
+	for(i=0; i<jsonData.length; i++ ){
+	   if(count<=3){ 
+			
+			html += "<div id = 'noticee' onClick= \"notDetail(\'"+jsonData[i].nocode+"\')\">";
+			html += count+".&ensp;"+jsonData[i].title +"<div id ='noSdate'>";
+			html += jsonData[i].sdate+"</div></div>";	
+		}
+		html += "</div>";
 		count++;
+		
+		child1.innerHTML=html;
 	}
 	
 	
@@ -93,7 +100,6 @@ function getNot(jsonData){
 }
 
 function notDetail(nocode){
-	
 	let cpcode = document.getElementsByName("cpcode")[0];
 	let prcode = document.getElementsByName("prcode")[0];
 	
@@ -107,28 +113,40 @@ function notDetail(nocode){
 }
 
 function notDetailPop(jsonData){
-	
-	
-	let box = document.getElementById("modal_box");
     let background = document.getElementById("modal_background");
+	let modal_box = document.getElementById("modal_box");
+	let html = "";
 
 
-	box.style.display = "block";
+	html += "<div class='modal' id = 'modal3' style='border:1px solid black;'>";
+	
+	html += "<div id ='modal-title'class=\"notDetailHead\">Notice Detail</div>";
+	
+	html += "<div class=\"notDetailContentDiv\">";
+	
+	html += "<div class=\"notDetailTitleDiv\">";
+	html += "<div class=\"notDetailContent notDetailTitle\">"+jsonData[0].title+"</div>";
+	html += "<div class=\"notDetailContent notDetailWriter\">"+jsonData[0].writer+"</div>";
+	html += "</div>";
+	
+	html += "<div class=\"notDetailContentsDiv\">";
+	html += "<div class=\"notDetailContent notDetailContents\">"+jsonData[0].contents+"</div>";
+	html += "<div class=\"notDetailContent notDetailSdate\">"+jsonData[0].sdate+"</div>";
+	html += "</div>";
+	
+	html += "</div>";
+	
+	html += "<input type='button' id=\"btns\" onClick='notClose()' value=\"뒤로가기\"/></div>";
+	html += "</div>";
+	
+	modal_box.innerHTML = html;
 	background.style.display = "block";
 
-	box.innerHTML += "<div class='modal' id = 'modal3' style='border:1px solid black;' >";
-		
-	box.innerHTML += "<div id ='modal-title'>Notice Detail</div>";
-		
-	box.innerHTML += "<div>"+jsonData[0].title+"</div>";
-	box.innerHTML += "<div>"+jsonData[0].contents+"</div>";
-	box.innerHTML += "<div>"+jsonData[0].sdate+"</div>";
-	box.innerHTML += "<div>"+jsonData[0].writer+"</div>";
-	
-	box.innerHTML += "<input type='button' id=\"btns\" onClick='popClose()' value=\"뒤로가기\"/></div>";
-	box.innerHTML += "</div>";
-	
-	
+}
+
+function notClose(){
+	let background = document.getElementById("modal_background");	
+	background.style.display = "none";
 }
 
 
@@ -448,12 +466,11 @@ function afterFirstInsSdBool(data){
 		mainPop.style.display="block";
 
 		$(document).ready(function(){
-			$('input:radio[name=stepRadio]').each(function(){
-				if(this.checked){result = this.value;}
-			});
-		
 			$('input[name=sdCreateBtn]').on('click',function(){
-				alert(result);
+				$('input:radio[name=stepRadio]').each(function(){
+					if(this.checked){result=this.value;}
+				});
+
 				let data=[{cpcode:$('input[name=cpcode]').val(),
 							prcode:$('input[name=prcode]').val(),
 							pscode:$('input[name=pscode]').val(),
@@ -461,7 +478,7 @@ function afterFirstInsSdBool(data){
 							sdcontent:$('input[name=sdcontent]').val(),
 							userid:result}];
 						
-				postAjax("rest/InsSD",JSON.stringify(data),"afterFirstInsSd",2);
+				postAjax("rest/InsSD",JSON.stringify(data),"upPass",2);
 			});
 		});
 		

@@ -622,8 +622,10 @@ function selectSchedule(jsonData){
 			let ShceduleEdit = document.getElementById("ShceduleEdit");
 			let headCss = document.createElement("style");
 			let selectStep = document.getElementById("selectStep");
-			let utype = document.getElementsByName("utype")[0].value = jsonData[0].utype;
-	
+			let utype = document.getElementsByName("utype")[0].value;
+			if(utype != "A"){
+				utype = jsonData[0].utype;
+			}
 			list+= "<div class=\"scheListDiv\">";
 			
 			list+= "<div class=\"scheListHead\">";

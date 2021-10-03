@@ -458,7 +458,7 @@ public class Restcontroller {
 		return sm.reqSc(sb.get(0));
 	}
 	@PostMapping("/notpop")
-	public  Notice_CalendarBean notpop(@RequestBody List<Notice_CalendarBean>  ncb) {
+	public  List<Notice_CalendarBean> notpop(@RequestBody List<Notice_CalendarBean>  ncb) {
 		
 		return si.notpop(ncb.get(0));
 	}
