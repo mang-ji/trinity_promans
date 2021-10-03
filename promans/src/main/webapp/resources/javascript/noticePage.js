@@ -19,7 +19,6 @@ function afterNotice(data) {
 		let index =0;
 		for (i = 0; i < data.length; i++) {
 			
-			
 			html2 += "<input type=\"checkbox\" class='noticeBox' name=\"nocode\" id=\"noticeBox"+i+"\" value=\""+data[i].nocode+"\"><label for=\"noticeBox"+i+"\">";
 		    html2 +="<div>" + (i+1) + "</div>";
 			html2 +="<div>" + data[i].title + "</div>";
@@ -30,15 +29,11 @@ function afterNotice(data) {
 			html += "<div id = 'notTitle'>" + data[i].title + "</div>";
 			html += "<div id = 'notDate'>" + data[i].sdate + "</div></div><br>";
 			
-			    css += "input[id=\"noticeBox"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
-                css += "input[id=\"noticeBox"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
-                css += "input[id=\"noticeBox"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
-                css += "id=\"noticeBoxx"+i+"\":hover \+ {background-color:#bbbbbb;color:#ffffff;}";
-               
-
-            
-                
-			
+			css += "input[id=\"noticeBox"+i+"\"]:hover \+ label{background-color:#5e5d5e;color:#ffffff;}";
+            css += "input[id=\"noticeBox"+i+"\"]:checked \+ label{background-color:#5e5d5e;color:#ffffff;}";
+            css += "input[id=\"noticeBox"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff;}";
+            css += "id=\"noticeBoxx"+i+"\":hover \+ {background-color:#bbbbbb;color:#ffffff;}";
+       
 		}	
 		
         style.innerHTML = css;
