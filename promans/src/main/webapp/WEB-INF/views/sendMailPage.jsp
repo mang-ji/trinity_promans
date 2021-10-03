@@ -6,6 +6,8 @@
 
 <meta charset="utf-8" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="resources/css/styles.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sendMailPage.css" rel="stylesheet"
 	type="text/css">
@@ -22,11 +24,11 @@
 </head>
 <body onLoad="projectOnLoad()">
 	<input type="hidden" name="utype" value="${utype}">
-        <input type="hidden" name="cpcode" value="${cpcode}">
-        <input type="hidden" name="prcode" value="${prcode}">
-        <input type="hidden" name="pscode" value="${pscode}">
-        <input type="hidden" name="sccode" value="${sccode}">
-        <input type="hidden" name="userid" value="${userid}">
+	<input type="hidden" name="cpcode" value="${cpcode}">
+	<input type="hidden" name="prcode" value="${prcode}">
+	<input type="hidden" name="pscode" value="${pscode}">
+	<input type="hidden" name="sccode" value="${sccode}">
+	<input type="hidden" name="userid" value="${userid}">
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
 		<div class="border-end bg-white" id="sidebar-wrapper">
@@ -88,17 +90,24 @@
 				</div>
 				<div id="ShceduleEdit"></div>
 
-				<form action = "submitMail" method="post" enctype = "multipart/form-data">
-				<div id="mbox">
-					 글 제목 :  <input type="text" name="title"><br> 
-					 받는 사람 : <input type="email" name="to" placeholder = "abcde@abcde.com"><br> 
-					 <h6>글 내용 : </h6>
-					 <textarea rows="5" cols="40" name="mcontents"></textarea><br>
-							  <input type = "file" name="file"><br>
-							  <input type="submit" value="전송">
-				</div>
+				<form action="submitMail" method="post"
+					enctype="multipart/form-data">
+					<div id="mbox">
+						<div id="mtitle">Mail</div>
+							<input type="text" name="title" id="title" placeholder="글 제목" autocomplete="off"><br>
+							<input type="email" name="to" id="to" placeholder="받는 사람" autocomplete="off"><br>
+							<textarea rows="5" cols="40" name="mcontents" id="mcontents" placeholder="글 내용" autocomplete="off"></textarea>
+					
+						<div class="filebox"> 
+							<input class="upload-name" value="파일선택" disabled="disabled"> 
+							<label for="ex_filename">찾아보기</label> 
+							<input type="file" id="ex_filename" name = "file"class="upload-hidden"> 
+							
+						</div>
+						<input type="submit" value="전송" id="send">
+					</div>
 				</form>
-				
+
 			</div>
 		</div>
 	</div>

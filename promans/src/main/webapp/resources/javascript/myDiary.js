@@ -25,6 +25,9 @@ function getDiary(data) {
 	}	
 
 		for (i=0; i<data.length; i++) {
+			html +=`<input type="hidden" name="wdtitle" value=${data[i].wdtitle}>`;
+			html +=`<input type="hidden" name="wdcontents" value=${data[i].wdcontents}>`;
+			html +=`<input type="hidden" name="callWdcode" value=${data[i].wdcode}>`;
 			html +=`<tr onClick = dview('${data[i].wdcode}')>`;
 			html +=`<td>${data[i].wdtitle}</td>`;
 			html +=`<td>${data[i].userid}</td>`;
@@ -67,6 +70,7 @@ function getDiarylist(data){
 		html +=`</div>`;
 	
 	dia1.innerHTML = html;
+	dia1.style.display = "block";
 }	
 	
 function OpenPopup1(){
@@ -118,4 +122,62 @@ function insDiary(data){
 function windowClose1(){
 	let popup = document.getElementById("popup2");
 	popup.style.display = "none";
+}
+
+function deletediary(){//업무일지 삭제
+	let deldd = document.getElementById("deldd");
+	let cpcode = document.getElementsByName("cpcode");
+	let prcode = document.getElementsByName("prcode");
+	let userid = document.getElementsByName("userid");
+	let wdcode = document.getElementsByName("callWdcode");
+	let wdtitle = document.getElementsByName("wdtitle");
+		
+	let html = "";
+	html +=`<input type="hidden" name="cpcode" value=${cpcode.value}>`;
+	html +=`<input type="hidden" name="prcode" value=${prcode.value}>`;
+	html +=`<input type="hidden" name="userid" value=${userid.value}>`;
+	html +=`<div class="deleteDi">`;
+	html +=`<style>{overflow: auto;}</style>`;
+	html +=`<h5>업무일지 삭제</h5><input type ="button" class ="ddbtn" value ="✔" onClick="deletedbtn()"><input type="button" class ="closebtn1" value="X" onClick="windowClosed()">`;
+	html +=`<style>h5{text-align: center;}</style>`;
+	for(i=0; i<wdtitle.length; i++){
+		html +=`<p><input type ="checkbox" name ="deleted" value=${wdcode[i].value}>${wdtitle[i].value}</p>`;
+	}
+	html +=`</div>`;
+	deldd.innerHTML = html;
+	deldd.style.display = "block";
+}
+
+function deletedbtn(){//삭제버튼 클릭 후
+	let deleted1 = document.getElementsByName("deleted");
+	let cpcode = document.getElementsByName("cpcode")[0].value;
+	let prcode = document.getElementsByName("prcode")[0].value;
+	let userid = document.getElementsByName("userid")[0].value;
+	let dresult = "";
+	let data=[];
+	for(i=0; i<deleted1.length; i++){
+		if(deleted1[i].checked){dresult = deleted1[i].value;}
+		data.push({cpcode:cpcode,prcode:prcode,userid:userid,wdcode:dresult});
+	}
+	if(confirm("삭제하시겠습니까?")){
+		postAjax("rest/DeleteDiary", JSON.stringify(data), 'deleteDiary2', 2);
+		}else{
+			location.replace("myDiaryForm");
+			alert("다시 시도해 주세요.");
+		}
+}
+
+function deleteDiary2(data){
+	if(data==true){
+		location.replace("myDiaryForm");
+		alert("삭제되었습니다.");
+	}else{
+		location.replace("myDiaryForm");
+		alert("다시 시도해주세요.");
+	}
+}
+
+function windowClosed(){
+	let deldd1 = document.getElementById("deldd");
+	deldd1.style.display = "none";
 }

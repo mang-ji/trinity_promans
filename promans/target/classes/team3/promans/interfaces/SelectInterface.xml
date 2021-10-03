@@ -111,6 +111,7 @@
 		FROM
 		WD
 		WHERE WD_CPCODE= #{cpcode}
+		and WD_PRCODE= #{prcode}
 		and WD_CODE= #{wdcode}
 	</delete>
 	
