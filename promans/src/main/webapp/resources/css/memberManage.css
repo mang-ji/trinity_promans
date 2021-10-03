@@ -28,7 +28,7 @@ body {
 	margin-left:70px; width: 680px; margin-bottom:50px;
 }
 input[type=text] {
-	width: 100px; height: 25px;
+	width: 90px; height: 25px;
 }
 #mailforrm {width:160px;}
 #accesscode {width:120px; height:25px;}
