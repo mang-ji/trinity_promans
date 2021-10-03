@@ -60,8 +60,8 @@
 	<select id="getMaxNocode"
 		parameterType="team3.promans.beans.Notice_CalendarBean"
 		resultType="int">
-		SELECT NVL(MAX(NO_CODE),0)
-		FROM PNT
+		SELECT NVL(MAX(substr(NO_CODE,3,4)),0) 
+		FROM PNT 
 		WHERE NO_CPCODE = #{cpcode}
 	</select>
 	
