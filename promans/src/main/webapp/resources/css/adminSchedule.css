@@ -12,18 +12,24 @@
 	height:100%;
 }
 
-.notDetailTitleDiv{
-    height: 40px;
-    width: 80%;
-    line-height: 3;
-    border-bottom: 1px solid black;
-    margin: auto;
+.notDetailTitle {
+    width: 70%;
+    float: left;
+    text-align: left;
+    position: relative;
+    left: 20px;
 }
 
 .notDetailTitle{
 	width: 80%;
     float: left;
     text-align: left;
+}
+
+.notDetailTitleDiv{
+	
+	border-bottom:1px solid black;
+	    height: 30px;
 }
 
 .notDetailWriter{
@@ -46,6 +52,9 @@
     border-radius: 10px;
     position: relative;
     top: 20px;
+    text-align: center;
+    padding: 10px;
+    overflow:auto;
 }
 
 .notDetailSdate {
@@ -53,16 +62,9 @@
     position: relative;
     color: lightgray;
     bottom: 20px;
-    right: 10px;
+    right: 15px;
+    font-size: 13px;
 }
-
-
-
-
-
-
-
-
 
 #notices { width:20rem; position:fixed; left:1150px; height:80%; top:123px; }
 #SCList { 	background-color:#4f5f86;
@@ -279,14 +281,32 @@ width:100px;  border:0px; height:30px; padding-top:3px;
  width:100px; height:30px;}
 
 
-#modal-title{
+#nbtns:hover { background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:100px; height:30px;}
+
+
+#nbtns{
 	
-	height:15%;
-	background-color:#4f5f86;
-	color:#FFFFFF;
-	font-size:20px;
-	font-weight:bold;
+    background-color: #fff;
+    color: #929292;
+    text-align: center;
+    width: 100px;
+    border: 0px;
+    height: 30px;
+    padding-top: 3px;
+    position: relative;
+    top: 50px;
+  
+
 	
+}
+#modal-title {
+    height: 10%;
+    background-color: #4f5f86;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 8px;
 }
 
 #modal-title2{
