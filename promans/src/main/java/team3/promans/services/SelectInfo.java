@@ -64,8 +64,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		List<Notice_CalendarBean> list = sql.selectList("getCalendar", ncb);
 		return list;
 	}
-
-
 	
 	public List<ScheduleDetailBean> getMySchedule(ScheduleDetailBean sdb){
 		List<ScheduleDetailBean> myScheduleList = sql.selectList("getMySchedule", sdb); 
@@ -76,17 +74,18 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		List<WorkDiaryBean> getDiaryList = sql.selectList("getDiary", wdb);
 		return getDiaryList;
 	}
-	
-	/*public Map<String,String> deleteDiary(List<WorkDiaryBean> wdb){
-		Map<String,String> map = new HashMap<>();
-		wdb.get(0).getWdcode();
-		if(this.convertBoolean(sql.delete("deleteDiary", wdb))) {
-			map.put("message", "삭제완료");
-		}else {
-			map.put("message", "서버오류");
+	//업무일지삭제
+	public boolean deleteDiary(List<WorkDiaryBean> wdb){
+		boolean result = false;
+		for(int i = 0; i<wdb.size(); i++) {
+			if(this.convertBoolean(sql.delete("deleteDiary", wdb.get(i)))) {
+				result=true;
+			}else {
+				result=false;
+			}
 		}
-		return map;
-	}*/
+		return result;
+	}
 
 	/* 공지사항 리스트 조회 */
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
@@ -404,9 +403,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	
 	}
 
-
-
-
 	public List<ProjectStepBean> getScCompleteList(ScheduleBean sb) {
 		return sql.selectList("getScCompleteList", sb);
 	}
@@ -420,13 +416,4 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 
-
-	@Override
-	public List<WorkDiaryBean> deleteDiary(WorkDiaryBean wdb) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
-
-
-

@@ -122,6 +122,11 @@ public class Restcontroller {
 		return si.GetDiaryDetail(wdb.get(0));
 	}
 	
+	//업무일지삭제
+	@PostMapping("/DeleteDiary")
+	public boolean deleteDiary(@RequestBody List<WorkDiaryBean> wdb) {
+		return si.deleteDiary(wdb);
+	}
 	//업무 완료요청(일반멤버)
 	@PostMapping("/ReqSchedule")
 	public boolean reqSchedule(@RequestBody List<ScheduleDetailBean> sdb) {
