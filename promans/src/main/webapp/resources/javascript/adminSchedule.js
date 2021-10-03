@@ -117,7 +117,6 @@ function notDetailPop(jsonData){
 	let modal_box = document.getElementById("modal_box");
 	let html = "";
 
-
 	html += "<div class='modal' id = 'modal3' style='border:1px solid black;'>";
 	
 	html += "<div id ='modal-title'class=\"notDetailHead\">Notice Detail</div>";
@@ -130,13 +129,12 @@ function notDetailPop(jsonData){
 	html += "</div>";
 	
 	html += "<div class=\"notDetailContentsDiv\">";
-	html += "<div class=\"notDetailContent notDetailContents\">"+jsonData[0].contents+"</div>";
-	html += "<div class=\"notDetailContent notDetailSdate\">"+jsonData[0].sdate+"</div>";
+	html += "<div class=\"notDetailContent notDetailContents\">"+jsonData[0].contents+"<div class=\"notDetailSdate\">"+jsonData[0].sdate+"</div></div>";
 	html += "</div>";
 	
 	html += "</div>";
 	
-	html += "<input type='button' id=\"btns\" onClick='notClose()' value=\"뒤로가기\"/></div>";
+	html += "<input type='button' id=\"nbtns\" onClick='upPass()' value=\"뒤로가기\"/></div>";
 	html += "</div>";
 	
 	modal_box.innerHTML = html;
@@ -144,10 +142,6 @@ function notDetailPop(jsonData){
 
 }
 
-function notClose(){
-	let background = document.getElementById("modal_background");	
-	background.style.display = "none";
-}
 
 
 function getWork(jsonData){
@@ -263,7 +257,7 @@ function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 
 	box.style.display = "block";
 	background.style.display = "block";
 
-	box.innerHTML += "<div class='modal' id = 'modal3' style='border:1px solid black;' >";
+	//box.innerHTML += "<div class='modal' id = 'modal3' style='border:1px solid black;' >";
 	
 	
 		
@@ -284,7 +278,7 @@ function getScheManager(jsonData){ //업무 디테일 추가하면서 관리자 
 	
 	box.innerHTML += "<div id = 'marginBTNS'><input type='button' id=\"btns\" onClick = \"insScheduleDetail()\" value =\"추가하기\" /><br>";
 	box.innerHTML += "<input type='button' id=\"btns\" onClick='popClose()' value=\"뒤로가기\"/></div>";
-	box.innerHTML += "</div>";
+	//box.innerHTML += "</div>";
 	
 }
 
@@ -369,7 +363,7 @@ function popClose(){
 	backModal.remove();
 		
 		
-	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div><div id = 'modal_box2'></div></div>";
+	modalForm.innerHTML = "<div id ='modal_background'><div id='modal_box'><div id='requestList'></div></div><div id = 'modal_box2' style='display:none;'></div></div>";
 
 
 		
