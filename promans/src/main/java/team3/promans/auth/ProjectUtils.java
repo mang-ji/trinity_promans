@@ -57,18 +57,7 @@ public class ProjectUtils {
     public String savingFile(MultipartFile file) {
     	String fileInfo = null;
     	/*C:\Users\back\Desktop\Repo\trinity_promans\promans\src\main\webapp\resources\images*/
-    	String locate = "C:" + File.separator 
-				+ "Users" + File.separator 
-				+ "back" + File.separator 
-				+ "Desktop" + File.separator 
-				+ "Repo" + File.separator 
-				+ "trinity_promans" + File.separator 
-				+"promans" + File.separator 
-				+"src" + File.separator 
-				+ "main" + File.separator
-				+ "webapp" + File.separator
-				+ "resources" + File.separator
-				+ "images" + File.separator;
+    	String locate = "C:/repo/trinity_promans/promans/src/main/webapp/resources/images/" + File.separator;
     	
     	
     	/*랜덤 이름 지정*/
