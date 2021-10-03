@@ -472,7 +472,21 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 
-
+	public List<CpMemberBean> getSearchWord(CpMemberBean cmb) {
+		List<CpMemberBean> list =  sql.selectList("getSearchWord",cmb);
+		List<CpMemberBean> newlist = new ArrayList<CpMemberBean>();
+ 		for(int i=0;i<list.size();i++) {
+			try { /* 사원들 이름을 복호화 하는 중 */
+				list.get(i).setUname(enc.aesDecode(list.get(i).getUname(),list.get(i).getUserid()));
+				
+				if(list.get(i).getUname().contains(cmb.getWord()) || list.get(i).getUserid().contains(cmb.getWord())) {
+					newlist.add(list.get(i)); // 일치하는 값 새로 저장중 
+				}
+			} catch (Exception e) {e.printStackTrace();}
+		}
+	
+		return newlist;
+}
 	public List<Notice_CalendarBean> notpop(Notice_CalendarBean ncb) {
 		List<Notice_CalendarBean> list = sql.selectList("notpop", ncb);
 		     

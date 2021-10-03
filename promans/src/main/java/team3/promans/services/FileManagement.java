@@ -136,11 +136,10 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 			sb.append("보내는 사람 : " + (String) pu.getAttribute("mail"));
 			sb.append("<br>----------------------------------------------<br>");
 			sb.append(mb.getMcontents());
-
 			String contents = sb.toString();
-			String filename = "C:/repo/trinity_promans/promans/src/main/webapp/resources/images/"+pu.savingFile(mb.getFile());
 			
-			if(mb!=null) {
+			if(!mb.getFile().isEmpty()) {
+				String filename = "C:/repo/trinity_promans/promans/src/main/webapp/resources/images/"+pu.savingFile(mb.getFile());
 				helper.setFrom("siriwitcher@naver.com");
 				helper.setTo(mb.getTo());
 				helper.setSubject(mb.getTitle());
@@ -150,7 +149,17 @@ public class FileManagement implements team3.promans.interfaces.FileInterface{
 
 				javaMail.send(mail);
 				mav.setViewName("sendMailPage");
+				
+				return mav;
 			}
+			
+		helper.setFrom("siriwitcher@naver.com");
+		helper.setTo(mb.getTo());
+		helper.setSubject(mb.getTitle());
+		helper.setText(contents,true);
+		javaMail.send(mail);
+		mav.setViewName("sendMailPage");
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}					

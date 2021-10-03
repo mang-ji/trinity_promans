@@ -54,5 +54,6 @@ public interface SelectInterface {
 	  public List<FeedbackBean> getScftList(ScheduleDetailBean sdb);
 	  public List<FeedbackBean> getSdftList(ScheduleDetailBean sdb);
 	  public List<FeedbackBean> getMyfeedback(ScheduleDetailBean sdb);
+	  public List<CpMemberBean> getSearchWord(CpMemberBean cmb);
 	  
 }

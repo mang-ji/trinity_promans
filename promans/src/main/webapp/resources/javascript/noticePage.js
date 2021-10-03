@@ -15,7 +15,6 @@ function afterNotice(data) {
 		let style = document.createElement("style");
 		let trNotice = document.getElementById("trNotice");
 		let change = document.getElementById("change");
-		
 		let editBtn =document.getElementsByName("editBtn")[0];
 		
 
@@ -46,6 +45,7 @@ function afterNotice(data) {
 			html = "<div id=\"noticezero\"> 공지사항이 없습니다.</div>";
 			}
 		
+
 		
         style.innerHTML = css;
         document.head.append(style);
@@ -54,11 +54,23 @@ function afterNotice(data) {
 	
 		editBtn.addEventListener('click',function(){
 			let checks = document.getElementsByName("nocode");
-			for(i=0; i<data.length;i++){
+			
+			
+			
+			
+			if(deletebtn.style.display =="none"){
+				for(i=0; i<data.length;i++){
 				checks[i].style.display = "block";
 			}
+				
+				deletebtn.style.display = "block";
+			}else{
+				for(i=0; i<data.length;i++){
+				checks[i].style.display = "none";
+			}
+				deletebtn.style.display="none";
+			}
 			
-			deletebtn.style.display = "block";
 			
 	
 		});

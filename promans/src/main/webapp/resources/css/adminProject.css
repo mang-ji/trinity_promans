@@ -177,7 +177,7 @@
 	display: none;
 	position : absolute;
 	top : 50%; left : 50%;
-	width: 400px; height: 400px;
+	width: 400px; height: auto;
 	margin : -250px 0 0 -250px;
 	background-color :rgb(255,255,255);
 	border-radius: 5px;
@@ -224,7 +224,7 @@
 div#ShceduleEdit {
     margin-top: 10px;
 }
-#teamlistt{ text-align:center; font-weight:bold; font-size:20px; margin:30px; border-bottom: solid 3px; }
+#teamlistt{ text-align:center;    margin-bottom: 30px; font-weight:bold; font-size:20px; color:white; background-color:#525f83; width:100%; line-height:3}
 #btns {background-color:#fff; color:#929292; text-align:center; 
 width:100px;  margin-left:450px;  border:0px; height:30px; padding-top:3px;
 }
@@ -239,7 +239,7 @@ width:100px;  margin-left:450px; height:30px; padding-top:3px;
 #teamonelistinput {margin-right:10px; border:3px solid #d5d5d5; border-radius:3px;}
 #projetstepbox {margin-left: 110px; overflow:hidden; }
 #enterstepname { float:left; margin-bottom: 20px; width:120px; margin-right:10px;}
-#buttonboundary {float:right; margin-right:400px;}
+#buttonboundary {float:right; }
 #memberselectbtn {background-color:#fff; color:#929292; text-align:center; 
 width:100px;  margin-left:280px; border:0px; height:30px; padding-top:3px;}
 #memberselectbtn:hover {background-color:#929292; color:#fff; text-align:center; padding-top:3px;
@@ -512,10 +512,9 @@ width:50px;   border:0px; height:30px; padding-top:3px;}
 
 
 
-
 .rd {display:none;}
 
-#btnbtn {margin-top:10px; background-color:#929292; color:#fff;   text-align:center; 
+#btnbtn {margin-top:10px; background-color:#929292; color:#fff;   text-align:center;  
 width:100px;  margin-left:275px; height:30px; padding-top:3px;
 }
 #btnbtn:hover { background-color:#fff; color:#929292; text-align:center; padding-top:3px;
@@ -531,4 +530,21 @@ width:100px;  margin-left:275px; height:30px; padding-top:3px; border:0px;
 }
 #feedbackbtnmake:hover { background-color:#fff; color:#929292; text-align:center; padding-top:3px;
  width:100px; height:30px;}
-#message {text-align:center; margin-top:25%; font-size:20px; margin-bottom:150px;}
+#message {
+    text-align: center;
+    margin-top: 25%;
+    font-size: 16px;
+    margin-bottom: 150px;
+    color: grey;
+}
+#noprojectstep{font-size:15px; color:grey; text-align:center; margin:10%;}
+#searchbox {width:60%; margin-right:10px; line-height: 2;font-size:14px; border:2px solid grey;}
+#searchbtn {width:15%;  border:0px; line-height:160%;line-height: 2; border-radius:2px;  background-color:white; color:#929292;}
+#searchbtn:hover {background-color:#929292; color:white;}
+#searchpart {text-align:center; margin-bottom:7%;}
+
+#searchtitle{text-align:center; font-weight:bold; background-color:#929292; color:white; line-height:200%;}
+#searchlists{text-align:center;line-height:200%; width:100%;}
+.namesss {text-align:center; margin-right:20%; margin-left:10%; }
+#searchresult {margin-bottom:7%;}
+

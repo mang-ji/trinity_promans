@@ -112,14 +112,20 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	/* 스텝에 멤버추가시 이미 존재하는 회원은 거르고 스텝 테이블에 인서트 하는 부분 */
 	public Map<String,String> insProjectMember(ProjectMemberBean pmb) {
 		Map<String,String> map = new HashMap<String, String>();
-		int i = sqlSession.selectOne("checkUserid",pmb);
-
-		if(this.convertData(i)) {
-			map.put("message", "멤버가 이미 존재합니다.");
-		}else {
-			sqlSession.insert("insProjectMember", pmb);
-			map.put("message", "멤버 추가 완료하였습니다.");
+		String[] userid = pmb.getUserid().split(",");
+		int check;
+		
+		for(int i=0;i<userid.length;i++) {
+			pmb.setUserid(userid[i]);
+			check = sqlSession.selectOne("checkUserid",pmb);
+			if(this.convertData(check)) {
+				map.put("message", "멤버가 이미 존재합니다.");
+			}else {
+				sqlSession.insert("insProjectMember", pmb);
+				map.put("message", "멤버 추가 완료하였습니다.");
+			}
 		}
+		
 
 		return map;
 		
@@ -148,7 +154,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 	public Map<String, String> reqProjectAccept(ProjectBean pb) {
 		Map<String,String> map = new HashMap<>();
 		if(this.convertData(sqlSession.update("reqProjectAccept", pb))) {
-			map.put("message", "완료 요청이 완료되었습니다.");
+			map.put("message", "프로젝트 완료 요청을 전송하였습니다.");
 		} 
 		return map;
 	}

@@ -25,18 +25,18 @@
 }
 
 #parent {overflow:hidden;  height:40px; border-top:4px solid;}
-#nameee,#feedbackkk,#datess {float:left; width:25%; font-weight:bold;}
-#nameee {margin-left:50px;}
-#feedbackkk {margin-left:100px;}
+#nameee,#datess {float:left; font-weight:bold;}
+#nameee {margin-left:10%; width:30%;}
 #feedbackkk2{float:left; width:25%; font-weight:bold; margin-left:200px;}
-#datess {margin-left:110px;}
-#datess2 {float:left; width:20%;  margin-left:40px; font-weight:bold;}
-#num {float:left; margin-left:20px; width:75px; text-align:center;}
-#projectname {float:left; margin-left:10px; width:30%;  text-align:left; }
-#projectname1 {float:left; margin-left:10px; width:18%;  text-align:left; }
+#datess {margin-left: 30%;}
+#datess2 {float:left; width:20%;  margin-left:25%; font-weight:bold;}
+#num {float:left; margin-left:7%; width:75px; text-align:center;}
+#projectname {float:left; margin-left:5%; width:30%;  text-align:left; }
+#projectname1 {float:left; margin-left:8%;width:40%;  text-align:left; }
 #feedcontent {float:left; width:43%; text-align:left;}
 #feedcontent1 {float:left; width:33%; text-align:left;}
-#feeddate {float:left; width:17%;}
+#feeddate {float:left; width:17%; margin-left:4%;}
+#feeddate2 {float:left; width:17%; margin-left:11%;}
 #boxx {overflow:hidden;}
 #selectBack {
 	width: 100%;
@@ -67,7 +67,7 @@
     background-color: #525f83;
     color: white;
     padding: 10px;
-    font-size: 17px;
+    font-size: 20px; font-weight:bold;
     line-height: 1.8;
 }
 #feeddata {

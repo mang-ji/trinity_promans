@@ -126,17 +126,23 @@ function selectProject(jsonData){
 	let prcode = document.getElementsByName("prcode")[0];
 
 	list += "<span id='span1'>No.</span><span id='span2'>Project Step</span><span id='span3'>Progress</span>";
-	for(i=0; i<jsonData.length; i++){
+	if(jsonData.length != 0){
+		for(i=0; i<jsonData.length; i++){
 		 list += "<div class='steplists' onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\"><input type ='hidden' name ='pscode' value =\'"
 				+jsonData[i].pscode+"\' /><div id='numbers'>"+ (i+1) + "</div><div id='psnames'>"
 				+ jsonData[i].psname +"</div><div id='stnames'>"+ jsonData[i].stname + "</div></div>";
+		}
+	}else{
+		list = "<div id=\"noprojectstep\">프로젝트 스텝이 존재하지 않습니다.</div>";
 	}
 	
+	
 	if(utype == "L" || utype == "A"){
-		list+= "<input type='button' class='buttonStyle' value='승인' onClick=\"selectStepList(\'"+prcode.value+"\')\" />";
+		list+= "<input type='button' class='buttonStyle' value='완료승인' onClick=\"selectStepList(\'"+prcode.value+"\')\" />";
+		list+= "<input type='button' class='buttonStyle' value='팀원추가' onClick=\"getCompanyMember(\'"+prcode.value+"\')\"/>";
 	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+prcode.value+"\')\" />";
-		list+= "<input type='button' class='buttonStyle' value='팀원 추가' onClick=\"getCompanyMember(\'"+prcode.value+"\')\"/>";
-		list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+prcode.value+"\')\"/>";
+		
+		//list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+prcode.value+"\')\"/>";
 		list+= "<div id=\"buttonboundary\"></div>";
 	}
 	
@@ -1093,7 +1099,7 @@ function sendProjectInfo(prcode){
 	let createBtn = document.getElementById("buttonboundary");
 	let data = "";
 	// 프로젝트 완료요청은 일단 재낌 , 프로젝트용 피드백 테이블이 없삼 
-	data += "<input type='button' class='buttonStyle' value='승인 요청' onClick=\"reqProjectAccept(\'"+prcode+"\')\">"; 
+	data += "<input type='button' class='buttonStyle' value='완료 요청 보내기' onClick=\"reqProjectAccept(\'"+prcode+"\')\">"; 
 	data += "<input type='button' class='buttonStyle' value='스텝 생성' onClick=\"makeProjectStep(\'"+prcode+"\')\"><br>";
 	
 	createBtn.innerHTML = data;
@@ -1133,6 +1139,7 @@ function reqProjectAccept(prcode){
 	postAjax("rest/ReqProjectAccept", JSON.stringify(clientData),"reqProjectResult",2);
 }
 function reqProjectResult(jsonData){
+	alert(jsonData.message);
 }
 
 
@@ -1198,6 +1205,7 @@ function selectManager(prcode1){
 function getManagerList(jsonData){
 	let box = document.getElementById("modal_box2");
 	let modal_background = document.getElementById("modal_background2");
+	
   		 box.innerHTML = "<div id=\"teamlistt\">프로젝트 멤버 리스트</div>";
 		
 		 for(i=0; i<jsonData.length;i++){
@@ -1241,19 +1249,71 @@ function makeProjectMember(jsonData){
 	let prcode = document.getElementsByName("prcode")[0];
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	let style = document.createElement("style");
+	let css="";
 	
 	box.innerHTML = "<div id=\"teamlistt\"> 프로젝트 팀원 리스트 </div>";
-	for(i=0; i<jsonData.length ;i++){
-		box.innerHTML += "<div id=\"teamonelist\"><input type='radio' id=\"teamonelistinput\" name='useridRadio' value=\'"+jsonData[i].userid+"\'>" + jsonData[i].userid +" : "+ jsonData[i].uname+ "</></div>";
-	}
+	
+	box.innerHTML += "<div id=\"searchpart\"><input type=\"textbox\" id=\"searchbox\" placeholder=\"아이디나 팀원명을 입력하세요.\"/><input type=\"button\" id=\"searchbtn\" onClick=\"searchTeamMember()\" value=\"검색\"/></div>";
+	box.innerHTML += "<div id=\"searchresult\"></div>";
+	box.innerHTML += "<div id=\"searchtitle\"><span class=\"namesss\">아이디&emsp;&emsp;</span><span class=\"namesss\"> 이름</span></div>";
+
+		for(i=0; i<jsonData.length ;i++){
+		/*	box.innerHTML += "<div id=\"teamonelist\"><input type='radio' id=\"teamonelistinput\" name='useridRadio' value=\'"+jsonData[i].userid+"\'>" + jsonData[i].userid +" : "+ jsonData[i].uname+ "</></div>";
+			*/
+			box.innerHTML +="<div id=\"searchlists\"><input type=\"checkbox\" name=\"checked\" style=\"display:none;\" id=\"rd"+i+"\" value=\""+jsonData[i].userid+"\"/><label for=\"rd"+i+"\" style=\"width:100%;\"><span class=\"namesss\">"+jsonData[i].userid+"</span><span class=\"namesss\">"+jsonData[i].uname+"</span></label></div>";
+			
+			css += "input[id=\"rd"+i+"\"]:hover \+ label{background-color:#c0c0c0;color:#ffffff; width:100%; border-radius:2px;}";
+	        css += "input[id=\"rd"+i+"\"]:checked \+ label{background-color:#c0c0c0;color:#ffffff; width:100%; border-radius:2px;}";
+	        css += "input[id=\"rd"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff; width:100%; border-radius:2px;}";
+			}
+	
 	 
 	box.innerHTML += "<div id=\"btns\" onClick=\"sendSelectedMember(\'"+prcode.value+"\')\" >선택하기</div>";
 	box.innerHTML += "<div id=\"btns\" onClick=\"close1()\">뒤로가기</div>";
+	
+	style.innerHTML = css;
+	document.head.appendChild(style);
 	box.style.display = "block";
 	modal_background.style.display ="block";
 	
 }
 
+function searchTeamMember(){
+	let word = document.getElementById("searchbox");
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let firstlist = document.getElementById("firstlist");
+	
+	let jsonData = [{cpcode:cpcode.value, word:word.value}];
+	postAjax("rest/GetSearchWord", JSON.stringify(jsonData),"getSearchMember",2);
+}
+function getSearchMember(list){
+	let div = document.getElementById("searchresult");
+	let style = document.createElement("style");
+	let css="";
+		div.innerHTML = "<div style=\"color:grey; font-size:15px; text-align:center;\">[ 검색 결과 ]</div>";
+		div.innerHTML += "<div id=\"searchtitle\"><span class=\"namesss\">아이디&emsp;&emsp;</span><span class=\"namesss\"> 이름</span></div>";
+	if(list.length != 0){
+		for(i=0;i<list.length;i++){
+			div.innerHTML += "<div id=\"searchlists\"><input type=\"checkbox\" name=\"checked\" style=\"display:none;\" id=\"labels"+i+"\" value=\""+list[i].userid+"\"/><label for=\"labels"+i+"\" style=\"width:100%;\"><span class=\"namesss\">"+list[i].userid+"</span><span class=\"namesss\">"+list[i].uname+"</span></label></div>";
+			
+			css += "input[id=\"labels"+i+"\"]:hover \+ label{background-color:#c0c0c0;color:#ffffff; width:100%; border-radius:2px;}";
+	        css += "input[id=\"labels"+i+"\"]:checked \+ label{background-color:#c0c0c0;color:#ffffff; width:100%; border-radius:2px;}";
+	        css += "input[id=\"labels"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff; width:100%; border-radius:2px;}";
+		}
+	}else{
+		
+			div.innerHTML +="<div style=\"text-align:center; font-size:15px; color:grey; margin-top:50px;\">검색 결과가 없습니다.</>";
+	}
+	
+		
+		
+		style.innerHTML = css;
+		document.head.appendChild(style);
+		
+		div.style.display = "block";
+	
+}
 
 
 function close1(){
@@ -1285,20 +1345,28 @@ function close2(){
 
 function sendSelectedMember(prcode){
 	let cpcode =document.getElementsByName("cpcode")[0];
-	let radio = document.getElementsByName("useridRadio");
-	let userid;
+	let check = document.getElementsByName("checked");
+	let modal_background = document.getElementById("modal_background");
+	let userid="";
 
-	radio.forEach((node) => {
-    if(node.checked)  { 
-      userid = node.value;
-    	}
-	})
+	check.forEach((node) => {
+    if(node.checked)  {  /* for문 없이도 알아서 체크된 갯수만큼 도는구나 !!  */
+			if(userid==""){
+				userid += node.value;
+			}else{
+				userid += (","+node.value);
+			}
+   	 	}
+	});
+	
 	let jsonData = JSON.stringify([{cpcode:cpcode.value, prcode:prcode, userid:userid}]);
 	
 	postAjax("rest/InsProjectMember", jsonData,"insProjectMember",2);
+	modal_background.style.display = "none";
 }
 
 function insProjectMember(data){
+	alert(data.message);
 }
 
 
@@ -1328,9 +1396,9 @@ function getStep(jsonData){
 						+"<div>관리자 : " +jsonData[i].username 
 						+"&emsp;&emsp;진행상태 : "+ jsonData[i].stname+"</div></label></div>";
 						
-		css += "input[id=\"rd"+i+"\"]:hover \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:30px;}";
-        css += "input[id=\"rd"+i+"\"]:checked \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:30px;}";
-        css += "input[id=\"rd"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff; border-radius:30px;}";
+		css += "input[id=\"rd"+i+"\"]:hover \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:20px;}";
+        css += "input[id=\"rd"+i+"\"]:checked \+ label{background-color:#c0c0c0;color:#ffffff; border-radius:20px;}";
+        css += "input[id=\"rd"+i+"\"]:active \+ label{background-color:#bbbbbb;color:#ffffff; border-radius:20px;}";
 		}
 	}else {box.innerHTML += "<div id=\"message\">완료 요청중인 프로젝트 스텝이 없습니다.</div>";}
 	
@@ -1428,4 +1496,5 @@ function sendAccept(data){
 	modal_background.style.display = "none";
 }
 function sendAccept2(data){
+	alert(data.message);
 }

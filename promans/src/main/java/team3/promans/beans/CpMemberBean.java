@@ -18,4 +18,5 @@ public class CpMemberBean {
 	private String wcode;
 	private String utype;
 	private String seperate;
+	private String word;
 }
