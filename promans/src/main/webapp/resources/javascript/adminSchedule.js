@@ -328,7 +328,7 @@ function reqWork(){
 	let prcode = document.getElementsByName("prcode")[0];
 	let f = document.createElement("form");
 
-	let sdcode;
+	let sdcode;ㅌㅈ
 	
 	for(i=0; i<workCheck.length; i++){
 		if(workCheck[i].checked){
