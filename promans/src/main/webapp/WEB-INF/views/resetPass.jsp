@@ -28,6 +28,7 @@
 			<input type="password" id="pwbox" class="box" name = "pw" placeholder="새 비밀번호를 입력해주세요.">
 			</div><br>
 			<input type="button" class="button" name="reset" value="변경하기" onClick= "resetPass()"> 
-	
+	</div>
+	</div>
 </body>
 </html>
