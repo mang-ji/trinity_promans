@@ -358,11 +358,44 @@ p {
 }
 #projectReqq {text-align:left; margin-left:30px; }
 
-#btns {background-color:#fff; color:#929292; text-align:center; 
-width:100px;  margin-left:450px; height:30px; padding-top:3px;
+
+#btnsssss {
+    background-color: #fff;
+    color: #929292;
+    text-align: center;
+    width: 190px;
+    border: 0px;
+    height: 30px;
+    padding-top: 3px;
+    left: 33%;
+    position: relative;
 }
-#btns:hover { background-color:#929292; color:#fff; text-align:center; padding-top:3px;
- width:100px; margin-left:450px; height:30px;}
+#btnsssss:hover {background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:190px; border:0px; height:30px;}
+
+#memberregister {
+    background-color: #fff;
+    color: #929292;
+    text-align: center;
+    width: 190px;
+    border: 0px;
+    height: 30px;
+    padding-top: 3px;
+    left: 43%;
+    position: relative;
+}
+#memberregister:hover {background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:190px; border:0px; height:30px;}
+
+
+#btns {
+    color: white;
+    width: 0px;
+    height: 30px; font-weight:bold; font-size:22px;
+    position: relative;
+    left:97%; bottom:70%;
+}
+
 #btnbox{margin-top:10px;}
 #selectBox{height:20px;}
 #textboxx {width:480px; height:200px; margin-top:10px; overflow:scroll;
@@ -370,8 +403,17 @@ border:3px solid #c0c0c0; border-radius:3px;}
 #feedbackbtn { margin-right:8px; margin-top:40px;}
 #acceptbtn {margin-left: 20px; margin-right:8px;}
 #projectReqBoxx {border: 10px solid #c0c0c0; border-radius:20px; padding:15px; width:500px; }
-#memberregister {background-color:#fff; color:#929292; text-align:center; 
-width:190px; border:0px; height:30px; padding-top:3px;}
+#memberregister {
+    background-color: #fff;
+    color: #929292;
+    text-align: center;
+    width: 190px;
+    border: 0px;
+    height: 30px;
+    padding-top: 3px;
+    left: 43%;
+    position: relative;
+}
 #memberregister:hover {background-color:#929292; color:#fff; text-align:center; padding-top:3px;
  width:190px; border:0px; height:30px;}
  
@@ -416,6 +458,51 @@ input[type="text"]{border-radius:4px; margin-bottom:20px; text-align:center;}
 
 #loginInfo,#welcome { color:grey; text-align:right;  font-size:15px;} 
 #loginInfo{border-bottom:1px solid; margin-left:25%;}
+#yuna_modal {	display: none; overflow:auto;
+	position : absolute;
+	top : 50%; left : 50%;
+	width: 80%; height:  600px;
+	margin : -250px 0 0 -580px;
+	background-color:#FFFFFF;
+	
+	border:2px solid #4f5f86;}
+#titleeeee {font-size:25px; color:grey; text-align:left; margin-left: 2%; margin-bottom:1%;}
+
+
+#title {
+    margin-bottom: 8px;
+    line-height: 2.3;
+    background-color: grey;
+    color: white;
+}
+#box {overflow:hidden; margin-bottom:3px;}
+#userid {position:relative; left:8.5%; }
+#uname {position:relative; left:23%;}
+#uphone {position:relative; left:41.5%;}
+#mail {position:relative; left:53%; }
+.spans {position:relative; left:25%;
+}
+.mailspan {position:relative; left:63%;
+}
+.idspan { position:relative; left:10%;
+}
+.phonespan {position:relative; left:45%;
+}
+#checkcheck{position:relative; left:6%;}
+
+#memberdelete {
+    background-color: #fff;
+    color: #929292;
+    text-align: center;
+    width: 190px;
+    border: 0px;
+    height: 30px;
+    padding-top: 3px;
+    left: 43%;
+    position: relative;
+}
+#memberdelete:hover {background-color:#929292; color:#fff; text-align:center; padding-top:3px;
+ width:190px; border:0px; height:30px;}
 /*
 label.r {display:inline-block;width:550px;height:120px;background-repeat:no-repeat;background-size:20px auto;}
 label.r1 {display:inline-block;width:550px;height:140px;background-repeat:no-repeat;background-size:20px auto;}

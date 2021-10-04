@@ -389,6 +389,7 @@ public class Restcontroller {
 
 	@PostMapping("/DeleteCpMember")
 	public Map<String, String> deleteCpMember(@RequestBody List<CpMemberBean> cmb) {
+		System.out.println(cmb );
 		return tm.deleteCpMember(cmb);
 	}
 	@PostMapping("/SelectProjectReq")

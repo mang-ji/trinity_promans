@@ -60,10 +60,12 @@ window.addEventListener('load',function(){
 	<div id ='Form'>
 		
 	 	<div id="modal_background">
+	 		<div id="yuna_modal"></div>
 	 		<div id="modal_box">
 	 			<div id="requestList"></div>
 	 		</div>
 	 	</div>
+	 
 		
 	 </div>	 <input type="hidden" name="utype" value="${utype}"> 
 	</form>
@@ -79,7 +81,9 @@ window.addEventListener('load',function(){
 	 	<input type="button" id="completeProject" onClick="completeProject()" value="완료된 프로젝트"/>
 	 	<input type="button" id="acceptProjectReq" onClick="acceptProjectReq()" style="display:none;" value="프로젝트 완료요청"/>
 	 	<input type="button" id="acceptProjectMakeReq" onClick="acceptProjectMakeReq()" style="display:none; " value="프로젝트 생성요청"/>
-	 	<input type="button" id="addCpMember" onClick="addCpMember()" style="display:none; " value="사원 추가"/>
+	 	<input type="button" id="addCpMember" onClick="memberManagement()" style="display:none; " value="사원 관리"/>
+	 	
+	 	<!--사원추가 addCpMember() -->
 	 </div>
       <input type="hidden" name="prcode" value=" "> <!-- prcode 아마 여기 없을거다 넘겨받는 것 일거다 -->
       <div id="getProject"></div>

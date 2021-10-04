@@ -657,7 +657,7 @@ function getReqProjectList(jsonData){
 		box.innerHTML += "<div id='feedbackspace' </div>";
 		box.innerHTML += "<div id='btnbox' ><div id='btns'  name='accepttt' style=\"display:none\" onClick=\"acceptProjects(\'"+cpcode.value+"\')\">승인하기</div>";
 		box.innerHTML += "<div id='btnbox' ><div id='btns'  name='feedbackkk' style=\"display:none\" onClick=\"rejectProjects(\'"+cpcode.value+"\')\">반려하기</div>";
-		box.innerHTML += "<div id='btns' onClick=\"gotoback()\" >뒤로가기</div></div>";
+		box.innerHTML += "<div id='btnsssss' onClick=\"gotoback()\" >뒤로가기</div></div>";
 		
 		style.innerHTML = css;
 		document.head.append(style);
@@ -698,8 +698,10 @@ function makeFeedSpace(event){
 function gotoback(){
 	let box= document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
+	let yuna_modal = document.getElementById("yuna_modal");
 	box.style.display = "none";
 	modal_background.style.display = "none";
+	yuna_modal.style.display = "none";
 }
 
 function acceptProjects(cpcode){
@@ -774,7 +776,7 @@ function getReqMakeProjectList(jsonData){
 		style.innerHTML = css;
 		document.head.appendChild(style);
 		
-		box.innerHTML += "<div id='btns' onClick=\"gotoback()\" >뒤로가기</div></div>";
+		box.innerHTML += "<div id='btnsssss' onClick=\"gotoback()\" >뒤로가기</div></div>";
 		box.style.display = "block";
 		modal_background.style.display = "block";
 	
@@ -913,7 +915,75 @@ function getCompleteProject2(jsonData){
 function promans(){
 	location.href = "mainPageForm";
 }
+function memberManagement(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let box = document.getElementById("yuna_modal");
+	let modal_background = document.getElementById("modal_background");
+	let jsonData = [{cpcode:cpcode.value}];
+	
+	
+	box.innerHTML = "<div id=\"completelist\"> 사원 관리 </div>";
+	box.innerHTML += "<div id=\"titleeeee\"> [ 사원 추가 ]</div>";
+	box.innerHTML += "<div id=\"insmemberbox\">"
+					+ "<input type=\"text\" name=\"userid\" placeholder=\"아이디\" />"
+					+ "<input type=\"text\" name=\"uname\" placeholder=\"이름\" />"
+					+ "<input type=\"password\" name=\"acode\" id=\"accesscode\" placeholder=\"비밀번호\"/>"
+					+ "<input type=\"hidden\" name=\"cpcode\" value=\""+cpcode.value+"\" />"
+					+ "<input type=\"text\" name=\"uphone\" placeholder=\"핸드폰\" />"
+					+ "<input type=\"text\" name=\"mail\" id=\"mailforrm\" placeholder=\"메일\" />"
+					+ "<select id=\"selectBox\" name=\"tecode\">"
+					+ "<option value=\"I\">인사팀</option><option value=\"G\">개발팀</option><option value=\"D\">디자인팀</option><option value=\"M\">마케팅팀</option><option value=\"Y\">영업팀</option></select>"
+					+ "<input type=\"hidden\" name=\"wcode\" value=\"1\" />"
+					+ "<input type=\"hidden\" name=\"utype\" value=\"G\" />"
+					+ "<input type=\"hidden\" name=\"seperate\" value=\"seperate\" />"
+					+ "<input type=\"button\" id=\"memberregister\" onClick=\"registerMember()\" value=\"등록\"></div>";
+				
+	
+		
+	box.style.display = "block";
+	modal_background.style.display = "block";
+	
+	postAjax("rest/GetCpMembers",JSON.stringify(jsonData), "getCpMembers", 2);
 
+}
 
+function getCpMembers(jsonData){
 
+	let box = document.getElementById("yuna_modal");
+	let modal_background = document.getElementById("modal_background");
+	
+	box.innerHTML += "<div id=\"titleeeee\"> [ 사원 처리 ]</div>";
+	box.innerHTML += "<div id='title'><span class='idspan'>아이디</span><span class='spans'>사원명</span><span class='phonespan'>휴대전화</span><span class='mailspan'>이메일</span></div>";
+	
+	for(i=0; i<jsonData.length;i++){
+		box.innerHTML += "<div id='box'><input type='checkbox' id=\"checkcheck\"  name=\"userid\" value=\""+jsonData[i].userid+"\" /><span  id=\"userid\">"+jsonData[i].userid+"</span><span id=\"uname\">"+jsonData[i].uname+"</span><span id=\"uphone\">"+jsonData[i].uphone+"</span><span id=\"mail\">"+jsonData[i].mail+ "</span></span>";
+		
+		}
+	box.innerHTML +=  "<div id='btns' onClick=\"gotoback()\" >X</div>";
+	box.innerHTML +="<input type=\"button\" id=\"memberdelete\" onClick=\"deleteCpMember()\" value=\"사원 삭제\" />";
+		
+	box.style.display = "block";
+	modal_background.style.display = "block";
+}
 
+function deleteCpMember(){
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let userid = document.getElementsByName("userid");
+	let jsonData =[];
+	
+	
+	for(i=0; i<userid.length;i++){
+		if(userid[i].checked){
+			jsonData.push({cpcode:cpcode.value, userid:userid[i].value});
+		}
+	}
+	
+	postAjax("rest/DeleteCpMember",JSON.stringify(jsonData),"successDeleteCpMem",2);
+	
+}
+
+function successDeleteCpMem(jsonData){
+	alert(jsonData.message);
+	location.href = "mainPageForm"; 
+	
+}
