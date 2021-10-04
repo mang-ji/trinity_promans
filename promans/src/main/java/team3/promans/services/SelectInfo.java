@@ -361,7 +361,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 
 		GraphDataBean gdb = new GraphDataBean();
 
-
+        
 		gdb.setSdW(sql.selectOne("getSdW", sb));
 		gdb.setSdI(sql.selectOne("getSdI", sb));
 		gdb.setSdC(sql.selectOne("getSdC", sb));	
@@ -385,7 +385,8 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			gdb.setScheI(sql.selectOne("getScheI",sb));
 			gdb.setScheC(sql.selectOne("getScheC",sb));
 		}
-
+         
+		System.out.println(gdb);
 
 		return gdb;
 	}
@@ -401,6 +402,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		List<ScheduleDetailBean> SDList1;
 		try {
 			sdb.setUserid((String)pu.getAttribute("userid"));
+			sdb.setPscode((String)pu.getAttribute("pscode"));
 		} catch (Exception e) {e.printStackTrace();}
 		SDList1 = sql.selectList("SDList1", sdb);
 		return SDList1;
