@@ -151,7 +151,8 @@ function selectProject(jsonData){
 		let selectStep = document.getElementById("selectStep");
 		let utype = document.getElementsByName("utype")[0].value;
 		let prcode = document.getElementsByName("prcode")[0];
-		
+		let path = document.getElementById("projectPath");
+		path.innerHTML  = jsonData[0].prname  ; 
 	if(jsonData.length != 0){
 		list+= "<div class=\"scheListDiv\">";
 		
@@ -253,11 +254,10 @@ function selectProject(jsonData){
 		//list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+prcode.value+"\')\"/>";
 		list+= "<div id=\"buttonboundary\" style=\"display:none;\"></div>";
 	}
-<<<<<<< HEAD
-	
-	selectStep.innerHTML = list;
+
+
 	path.style.display = "block";
-=======
+
 			headCss.innerHTML = css;
 			document.head.append(headCss);		
 			selectStep.innerHTML = list;
@@ -282,8 +282,6 @@ function selectProject(jsonData){
 			selectStep.innerHTML = list;
 			ShceduleEdit.innerHTML = edit;
 		});	
-
->>>>>>> branch 'main' of https://github.com/mang-ji/trinity_promans.git
 }
 
 function getRequestList(){
@@ -804,14 +802,13 @@ function selectSchedule(jsonData){
 			let index = 0;
 			let index2 =0;
 			for(i=0; i<jsonData.length; i++){
-<<<<<<< HEAD
+
 				
 				path.innerHTML = prname.value + " > " + jsonData[i].psname;
 				
-=======
+
 				index++;
 				index2++;
->>>>>>> branch 'main' of https://github.com/mang-ji/trinity_promans.git
 				if(jsonData[i].utype2 != null){
 					
 					if(jsonData[i].utype2 == "L"){

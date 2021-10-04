@@ -205,6 +205,7 @@
 		    NVL((SELECT PS_UTYPE FROM PS WHERE PS_CODE=#{pscode} AND PS_USERID=#{userid}),'G') AS UTYPE 
 		    FROM SCHEDULEVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}) A 
 		    INNER JOIN SM ON A.SCCODE = SM.SM_SCCODE AND A.PSCODE = SM.SM_PSCODE AND A.PRCODE = SM.SM_PRCODE AND A.CPCODE = SM.SM_CPCODE 
+		    inner join ps on a.cpcode = ps.ps_cpcode and a.prcode = ps.ps_prcode and a.pscode = ps.ps_code 
 		    ORDER BY DECODE(UTYPE2,'L',1),DECODE(SCSTCODE,'I',1),DECODE(SCSTCODE,'W',1)
 	</select>
 
