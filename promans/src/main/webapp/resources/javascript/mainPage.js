@@ -910,7 +910,9 @@ function getCompleteProject2(jsonData){
 	getProject.innerHTML = list;
 }
 
-
+function promans(){
+	location.href = "mainPageForm";
+}
 
 
 

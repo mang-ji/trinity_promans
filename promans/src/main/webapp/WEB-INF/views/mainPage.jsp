@@ -69,7 +69,7 @@ window.addEventListener('load',function(){
 	</form>
 	
 	 <div id="titleParent">
-		 <div  id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;">ProMan'S <img src="resources/images/logo.png"/>
+		 <div  id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;" onClick="promans()">ProMan'S <img src="resources/images/logo.png"/>
 		 </div>
 		 <span style="width:100px;"><span id="loginInfo"> ${userid }</span><span id="welcome">님 환영합니다!</span></span>
 	 	 <div> <input type="button" id="logoutBtn" onClick="logout()" value="로그아웃"> </div>
