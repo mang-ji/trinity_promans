@@ -52,7 +52,7 @@
 		NO_FNAME as fname
 		FROM PNT
 		WHERE NO_CPCODE =
-		#{cpcode}
+		#{cpcode} and NO_PRCODE  = #{prcode}
 		ORDER BY NO_CODE DESC
 	</select>
 	
@@ -554,6 +554,7 @@
          where no_cpcode = #{cpcode} and no_prcode = #{prcode} and no_code = #{nocode}
 	</select>
 	
+
 
 
 </mapper>

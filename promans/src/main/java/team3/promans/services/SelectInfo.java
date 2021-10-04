@@ -90,8 +90,14 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	
 	/* 공지사항 리스트 조회 */
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
+		   
+		try {
+			
+			nc.setPrcode((String)pu.getAttribute("prcode")); } catch (Exception e) {e.printStackTrace();}
+		
 		List<Notice_CalendarBean> noticeList = sql.selectList("getNoticeList", nc);
 		System.out.println(noticeList);
+		
 		return noticeList;
 	}
 
@@ -489,4 +495,6 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		     
 		return list;
 	}
+
+	 
 }

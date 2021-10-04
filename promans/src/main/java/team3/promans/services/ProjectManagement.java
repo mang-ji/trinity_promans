@@ -227,7 +227,7 @@ public class ProjectManagement implements team3.promans.interfaces.ProjectInterf
 		Map<String,String> map = new HashMap<>();
 		map.put("message", "승인에 실패하셨습니다.");
 		if(this.convertData(sqlSession.update("updateProjectAccept", pb))) {
-			/* 만약에 피드백이 있었던 놈이면 피드백테이블의 상태도 업데이트 해줘야함 그치 ?*/
+		
 			map.put("message", " 승인이 완료되었습니다. ");
 		}
 		return map;
