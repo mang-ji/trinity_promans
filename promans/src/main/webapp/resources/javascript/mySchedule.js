@@ -86,7 +86,7 @@ function OpenPopup(data){
 	html +=`<input type ="hidden" name= "sccode" value =${sccode.value}>`;
 	html +=`<div class ="rspopup">`;
 	html +=`<style>{overflow: auto;}</style>`;
-	html +=`<h6>완료 요청</h6><input type ="button" class ="rbtn" value ="O" onClick="reqbtn()"><input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
+	html +=`<h6>완료 요청</h6><input type ="button" class ="rbtn" value ="✔" onClick="reqbtn()"><input type="button" class ="closebtn" value="X" onClick="windowClose()">`;
 	html +=`<style>h6{text-align: center;}</style>`;
 	for(i=0; i<sdcontent.length; i++){
 		html +=`<p><input type ="checkbox" name ="reqs" value=${sdcode}>${sdcontent[i].value}</p>`;

@@ -87,6 +87,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		}
 		return result;
 	}
+	
 	/* 공지사항 리스트 조회 */
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
 		List<Notice_CalendarBean> noticeList = sql.selectList("getNoticeList", nc);
