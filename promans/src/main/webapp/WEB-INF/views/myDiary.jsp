@@ -41,10 +41,8 @@
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="cloudForm">파일함</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="memberForm" id="adminMember">멤버 관리</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="myDiaryForm" id="myDiary">업무 일지</a> <input type="button"
-					onClick="logout()" value="로그아웃">
+					href="memberForm" id="adminMember">멤버 관리</a>
+					 <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
 			</div>
 		</div>
 		<!-- Page content wrapper-->
@@ -88,7 +86,7 @@
 					</form>
 					<div>
 						<input type="button" id="Writebtn" value="글쓰기" onClick="OpenPopup1()" />
-						<!-- <input type="button" id="delbtn" value="삭제" name="dbtn" onClick="deldiary()" /> --> 
+						<input type="button" id="delbtn" value="삭제" name="dbtn" onClick="deletediary()" />
 					</div>
 					
 				</div>
@@ -97,8 +95,9 @@
 		<div id="popup2">
 			<div id="popup3"></div>
 		</div>
-	<div id="dia"></div>
 	</div>
+	<div id="dia"></div>
+	<div id="deldd"></div>
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

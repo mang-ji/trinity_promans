@@ -587,7 +587,7 @@ width:100px;  margin-left:275px; height:30px; padding-top:3px; border:0px;
     color: grey;
 }
 #noprojectstep{font-size:15px; color:grey; text-align:center; margin:10%;}
-#searchbox {width:60%; margin-right:10px; line-height: 2;font-size:14px; border:2px solid grey;}
+#searchbox {width:60%; margin-right:10px; line-height: 2;font-size:14px; border:2px solid grey; border-radius:3px;}
 #searchbtn {width:15%;  border:0px; line-height:160%;line-height: 2; border-radius:2px;  background-color:white; color:#929292;}
 #searchbtn:hover {background-color:#929292; color:white;}
 #searchpart {text-align:center; margin-bottom:7%;}
