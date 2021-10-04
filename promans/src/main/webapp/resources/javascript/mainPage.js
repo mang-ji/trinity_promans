@@ -777,6 +777,8 @@ function getReqMakeProjectList(jsonData){
 		box.innerHTML += "<div id='btns' onClick=\"gotoback()\" >뒤로가기</div></div>";
 		box.style.display = "block";
 		modal_background.style.display = "block";
+	
+		
 }
 
 function acceptMakeProjects(cpcode){

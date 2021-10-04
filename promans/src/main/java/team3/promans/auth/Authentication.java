@@ -206,19 +206,23 @@ public class Authentication implements AuthInterface {
 		mav.setViewName("insCompany");
 		/* cpcode 생성 & 총관리자 정보 암호화 */
 		try {
+			System.out.println(cmb);
 			cmb.setCpcode(this.getCpMax(cmb));
 			cmb.setAcode(enc.encode(cmb.getAcode()));
-			cmb.setUname(enc.aesEncode(cmb.getUname(), cmb.getUserid()));
 			cmb.setUphone(enc.aesEncode(cmb.getUphone(), cmb.getUserid()));
 			cmb.setMail(enc.aesEncode(cmb.getMail(), cmb.getUserid()));
-		} catch (Exception e) {e.printStackTrace();}
+		
 
 		if(this.convertBoolean(sql.insert("registerCompany",cmb))) {
+			cmb.setCeo(enc.aesEncode(cmb.getCeo(),cmb.getUserid()));
 			if(this.convertBoolean(sql.insert("insertCpMember",cmb))) {
 				mav.addObject("msg","회사 등록이 완료되었습니다.");
 				mav.setViewName("logInPage");
 			}
 		}
+		
+		} catch (Exception e) {e.printStackTrace();}
+		
 		return mav;
 	}
 	

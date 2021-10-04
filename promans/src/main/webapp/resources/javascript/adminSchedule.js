@@ -648,7 +648,7 @@ function sendScheFeedback(jsonData){ //피드백 전송
     sendFeed.addEventListener('click',function(){
 
      jsonData.push({sdcontent:sdcontent.value});
-	 postAjax("rest/ScheFeedback", JSON.stringify(jsonData), "popClose", 2 );
+	 postAjax("rest/ScheFeedback", JSON.stringify(jsonData), "upPass", 2 );
 	
 });
 	

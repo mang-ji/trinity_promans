@@ -32,9 +32,6 @@
 		<div class='textboxes'>
 			<span>아이디</span>  <input type="text" class="texts" name="userid" placeholder="id" />
 		</div>
-		<div class='textboxes'>
-            <span >이름</span>  <input type="text" class="texts" name="uname" placeholder="name" />
-        </div>
         <div class='textboxes'>
 			<span>비밀번호</span>  <input type="password" class="texts" name="acode"  placeholder="password"/>
 		</div>

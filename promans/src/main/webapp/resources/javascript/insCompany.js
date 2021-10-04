@@ -42,7 +42,6 @@ function insCompany(){
 	f.appendChild(ceo);
 	f.appendChild(addr);
 	f.appendChild(userid);
-	f.appendChild(uname);
 	f.appendChild(acode);
 	f.appendChild(tecode);
 	f.appendChild(wcode);

@@ -34,6 +34,13 @@ function projectOnLoad(){
               adminMember.style.display = "block";
            }
 
+
+	   if(utype.value == 'A'){
+		adminMember.style.display = "block";
+		}else{
+		adminMember.style.display = "none";
+			}
+
     }
 
 function myScheduleCate(){

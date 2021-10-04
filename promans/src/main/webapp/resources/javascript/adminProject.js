@@ -184,14 +184,16 @@ function selectProject(jsonData){
 		list+= "<div class=\"shePro\">Progress</div>";
 		list+= "</div>";
 		
+		let count = 0;
 		for(i=0; i<jsonData.length; i++){
+			count++;
 			if(jsonData[i].utype2 != null){
 				
 				if(jsonData[i].utype2 == "L"){
 					leaderList+= "<div class=\"scheLeadListContent\">";
 					leaderList+= "<input type=\"button\" id=\"schBtn"+i+"\" onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\">";
 					leaderList+= "<label for=\"schBtn"+i+"\">";
-					leaderList+= "<div class=\"scheNo scheCount\">" +(i+1)+ "</div>";
+					leaderList+= "<div class=\"scheNo scheCount\">" + count + "</div>";
 					
 					leaderList+= "<div class=\"scheSche scheName\">" +jsonData[i].psname
 					+"<div class=\"scheImg\"><img class=\"scheImg\" src=\"resources/images/checkSch.png\"></div></div>";
@@ -210,7 +212,7 @@ function selectProject(jsonData){
 					list+= "<input type=\"button\" id=\"schBtn"+i+"\" onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\">";
 					list+= "<label for=\"schBtn"+i+"\">";
 					
-					list+= "<div class=\"scheNo scheCount\">" +i+ "</div>";
+					list+= "<div class=\"scheNo scheCount\">" + count + "</div>";
 					
 					list+= "<div class=\"scheSche scheName\">" +jsonData[i].psname+ "</div>";
 					
@@ -479,9 +481,16 @@ function CompleteConfirm(){
 		}	
 	}
 	if(isConfirm){
+		let userid = document.getElementsByName("userid")[0];
+		
+		let jsonData = [{cpcode:cpcode, prcode:prcode, pscode:pscode, userid:userid.value}];
+		let clientData = JSON.stringify(jsonData);
+		
 		let data = JSON.stringify([{cpcode:cpcode,prcode:prcode,pscode:pscode,sccode:result}]);
 			
 		postAjax("rest/CompleteConfirm",data,"afterCompleteConfirm",2);
+		postAjax("rest/GetSchedule", clientData, "selectSchedule",2);
+		postAjax("rest/GetStepGraph", clientData, "getStepGraph",2);
 		
 	}else{
 		alert("취소하셨습니다.");
@@ -499,12 +508,22 @@ function afterCompleteConfirm(data){
 
 
 function scSendFeed(data){
+	let prcode = document.getElementsByName("prcode")[0];
+	let cpcode = document.getElementsByName("cpcode")[0];
+	let userid = document.getElementsByName("userid")[0];
+	let pscodes = document.getElementsByName("pscode")[0];
+	let mainpop = document.getElementById("mainPop");	
 	
+	let jsonData = [{cpcode:cpcode.value, prcode:prcode.value, pscode:pscodes.value, userid:userid.value}];
+	let clientData = JSON.stringify(jsonData);
 	if(data==true){
 		alert("성공적으로 피드백을 전송했습니다.");
 	}else{
 		alert("다시 시도해주세요.");
 	}
+	mainpop.style.display = "none";
+	postAjax("rest/GetSchedule", clientData, "selectSchedule",2);
+	postAjax("rest/GetStepGraph", clientData, "getStepGraph",2);
 }
 
 
@@ -1381,7 +1400,7 @@ function makeBtnClick(prcode){
 	let prcode1 = document.getElementsByName("prcode")[0];
 	let form = document.createElement("form");
 	make.addEventListener('click', function(){
-		let psname = document.getElementsByName("psname")[0];
+		let psname = document.getElementsByName("psname")[1];
 		let userid = document.getElementsByName("userid")[1]; // 0번째는 로그인한 사람 유저아이디임 
 		let cpcode = document.getElementsByName("cpcode")[0];
 		
@@ -1652,6 +1671,9 @@ function stepAccept(prcode){ // 필요한 값 :cpcode, prcode, pscode, userid, c
 		
 		modal_background.style.display = "block";
 		box.style.display = "block";
+		
+		
+		
 	});
 }
 
@@ -1690,9 +1712,12 @@ function sendFeedback(data){ // data = pr, ps,userid, cp
 	
 }
 function sendFeedback2(data){
+	alert(data.message);
+	location.href = "projectForm";
 }
 
 function sendAccept(data){
+	
 	let box = document.getElementById("modal_box");
 	let modal_background = document.getElementById("modal_background");
 	let array = data.split(",");
@@ -1703,5 +1728,7 @@ function sendAccept(data){
 	modal_background.style.display = "none";
 }
 function sendAccept2(data){
+
 	alert(data.message);
+	location.href = "projectForm";
 }
