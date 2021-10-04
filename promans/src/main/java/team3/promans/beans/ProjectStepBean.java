@@ -16,5 +16,5 @@ public class ProjectStepBean {
 	private String psname;
 	private String stcode;
 	private String stname;
-	
+	private String utype2;	
 }
