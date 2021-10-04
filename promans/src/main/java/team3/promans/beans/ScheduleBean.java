@@ -7,6 +7,7 @@ public class ScheduleBean {
 	private String cpcode;
 	private String prcode;
 	private String pscode;
+	private String psname;
 	private String sccode;
 	private String scname;
 	private String scstate;

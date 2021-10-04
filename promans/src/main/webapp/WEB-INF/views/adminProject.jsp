@@ -70,7 +70,9 @@
     	<input type="hidden" name="utype" value="${utype}">
         <input type="hidden" name="cpcode" value="${cpcode}">
         <input type="hidden" name="prcode" value="${prcode}">
+        <input type="hidden" name="prname" value="${prname}">
         <input type="hidden" name="pscode" value="${pscode}">
+        <input type="hidden" name="psname" value="${psname}">
         <input type="hidden" name="sccode" value="${sccode}">
         <input type="hidden" name="userid" value="${userid}">
   
@@ -111,7 +113,10 @@
           
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                
                     <div class="container-fluid">
+                    
+                  	<div id="projectPath"> </div>
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
                       <!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

@@ -97,11 +97,12 @@
 	  	
 	  	</update>
 	  	
-	  	<select id="selectScheDetailCompleteCount" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="int">  
-	  		select count(*) from sd where sd_cpcode=#{cpcode} and sd_prcode=#{prcode} and sd_pscode=#{pscode} and sd_sccode=#{sccode} and sd_state='S'
-	  	</select>
+	 
 	  	<select id="selectScheDetailCount" parameterType="team3.promans.beans.ScheduleDetailBean" resultType="int">
-	  		select count(*) from sd where sd_cpcode=#{cpcode} and sd_prcode=#{prcode} and sd_pscode=#{pscode} and sd_sccode=#{sccode}
+	  		 select count(*) from 
+			 (select count(*) as A from sd where sd_cpcode=#{cpcode} and sd_prcode=#{prcode} and sd_pscode=#{pscode} and sd_sccode=#{sccode} and sd_state='S'),
+			 (select count(*) as B from sd where sd_cpcode=#{cpcode} and sd_prcode=#{prcode} and sd_pscode=#{pscode} and sd_sccode=#{sccode})
+			 where A=B
 	  	</select>
 	  	
 </mapper>

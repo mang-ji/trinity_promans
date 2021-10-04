@@ -382,9 +382,13 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 		let list = "";
 		let selectSD = document.getElementById("selectScheduleDetail");
 		let feed = document.getElementsByClassName("feed")[0];
-	
+		let path = document.getElementById("projectPath");
+		let prname = document.getElementsByName("prname")[0];
+		let psname = document.getElementsByName("psname")[0];
+		
 		feed.innetHTML += "<input type ='hidden' name = 'sccode' value = \'"+jsonData[0].sccode+"\'/>";
-	
+		
+		path.innerHTML =  prname.value + " > " + psname.value + " > "+ jsonData[0].scname ;
 		for(i=0; i<jsonData.length; i++){
 			
 		feed.innerHTML += "<div class='Detail'>" 
@@ -396,7 +400,8 @@ function selectScheDetail(jsonData){ //업무 디테일 피드 조회하는 펑�
 		
 		}
 		feed.innerHTML +="<div onClick = \"addScheduleDetail()\" name = 'addScheduleDetail' style = 'display:none'>";
-	
+		
+		path.style.display = "block";
 		postAjax("rest/GetWork", JSON.stringify(jsonData), 'getWork',2);
 	}else if(confirm("업무 디테일이 없습니다. 생성하시겠습니까?")){
 		$(document).ready(function(){

@@ -41,10 +41,8 @@
 					class="list-group-item list-group-item-action list-group-item-light p-3"
 					href="cloudForm">파일함</a> <a
 					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="memberForm" id="adminMember">멤버 관리</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="myDiaryForm" id="myDiary">업무 일지</a> <input type="button"
-					onClick="logout()" value="로그아웃">
+					href="memberForm" id="adminMember">멤버 관리</a>
+					 <a class="list-group-item list-group-item-action list-group-item-light p-3" onClick="logout()">로그아웃</a>
 			</div>
 		</div>
 		<!-- Page content wrapper-->

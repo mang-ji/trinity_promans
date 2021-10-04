@@ -8,6 +8,7 @@ public class ProjectStepBean {
 	private String userid;
 	private String username;
 	private String prcode;
+	private String prname;
 	private String utcode;
 	private String utype;
 	private String wcode;
@@ -15,5 +16,5 @@ public class ProjectStepBean {
 	private String psname;
 	private String stcode;
 	private String stname;
-	
+	private String utype2;	
 }

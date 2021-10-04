@@ -25,7 +25,7 @@ function getDiary(data) {
 	}	
 
 		for (i=0; i<data.length; i++) {
-			html +=`<input type="hidden" name="wdtitle" value=${data[i].wdtitle}>`;
+			html +="<input type=\"hidden\" name=\"wdtitle\" value=\""+data[i].wdtitle+"\">";
 			html +=`<input type="hidden" name="wdcontents" value=${data[i].wdcontents}>`;
 			html +=`<input type="hidden" name="callWdcode" value=${data[i].wdcode}>`;
 			html +=`<tr onClick = dview('${data[i].wdcode}')>`;
@@ -168,7 +168,7 @@ function deletedbtn(){//삭제버튼 클릭 후
 }
 
 function deleteDiary2(data){
-	if(data==true){
+	if(data != ""){
 		location.replace("myDiaryForm");
 		alert("삭제되었습니다.");
 	}else{

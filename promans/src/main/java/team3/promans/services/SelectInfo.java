@@ -87,6 +87,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		}
 		return result;
 	}
+	
 	/* 공지사항 리스트 조회 */
 	public List<Notice_CalendarBean> getNoticeList(Notice_CalendarBean nc) {
 		List<Notice_CalendarBean> noticeList = sql.selectList("getNoticeList", nc);
@@ -154,19 +155,22 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 	}
 
 	public List<ProjectStepBean> getProjectStep(ProjectMemberBean pmb) {
-
+		List<ProjectStepBean> list = null;
 		try {
 			pmb.setUserid((String)pu.getAttribute("userid"));
-		} catch (Exception e) {e.printStackTrace();}
 
-		List<ProjectStepBean> list = sql.selectList("getProjectStep", pmb);
-		if(list.size() !=0) {
-			/*String utype = sql.selectOne("selectUtype",pmb); 
+
+			list = sql.selectList("getProjectStep", pmb);
+			if(list.size() !=0) {
+				/*String utype = sql.selectOne("selectUtype",pmb); 
 			try {
 				pu.setAttribute("utype", utype);
 			} catch (Exception e) {e.printStackTrace();} */
-		}
+			}
 
+			/*psname 을 세션으로 저장해줌 */
+			pu.setAttribute("prname", list.get(0).getPrname());
+		} catch (Exception e) {e.printStackTrace();}
 
 		return list;
 	}
@@ -181,7 +185,7 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 				sdb.setSccode(list.get(0).getSccode());
 
 				pu.setAttribute("pscode", list.get(0).getPscode());
-				System.out.println((String)pu.getAttribute("utype")+ "here selectSchedule");
+				pu.setAttribute("psname", list.get(0).getPsname());
 				
 				if(!(boolean)pu.getAttribute("utype").equals("A")) {
 					pu.setAttribute("utype", list.get(0).getUtype());
