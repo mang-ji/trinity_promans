@@ -377,35 +377,35 @@
 	<select id ="getSdC" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
 	 
      SELECT COUNT(*) AS sdC FROM  SD
-     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'S'
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_PSCODE = #{pscode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'S'
 	
 	</select>
 	
 	<select id ="getSdI" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
 	 SELECT COUNT(*) AS sdI FROM  SD
-     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'I'
+     WHERE  SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_PSCODE = #{pscode}  AND SD_SCCODE = #{sccode} AND SD_STATE = 'I'
 	</select>
 	
 	<select id ="getSdW" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
 	 SELECT COUNT(*) AS sdW FROM SD 
-     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'W'
+     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_PSCODE = #{pscode} AND SD_SCCODE = #{sccode} AND SD_STATE = 'W'
 	</select>
 	
 	<select id ="getStepC" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
 	 
      SELECT COUNT(*) AS stepC FROM  PS
-     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode}  AND PS_STATE = 'S'
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode}  AND PS_STATE = 'S' AND PS_UTYPE != 'A'
 	
 	</select>
 	
 	<select id ="getStepI" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
 	 SELECT COUNT(*) AS stepI FROM  PS
-     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I'
+     WHERE  PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'I' AND PS_UTYPE != 'A'
 	</select>
 	
 	<select id ="getStepW" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
 	 SELECT COUNT(*) AS stepW FROM PS
-     WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'W'
+     WHERE PS_CPCODE = #{cpcode} AND PS_PRCODE = #{prcode} AND PS_STATE = 'W' AND PS_UTYPE != 'A'
 	</select>
 	
 		<select id ="getScheC" parameterType = "team3.promans.beans.ScheduleBean" resultType = "int">
@@ -460,7 +460,7 @@
 	
 	 SELECT SD_CPCODE AS CPCODE, SD_PRCODE AS PRCODE, SD_PSCODE AS PSCODE , SD_SCCODE AS SCCODE, SD_TITLE AS SDCONTENT, ST.ST_NAME AS SDDSTATE, SD.SD_CODE as SDCODE
      FROM SD INNER JOIN ST ON SD.SD_STATE = ST.ST_CODE
-     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_SCCODE = #{sccode} AND SD_USERID = #{userid} AND SD_STATE = 'I'
+     WHERE SD_CPCODE = #{cpcode} AND SD_PRCODE = #{prcode} AND SD_PSCODE = #{pscode} AND SD_SCCODE = #{sccode} AND SD_USERID = #{userid} AND SD_STATE = 'I'
 	
 	</select>
 	
@@ -566,6 +566,12 @@
 		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
         TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
         FROM PROJECTVIEW WHERE  CPCODE = #{cpcode} and propen='공개' and prstate !='Y' and prstate='S' order by prdate desc
+	</select>
+	
+	<select id = "smCount" parameterType="team3.promans.beans.ScheduleDetailBean" resultType = "int">
+	
+	select count(*) from sm where sm_cpcode = #{cpcode} and sm_prcode = #{prcode} and sm_pscode = #{pscode} and sm_sccode = #{sccode} and sm_userid = #{userid}
+	
 	</select>
 
 

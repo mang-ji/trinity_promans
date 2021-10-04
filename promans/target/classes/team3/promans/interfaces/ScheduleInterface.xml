@@ -54,10 +54,9 @@
 	  	
 	  	<insert id ="insSD" parameterType = "team3.promans.beans.ScheduleDetailBean">
 	  	
-	  	INSERT ALL
-	  	INTO SM VALUES(#{cpcode}, #{prcode}, #{pscode}, #{sccode}, #{userid}, 1 , 'G')
+	  	INSERT 
 	  	INTO SD VALUES (#{cpcode}, #{prcode}, #{pscode}, #{sccode},#{userid} ,#{sdcode}, #{sdcontent}, SYSDATE, 'I' )
-	  	SELECT*FROM DUAL
+	  	
 	  	
 	  	</insert>
 	  	

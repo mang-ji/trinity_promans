@@ -93,8 +93,15 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 		int max = this.maxScCode(sdb)+1;
 		
 		sdb.setSdcode((max<10)?"SD0"+max:"SD"+max);
-		sql.insert("insSD", sdb);
-		//this.insSM(sdb);	
+	
+		if(this.convertBoolean(sql.selectOne("smCount", sdb))) {
+			sql.insert("insSD", sdb);
+		}else {
+			this.insSM(sdb);
+			sql.insert("insSD", sdb);
+			
+		}
+			
 	}
 	
 	public void insSM(ScheduleDetailBean sdb) {
