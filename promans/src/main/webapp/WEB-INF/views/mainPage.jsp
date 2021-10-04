@@ -75,6 +75,8 @@ window.addEventListener('load',function(){
 	 	 <div> <input type="button" id="logoutBtn" onClick="logout()" value="로그아웃"> </div>
 	 </div>
 	 <div id="ReqBtn">
+	 	
+	 	<input type="button" id="completeProject" onClick="completeProject()" value="완료된 프로젝트"/>
 	 	<input type="button" id="acceptProjectReq" onClick="acceptProjectReq()" style="display:none;" value="프로젝트 완료요청"/>
 	 	<input type="button" id="acceptProjectMakeReq" onClick="acceptProjectMakeReq()" style="display:none; " value="프로젝트 생성요청"/>
 	 	<input type="button" id="addCpMember" onClick="addCpMember()" style="display:none; " value="사원 추가"/>

@@ -496,5 +496,10 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 		return list;
 	}
 
+	public List<ProjectBean> getCompleteProject(ProjectBean pb) {
+
+		return sql.selectList("getCompleteProject",pb);
+	}
+
 	 
 }

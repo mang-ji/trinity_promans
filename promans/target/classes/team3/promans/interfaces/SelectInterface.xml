@@ -554,6 +554,19 @@
          where no_cpcode = #{cpcode} and no_prcode = #{prcode} and no_code = #{nocode}
 	</select>
 	
+	<select id="getCompleteProject" parameterType="team3.promans.beans.ProjectBean" resultType="team3.promans.beans.ProjectBean">
+		SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE USERID = #{userid} AND CPCODE = #{cpcode} and prstate !='Y' and prstate='S'
+        UNION 
+        SELECT CPCODE, PRCODE, PRNAME, PROPEN,
+		TO_CHAR(PRDATE,'YYYY-MM-dd') AS 
+		PRDATE , TO_CHAR(PRSDATE,'YYYY-MM-dd') as prsdate,
+        TO_CHAR(PRLDATE,'YYYY-MM-dd') as prldate 
+        FROM PROJECTVIEW WHERE  CPCODE = #{cpcode} and propen='공개' and prstate !='Y' and prstate='S' order by prdate desc
+	</select>
 
 
 

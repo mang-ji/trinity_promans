@@ -471,4 +471,8 @@ public class Restcontroller {
 	public  List<Notice_CalendarBean> notpop(@RequestBody List<Notice_CalendarBean>  ncb) {
 		return si.notpop(ncb.get(0));
 	}
+	@PostMapping("/GetCompleteProject")
+	public List<ProjectBean> getCompleteProject(@RequestBody List<ProjectBean> pb){
+		return si.getCompleteProject(pb.get(0));
+	}
 }
