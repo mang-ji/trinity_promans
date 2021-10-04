@@ -124,7 +124,10 @@ function selectProject(jsonData){
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
 	let prcode = document.getElementsByName("prcode")[0];
+	let path = document.getElementById("projectPath");
 
+	path.innerHTML  = jsonData[0].prname  ; 
+	
 	list += "<span id='span1'>No.</span><span id='span2'>Project Step</span><span id='span3'>Progress</span>";
 	if(jsonData.length != 0){
 		for(i=0; i<jsonData.length; i++){
@@ -147,6 +150,7 @@ function selectProject(jsonData){
 	}
 	
 	selectStep.innerHTML = list;
+	path.style.display = "block";
 }
 
 function getRequestList(){
@@ -629,6 +633,8 @@ function selectSchedule(jsonData){
 			let headCss = document.createElement("style");
 			let selectStep = document.getElementById("selectStep");
 			let utype = document.getElementsByName("utype")[0].value;
+			let prname = document.getElementsByName("prname")[0];
+			let path = document.getElementById("projectPath");
 			if(utype != "A"){
 				utype = jsonData[0].utype;
 			}
@@ -645,6 +651,9 @@ function selectSchedule(jsonData){
 			list+= "</div>";
 			
 			for(i=0; i<jsonData.length; i++){
+				
+				path.innerHTML = prname.value + " > " + jsonData[i].psname;
+				
 				if(jsonData[i].utype2 != null){
 					list+= "<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/>";
 					list+= "<input type ='hidden' name = 'pscode' value = \'"+jsonData[i].pscode+"\'/>";
@@ -672,6 +681,7 @@ function selectSchedule(jsonData){
 					css+= "input[id=\"schBtn"+i+"\"]:hover:active \+ label{background-color:blue; color:white;}";
 					
 				}
+				path.style.display = "block";
 			}
 			list+= "</div>";
 			//@@@@@@@@@@@@@여기까지가 list 끝 지점@@@@@@@@@@@@@@@@@@
@@ -792,10 +802,15 @@ function getScheDetail(sccode1, pscode1){
 	let prcode = document.getElementsByName("prcode")[0];
 	let cpcode = document.getElementsByName("cpcode")[0];
 	let sccode = makeInput("hidden","sccode",sccode1);  
+	let prname = document.getElementsByName("prname")[0];
+	let psname = document.getElementsByName("psname")[0];
+	
 	   	
 	  f.appendChild(prcode);
 	  f.appendChild(cpcode);
 	  f.appendChild(sccode);
+	  f.appendChild(prname);
+	  f.appendChild(psname);
 
 	  f.action = "GoAdminScheduleForm";
 	  f.method = "POST";

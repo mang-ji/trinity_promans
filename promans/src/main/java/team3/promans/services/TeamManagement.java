@@ -103,11 +103,8 @@ public class TeamManagement implements team3.promans.interfaces.TeamInterface{
 	public boolean requestComplete(ProjectStepBean psb) {
 		boolean check = false;
 		psb.setStcode("W");
-		/* 업무 의 완료된 갯수 가져오기 */
-		int completeCount = sql.selectOne("selectScheCompleteCount",psb);
-		/* 업무 갯수 가져오기 */
-		int allCount = sql.selectOne("selectScheCount",psb);
-		if(allCount==completeCount) {
+	
+		if(this.convertBoolean(sql.selectOne("selectScheCount",psb))) {
 			check = this.convertBoolean(sql.update("requestComplete", psb));
 		}
 		

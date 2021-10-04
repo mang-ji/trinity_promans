@@ -183,8 +183,7 @@ public class Restcontroller {
 	
 	@PostMapping("GetScheDetail")
 	public List<ScheduleDetailBean> getScheDetail(@RequestBody List<ScheduleDetailBean> sdb){
-		System.out.println(sdb);
-		System.out.println("스케줄디테일 아이디확인");
+	
 		return si.getScheDetail(sdb.get(0));
 
 	}

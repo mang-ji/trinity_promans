@@ -168,7 +168,6 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 			sdb.setUtype((String)pu.getAttribute("utype"));
 			
 			String utype = this.getSdUtype(sdb);
-			System.out.println(sdb.getSccode() + " ggggg");
 			pu.setAttribute("sccode", sdb.getSccode());
 			
 			if(!(sdb.getUtype().equals("A"))) {
@@ -187,12 +186,8 @@ public boolean reqSchedule(List<ScheduleDetailBean> sdb) {
 	
 	public Map<String, String> reqSc(ScheduleBean sb) {
 		Map<String,String> map = new HashMap<>();
-		
-		/* 업무 디테일 의 완료 상태를 카운트 해오자 */
-		int completeCount = sql.selectOne("selectScheDetailCompleteCount",sb);
-		/* 업무 디테일 의 모든 갯수 */
-		int allCount = sql.selectOne("selectScheDetailCount", sb); 
-		if(allCount==completeCount) {
+	
+		if(this.convertBoolean(sql.selectOne("selectScheDetailCount", sb))) {
 			if(this.convertBoolean(sql.update("reqSc", sb))) {
 				map.put("message", "업무 승인 요청이 완료 되었습니다.");
 				}

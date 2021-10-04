@@ -1,4 +1,6 @@
 @charset "UTF-8";
+
+#projectPath {font-size:15px; color:grey;  margin-left:32%; margin-bottom:1%;}
 .notDetailHead{
 	margin-bottom: 20px;
 }

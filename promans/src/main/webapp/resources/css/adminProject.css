@@ -547,4 +547,5 @@ width:100px;  margin-left:275px; height:30px; padding-top:3px; border:0px;
 #searchlists{text-align:center;line-height:200%; width:100%;}
 .namesss {text-align:center; margin-right:20%; margin-left:10%; }
 #searchresult {margin-bottom:7%;}
+#projectPath {font-size:15px; color:grey;}
 

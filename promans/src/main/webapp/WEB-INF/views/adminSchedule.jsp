@@ -55,6 +55,8 @@
         	<input type="hidden" name="pscode" value="${pscode}">
         	<input type="hidden" name="sccode" value="${sccode}">
         	<input type="hidden" name="userid" value="${userid}">
+        	<input type="hidden" name="prname" value="${prname}">
+        	<input type="hidden" name="psname" value="${psname}">
         	
    
         <form action='CreateProject' method='post' >
@@ -96,7 +98,7 @@
             
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
-            		
+          
                 <!-- Top navigation-->
                     <div id="logo" style="color:#4f5f86; margin-bottom:50px; font-size:50px; text-align:center; font-family : 'Nanum Gothic'; sans-serif; font-weight:bold;" onClick="promans()">ProMan'S</div>
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
@@ -117,10 +119,12 @@
                                 </li>
                             </ul>
                         </div>-->
-             
+             <div id="projectPath"> 요기  </div>
                 <!-- Page content-->
                 <div  class="container-fluid">
+                		
                 	<div class="feed" style="padding-left:450px;" ></div>
+                	
                     <div id="selectScheduleDetail"></div>
                     
                 </div>
