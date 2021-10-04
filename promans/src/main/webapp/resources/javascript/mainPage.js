@@ -956,7 +956,7 @@ function getCpMembers(jsonData){
 	box.innerHTML += "<div id='title'><span class='idspan'>아이디</span><span class='spans'>사원명</span><span class='phonespan'>휴대전화</span><span class='mailspan'>이메일</span></div>";
 	
 	for(i=0; i<jsonData.length;i++){
-		box.innerHTML += "<div id='box'><input type='checkbox' id=\"checkcheck\"  name=\"userid\" value=\""+jsonData[i].userid+"\" /><span  id=\"userid\">"+jsonData[i].userid+"</span><span id=\"uname\">"+jsonData[i].uname+"</span><span id=\"uphone\">"+jsonData[i].uphone+"</span><span id=\"mail\">"+jsonData[i].mail+ "</span></span>";
+		box.innerHTML += "<div id='box'><input type='checkbox' id=\"checkcheck\"  name=\"userid\" value=\""+jsonData[i].userid+"\" /><span  id=\"userid\">"+jsonData[i].userid+"</span><span id=\"uname\">"+jsonData[i].uname+"[ "+jsonData[i].tename+" ]"+"</span><span id=\"uphone\">"+jsonData[i].uphone+"</span><span id=\"mail\">"+jsonData[i].mail+ "</span>";
 		
 		}
 	box.innerHTML +=  "<div id='btns' onClick=\"gotoback()\" >X</div>";

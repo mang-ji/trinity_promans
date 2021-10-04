@@ -447,9 +447,11 @@
         cm_uname as uname,
         cm_uphone as uphone,
         cm_tecode as tecode,
+        te.te_name as tename,
         cm_mail as mail,
         cm_utype as utype
-		from cm where cm_cpcode=#{cpcode} and cm_wcode='1' and cm_utype != 'A'
+		from cm inner join te on te.te_code=cm.cm_tecode 
+        where cm_cpcode=#{cpcode} and cm_wcode='1' and cm_utype != 'A'
 	</select>
 	
 	<select id="goAdminProject" parameterType="team3.promans.beans.ProjectMemberBean" resultType="string">
