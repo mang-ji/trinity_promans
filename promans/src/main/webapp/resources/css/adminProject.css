@@ -598,3 +598,6 @@ width:100px;  margin-left:275px; height:30px; padding-top:3px; border:0px;
 #searchresult {margin-bottom:7%;}
 #projectPath {font-size:15px; color:grey;}
 
+#loginInfo,#welcome { color:grey; text-align:right;  font-size:15px;} 
+#loginInfo{border-bottom:1px solid;}
+

@@ -166,10 +166,11 @@ public class SelectInfo implements team3.promans.interfaces.SelectInterface{
 			try {
 				pu.setAttribute("utype", utype);
 			} catch (Exception e) {e.printStackTrace();} */
+				/*psname 을 세션으로 저장해줌 */
+				pu.setAttribute("prname", list.get(0).getPrname());
 			}
 
-			/*psname 을 세션으로 저장해줌 */
-			pu.setAttribute("prname", list.get(0).getPrname());
+		
 		} catch (Exception e) {e.printStackTrace();}
 
 		return list;

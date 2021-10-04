@@ -152,8 +152,9 @@ function selectProject(jsonData){
 		let utype = document.getElementsByName("utype")[0].value;
 		let prcode = document.getElementsByName("prcode")[0];
 		let path = document.getElementById("projectPath");
-		path.innerHTML  = jsonData[0].prname  ; 
+		
 	if(jsonData.length != 0){
+		path.innerHTML  = jsonData[0].prname; 
 		list+= "<div class=\"scheListDiv\">";
 		
 		list+= "<div class=\"scheListHead\">";
@@ -256,7 +257,7 @@ function selectProject(jsonData){
 	}
 
 
-	path.style.display = "block";
+			path.style.display = "block";
 
 			headCss.innerHTML = css;
 			document.head.append(headCss);		

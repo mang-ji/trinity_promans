@@ -117,6 +117,7 @@
                     <div class="container-fluid">
                     
                   	<div id="projectPath"> </div>
+                  	<div><span id="loginInfo"> ${userid }</span><span id="welcome">님 환영합니다!</span></div>
                     <!--  @@@@@@@@@@@@@ 경로 써주는 곳 @@@@@@@@@@@@@@@@@@@@@ -->
                       <!--  <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button> 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -143,6 +144,7 @@
                      <div id = "selectBack">
                      
                      <div id = "selHeight">ProMan'S</div>
+          
                     <div id="selectStep"></div>
                     	
                     </div> 

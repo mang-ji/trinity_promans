@@ -119,7 +119,8 @@
                                 </li>
                             </ul>
                         </div>-->
-             <div id="projectPath"> 요기  </div>
+             
+             <div id="projectPath"></div>
                 <!-- Page content-->
                 <div  class="container-fluid">
                 		
@@ -129,7 +130,7 @@
                     
                 </div>
             </div>
-            
+            <div style="width:200px;line-height:2;"><span id="loginInfo"> ${userid }</span><span id="welcome">님 환영합니다!</span></div>
              <div id="notices">
              <div id = reqMenu></div>
               
