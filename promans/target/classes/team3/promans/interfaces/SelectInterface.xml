@@ -171,7 +171,9 @@
 		parameterType="team3.promans.beans.ProjectMemberBean"
 		resultType="team3.promans.beans.ProjectStepBean">
 
-		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype
+		SELECT CPCODE, PRCODE, PSCODE, PSNAME, STCODE, USERID, STNAME, utype,
+		(CASE WHEN USERID=#{userid} AND UTYPE='L' THEN 'L'
+                WHEN USERID!=#{userid} AND UTYPE='L' THEN 'G' END) AS UTYPE2
 		FROM PROJECTSTEPVIEW 
 		WHERE CPCODE = #{cpcode} AND
 		PRCODE = #{prcode}  and utype !='A' 
@@ -199,9 +201,9 @@
 		        WHEN CPCODE=#{cpcode} AND PRCODE=#{prcode} AND PSCODE=#{pscode} THEN 'G' END) AS UTYPE2 
 		FROM (SELECT SCCODE, SCNAME, SCSTCODE, SCSTATE, PSCODE, CPCODE, PRCODE,
 		    NVL((SELECT PS_UTYPE FROM PS WHERE PS_CODE=#{pscode} AND PS_USERID=#{userid}),'G') AS UTYPE 
-		    FROM SCHEDULEVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode} 
-		    ORDER BY DECODE(SCSTCODE,'I',1),DECODE(SCSTCODE,'W',1)) A 
-		    INNER JOIN SM ON A.SCCODE = SM.SM_SCCODE
+		    FROM SCHEDULEVIEW WHERE CPCODE = #{cpcode} AND PRCODE = #{prcode} AND PSCODE = #{pscode}) A 
+		    INNER JOIN SM ON A.SCCODE = SM.SM_SCCODE AND A.PSCODE = SM.SM_PSCODE AND A.PRCODE = SM.SM_PRCODE AND A.CPCODE = SM.SM_CPCODE 
+		    ORDER BY DECODE(UTYPE2,'L',1),DECODE(SCSTCODE,'I',1),DECODE(SCSTCODE,'W',1)
 	</select>
 
 	<select id="getScheDetail"

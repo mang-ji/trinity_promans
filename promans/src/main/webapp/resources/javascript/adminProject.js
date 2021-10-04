@@ -113,7 +113,7 @@ function goAdminProject(prcode){
 }*/
 
 function selectProject(jsonData){
-	let list = "";
+	/*let list = "";
 	let list2 = "";
 	let addList = "";
 	let addListCss = "";
@@ -124,7 +124,7 @@ function selectProject(jsonData){
 	let selectStep = document.getElementById("selectStep");
 	let utype = document.getElementsByName("utype")[0].value;
 	let prcode = document.getElementsByName("prcode")[0];
-
+	
 	list += "<span id='span1'>No.</span><span id='span2'>Project Step</span><span id='span3'>Progress</span>";
 	if(jsonData.length != 0){
 		for(i=0; i<jsonData.length; i++){
@@ -134,19 +134,144 @@ function selectProject(jsonData){
 		}
 	}else{
 		list = "<div id=\"noprojectstep\">프로젝트 스텝이 존재하지 않습니다.</div>";
+	}*/
+	
+		let list = "";
+		let leaderList = "";
+		let edit = "";
+		let css = "";
+		let ShceduleEdit = document.getElementById("ShceduleEdit");
+		let headCss = document.createElement("style");
+		let selectStep = document.getElementById("selectStep");
+		let utype = document.getElementsByName("utype")[0].value;
+		let prcode = document.getElementsByName("prcode")[0];
+		
+	if(jsonData.length != 0){
+		list+= "<div class=\"scheListDiv\">";
+		
+		list+= "<div class=\"scheListHead\">";
+		list+= "<div class=\"scheListHeadText\">Step</div>";
+		list+= "</div>";
+		
+		list+= "<input type=\"checkbox\" id=\"leadListRadio\" class=\"scheListLeader\" onClick=\"allLeadListChange(this)\">";
+		list+= "<label for=\"leadListRadio\">";
+		list+= "관리 스텝";
+		list+= "</label>";
+		list+= "<div class=\"allLeadList\" style=\"display:none;\">";
+		
+		list+= "<div class=\"scheListTitle\">";
+		list+= "<div class=\"scheNo\">No</div>";
+		list+= "<div class=\"scheSche\">Step</div>";
+		list+= "<div class=\"shePro\">Progress</div>";
+		list+= "</div>";
+		
+		list+= "<div class=\"scheLeadList\" style=\"width:100%; height:100%;\"></div>";
+		
+		list+= "</div>";
+		
+		
+		list+= "<div class=\"scheListTitle\" style=\"border-top: 1px solid black;\">";		
+		list+= "<div class=\"scheNo\">No</div>";
+		list+= "<div class=\"scheSche\">Step</div>";
+		list+= "<div class=\"shePro\">Progress</div>";
+		list+= "</div>";
+		
+		for(i=0; i<jsonData.length; i++){
+			if(jsonData[i].utype2 != null){
+				
+				if(jsonData[i].utype2 == "L"){
+					leaderList+= "<div class=\"scheLeadListContent\">";
+					leaderList+= "<input type=\"button\" id=\"schBtn"+i+"\" onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\">";
+					leaderList+= "<label for=\"schBtn"+i+"\">";
+					leaderList+= "<div class=\"scheNo scheCount\">" +(i+1)+ "</div>";
+					
+					leaderList+= "<div class=\"scheSche scheName\">" +jsonData[i].psname
+					+"<div class=\"scheImg\"><img class=\"scheImg\" src=\"resources/images/checkSch.png\"></div></div>";
+					leaderList+= "<div class=\"shePro scstate\">" +jsonData[i].stname+ "</div>";
+					leaderList+= "</label></div>";
+					
+					css+= "input[id=\"schBtn"+i+"\"]{display:none;}";
+					css+= "input[id=\"schBtn"+i+"\"] \+ label{width:100%; border-top:1px solid gray; height:100%;}";
+					css+= "input[id=\"schBtn"+i+"\"]:hover \+ label{background-color:#4f5f86; color:white;}";
+					css+= "input[id=\"schBtn"+i+"\"]:hover:active \+ label{background-color:blue; color:white;}";
+				
+				}
+				
+				if(jsonData[i].utype2 != "L"){
+					list+= "<div class=\"scheduleContents\">";
+					list+= "<input type=\"button\" id=\"schBtn"+i+"\" onClick = \"getSchedule(\'"+jsonData[i].pscode+"\')\">";
+					list+= "<label for=\"schBtn"+i+"\">";
+					
+					list+= "<div class=\"scheNo scheCount\">" +i+ "</div>";
+					
+					list+= "<div class=\"scheSche scheName\">" +jsonData[i].psname+ "</div>";
+					
+					
+					list+= "<div class=\"shePro scstate\">" +jsonData[i].stname+ "</div>";
+					
+					list+= "</label></div>";
+					
+					css+= "input[id=\"schBtn"+i+"\"]{display:none;}";
+					css+= "input[id=\"schBtn"+i+"\"] \+ label{width:100%; border-top:1px solid gray; height:100%;}";
+					css+= "input[id=\"schBtn"+i+"\"]:hover \+ label{background-color:#4f5f86; color:white;}";
+					css+= "input[id=\"schBtn"+i+"\"]:hover:active \+ label{background-color:blue; color:white;}";
+					
+				}
+			}
+		}
+		list+= "</div>";
+		
+	}else{
+		list += "<div id=\"noprojectstep\">프로젝트 스텝이 존재하지 않습니다.</div>";
 	}
+/////////////////////////////여기까지가 list 끝 지점/////////////////////////////
+/////////////////////////////여기까지가 list 끝 지점/////////////////////////////
 	
-	
+		/*if(utype=="L" || utype=="A"){
+			list += "<input type=\"button\" class=\"buttonStyle\" onClick=\"getCom()\" value=\"완료 요청 리스트\" style =\"float:right; margin-top: 10px; margin-right:10%;\">";
+		
+			edit+= "<div><input type=\"button\" class=\"buttonStyle\" id=\"setBtn\" value=\"편집\" style=\"display:block; margin-top: 5px; margin-left:10%;\"onClick=\"setButton()\"><div id=\"changeBtn\"></div>";
+			edit+= "<input type=\"button\" class=\"buttonStyle\" id=\"setBtn3\" value=\"추가\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"addJobMember()\"></div>";
+			edit+= "<input type=\"button\" class=\"buttonStyle\" id=\"setBtn2\" value=\"완료 요청 보내기\" style=\"display:none; float:left; margin-top: 2px;\" onClick=\"getRequestList()\"\"><div id=\"changeBtn2\"></div>";
+		}
+			
+		headCss.innerHTML = css;
+		document.head.append(headCss);		
+		selectStep.innerHTML = list;
+		ShceduleEdit.innerHTML = edit;*/
 	if(utype == "L" || utype == "A"){
-		list+= "<input type='button' class='buttonStyle' value='완료승인' onClick=\"selectStepList(\'"+prcode.value+"\')\" />";
+		list+= "<input type='button' style=\"margin-left:10%;\" class='buttonStyle' value='완료승인' onClick=\"selectStepList(\'"+prcode.value+"\')\" />";
 		list+= "<input type='button' class='buttonStyle' value='팀원추가' onClick=\"getCompanyMember(\'"+prcode.value+"\')\"/>";
 	    list+= "<input type='button' class='buttonStyle'  value='편집' onClick=\"sendProjectInfo(\'"+prcode.value+"\')\" />";
 		
 		//list+= "<input type='button' class='buttonStyle' value='팀원 삭제' onClick=\"deleteProjectMember(\'"+prcode.value+"\')\"/>";
-		list+= "<div id=\"buttonboundary\"></div>";
+		list+= "<div id=\"buttonboundary\" style=\"display:none;\"></div>";
 	}
-	
-	selectStep.innerHTML = list;
+			headCss.innerHTML = css;
+			document.head.append(headCss);		
+			selectStep.innerHTML = list;
+			ShceduleEdit.innerHTML = edit;
+			
+			
+		let scheLeadList = document.getElementsByClassName("scheLeadList")[0];
+		if(leaderList != ""){
+			scheLeadList.innerHTML = leaderList;
+		}else{
+			leaderList+= "<div class=\"noneLeaderList\">관리 스텝이 없습니다.</div>";
+			scheLeadList.style.height="70px";
+			scheLeadList.innerHTML = leaderList;
+		}
+			
+			
+		let btn = document.getElementById("setBtn2");
+		btn.addEventListener('click',function(){
+			btn.style.display="none";
+			headCss.innerHTML = css;
+			document.head.append(headCss);
+			selectStep.innerHTML = list;
+			ShceduleEdit.innerHTML = edit;
+		});	
+
 }
 
 function getRequestList(){
@@ -623,6 +748,7 @@ function getSchedule(pscode){
 function selectSchedule(jsonData){
 		if(jsonData!=""){
 			let list = "";
+			let leaderList = "";
 			let edit = "";
 			let css = "";
 			let ShceduleEdit = document.getElementById("ShceduleEdit");
@@ -638,14 +764,55 @@ function selectSchedule(jsonData){
 			list+= "<div class=\"scheListHeadText\">Schedule</div>";
 			list+= "</div>";
 			
-			list+= "<div class=\"scheListTitle\">";		
+			list+= "<input type=\"checkbox\" id=\"leadListRadio\" class=\"scheListLeader\" onClick=\"allLeadListChange(this)\">";
+			list+= "<label for=\"leadListRadio\">";
+			list+= "관리 업무";
+			list+= "</label>";
+			list+= "<div class=\"allLeadList\" style=\"display:none;\">";
+			
+			list+= "<div class=\"scheListTitle\">";
 			list+= "<div class=\"scheNo\">No</div>";
 			list+= "<div class=\"scheSche\">Schedule</div>";
 			list+= "<div class=\"shePro\">Progress</div>";
 			list+= "</div>";
 			
+			list+= "<div class=\"scheLeadList\" style=\"width:100%; height:100%;\"></div>";
+			
+			list+= "</div>";
+			
+			
+			list+= "<div class=\"scheListTitle\" style=\"border-top: 1px solid black;\">";		
+			list+= "<div class=\"scheNo\">No</div>";
+			list+= "<div class=\"scheSche\">Schedule</div>";
+			list+= "<div class=\"shePro\">Progress</div>";
+			list+= "</div>";		
+			
+			let index = 0;
+			let index2 =0;
 			for(i=0; i<jsonData.length; i++){
+				index++;
+				index2++;
 				if(jsonData[i].utype2 != null){
+					
+					if(jsonData[i].utype2 == "L"){
+						leaderList+= "<div class=\"scheLeadListContent\">";
+						leaderList+= "<input type=\"button\" id=\"schBtn"+i+"\" onClick=\"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\">";
+						leaderList+= "<label for=\"schBtn"+i+"\">";
+						leaderList+= "<div class=\"scheNo scheCount\">" +index+ "</div>";
+						
+						leaderList+= "<div class=\"scheSche scheName\">" +jsonData[i].scname
+						+"<div class=\"scheImg\"><img class=\"scheImg\" src=\"resources/images/checkSch.png\"></div></div>";
+						leaderList+= "<div class=\"shePro scstate\">" +jsonData[i].scstate+ "</div>";
+						leaderList+= "</label></div>";
+						
+						css+= "input[id=\"schBtn"+i+"\"]{display:none;}";
+						css+= "input[id=\"schBtn"+i+"\"] \+ label{width:100%; border-top:1px solid gray; height:100%;}";
+						css+= "input[id=\"schBtn"+i+"\"]:hover \+ label{background-color:#4f5f86; color:white;}";
+						css+= "input[id=\"schBtn"+i+"\"]:hover:active \+ label{background-color:blue; color:white;}";
+					
+					}
+					
+					if(jsonData[i].utype2 != "L"){
 					list+= "<input type ='hidden' name = 'sccode' value = \'"+jsonData[i].sccode+"\'/>";
 					list+= "<input type ='hidden' name = 'pscode' value = \'"+jsonData[i].pscode+"\'/>";
 					
@@ -653,14 +820,10 @@ function selectSchedule(jsonData){
 					list+= "<input type=\"button\" id=\"schBtn"+i+"\" onClick=\"getScheDetail(\'"+jsonData[i].sccode+"\',\'"+jsonData[i].pscode+"\')\">";
 					list+= "<label for=\"schBtn"+i+"\">";
 					
-					list+= "<div class=\"scheNo scheCount\">" +(i+1)+ "</div>";
-					console.log(jsonData[i].utype2);
-					if(jsonData[i].utype2 == "L"){
-						list+= "<div class=\"scheSche scheName\">" +jsonData[i].scname
-							+ "이나쁜놈들아~~<div class=\"scheImg\"><img class=\"scheImg\" src=\"resources/images/checkSch.png\"></div></div>";
-					}else{
+					list+= "<div class=\"scheNo scheCount\">" +index2+ "</div>";
+					
 						list+= "<div class=\"scheSche scheName\">" +jsonData[i].scname+ "</div>";
-					}
+					
 					
 					list+= "<div class=\"shePro scstate\">" +jsonData[i].scstate+ "</div>";
 					
@@ -671,6 +834,7 @@ function selectSchedule(jsonData){
 					css+= "input[id=\"schBtn"+i+"\"]:hover \+ label{background-color:#4f5f86; color:white;}";
 					css+= "input[id=\"schBtn"+i+"\"]:hover:active \+ label{background-color:blue; color:white;}";
 					
+					}
 				}
 			}
 			list+= "</div>";
@@ -687,6 +851,15 @@ function selectSchedule(jsonData){
 			document.head.append(headCss);		
 			selectStep.innerHTML = list;
 			ShceduleEdit.innerHTML = edit;
+			
+			let scheLeadList = document.getElementsByClassName("scheLeadList")[0];
+			if(leaderList != ""){
+				scheLeadList.innerHTML = leaderList;
+			}else{
+				leaderList+= "<div class=\"noneLeaderList\">관리 업무가 없습니다.</div>";
+				scheLeadList.style.height="70px";
+				scheLeadList.innerHTML = leaderList;
+			}
 			
 			
 			let btn = document.getElementById("setBtn2");
@@ -711,6 +884,16 @@ function selectSchedule(jsonData){
 			}
 		}
 	}
+	
+	
+function allLeadListChange(obj){
+	let allLeadList = document.getElementsByClassName("allLeadList")[0];
+	if(obj.checked){
+		allLeadList.style.display = "block";
+	}else{
+		allLeadList.style.display = "none";
+	}
+}	
 
 function firstInsSchedule(data){
 	if(data != ""){
@@ -1099,7 +1282,7 @@ function sendProjectInfo(prcode){
 	let createBtn = document.getElementById("buttonboundary");
 	let data = "";
 	// 프로젝트 완료요청은 일단 재낌 , 프로젝트용 피드백 테이블이 없삼 
-	data += "<input type='button' class='buttonStyle' value='완료 요청 보내기' onClick=\"reqProjectAccept(\'"+prcode+"\')\">"; 
+	data += "<input type='button' style=\"margin-left: -47%;\" class='buttonStyle' value='완료 요청 보내기' onClick=\"reqProjectAccept(\'"+prcode+"\')\">"; 
 	data += "<input type='button' class='buttonStyle' value='스텝 생성' onClick=\"makeProjectStep(\'"+prcode+"\')\"><br>";
 	
 	createBtn.innerHTML = data;
