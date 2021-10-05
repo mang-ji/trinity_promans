@@ -48,7 +48,7 @@ function sview(sdcode){
 	let prcode1 = document.getElementsByName("prcode")[0];
 	let data = [{cpcode:cpcode1.value,prcode:prcode1.value,userid:userid.value}];
 	
-	alert(data);
+	
 	postAjax("rest/GetMySchedule", JSON.stringify(data), 'getSchedulelist', 2);
 }
 

@@ -498,7 +498,7 @@ function closePop(){
 }
 
 function afterFirstInsSd(data){
-	alert("예ㅡ");
+	
 }
 
 
